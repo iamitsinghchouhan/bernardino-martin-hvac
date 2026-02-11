@@ -1,10 +1,10 @@
 import { Layout } from "@/components/layout";
 import { SEO } from "@/components/seo";
-import { SERVICES } from "@/lib/constants";
+import { SERVICES, getWhatsAppLink } from "@/lib/constants";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
-import { Check } from "lucide-react";
+import { Check, MessageCircle } from "lucide-react";
 
 export default function Services() {
   return (
@@ -14,7 +14,7 @@ export default function Services() {
         <h1 className="text-4xl font-heading font-bold mb-12 text-center">Our Services</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {SERVICES.map((service) => (
-            <Card key={service.id} className="hover:shadow-lg transition-shadow">
+            <Card key={service.id} className="hover:shadow-lg transition-shadow flex flex-col">
               <div className="aspect-video relative overflow-hidden rounded-t-lg">
                 <img src={service.image} alt={service.title} className="w-full h-full object-cover" />
               </div>
@@ -24,15 +24,20 @@ export default function Services() {
                   <CardTitle>{service.title}</CardTitle>
                 </div>
               </CardHeader>
-              <CardContent>
+              <CardContent className="flex-1">
                 <p className="text-slate-600 mb-4">{service.description}</p>
                 <div className="flex items-center gap-2 text-sm text-green-600 font-semibold">
                   <Check className="h-4 w-4" /> {service.price}
                 </div>
               </CardContent>
-              <CardFooter>
-                <Button className="w-full" asChild>
+              <CardFooter className="flex gap-3 mt-auto">
+                <Button className="flex-1" asChild>
                   <Link href={`/booking?service=${service.id}`}>Book Now</Link>
+                </Button>
+                <Button variant="outline" size="icon" className="border-green-600 text-green-600 hover:bg-green-50" asChild>
+                  <a href={getWhatsAppLink(`Hi, I'm interested in your ${service.title} service.`)} target="_blank" rel="noopener noreferrer" title="Chat on WhatsApp">
+                    <MessageCircle className="h-5 w-5" />
+                  </a>
                 </Button>
               </CardFooter>
             </Card>

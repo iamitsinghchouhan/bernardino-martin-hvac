@@ -4,8 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { COMPANY_PHONE } from "@/lib/constants";
-import { Phone, Mail, MapPin, Clock } from "lucide-react";
+import { COMPANY_PHONE, getWhatsAppLink } from "@/lib/constants";
+import { Phone, Mail, MapPin, Clock, MessageCircle } from "lucide-react";
 
 export default function Contact() {
   return (
@@ -35,6 +35,19 @@ export default function Contact() {
                       </a>
                     </p>
                     <p className="text-sm text-slate-500 mt-1">Available 24/7</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <MessageCircle className="h-6 w-6 text-green-600 mt-1" />
+                  <div>
+                    <h3 className="font-semibold text-slate-900">WhatsApp</h3>
+                    <p className="text-slate-600 mb-2">Chat with us instantly</p>
+                    <Button size="sm" className="bg-green-600 hover:bg-green-700 text-white border-0" asChild>
+                      <a href={getWhatsAppLink("Hello! I have a question about your services.")} target="_blank" rel="noopener noreferrer">
+                        Chat on WhatsApp
+                      </a>
+                    </Button>
                   </div>
                 </div>
                 

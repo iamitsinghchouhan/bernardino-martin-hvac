@@ -3,6 +3,12 @@ import { Wrench, Sun, Thermometer, Wind, CheckCircle, ShieldCheck, Zap, MessageC
 export const COMPANY_PHONE = "(818) 356-3468";
 export const COMPANY_NAME = "BERNARDINO MARTIN'S Heating Air Conditioning, Solar";
 
+export const WHATSAPP_NUMBER = "18183563468";
+
+export function getWhatsAppLink(message: string = "Hello, I would like to inquire about your services.") {
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+}
+
 export const PROMOS = [
   {
     title: "10% OFF",
