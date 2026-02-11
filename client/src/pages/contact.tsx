@@ -10,7 +10,7 @@ import { Phone, Mail, MapPin, Clock } from "lucide-react";
 export default function Contact() {
   return (
     <Layout>
-      <SEO title="Contact Us" description="Contact LA Solar & HVAC Experts for all your heating, cooling, solar, and plumbing needs." />
+      <SEO title="Contact Us" description="Contact BERNARDINO MARTIN'S Heating Air Conditioning, Solar for all your heating, cooling, solar, and plumbing needs." />
       <div className="container mx-auto px-4 py-20">
         <h1 className="text-4xl font-heading font-bold mb-6 text-center">Contact Us</h1>
         <p className="text-center text-slate-600 mb-12 max-w-2xl mx-auto">
@@ -42,7 +42,7 @@ export default function Contact() {
                   <Mail className="h-6 w-6 text-primary mt-1" />
                   <div>
                     <h3 className="font-semibold text-slate-900">Email</h3>
-                    <p className="text-slate-600">service@lasolarhvac.com</p>
+                    <p className="text-slate-600">service@bernardinomartinhvac.com</p>
                   </div>
                 </div>
                 

@@ -2,7 +2,7 @@ import { Layout } from "@/components/layout";
 import { SEO } from "@/components/seo";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { PROMOS, SERVICES, COMPANY_PHONE } from "@/lib/constants";
+import { PROMOS, SERVICES, COMPANY_PHONE, COMPANY_NAME } from "@/lib/constants";
 import { ArrowRight, Check, Star, Clock, Calendar } from "lucide-react";
 import { Link } from "wouter";
 import { Badge } from "@/components/ui/badge";
@@ -12,7 +12,7 @@ export default function Home() {
     <Layout>
       <SEO 
         title="Home" 
-        description="Top-rated HVAC and Solar services in Los Angeles. Get 10% off AC repair, heating services, and solar installation. Call (818) 356-3468 today!"
+        description={`${COMPANY_NAME}. Top-rated HVAC, Solar, and Plumbing services in Los Angeles. Get 10% off AC repair, heating services, and solar installation.`}
       />
       
       {/* Hero Section - Using Real Job Photo */}
@@ -20,7 +20,7 @@ export default function Home() {
         <div className="absolute inset-0 z-0">
           <img 
             src="/images/real-solar-install.png" 
-            alt="LA Solar & HVAC Experts Installation Team" 
+            alt="Bernardino Martin HVAC Installation Team" 
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/50 to-transparent" />
@@ -34,11 +34,12 @@ export default function Home() {
             </div>
             
             <h1 className="text-4xl md:text-6xl font-heading font-bold leading-tight mb-6">
-              Expert <span className="text-primary-foreground text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-green-400">HVAC & Solar</span> Services in Los Angeles
+              BERNARDINO MARTIN'S <br/>
+              <span className="text-primary-foreground text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-green-400">Heating, Air Conditioning, Solar</span>
             </h1>
             
             <p className="text-lg md:text-xl text-slate-200 mb-8 max-w-lg leading-relaxed shadow-black/50 drop-shadow-sm">
-              Real work, real results. We specialize in residential and commercial installations, repairs, and energy upgrades.
+              Your trusted Los Angeles experts for residential & commercial HVAC, Solar, and Plumbing. Real work, honest pricing, and quality results.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
@@ -96,7 +97,7 @@ export default function Home() {
               Our Services
             </h2>
             <p className="text-lg text-slate-600">
-              From emergency repairs to energy-efficient solar installations, our certified technicians handle it all with precision and care.
+              From emergency repairs to energy-efficient solar installations and underground plumbing, our certified technicians handle it all.
             </p>
           </div>
           
@@ -172,9 +173,9 @@ export default function Home() {
               </div>
             </div>
             <div className="relative group overflow-hidden rounded-xl aspect-square md:h-64">
-              <img src="/images/real-ductwork.png" alt="Ductwork Installation" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+              <img src="/images/real-trenching.png" alt="Underground Pipe Trenching" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-6">
-                <span className="text-white font-bold">Ductwork</span>
+                <span className="text-white font-bold">Plumbing</span>
               </div>
             </div>
           </div>
@@ -190,7 +191,7 @@ export default function Home() {
                  <div className="absolute -inset-4 bg-primary/10 rounded-3xl transform rotate-2"></div>
                  <img 
                    src="/images/technician.png" 
-                   alt="Friendly HVAC Technician" 
+                   alt="Friendly Bernardino Martin Technician" 
                    className="rounded-2xl shadow-2xl w-full max-w-lg mx-auto relative z-10 border-4 border-white"
                  />
                  <div className="absolute -bottom-6 -right-6 bg-white p-4 rounded-xl shadow-xl z-20 flex items-center gap-3">
@@ -206,7 +207,7 @@ export default function Home() {
             </div>
             <div className="w-full md:w-1/2 space-y-6">
               <div className="inline-block px-4 py-1.5 rounded-full bg-blue-100 text-primary font-bold text-sm mb-2">
-                Why Choose LA Solar & HVAC?
+                Why Choose Bernardino Martin HVAC?
               </div>
               <h2 className="text-3xl md:text-4xl font-heading font-bold text-slate-900">
                 Your Trusted Local Partners for a Comfortable Home
@@ -221,7 +222,7 @@ export default function Home() {
                   "Top-Rated on Google & Yelp",
                   "Upfront Pricing - No Hidden Fees",
                   "Same-Day Emergency Service",
-                  "Certified Solar & HVAC Technicians"
+                  "Certified Solar, Plumbing & HVAC Technicians"
                 ].map((item, i) => (
                   <li key={i} className="flex items-center gap-3 text-slate-800 font-medium">
                     <div className="bg-green-100 text-green-600 p-1 rounded-full">

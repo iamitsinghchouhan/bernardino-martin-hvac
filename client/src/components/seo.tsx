@@ -13,7 +13,7 @@ export function SEO({ title, description, canonical, noindex = false }: SEOProps
 
   useEffect(() => {
     // Update Title
-    document.title = `${title} | LA Solar & HVAC Experts`;
+    document.title = `${title} | Bernardino Martin HVAC`;
 
     // Update Meta Description
     let metaDescription = document.querySelector('meta[name="description"]');
@@ -31,7 +31,7 @@ export function SEO({ title, description, canonical, noindex = false }: SEOProps
       linkCanonical.setAttribute("rel", "canonical");
       document.head.appendChild(linkCanonical);
     }
-    linkCanonical.setAttribute("href", canonical || `https://lasolarhvac.com${location}`);
+    linkCanonical.setAttribute("href", canonical || `https://bernardinomartinhvac.com${location}`);
 
     // Handle NoIndex
     let metaRobots = document.querySelector('meta[name="robots"]');
