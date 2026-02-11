@@ -55,8 +55,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 <Sun className="h-6 w-6" />
               </div>
               <div className="flex flex-col">
-                <span className="font-heading font-bold text-xl leading-none text-slate-900 tracking-tight">LA Solar</span>
-                <span className="text-xs font-semibold text-primary tracking-widest uppercase">& HVAC Experts</span>
+                <span className="font-heading font-bold text-xl leading-none text-slate-900 tracking-tight">Bernardino Martin</span>
+                <span className="text-xs font-semibold text-primary tracking-widest uppercase">HVAC</span>
               </div>
             </a>
           </Link>
@@ -110,7 +110,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                       <div className="bg-primary text-white p-2 rounded-md">
                         <Sun className="h-5 w-5" />
                       </div>
-                      <span className="font-heading font-bold text-lg">LA Solar & HVAC</span>
+                      <span className="font-heading font-bold text-lg">Bernardino Martin HVAC</span>
                     </a>
                   </Link>
                   {navLinks.map((link) => (
@@ -156,11 +156,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
             <div>
               <div className="flex items-center gap-2 mb-4 text-white">
                 <Sun className="h-6 w-6 text-primary" />
-                <span className="font-heading font-bold text-xl">LA Solar & HVAC</span>
+                <span className="font-heading font-bold text-xl leading-tight">Bernardino Martin<br/>HVAC</span>
               </div>
               <p className="text-sm leading-relaxed mb-4 text-slate-400">
-                Top-rated HVAC and Solar services in Los Angeles. 
-                Dedicated to energy efficiency and home comfort.
+                BERNARDINO MARTIN'S Heating Air Conditioning, Solar. Top-rated HVAC, Solar, and Plumbing services in Los Angeles.
               </p>
               <div className="flex items-center gap-2 text-sm font-semibold text-primary">
                 <ShieldCheck className="h-4 w-4" />
@@ -175,7 +174,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 <li><Link href="/services"><a className="hover:text-primary transition-colors">Heating Services</a></Link></li>
                 <li><Link href="/services"><a className="hover:text-primary transition-colors">Solar Panel Installation</a></Link></li>
                 <li><Link href="/services"><a className="hover:text-primary transition-colors">Maintenance Tune-Ups</a></Link></li>
-                <li><Link href="/services"><a className="hover:text-primary transition-colors">Commercial HVAC</a></Link></li>
+                <li><Link href="/services"><a className="hover:text-primary transition-colors">Plumbing & Pipe Work</a></Link></li>
               </ul>
             </div>
 
@@ -209,7 +208,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           </div>
           
           <div className="pt-8 border-t border-slate-800 text-center text-xs text-slate-500">
-            <p>&copy; {new Date().getFullYear()} LA Solar & HVAC Experts. All rights reserved.</p>
+            <p>&copy; {new Date().getFullYear()} BERNARDINO MARTIN'S Heating Air Conditioning, Solar. All rights reserved.</p>
           </div>
         </div>
       </footer>

@@ -1,7 +1,7 @@
 import { Wrench, Sun, Thermometer, Wind, CheckCircle, ShieldCheck, Zap, MessageCircle, Droplets } from "lucide-react";
 
 export const COMPANY_PHONE = "(818) 356-3468";
-export const COMPANY_NAME = "LA Solar & HVAC Experts";
+export const COMPANY_NAME = "BERNARDINO MARTIN'S Heating Air Conditioning, Solar";
 
 export const PROMOS = [
   {
