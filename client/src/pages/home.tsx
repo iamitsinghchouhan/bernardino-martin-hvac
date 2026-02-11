@@ -2,8 +2,8 @@ import { Layout } from "@/components/layout";
 import { SEO } from "@/components/seo";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { PROMOS, SERVICES, COMPANY_PHONE, COMPANY_NAME } from "@/lib/constants";
-import { ArrowRight, Check, Star, Clock, Calendar } from "lucide-react";
+import { PROMOS, SERVICES, COMPANY_PHONE, COMPANY_NAME, getWhatsAppLink } from "@/lib/constants";
+import { ArrowRight, Check, Star, Clock, Calendar, MessageCircle } from "lucide-react";
 import { Link } from "wouter";
 import { Badge } from "@/components/ui/badge";
 
@@ -48,10 +48,10 @@ export default function Home() {
                   Book Appointment
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" className="h-14 px-8 text-lg font-bold border-white/30 text-white hover:bg-white/10 hover:text-white backdrop-blur-sm" asChild>
-                <a href={`tel:${COMPANY_PHONE.replace(/\D/g, '')}`}>
-                  <PhoneIcon className="mr-2 h-5 w-5" />
-                  {COMPANY_PHONE}
+              <Button size="lg" className="h-14 px-8 text-lg font-bold bg-green-600 hover:bg-green-700 text-white border-0 shadow-xl shadow-green-900/20" asChild>
+                <a href={getWhatsAppLink("Hello! I'm interested in booking a service.")} target="_blank" rel="noopener noreferrer">
+                  <MessageCircle className="mr-2 h-5 w-5" />
+                  WhatsApp Chat
                 </a>
               </Button>
             </div>
@@ -134,9 +134,14 @@ export default function Home() {
                   </div>
                 </CardContent>
                 
-                <CardFooter className="p-6 pt-0 mt-auto">
-                  <Button className="w-full bg-slate-900 group-hover:bg-primary transition-colors" asChild>
+                <CardFooter className="p-6 pt-0 mt-auto flex gap-3">
+                  <Button className="flex-1 bg-slate-900 group-hover:bg-primary transition-colors" asChild>
                     <Link href={`/booking?service=${service.id}`}>Book Now</Link>
+                  </Button>
+                  <Button variant="outline" size="icon" className="border-green-600 text-green-600 hover:bg-green-50" asChild>
+                    <a href={getWhatsAppLink(`Hi, I'm interested in your ${service.title} service.`)} target="_blank" rel="noopener noreferrer" title="Chat on WhatsApp">
+                      <MessageCircle className="h-5 w-5" />
+                    </a>
                   </Button>
                 </CardFooter>
               </Card>
@@ -233,10 +238,16 @@ export default function Home() {
                 ))}
               </ul>
               
-              <div className="pt-4">
+              <div className="pt-4 flex flex-col sm:flex-row gap-4">
                 <Button size="lg" className="bg-primary hover:bg-blue-700 shadow-lg shadow-blue-500/20" asChild>
                   <a href={`tel:${COMPANY_PHONE.replace(/\D/g, '')}`}>
                     Call {COMPANY_PHONE}
+                  </a>
+                </Button>
+                <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white border-0 shadow-lg shadow-green-900/20" asChild>
+                  <a href={getWhatsAppLink("Hi, I have a few questions about your services.")} target="_blank" rel="noopener noreferrer">
+                    <MessageCircle className="mr-2 h-5 w-5" />
+                    WhatsApp Chat
                   </a>
                 </Button>
               </div>
@@ -260,8 +271,11 @@ export default function Home() {
             <Button size="lg" variant="secondary" className="h-14 px-10 text-lg font-bold bg-white text-primary hover:bg-slate-100" asChild>
               <Link href="/booking">Book Online Now</Link>
             </Button>
-            <Button size="lg" variant="outline" className="h-14 px-10 text-lg font-bold border-white text-white hover:bg-white/10" asChild>
-              <Link href="/contact">Contact Us</Link>
+            <Button size="lg" className="h-14 px-10 text-lg font-bold bg-green-600 text-white hover:bg-green-700 border-0" asChild>
+              <a href={getWhatsAppLink("Hello! I'm interested in booking a service.")} target="_blank" rel="noopener noreferrer">
+                 <MessageCircle className="mr-2 h-5 w-5" />
+                 Chat on WhatsApp
+              </a>
             </Button>
           </div>
         </div>

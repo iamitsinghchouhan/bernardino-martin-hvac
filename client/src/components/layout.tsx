@@ -3,7 +3,7 @@ import { Phone, Menu, X, Calendar, MessageCircle, Sun, ShieldCheck } from "lucid
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { COMPANY_PHONE, COMPANY_NAME } from "@/lib/constants";
+import { COMPANY_PHONE, COMPANY_NAME, getWhatsAppLink } from "@/lib/constants";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const [location] = useLocation();
@@ -80,6 +80,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
               <span className="text-[10px] text-slate-500 font-semibold uppercase tracking-wider">24/7 Service</span>
               <span className="text-lg font-bold font-heading text-slate-900 group-hover:text-primary transition-colors">{COMPANY_PHONE}</span>
             </a>
+            
             <Button size="lg" className="bg-primary hover:bg-blue-700 shadow-lg shadow-blue-500/20" asChild>
               <Link href="/booking">
                 <div className="flex items-center gap-2">
@@ -88,10 +89,21 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 </div>
               </Link>
             </Button>
+
+            <Button size="icon" className="bg-green-600 hover:bg-green-700 shadow-lg shadow-green-500/20" asChild>
+              <a href={getWhatsAppLink("Hi, I have a question about your HVAC/Solar services.")} target="_blank" rel="noopener noreferrer" title="Chat on WhatsApp">
+                <MessageCircle className="h-5 w-5" />
+              </a>
+            </Button>
           </div>
 
           {/* Mobile Menu */}
-          <div className="flex items-center gap-3 lg:hidden">
+          <div className="flex items-center gap-2 lg:hidden">
+             <a href={getWhatsAppLink("Hi, I have a question about your HVAC/Solar services.")} target="_blank" rel="noopener noreferrer">
+               <Button size="icon" className="rounded-full bg-green-600 hover:bg-green-700 text-white shadow-sm border-0">
+                 <MessageCircle className="h-5 w-5" />
+               </Button>
+             </a>
              <a href={`tel:${COMPANY_PHONE.replace(/\D/g, '')}`}>
                <Button size="icon" variant="outline" className="rounded-full border-primary/20 text-primary hover:bg-primary/10">
                  <Phone className="h-5 w-5" />
@@ -126,8 +138,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
                     <Button size="lg" className="w-full bg-primary" asChild>
                       <Link href="/booking">Book Appointment</Link>
                     </Button>
-                    <Button size="lg" variant="outline" className="w-full border-green-600 text-green-700 hover:bg-green-50" asChild>
-                      <a href="https://wa.me/18183563468" target="_blank" rel="noopener noreferrer">
+                    <Button size="lg" className="w-full bg-green-600 hover:bg-green-700 text-white border-0" asChild>
+                      <a href={getWhatsAppLink("Hi, I'd like to book an appointment.")} target="_blank" rel="noopener noreferrer">
                         <MessageCircle className="mr-2 h-4 w-4" />
                         WhatsApp Chat
                       </a>
@@ -201,9 +213,17 @@ export function Layout({ children }: { children: React.ReactNode }) {
                    <span>Available 24/7 for Emergency</span>
                 </li>
               </ul>
-              <Button className="w-full mt-4 bg-primary hover:bg-blue-600" asChild>
-                <Link href="/booking">Book Appointment</Link>
-              </Button>
+              <div className="flex flex-col gap-2 mt-4">
+                <Button className="w-full bg-primary hover:bg-blue-600" asChild>
+                  <Link href="/booking">Book Appointment</Link>
+                </Button>
+                <Button className="w-full bg-green-600 hover:bg-green-700 text-white border-0" asChild>
+                   <a href={getWhatsAppLink("Hi, I have a question about your services.")} target="_blank" rel="noopener noreferrer">
+                     <MessageCircle className="mr-2 h-4 w-4" />
+                     Chat on WhatsApp
+                   </a>
+                </Button>
+              </div>
             </div>
           </div>
           
