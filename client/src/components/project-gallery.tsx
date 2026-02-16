@@ -1,63 +1,72 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 
 const PROJECTS = [
   {
     id: 1,
-    title: "Commercial Rooftop HVAC Installation",
+    title: "Commercial Rooftop HVAC",
     category: "Commercial HVAC",
     image: "/images/real-rooftop-hvac.png",
-    description: "Complete installation of high-efficiency package units for a commercial complex in Downtown LA."
+    description: "Complete installation of high-efficiency package units for a commercial complex in Downtown LA. This project involved crane lifting and custom ductwork integration.",
+    location: "Downtown Los Angeles"
   },
   {
     id: 2,
     title: "Residential Solar System",
     category: "Solar",
     image: "/images/real-solar-install.png",
-    description: "20-panel solar array installation with inverter system for a family home in Pasadena."
+    description: "20-panel solar array installation with inverter system for a family home. Optimized for maximum sun exposure and energy savings.",
+    location: "Pasadena, CA"
   },
   {
     id: 3,
     title: "Precision AC Diagnostics",
     category: "Repair",
     image: "/images/real-diagnostics.png",
-    description: "Advanced diagnostic troubleshooting to identify and fix cooling efficiency issues."
+    description: "Advanced diagnostic troubleshooting to identify and fix cooling efficiency issues using digital manifold gauges.",
+    location: "Sherman Oaks, CA"
   },
   {
     id: 4,
     title: "Underground Pipe Trenching",
     category: "Plumbing",
     image: "/images/real-trenching.png",
-    description: "Excavation and trenching for new underground main water line installation."
+    description: "Excavation and trenching for new underground main water line installation. Replaced old galvanized pipes with durable copper.",
+    location: "Van Nuys, CA"
   },
   {
     id: 5,
     title: "Copper Main Line Welding",
     category: "Plumbing",
     image: "/images/real-copper-welding.png",
-    description: "Expert copper pipe welding for a durable and leak-free main water supply line."
+    description: "Expert copper pipe welding for a durable and leak-free main water supply line. Precision craftsmanship ensures longevity.",
+    location: "Burbank, CA"
   },
   {
     id: 6,
     title: "Custom Ductwork Fabrication",
     category: "HVAC",
     image: "/images/real-ductwork.png",
-    description: "Installation of custom-fabricated insulated ductwork for optimal airflow."
+    description: "Installation of custom-fabricated insulated ductwork for optimal airflow and energy efficiency in a residential attic.",
+    location: "Glendale, CA"
   },
   {
     id: 7,
     title: "Heavy Equipment Lifting",
     category: "Commercial",
     image: "/images/real-crane-lift.png",
-    description: "Crane lift operation for safe positioning of large commercial HVAC units."
+    description: "Crane lift operation for safe positioning of large commercial HVAC units. Safety and precision are our top priorities.",
+    location: "North Hollywood, CA"
   },
   {
     id: 8,
     title: "Solar Electrical Testing",
     category: "Solar",
     image: "/images/real-solar-test.png",
-    description: "Comprehensive electrical testing and commissioning of a new solar energy system."
+    description: "Comprehensive electrical testing and commissioning of a new solar energy system to ensure it meets all performance standards.",
+    location: "Santa Monica, CA"
   }
 ];
 
@@ -82,39 +91,67 @@ export function ProjectGallery() {
             <Dialog key={project.id}>
               <DialogTrigger asChild>
                 <div 
-                  className={`group relative overflow-hidden rounded-xl cursor-pointer shadow-md hover:shadow-xl transition-all duration-300 ${
+                  className={`group relative overflow-hidden rounded-xl cursor-pointer shadow-md hover:shadow-xl transition-all duration-300 bg-slate-200 ${
                     index === 0 || index === 7 ? "md:col-span-2 md:row-span-2 h-[516px]" : ""
                   }`}
                 >
                   <img 
                     src={project.image} 
                     alt={project.title} 
+                    loading="lazy"
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-90 transition-opacity duration-300 flex flex-col justify-end p-6">
-                    <Badge className="self-start mb-2 bg-primary/90 hover:bg-primary border-0">
-                      {project.category}
-                    </Badge>
-                    <h3 className="text-white font-bold text-lg md:text-xl transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                      {project.title}
-                    </h3>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-90 transition-opacity duration-300 flex flex-col justify-end p-6">
+                    <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                        <Badge className="self-start mb-2 bg-primary/90 hover:bg-primary border-0 text-xs">
+                        {project.category}
+                        </Badge>
+                        <h3 className="text-white font-bold text-lg md:text-xl leading-tight">
+                        {project.title}
+                        </h3>
+                        <p className="text-slate-300 text-sm mt-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100 flex items-center gap-1">
+                            <span className="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                            {project.location}
+                        </p>
+                    </div>
                   </div>
                 </div>
               </DialogTrigger>
-              <DialogContent className="max-w-4xl p-0 overflow-hidden bg-black/95 border-slate-800">
-                <div className="relative aspect-video w-full bg-black flex items-center justify-center">
-                    <img 
-                        src={project.image} 
-                        alt={project.title} 
-                        className="max-h-[80vh] w-auto object-contain"
-                    />
-                </div>
-                <div className="p-6 bg-white">
-                    <div className="flex items-center gap-3 mb-2">
-                        <Badge variant="secondary">{project.category}</Badge>
+              <DialogContent className="max-w-4xl p-0 overflow-hidden bg-white border-none rounded-2xl shadow-2xl">
+                <div className="flex flex-col md:flex-row h-full">
+                    <div className="w-full md:w-2/3 bg-black flex items-center justify-center relative overflow-hidden">
+                         <div className="absolute inset-0 bg-black/10 backdrop-blur-[2px] z-0"></div>
+                        <img 
+                            src={project.image} 
+                            alt={project.title} 
+                            className="max-h-[60vh] md:max-h-[80vh] w-full object-contain relative z-10"
+                        />
                     </div>
-                    <h2 className="text-2xl font-bold text-slate-900 mb-2">{project.title}</h2>
-                    <p className="text-slate-600">{project.description}</p>
+                    <div className="w-full md:w-1/3 p-8 flex flex-col justify-center bg-white">
+                        <div className="mb-6">
+                            <Badge variant="secondary" className="mb-2 bg-blue-50 text-blue-700 hover:bg-blue-100">
+                                {project.category}
+                            </Badge>
+                            <h2 className="text-2xl md:text-3xl font-heading font-bold text-slate-900 mb-2 leading-tight">
+                                {project.title}
+                            </h2>
+                            <p className="text-sm font-medium text-slate-500 flex items-center gap-2">
+                                <span className="w-2 h-2 rounded-full bg-green-500"></span>
+                                {project.location}
+                            </p>
+                        </div>
+                        
+                        <div className="prose prose-sm text-slate-600 mb-8">
+                            <p className="leading-relaxed text-base">{project.description}</p>
+                        </div>
+                        
+                        <div className="mt-auto pt-6 border-t border-slate-100">
+                            <div className="text-xs text-slate-400 font-mono mb-2 uppercase tracking-wider">Project ID: #{project.id}0024</div>
+                            <Button className="w-full" asChild>
+                                <a href="/contact">Inquire About This Project</a>
+                            </Button>
+                        </div>
+                    </div>
                 </div>
               </DialogContent>
             </Dialog>

@@ -10,6 +10,8 @@ import Services from "@/pages/services";
 import ServiceAreas from "@/pages/service-areas";
 import Contact from "@/pages/contact";
 import Booking from "@/pages/booking";
+import Payment from "@/pages/payment";
+import Dashboard from "@/pages/dashboard";
 
 function Router() {
   return (
@@ -20,6 +22,8 @@ function Router() {
       <Route path="/service-areas" component={ServiceAreas} />
       <Route path="/contact" component={Contact} />
       <Route path="/booking" component={Booking} />
+      <Route path="/payment" component={Payment} />
+      <Route path="/dashboard" component={Dashboard} />
       <Route component={NotFound} />
     </Switch>
   );

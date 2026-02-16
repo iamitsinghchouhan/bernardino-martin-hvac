@@ -26,6 +26,7 @@ export function ChatWidget() {
       type: "options",
       options: [
         { label: "Book a Service", action: () => handleOption("book") },
+        { label: "Pay Bill / Invoice", action: () => handleOption("pay") },
         { label: "Emergency Service", action: () => handleOption("emergency") },
         { label: "Get a Quote", action: () => handleOption("quote") },
         { label: "Our Services", action: () => handleOption("services") },
@@ -51,6 +52,16 @@ export function ChatWidget() {
     };
 
     switch (option) {
+      case "pay":
+        userMsg.text = "I want to pay my bill.";
+        botResponse.text = "You can pay your invoice securely online. Do you have your invoice number ready?";
+        botResponse.type = "options";
+        botResponse.options = [
+            { label: "Pay Online Now", action: () => window.location.href = "/payment" },
+            { label: "View My Invoices", action: () => window.location.href = "/dashboard" },
+            { label: "Questions about Billing", action: () => window.open(getWhatsAppLink("I have a question about my bill"), "_blank") }
+        ];
+        break;
       case "book":
         userMsg.text = "I want to book a service.";
         botResponse.text = "Great! You can book an appointment online or call us directly.";
