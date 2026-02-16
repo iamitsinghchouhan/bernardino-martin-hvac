@@ -6,6 +6,7 @@ import { PROMOS, SERVICES, COMPANY_PHONE, COMPANY_NAME, getWhatsAppLink } from "
 import { ArrowRight, Check, Star, Clock, Calendar, MessageCircle } from "lucide-react";
 import { Link } from "wouter";
 import { Badge } from "@/components/ui/badge";
+import { ProjectGallery } from "@/components/project-gallery";
 
 export default function Home() {
   return (
@@ -157,35 +158,7 @@ export default function Home() {
       </section>
 
       {/* Real Work Gallery Section */}
-      <section className="py-20 bg-slate-50">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-heading font-bold text-slate-900 mb-4">Recent Projects</h2>
-            <p className="text-slate-600 max-w-2xl mx-auto">See our certified technicians in action. We take pride in our clean, professional installations across Los Angeles.</p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="relative group overflow-hidden rounded-xl aspect-square md:aspect-auto md:h-64 lg:col-span-2">
-              <img src="/images/real-crane-lift.png" alt="Crane lifting HVAC unit" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-6">
-                <span className="text-white font-bold text-lg">Commercial Installation</span>
-              </div>
-            </div>
-            <div className="relative group overflow-hidden rounded-xl aspect-square md:h-64">
-              <img src="/images/real-diagnostics.png" alt="HVAC Diagnostics" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-6">
-                <span className="text-white font-bold">Diagnostics</span>
-              </div>
-            </div>
-            <div className="relative group overflow-hidden rounded-xl aspect-square md:h-64">
-              <img src="/images/real-trenching.png" alt="Underground Pipe Trenching" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-               <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-6">
-                <span className="text-white font-bold">Plumbing</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <ProjectGallery />
 
       {/* Why Choose Us / Trust Section */}
       <section className="py-20 bg-white border-t border-slate-200">

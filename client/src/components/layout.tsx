@@ -4,9 +4,11 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { COMPANY_PHONE, COMPANY_NAME, getWhatsAppLink } from "@/lib/constants";
+import { ChatWidget } from "@/components/chat-widget";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const [location] = useLocation();
+
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -161,6 +163,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <main className="flex-1">
         {children}
       </main>
+
+      <ChatWidget />
 
       <footer className="bg-slate-900 text-slate-300 py-12 border-t border-slate-800">
         <div className="container mx-auto px-4">
