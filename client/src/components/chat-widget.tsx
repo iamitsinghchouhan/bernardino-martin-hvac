@@ -54,7 +54,7 @@ export function ChatWidget() {
     switch (option) {
       case "pay":
         userMsg.text = "I want to pay my bill.";
-        botResponse.text = "You can pay your invoice securely online. Do you have your invoice number ready?";
+        botResponse.text = "You can pay your invoice securely online via Stripe. Do you have your invoice number ready?";
         botResponse.type = "options";
         botResponse.options = [
             { label: "Pay Online Now", action: () => window.location.href = "/payment" },

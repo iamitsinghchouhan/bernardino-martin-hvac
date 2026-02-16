@@ -5,10 +5,11 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { CreditCard, Lock, CheckCircle, Wallet, Building } from "lucide-react";
+import { CreditCard, Lock, CheckCircle, Wallet, Building, ShieldCheck } from "lucide-react";
 import { useState } from "react";
 import { useLocation } from "wouter";
 import { useToast } from "@/hooks/use-toast";
+import { Badge } from "@/components/ui/badge";
 
 export default function Payment() {
   const [step, setStep] = useState(1);
@@ -77,91 +78,106 @@ export default function Payment() {
                   </Button>
                 </form>
               </CardContent>
-              <CardFooter className="justify-center bg-slate-50 py-4">
-                <div className="flex items-center gap-2 text-xs text-slate-500">
+              <CardFooter className="justify-center bg-slate-50 py-4 border-t">
+                <div className="flex items-center gap-2 text-xs text-slate-500 font-medium">
                   <Lock className="h-3 w-3" />
-                  <span>Secure 256-bit SSL Encryption</span>
+                  <span>Secured by Stripe</span>
                 </div>
               </CardFooter>
             </Card>
           )}
 
           {step === 2 && (
-            <Card className="shadow-xl">
-              <CardHeader>
-                <div className="flex justify-between items-start">
+            <Card className="shadow-xl overflow-hidden">
+              <div className="bg-slate-900 text-white p-6">
+                <div className="flex justify-between items-start mb-4">
                   <div>
-                    <CardTitle>Invoice #INV-2024-001</CardTitle>
-                    <CardDescription>HVAC Maintenance Service</CardDescription>
+                    <div className="text-sm text-slate-400 mb-1">Total Due</div>
+                    <div className="text-3xl font-bold">$149.00</div>
                   </div>
-                  <div className="text-right">
-                    <div className="text-2xl font-bold text-slate-900">$149.00</div>
-                    <div className="text-xs text-slate-500">Due Date: Today</div>
-                  </div>
+                  <Badge variant="secondary" className="bg-green-500/20 text-green-400 hover:bg-green-500/30 border-0">
+                    Due Today
+                  </Badge>
                 </div>
-              </CardHeader>
-              <CardContent>
+                <div className="text-sm text-slate-400">
+                    Invoice #INV-2024-001 • HVAC Maintenance Service
+                </div>
+              </div>
+              
+              <CardContent className="p-6">
                 <form onSubmit={handlePayment} className="space-y-6">
                   <div className="space-y-3">
-                    <Label>Payment Method</Label>
-                    <RadioGroup defaultValue="card" className="grid grid-cols-2 gap-4">
-                      <div>
-                        <RadioGroupItem value="card" id="card" className="peer sr-only" />
-                        <Label
-                          htmlFor="card"
-                          className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                        >
-                          <CreditCard className="mb-3 h-6 w-6" />
-                          Credit Card
-                        </Label>
-                      </div>
-                      <div>
-                        <RadioGroupItem value="bank" id="bank" className="peer sr-only" />
-                        <Label
-                          htmlFor="bank"
-                          className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                        >
-                          <Building className="mb-3 h-6 w-6" />
-                          Bank Transfer
-                        </Label>
-                      </div>
-                    </RadioGroup>
+                    <Label className="text-base font-semibold">Payment Method</Label>
+                    
+                    {/* Simulated Stripe Element Container */}
+                    <div className="border rounded-lg overflow-hidden transition-all focus-within:ring-2 focus-within:ring-primary focus-within:border-primary">
+                        <div className="p-3 bg-slate-50 border-b flex items-center gap-2 text-sm font-medium text-slate-700">
+                            <CreditCard className="h-4 w-4" />
+                            Card Information
+                        </div>
+                        <div className="p-4 bg-white space-y-4">
+                            <div className="space-y-2">
+                                <Label htmlFor="card-number" className="sr-only">Card Number</Label>
+                                <div className="relative">
+                                    <Input 
+                                        id="card-number" 
+                                        placeholder="0000 0000 0000 0000" 
+                                        className="pl-10 font-mono tracking-wider border-slate-200 focus-visible:ring-0 focus-visible:border-primary"
+                                        required 
+                                    />
+                                    <div className="absolute left-3 top-1/2 -translate-y-1/2 flex gap-1">
+                                        {/* Icons for card types */}
+                                        <div className="w-4 h-2.5 bg-slate-300 rounded-sm"></div>
+                                        <div className="w-4 h-2.5 bg-slate-300 rounded-sm"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="grid grid-cols-2 gap-4">
+                                <div className="space-y-2">
+                                    <Label htmlFor="expiry" className="sr-only">Expiration</Label>
+                                    <Input id="expiry" placeholder="MM / YY" className="font-mono border-slate-200 focus-visible:ring-0 focus-visible:border-primary" required />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label htmlFor="cvc" className="sr-only">CVC</Label>
+                                    <Input id="cvc" placeholder="CVC" className="font-mono border-slate-200 focus-visible:ring-0 focus-visible:border-primary" required />
+                                </div>
+                            </div>
+                            <div className="space-y-2">
+                                <Label htmlFor="card-name" className="sr-only">Cardholder Name</Label>
+                                <Input id="card-name" placeholder="Name on card" className="border-slate-200 focus-visible:ring-0 focus-visible:border-primary" required />
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div className="relative">
+                        <div className="absolute inset-0 flex items-center">
+                            <span className="w-full border-t" />
+                        </div>
+                        <div className="relative flex justify-center text-xs uppercase">
+                            <span className="bg-background px-2 text-muted-foreground">Or pay with</span>
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-3">
+                        <Button type="button" variant="outline" className="h-11 bg-black text-white hover:bg-black/90 border-0 flex items-center justify-center gap-2">
+                           <span className="font-bold tracking-tight">Pay</span>
+                        </Button>
+                        <Button type="button" variant="outline" className="h-11 bg-white text-black border border-slate-200 hover:bg-slate-50 flex items-center justify-center gap-2 font-medium">
+                           <span className="font-bold text-blue-500">G</span> Pay
+                        </Button>
+                    </div>
                   </div>
 
-                  <div className="space-y-4 border p-4 rounded-md bg-slate-50/50">
-                    <div className="space-y-2">
-                      <Label htmlFor="card-name">Name on Card</Label>
-                      <Input id="card-name" placeholder="John Doe" required />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="card-number">Card Number</Label>
-                      <Input id="card-number" placeholder="0000 0000 0000 0000" required />
-                    </div>
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="expiry">Expiry</Label>
-                        <Input id="expiry" placeholder="MM/YY" required />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="cvc">CVC</Label>
-                        <Input id="cvc" placeholder="123" required />
-                      </div>
-                    </div>
-                  </div>
-
-                  <Button type="submit" className="w-full bg-green-600 hover:bg-green-700 h-12 text-lg" disabled={isLoading}>
+                  <Button type="submit" className="w-full bg-primary hover:bg-blue-600 h-12 text-lg font-bold shadow-lg shadow-blue-500/20" disabled={isLoading}>
                     {isLoading ? "Processing..." : "Pay $149.00"}
                   </Button>
+                  
+                  <div className="flex justify-center items-center gap-2 text-xs text-slate-400">
+                    <ShieldCheck className="h-3 w-3" />
+                    <span>Payments processed securely by Stripe</span>
+                  </div>
                 </form>
               </CardContent>
-              <CardFooter className="justify-center border-t py-4">
-                <div className="flex gap-4 text-slate-400">
-                  <div className="h-6 w-10 bg-slate-200 rounded"></div>
-                  <div className="h-6 w-10 bg-slate-200 rounded"></div>
-                  <div className="h-6 w-10 bg-slate-200 rounded"></div>
-                  <div className="h-6 w-10 bg-slate-200 rounded"></div>
-                </div>
-              </CardFooter>
             </Card>
           )}
 
@@ -183,8 +199,12 @@ export default function Payment() {
                     <span className="font-bold text-slate-900">$149.00</span>
                   </div>
                   <div className="flex justify-between">
+                    <span className="text-slate-500">Payment Method:</span>
+                    <span className="font-medium text-slate-900 flex items-center gap-1"><CreditCard className="h-3 w-3"/> •••• 4242</span>
+                  </div>
+                  <div className="flex justify-between">
                     <span className="text-slate-500">Transaction ID:</span>
-                    <span className="font-mono text-slate-900">TXN-88392</span>
+                    <span className="font-mono text-slate-900">pi_3M...2e</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-slate-500">Date:</span>
@@ -193,7 +213,7 @@ export default function Payment() {
                 </div>
                 <div className="flex gap-4 justify-center pt-4">
                    <Button variant="outline" onClick={() => setStep(1)}>Pay Another Invoice</Button>
-                   <Button asChild><a href="/">Return Home</a></Button>
+                   <Button asChild><a href="/dashboard">Go to Dashboard</a></Button>
                 </div>
               </CardContent>
             </Card>
@@ -203,3 +223,4 @@ export default function Payment() {
     </Layout>
   );
 }
+

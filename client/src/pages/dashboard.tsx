@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { Download, FileText, User } from "lucide-react";
+import { Download, FileText, User, CreditCard, Plus, Shield } from "lucide-react";
 
 export default function Dashboard() {
   const invoices = [
@@ -84,23 +84,22 @@ export default function Dashboard() {
 
             <Card>
               <CardHeader>
-                <CardTitle>Account Details</CardTitle>
+                <CardTitle>Payment Methods</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                 <div>
-                   <div className="text-sm text-slate-500">Customer Name</div>
-                   <div className="font-medium">John Doe</div>
+                 <div className="flex items-center gap-3 p-3 border rounded-lg bg-slate-50">
+                    <CreditCard className="h-8 w-8 text-slate-700" />
+                    <div>
+                        <div className="font-semibold text-sm">Visa ending in 4242</div>
+                        <div className="text-xs text-slate-500">Expires 12/26</div>
+                    </div>
+                    <Badge variant="secondary" className="ml-auto text-xs">Default</Badge>
                  </div>
-                 <div>
-                   <div className="text-sm text-slate-500">Email</div>
-                   <div className="font-medium">john.doe@example.com</div>
-                 </div>
-                 <div>
-                   <div className="text-sm text-slate-500">Phone</div>
-                   <div className="font-medium">(555) 123-4567</div>
-                 </div>
-                 <div className="pt-4">
-                   <Button variant="outline" className="w-full">Edit Profile</Button>
+                 <Button variant="outline" className="w-full text-slate-600 border-dashed">
+                    <Plus className="mr-2 h-4 w-4" /> Add Payment Method
+                 </Button>
+                 <div className="flex items-center justify-center gap-1 text-xs text-slate-400 mt-2">
+                    <Shield className="h-3 w-3" /> Processed securely by Stripe
                  </div>
               </CardContent>
             </Card>
