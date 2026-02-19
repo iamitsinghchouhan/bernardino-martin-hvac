@@ -5,15 +5,18 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { CreditCard, Lock, CheckCircle, Wallet, Building, ShieldCheck } from "lucide-react";
+import { CreditCard, Lock, CheckCircle, Wallet, Building, ShieldCheck, FileText, Eye } from "lucide-react";
 import { useState } from "react";
 import { useLocation } from "wouter";
 import { useToast } from "@/hooks/use-toast";
 import { Badge } from "@/components/ui/badge";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { InvoiceTemplate } from "@/components/invoice-template";
 
 export default function Payment() {
   const [step, setStep] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
+  const [email, setEmail] = useState("");
   const [, setLocation] = useLocation();
   const { toast } = useToast();
 
@@ -36,7 +39,7 @@ export default function Payment() {
       setStep(3);
       toast({
         title: "Payment Successful",
-        description: "Your receipt has been emailed to you.",
+        description: `Your receipt has been emailed to ${email || "your email address"}.`,
       });
     }, 2000);
   };
@@ -71,7 +74,13 @@ export default function Payment() {
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="email">Email Address</Label>
-                    <Input id="email" type="email" placeholder="you@example.com" />
+                    <Input 
+                        id="email" 
+                        type="email" 
+                        placeholder="you@example.com" 
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
                   </div>
                   <Button type="submit" className="w-full bg-primary" disabled={isLoading}>
                     {isLoading ? "Searching..." : "Find Invoice"}
@@ -190,7 +199,7 @@ export default function Payment() {
                 <div className="space-y-2">
                   <h2 className="text-3xl font-bold text-slate-900">Payment Successful!</h2>
                   <p className="text-slate-600">
-                    Thank you for your payment. A receipt has been sent to your email.
+                    A receipt has been automatically sent to <strong>{email || "your email"}</strong>.
                   </p>
                 </div>
                 <div className="bg-slate-50 p-4 rounded-lg text-left max-w-xs mx-auto text-sm space-y-2">
@@ -204,15 +213,35 @@ export default function Payment() {
                   </div>
                   <div className="flex justify-between">
                     <span className="text-slate-500">Transaction ID:</span>
-                    <span className="font-mono text-slate-900">pi_3M...2e</span>
+                    <span className="font-mono text-slate-900">TXN-88392</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-slate-500">Date:</span>
                     <span className="text-slate-900">{new Date().toLocaleDateString()}</span>
                   </div>
                 </div>
-                <div className="flex gap-4 justify-center pt-4">
-                   <Button variant="outline" onClick={() => setStep(1)}>Pay Another Invoice</Button>
+
+                <div className="flex gap-3 justify-center">
+                    <Dialog>
+                        <DialogTrigger asChild>
+                            <Button variant="outline" className="gap-2">
+                                <Eye className="h-4 w-4" />
+                                Preview Invoice
+                            </Button>
+                        </DialogTrigger>
+                        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+                            <InvoiceTemplate />
+                        </DialogContent>
+                    </Dialog>
+                    
+                    <Button variant="outline" className="gap-2" onClick={() => window.print()}>
+                        <FileText className="h-4 w-4" />
+                        Print Receipt
+                    </Button>
+                </div>
+
+                <div className="flex gap-4 justify-center pt-4 border-t mt-6">
+                   <Button variant="ghost" onClick={() => setStep(1)} className="text-slate-500 hover:text-slate-900">Pay Another Invoice</Button>
                    <Button asChild><a href="/dashboard">Go to Dashboard</a></Button>
                 </div>
               </CardContent>
