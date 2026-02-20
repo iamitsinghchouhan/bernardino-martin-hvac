@@ -1,5 +1,5 @@
 import { Link, useLocation } from "wouter";
-import { Phone, Menu, X, Calendar, MessageCircle, Sun, ShieldCheck } from "lucide-react";
+import { Phone, Menu, X, Calendar, MessageCircle, Sun, ShieldCheck, AlertCircle } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -29,12 +29,18 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="flex flex-col min-h-screen font-sans">
+      {/* Emergency Banner */}
+      <div className="bg-red-600 text-white py-2.5 text-xs md:text-sm font-bold flex justify-center items-center gap-2 px-4 text-center">
+        <AlertCircle className="h-4 w-4 animate-pulse shrink-0" />
+        <span>24/7 EMERGENCY SERVICE AVAILABLE IN LOS ANGELES — <a href={`tel:${COMPANY_PHONE.replace(/\D/g, '')}`} className="underline hover:text-red-100 transition-colors">{COMPANY_PHONE}</a></span>
+      </div>
+
       {/* Top Bar - Trust & Quick Contact */}
-      <div className="bg-primary text-primary-foreground py-2 text-xs md:text-sm font-medium">
+      <div className="bg-slate-900 text-slate-300 py-2 text-xs md:text-sm font-medium">
         <div className="container mx-auto px-4 flex justify-between items-center">
           <div className="flex items-center gap-2">
-            <ShieldCheck className="h-4 w-4" />
-            <span>Licensed, Bonded & Insured</span>
+            <ShieldCheck className="h-4 w-4 text-green-400" />
+            <span>Licensed, Bonded & Insured #109283</span>
           </div>
           <div className="hidden md:flex gap-4">
             <span>Commercial & Residential</span>
