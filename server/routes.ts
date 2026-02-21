@@ -1,7 +1,7 @@
 import type { Express, Request, Response, NextFunction } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertBookingSchema, insertContactMessageSchema, insertInvoiceSchema } from "@shared/schema";
+import { insertBookingSchema, insertContactMessageSchema, insertInvoiceSchema, insertQuoteSchema } from "@shared/schema";
 import { z } from "zod";
 import { scheduleRemindersForBooking, startReminderEngine } from "./reminder-engine";
 
@@ -115,6 +115,30 @@ export async function registerRoutes(
     } catch (error) {
       console.error("Admin reminders error:", error);
       res.status(500).json({ message: "Failed to get reminders" });
+    }
+  });
+
+  app.post("/api/quotes", async (req, res) => {
+    try {
+      const data = insertQuoteSchema.parse(req.body);
+      const quote = await storage.createQuote(data);
+      res.status(201).json(quote);
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ message: "Invalid quote data", errors: error.errors });
+      }
+      console.error("Quote error:", error);
+      res.status(500).json({ message: "Failed to submit quote request" });
+    }
+  });
+
+  app.get("/api/admin/quotes", requireAdmin, async (_req, res) => {
+    try {
+      const allQuotes = await storage.getQuotes();
+      res.json(allQuotes);
+    } catch (error) {
+      console.error("Admin quotes error:", error);
+      res.status(500).json({ message: "Failed to get quotes" });
     }
   });
 

@@ -13,6 +13,7 @@ const Contact = lazy(() => import("@/pages/contact"));
 const Booking = lazy(() => import("@/pages/booking"));
 const Payment = lazy(() => import("@/pages/payment"));
 const Dashboard = lazy(() => import("@/pages/dashboard"));
+const Quote = lazy(() => import("@/pages/quote"));
 const AdminLogin = lazy(() => import("@/pages/admin-login"));
 const Admin = lazy(() => import("@/pages/admin"));
 const NotFound = lazy(() => import("@/pages/not-found"));
@@ -37,6 +38,7 @@ function Router() {
         <Route path="/booking" component={Booking} />
         <Route path="/payment" component={Payment} />
         <Route path="/dashboard" component={Dashboard} />
+        <Route path="/quote" component={Quote} />
         <Route path="/admin/login" component={AdminLogin} />
         <Route path="/admin" component={Admin} />
         <Route component={NotFound} />

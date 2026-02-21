@@ -86,3 +86,25 @@ export const insertReminderSchema = createInsertSchema(reminders).omit({
 });
 export type Reminder = typeof reminders.$inferSelect;
 export type InsertReminder = z.infer<typeof insertReminderSchema>;
+
+export const quotes = pgTable("quotes", {
+  id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
+  serviceType: text("service_type").notNull(),
+  propertyType: text("property_type").notNull(),
+  description: text("description").notNull(),
+  urgency: text("urgency").notNull().default("standard"),
+  fullName: text("full_name").notNull(),
+  phone: text("phone").notNull(),
+  email: text("email").notNull(),
+  address: text("address"),
+  status: text("status").notNull().default("new"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const insertQuoteSchema = createInsertSchema(quotes).omit({
+  id: true,
+  status: true,
+  createdAt: true,
+});
+export type Quote = typeof quotes.$inferSelect;
+export type InsertQuote = z.infer<typeof insertQuoteSchema>;

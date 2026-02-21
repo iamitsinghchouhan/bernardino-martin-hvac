@@ -253,30 +253,59 @@ export default function Payment() {
           {step === 2 && !selectedInvoice && foundInvoices.length > 0 && (
             <Card className="shadow-xl border-t-4 border-t-primary">
               <CardHeader>
-                <CardTitle>Select Invoice</CardTitle>
+                <CardTitle>Your Invoices</CardTitle>
                 <CardDescription>We found {foundInvoices.length} invoice(s) for your account.</CardDescription>
               </CardHeader>
               <CardContent className="space-y-3">
                 {foundInvoices.map((inv: any) => (
-                  <button
+                  <div
                     key={inv.invoiceNumber}
-                    className="w-full text-left p-4 border rounded-lg hover:border-primary hover:bg-primary/5 transition-all flex justify-between items-center"
-                    onClick={() => setSelectedInvoice(inv)}
-                    data-testid={`button-select-invoice-${inv.invoiceNumber}`}
+                    className="p-4 border rounded-lg hover:border-primary/50 hover:bg-primary/5 transition-all"
+                    data-testid={`card-invoice-lookup-${inv.invoiceNumber}`}
                   >
-                    <div>
-                      <div className="font-semibold text-slate-900">#{inv.invoiceNumber}</div>
-                      <div className="text-sm text-slate-500">{inv.serviceTitle}</div>
+                    <div className="flex justify-between items-start mb-3">
+                      <div>
+                        <div className="font-semibold text-slate-900">#{inv.invoiceNumber}</div>
+                        <div className="text-sm text-slate-500">{inv.serviceTitle}</div>
+                        {inv.dueDate && <div className="text-xs text-slate-400 mt-1">Due: {inv.dueDate}</div>}
+                      </div>
+                      <div className="text-right">
+                        <div className="font-bold text-slate-900">{formatAmount(inv.amount)}</div>
+                        <Badge variant="outline" className={inv.status === 'paid' ? 'bg-green-50 text-green-700 border-green-200' : 'bg-yellow-50 text-yellow-700 border-yellow-200'}>
+                          {inv.status === 'paid' ? 'Paid' : 'Unpaid'}
+                        </Badge>
+                      </div>
                     </div>
-                    <div className="text-right">
-                      <div className="font-bold text-slate-900">{formatAmount(inv.amount)}</div>
-                      <Badge variant="outline" className={inv.status === 'paid' ? 'bg-green-50 text-green-700 border-green-200' : 'bg-yellow-50 text-yellow-700 border-yellow-200'}>
-                        {inv.status === 'paid' ? 'Paid' : 'Unpaid'}
-                      </Badge>
+                    <div className="flex gap-2">
+                      {inv.status !== 'paid' && (
+                        <Button size="sm" className="bg-primary" onClick={() => setSelectedInvoice(inv)} data-testid={`button-select-invoice-${inv.invoiceNumber}`}>
+                          Pay Now
+                        </Button>
+                      )}
+                      <Dialog>
+                        <DialogTrigger asChild>
+                          <Button size="sm" variant="outline" className="gap-1" data-testid={`button-view-invoice-${inv.invoiceNumber}`}>
+                            <Eye className="h-3 w-3" /> View
+                          </Button>
+                        </DialogTrigger>
+                        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+                          <InvoiceTemplate invoice={inv} />
+                          <div className="flex justify-end gap-2 mt-4 print:hidden">
+                            <Button variant="outline" size="sm" onClick={() => window.print()} className="gap-1">
+                              <FileText className="h-3 w-3" /> Print / Save PDF
+                            </Button>
+                          </div>
+                        </DialogContent>
+                      </Dialog>
                     </div>
-                  </button>
+                  </div>
                 ))}
               </CardContent>
+              <CardFooter className="justify-center border-t py-3">
+                <Button variant="ghost" size="sm" onClick={() => { setStep(1); setFoundInvoices([]); }} className="text-slate-500">
+                  Look Up Different Invoice
+                </Button>
+              </CardFooter>
             </Card>
           )}
 
@@ -316,7 +345,7 @@ export default function Payment() {
                             </Button>
                         </DialogTrigger>
                         <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
-                            <InvoiceTemplate />
+                            <InvoiceTemplate invoice={selectedInvoice} />
                         </DialogContent>
                     </Dialog>
                     

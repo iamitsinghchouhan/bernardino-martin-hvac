@@ -2,10 +2,10 @@ import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
-import type { Booking, Invoice, ContactMessage, Reminder } from "@shared/schema";
+import type { Booking, Invoice, ContactMessage, Reminder, Quote } from "@shared/schema";
 import type { DashboardStats } from "../../server-types";
 
-type AdminTab = "overview" | "appointments" | "invoices" | "contacts" | "reminders";
+type AdminTab = "overview" | "appointments" | "invoices" | "contacts" | "reminders" | "quotes";
 
 function formatCurrency(cents: number) {
   return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(cents / 100);
@@ -351,10 +351,54 @@ function EmptyState({ text }: { text: string }) {
   );
 }
 
+function QuotesTab() {
+  const { data: quoteList, isLoading } = useQuery<Quote[]>({
+    queryKey: ["/api/admin/quotes"],
+  });
+
+  if (isLoading) return <LoadingSpinner />;
+
+  return (
+    <div data-testid="admin-quotes">
+      <h2 className="text-xl font-bold text-white mb-6" style={{ fontFamily: "'Outfit', sans-serif" }}>Quote Requests</h2>
+      {!quoteList?.length ? (
+        <EmptyState text="No quote requests yet" />
+      ) : (
+        <div className="space-y-3">
+          {quoteList.map((q) => (
+            <div key={q.id} className="bg-[#1a1f4e] rounded-xl p-5 border border-white/5" data-testid={`card-quote-${q.id}`}>
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-3 mb-1">
+                    <h3 className="text-white font-semibold">{q.fullName}</h3>
+                    <StatusBadge status={q.status} />
+                    <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${q.urgency === "priority" ? "bg-red-500/20 text-red-300" : "bg-blue-500/20 text-blue-300"}`}>
+                      {q.urgency}
+                    </span>
+                  </div>
+                  <p className="text-sm text-gray-400">{q.serviceType} &bull; {q.propertyType}</p>
+                  <p className="text-sm text-gray-300 mt-2">{q.description}</p>
+                  <div className="flex flex-wrap gap-x-4 gap-y-1 mt-2 text-xs text-gray-500">
+                    <span>{q.email}</span>
+                    <span>{q.phone}</span>
+                    {q.address && <span>{q.address}</span>}
+                    <span>{formatDateTime(q.createdAt)}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 const tabs: { id: AdminTab; label: string }[] = [
   { id: "overview", label: "Overview" },
   { id: "appointments", label: "Appointments" },
   { id: "invoices", label: "Invoices" },
+  { id: "quotes", label: "Quotes" },
   { id: "contacts", label: "Contacts" },
   { id: "reminders", label: "Reminders" },
 ];
@@ -429,6 +473,7 @@ export default function AdminDashboard() {
         {activeTab === "appointments" && <AppointmentsTab />}
         {activeTab === "invoices" && <InvoicesTab />}
         {activeTab === "contacts" && <ContactsTab />}
+        {activeTab === "quotes" && <QuotesTab />}
         {activeTab === "reminders" && <RemindersTab />}
       </main>
     </div>

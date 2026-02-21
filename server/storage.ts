@@ -1,6 +1,6 @@
 import { db } from "./db";
-import { bookings, contactMessages, invoices, reminders } from "@shared/schema";
-import type { Booking, InsertBooking, ContactMessage, InsertContactMessage, Invoice, InsertInvoice, Reminder, InsertReminder } from "@shared/schema";
+import { bookings, contactMessages, invoices, reminders, quotes } from "@shared/schema";
+import type { Booking, InsertBooking, ContactMessage, InsertContactMessage, Invoice, InsertInvoice, Reminder, InsertReminder, Quote, InsertQuote } from "@shared/schema";
 import { eq, or, desc, and, lte, count, sql } from "drizzle-orm";
 
 export interface DashboardStats {
@@ -35,6 +35,9 @@ export interface IStorage {
   markReminderSent(id: number): Promise<Reminder | undefined>;
   getRemindersByEmail(email: string): Promise<Reminder[]>;
   getAllReminders(): Promise<Reminder[]>;
+
+  createQuote(quote: InsertQuote): Promise<Quote>;
+  getQuotes(): Promise<Quote[]>;
 
   getDashboardStats(): Promise<DashboardStats>;
 }
@@ -127,6 +130,15 @@ export class DatabaseStorage implements IStorage {
 
   async getAllReminders(): Promise<Reminder[]> {
     return db.select().from(reminders).orderBy(desc(reminders.scheduledFor));
+  }
+
+  async createQuote(quote: InsertQuote): Promise<Quote> {
+    const [result] = await db.insert(quotes).values(quote).returning();
+    return result;
+  }
+
+  async getQuotes(): Promise<Quote[]> {
+    return db.select().from(quotes).orderBy(desc(quotes.createdAt));
   }
 
   async getDashboardStats(): Promise<DashboardStats> {
