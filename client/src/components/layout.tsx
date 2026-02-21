@@ -12,6 +12,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, [location]);
+
+  useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
@@ -60,7 +64,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           {/* Logo */}
           <Link href="/">
             <a className="flex items-center gap-3 group">
-              <img src="/logo-bm.png" alt="BM Logo" className="h-10 w-10 object-contain group-hover:scale-105 transition-transform duration-300" />
+              <img src="/logo-bm.png" alt="BM Logo" className="h-14 w-14 object-contain rounded-lg bg-white p-1 shadow-sm border border-gray-100 group-hover:scale-105 transition-transform duration-300" />
               <div className="flex flex-col">
                 <span className="font-heading font-bold text-lg leading-none text-primary tracking-tight">Bernardino Martin</span>
                 <span className="text-[10px] font-semibold text-secondary tracking-[0.2em] uppercase">Heating &bull; AC &bull; Solar</span>
@@ -126,7 +130,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 <nav className="flex flex-col gap-6 mt-10">
                   <Link href="/">
                     <a className="flex items-center gap-2 mb-6">
-                      <img src="/logo-bm.png" alt="BM Logo" className="h-8 w-8 object-contain" />
+                      <img src="/logo-bm.png" alt="BM Logo" className="h-12 w-12 object-contain rounded-lg bg-white p-1 shadow-sm border border-gray-100" />
                       <span className="font-heading font-bold text-lg text-primary">Bernardino Martin HVAC</span>
                     </a>
                   </Link>
@@ -174,7 +178,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
             <div>
               <div className="flex items-center gap-3 mb-4 text-white">
-                <img src="/logo-bm.png" alt="BM Logo" className="h-12 w-12 object-contain" />
+                <img src="/logo-bm.png" alt="BM Logo" className="h-16 w-16 object-contain rounded-lg bg-white p-1.5 shadow-md" />
                 <div className="flex flex-col">
                   <span className="font-heading font-bold text-lg leading-tight">Bernardino Martin</span>
                   <span className="text-[10px] font-semibold text-secondary tracking-[0.2em] uppercase">Heating &bull; AC &bull; Solar</span>
