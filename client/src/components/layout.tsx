@@ -1,5 +1,5 @@
 import { Link, useLocation } from "wouter";
-import { Phone, Menu, X, Calendar, MessageCircle, Sun, ShieldCheck, AlertCircle } from "lucide-react";
+import { Phone, Menu, X, Calendar, MessageCircle, Sun, ShieldCheck, AlertCircle, Instagram, Linkedin, Twitter, Youtube } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -237,8 +237,20 @@ export function Layout({ children }: { children: React.ReactNode }) {
             </div>
           </div>
           
-          <div className="pt-8 border-t border-slate-800 text-center text-xs text-slate-500">
-            <p>&copy; {new Date().getFullYear()} BERNARDINO MARTIN'S Heating Air Conditioning, Solar. All rights reserved.</p>
+          <div className="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="text-xs text-slate-500">&copy; {new Date().getFullYear()} {COMPANY_NAME}. All rights reserved.</p>
+            <div className="flex items-center gap-4 text-slate-400">
+               <a href="#" className="hover:text-primary transition-colors" aria-label="Instagram"><Instagram className="h-5 w-5" /></a>
+               <a href="#" className="hover:text-primary transition-colors" aria-label="LinkedIn"><Linkedin className="h-5 w-5" /></a>
+               <a href="#" className="hover:text-primary transition-colors" aria-label="Pinterest">
+                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M8 20.5A7.4 7.4 0 0 1 7.3 16c.3-1.6 1.4-6.4 1.4-6.4.3-.9 1-1 1-1 .7 0 1.2.6 1.2 1.6 0 2.2-1.3 5.4-1.3 5.4-.2.8.5 1.5 1.3 1.5 1.7 0 3-2.6 3-5.7 0-3.3-2.3-5.4-5.6-5.4-3.5 0-5.8 2.6-5.8 5.6 0 1 .4 2.2.9 2.8.1.1.1.2 0 .4l-.3 1.2c0 .1-.2.2-.3.1C3.8 14.5 3 12 3 9.4 3 5.4 6 2 10.5 2c3.7 0 6.5 2.6 6.5 6 0 3.7-2.3 6.7-5.5 6.7-.9 0-1.8-.5-2.1-1.1 0 0-.5 1.8-.6 2.3-.2.8-.7 1.8-1 2.4"/></svg>
+               </a>
+               <a href="#" className="hover:text-primary transition-colors" aria-label="TikTok">
+                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
+               </a>
+               <a href="#" className="hover:text-primary transition-colors" aria-label="Twitter / X"><Twitter className="h-5 w-5" /></a>
+               <a href="#" className="hover:text-primary transition-colors" aria-label="YouTube"><Youtube className="h-5 w-5" /></a>
+            </div>
           </div>
         </div>
       </footer>

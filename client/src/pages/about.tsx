@@ -50,33 +50,14 @@ export default function About() {
           </div>
           
           <div className="space-y-6">
-             <h2 className="text-2xl font-bold text-slate-900">Payment Convenience</h2>
-             <div className="bg-slate-50 p-6 rounded-xl border border-slate-100">
-                <p className="text-slate-600 mb-4">
-                  We make it easy to do business with us. We accept all major credit cards, checks, and offer secure online bill pay.
+             <h2 className="text-2xl font-bold text-slate-900">Our Commitment</h2>
+             <div className="bg-slate-50 p-6 rounded-xl border border-slate-100 h-full">
+                <p className="text-slate-600 mb-6 leading-relaxed">
+                  At {COMPANY_NAME}, we believe in doing the job right the first time. We continuously train our technicians on the latest technologies, including high-efficiency HVAC systems, smart home integrations, and advanced solar solutions.
                 </p>
-                <div className="grid grid-cols-2 gap-4 mb-6">
-                   <div className="flex items-center gap-2 text-sm font-semibold text-slate-700">
-                     <div className="w-2 h-2 rounded-full bg-green-500"></div> Visa / MasterCard
-                   </div>
-                   <div className="flex items-center gap-2 text-sm font-semibold text-slate-700">
-                     <div className="w-2 h-2 rounded-full bg-green-500"></div> American Express
-                   </div>
-                   <div className="flex items-center gap-2 text-sm font-semibold text-slate-700">
-                     <div className="w-2 h-2 rounded-full bg-green-500"></div> Discover
-                   </div>
-                   <div className="flex items-center gap-2 text-sm font-semibold text-slate-700">
-                     <div className="w-2 h-2 rounded-full bg-green-500"></div> Online Portal
-                   </div>
-                </div>
-                <div className="flex flex-col gap-3">
-                  <a href="/payment" className="w-full block text-center py-3 bg-primary text-white rounded-lg font-bold hover:bg-blue-600 transition-colors">
-                    Pay Invoice Online
-                  </a>
-                  <a href="/dashboard" className="w-full block text-center py-3 bg-white border border-slate-200 text-slate-700 rounded-lg font-bold hover:bg-slate-50 transition-colors">
-                    Customer Portal Login
-                  </a>
-                </div>
+                <p className="text-slate-600 leading-relaxed">
+                  Our goal is not just to fix your immediate problem, but to build a lasting relationship as your trusted home service provider for years to come.
+                </p>
              </div>
           </div>
         </div>
