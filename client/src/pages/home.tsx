@@ -6,7 +6,8 @@ import { PROMOS, SERVICES, COMPANY_PHONE, COMPANY_NAME, getWhatsAppLink } from "
 import { ArrowRight, Check, Star, Clock, Calendar, MessageCircle, AlertTriangle, Droplets, Shield, Activity } from "lucide-react";
 import { Link } from "wouter";
 import { Badge } from "@/components/ui/badge";
-import { ProjectGallery } from "@/components/project-gallery";
+import { lazy, Suspense } from "react";
+const ProjectGallery = lazy(() => import("@/components/project-gallery").then(m => ({ default: m.ProjectGallery })));
 
 export default function Home() {
   return (
@@ -300,7 +301,9 @@ export default function Home() {
       </section>
 
       {/* Real Work Gallery Section */}
-      <ProjectGallery />
+      <Suspense fallback={<div className="py-24 bg-white" />}>
+        <ProjectGallery />
+      </Suspense>
 
       {/* Premium Maintenance Plan */}
       <section className="py-24 bg-slate-50 relative">

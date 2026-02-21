@@ -3,29 +3,41 @@ import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import NotFound from "@/pages/not-found";
+import { lazy, Suspense } from "react";
 import Home from "@/pages/home";
-import About from "@/pages/about";
-import Services from "@/pages/services";
-import ServiceAreas from "@/pages/service-areas";
-import Contact from "@/pages/contact";
-import Booking from "@/pages/booking";
-import Payment from "@/pages/payment";
-import Dashboard from "@/pages/dashboard";
+
+const About = lazy(() => import("@/pages/about"));
+const Services = lazy(() => import("@/pages/services"));
+const ServiceAreas = lazy(() => import("@/pages/service-areas"));
+const Contact = lazy(() => import("@/pages/contact"));
+const Booking = lazy(() => import("@/pages/booking"));
+const Payment = lazy(() => import("@/pages/payment"));
+const Dashboard = lazy(() => import("@/pages/dashboard"));
+const NotFound = lazy(() => import("@/pages/not-found"));
+
+function PageLoader() {
+  return (
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+    </div>
+  );
+}
 
 function Router() {
   return (
-    <Switch>
-      <Route path="/" component={Home} />
-      <Route path="/about" component={About} />
-      <Route path="/services" component={Services} />
-      <Route path="/service-areas" component={ServiceAreas} />
-      <Route path="/contact" component={Contact} />
-      <Route path="/booking" component={Booking} />
-      <Route path="/payment" component={Payment} />
-      <Route path="/dashboard" component={Dashboard} />
-      <Route component={NotFound} />
-    </Switch>
+    <Suspense fallback={<PageLoader />}>
+      <Switch>
+        <Route path="/" component={Home} />
+        <Route path="/about" component={About} />
+        <Route path="/services" component={Services} />
+        <Route path="/service-areas" component={ServiceAreas} />
+        <Route path="/contact" component={Contact} />
+        <Route path="/booking" component={Booking} />
+        <Route path="/payment" component={Payment} />
+        <Route path="/dashboard" component={Dashboard} />
+        <Route component={NotFound} />
+      </Switch>
+    </Suspense>
   );
 }
 

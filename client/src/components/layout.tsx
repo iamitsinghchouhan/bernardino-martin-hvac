@@ -1,10 +1,10 @@
 import { Link, useLocation } from "wouter";
 import { Phone, Menu, X, Calendar, MessageCircle, Sun, ShieldCheck, AlertCircle, Instagram, Linkedin, Twitter, Youtube } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { COMPANY_PHONE, COMPANY_NAME, getWhatsAppLink } from "@/lib/constants";
-import { ChatWidget } from "@/components/chat-widget";
+const ChatWidget = lazy(() => import("@/components/chat-widget").then(m => ({ default: m.ChatWidget })));
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const [location] = useLocation();
@@ -163,7 +163,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
         {children}
       </main>
 
-      <ChatWidget />
+      <Suspense fallback={null}>
+        <ChatWidget />
+      </Suspense>
 
       <footer className="bg-slate-900 text-slate-300 py-12 border-t border-slate-800">
         <div className="container mx-auto px-4">
