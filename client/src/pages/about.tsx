@@ -5,7 +5,7 @@ import { COMPANY_NAME } from "@/lib/constants";
 export default function About() {
   return (
     <Layout>
-      <SEO title="About Us" description={`Learn about ${COMPANY_NAME} - your trusted local partners for heating, cooling, solar energy, and plumbing.`} />
+      <SEO title="About Us – Trusted HVAC & Solar Contractors in Los Angeles" description={`${COMPANY_NAME} — Licensed, bonded & insured HVAC and solar contractors serving Los Angeles. Learn why homeowners trust us for heating, cooling, solar & plumbing services.`} />
       <div className="container mx-auto px-4 py-20">
         <h1 className="text-4xl font-heading font-bold mb-6">About Us</h1>
         <p className="text-lg text-slate-600 mb-8">
