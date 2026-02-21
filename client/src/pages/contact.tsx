@@ -63,7 +63,7 @@ export default function Contact() {
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="flex items-start gap-4">
-                  <Phone className="h-6 w-6 text-primary mt-1" />
+                  <Phone className="h-6 w-6 text-primary mt-1" aria-hidden="true" />
                   <div>
                     <h3 className="font-semibold text-slate-900">Phone</h3>
                     <p className="text-slate-600">
@@ -76,7 +76,7 @@ export default function Contact() {
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <MessageCircle className="h-6 w-6 text-secondary mt-1" />
+                  <MessageCircle className="h-6 w-6 text-secondary mt-1" aria-hidden="true" />
                   <div>
                     <h3 className="font-semibold text-slate-900">WhatsApp</h3>
                     <p className="text-slate-600 mb-2">Chat with us instantly</p>
@@ -89,7 +89,7 @@ export default function Contact() {
                 </div>
                 
                 <div className="flex items-start gap-4">
-                  <Mail className="h-6 w-6 text-primary mt-1" />
+                  <Mail className="h-6 w-6 text-primary mt-1" aria-hidden="true" />
                   <div>
                     <h3 className="font-semibold text-slate-900">Email</h3>
                     <p className="text-slate-600">service@bernardinomartinhvac.com</p>
@@ -97,7 +97,7 @@ export default function Contact() {
                 </div>
                 
                 <div className="flex items-start gap-4">
-                  <MapPin className="h-6 w-6 text-primary mt-1" />
+                  <MapPin className="h-6 w-6 text-primary mt-1" aria-hidden="true" />
                   <div>
                     <h3 className="font-semibold text-slate-900">Service Area</h3>
                     <p className="text-slate-600">Greater Los Angeles Area</p>
@@ -106,7 +106,7 @@ export default function Contact() {
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <Clock className="h-6 w-6 text-primary mt-1" />
+                  <Clock className="h-6 w-6 text-primary mt-1" aria-hidden="true" />
                   <div>
                     <h3 className="font-semibold text-slate-900">Business Hours</h3>
                     <p className="text-slate-600">Mon - Fri: 7:00 AM - 7:00 PM</p>
@@ -127,7 +127,7 @@ export default function Contact() {
               {submitted ? (
                 <div className="text-center py-8">
                   <div className="mx-auto bg-secondary/10 p-4 rounded-full w-fit mb-4">
-                    <CheckCircle className="h-8 w-8 text-secondary" />
+                    <CheckCircle className="h-8 w-8 text-secondary" aria-hidden="true" />
                   </div>
                   <h3 className="text-xl font-bold mb-2">Message Sent!</h3>
                   <p className="text-slate-600 mb-6">Thank you for reaching out. We'll respond within 24 hours.</p>
@@ -160,7 +160,7 @@ export default function Contact() {
                   
                   <Button type="submit" className="w-full bg-primary hover:bg-primary/90" disabled={contactMutation.isPending} data-testid="button-send-message">
                     {contactMutation.isPending ? (
-                      <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Sending...</>
+                      <><Loader2 className="mr-2 h-4 w-4 animate-spin" aria-hidden="true" /> Sending...</>
                     ) : (
                       "Send Message"
                     )}

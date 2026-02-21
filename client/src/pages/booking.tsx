@@ -70,7 +70,7 @@ export default function Booking() {
           <Card className="max-w-md w-full text-center shadow-xl border-t-4 border-t-green-500">
             <CardContent className="p-10">
               <div className="mx-auto bg-secondary/10 p-4 rounded-full w-fit mb-6">
-                <CheckCircle className="h-10 w-10 text-secondary" />
+                <CheckCircle className="h-10 w-10 text-secondary" aria-hidden="true" />
               </div>
               <h2 className="text-2xl font-heading font-bold mb-3">Request Received!</h2>
               <p className="text-slate-600 mb-6">
@@ -119,17 +119,29 @@ export default function Booking() {
                       </Select>
                     </div>
                     
-                    <div className="space-y-2">
-                      <label className="text-sm font-medium">Contact Details</label>
-                      <Input placeholder="Full Name" value={fullName} onChange={e => setFullName(e.target.value)} required data-testid="input-fullname" className="mb-2" />
-                      <Input placeholder="Phone Number" value={phone} onChange={e => setPhone(e.target.value)} required data-testid="input-phone" className="mb-2" />
-                      <Input placeholder="Email Address" type="email" value={email} onChange={e => setEmail(e.target.value)} required data-testid="input-email" className="mb-2" />
-                      <Input placeholder="Street Address" value={address} onChange={e => setAddress(e.target.value)} required data-testid="input-address" />
-                    </div>
+                    <fieldset className="space-y-2">
+                      <legend className="text-sm font-medium">Contact Details</legend>
+                      <div className="space-y-2">
+                        <label htmlFor="booking-fullname" className="sr-only">Full Name</label>
+                        <Input id="booking-fullname" placeholder="Full Name" value={fullName} onChange={e => setFullName(e.target.value)} required data-testid="input-fullname" className="mb-2" aria-label="Full Name" />
+                      </div>
+                      <div className="space-y-2">
+                        <label htmlFor="booking-phone" className="sr-only">Phone Number</label>
+                        <Input id="booking-phone" placeholder="Phone Number" value={phone} onChange={e => setPhone(e.target.value)} required data-testid="input-phone" className="mb-2" aria-label="Phone Number" />
+                      </div>
+                      <div className="space-y-2">
+                        <label htmlFor="booking-email" className="sr-only">Email Address</label>
+                        <Input id="booking-email" placeholder="Email Address" type="email" value={email} onChange={e => setEmail(e.target.value)} required data-testid="input-email" className="mb-2" aria-label="Email Address" />
+                      </div>
+                      <div className="space-y-2">
+                        <label htmlFor="booking-address" className="sr-only">Street Address</label>
+                        <Input id="booking-address" placeholder="Street Address" value={address} onChange={e => setAddress(e.target.value)} required data-testid="input-address" aria-label="Street Address" />
+                      </div>
+                    </fieldset>
 
                     <div className="space-y-2">
-                      <label className="text-sm font-medium">Additional Notes (optional)</label>
-                      <Textarea placeholder="Describe the issue or any special requests..." value={notes} onChange={e => setNotes(e.target.value)} data-testid="input-notes" />
+                      <label htmlFor="booking-notes" className="text-sm font-medium">Additional Notes (optional)</label>
+                      <Textarea id="booking-notes" placeholder="Describe the issue or any special requests..." value={notes} onChange={e => setNotes(e.target.value)} data-testid="input-notes" />
                     </div>
                   </div>
 
@@ -155,7 +167,7 @@ export default function Booking() {
                     data-testid="button-submit-booking"
                   >
                     {bookingMutation.isPending ? (
-                      <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Submitting...</>
+                      <><Loader2 className="mr-2 h-4 w-4 animate-spin" aria-hidden="true" /> Submitting...</>
                     ) : (
                       "Request Appointment"
                     )}

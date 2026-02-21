@@ -56,7 +56,7 @@ export default function Home() {
               </Button>
               <Button size="lg" className="h-14 px-8 text-lg font-bold bg-secondary hover:bg-secondary/90 text-white border-0 shadow-xl shadow-secondary/20" asChild>
                 <a href={getWhatsAppLink("Hello! I'm interested in booking a service.")} target="_blank" rel="noopener noreferrer">
-                  <MessageCircle className="mr-2 h-5 w-5" />
+                  <MessageCircle className="mr-2 h-5 w-5" aria-hidden="true" />
                   WhatsApp Chat
                 </a>
               </Button>
@@ -82,7 +82,7 @@ export default function Home() {
                   <p className="text-slate-600 mb-6 font-medium">
                     {promo.description}
                   </p>
-                  <div className="mt-auto pt-4 border-t border-slate-100 w-full flex justify-between items-center text-xs text-slate-400 font-mono">
+                  <div className="mt-auto pt-4 border-t border-slate-100 w-full flex justify-between items-center text-xs text-slate-500 font-mono">
                     <span>CODE: {promo.code}</span>
                     <span className="flex items-center text-secondary font-bold">
                       Claim Now <ArrowRight className="ml-1 h-3 w-3" />
@@ -120,7 +120,7 @@ export default function Home() {
                 ].map((sign, idx) => (
                   <div key={idx} className="flex items-start gap-3 bg-slate-50 p-4 rounded-xl border border-slate-100">
                     <div className="bg-red-100 p-1.5 rounded-full text-red-600 mt-0.5">
-                      <AlertTriangle className="h-4 w-4" />
+                      <AlertTriangle className="h-4 w-4" aria-hidden="true" />
                     </div>
                     <span className="font-semibold text-slate-800">{sign}</span>
                   </div>
@@ -130,7 +130,7 @@ export default function Home() {
               <div className="pt-6">
                 <Button size="lg" className="bg-red-600 hover:bg-red-700 shadow-lg shadow-red-500/20 w-full sm:w-auto text-lg" asChild>
                   <a href={`tel:${COMPANY_PHONE.replace(/\D/g, '')}`}>
-                    <Phone className="mr-2 h-5 w-5" /> Schedule Emergency Repair
+                    <Phone className="mr-2 h-5 w-5" aria-hidden="true" /> Schedule Emergency Repair
                   </a>
                 </Button>
               </div>
@@ -145,7 +145,7 @@ export default function Home() {
                {/* Floating Stats */}
                <div className="absolute bottom-8 -left-8 bg-white p-4 rounded-xl shadow-xl z-20 flex items-center gap-4 animate-in slide-in-from-bottom-10 border border-slate-100">
                  <div className="bg-primary/10 p-3 rounded-full text-primary">
-                    <Activity className="h-8 w-8" />
+                    <Activity className="h-8 w-8" aria-hidden="true" />
                  </div>
                  <div>
                     <div className="font-black text-2xl text-slate-900">Same-Day</div>
@@ -183,14 +183,14 @@ export default function Home() {
                     height={480}
                   />
                   <div className="absolute top-4 right-4 z-20 bg-white/90 backdrop-blur text-slate-900 text-xs font-bold px-3 py-1 rounded-full shadow-sm flex items-center gap-1">
-                    <Clock className="h-3 w-3" /> {service.duration}
+                    <Clock className="h-3 w-3" aria-hidden="true" /> {service.duration}
                   </div>
                 </div>
                 
                 <CardContent className="p-6 flex-1">
                   <div className="flex items-center gap-3 mb-4">
                     <div className="p-2 rounded-lg bg-primary/5 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
-                      <service.icon className="h-6 w-6" />
+                      <service.icon className="h-6 w-6" aria-hidden="true" />
                     </div>
                     <h3 className="text-xl font-bold text-slate-900 group-hover:text-primary transition-colors">
                       {service.title}
@@ -210,8 +210,8 @@ export default function Home() {
                     <Link href={`/booking?service=${service.id}`}>Book Now</Link>
                   </Button>
                   <Button variant="outline" size="icon" className="border-secondary/20 text-secondary hover:bg-secondary/5" asChild>
-                    <a href={getWhatsAppLink(`Hi, I'm interested in your ${service.title} service.`)} target="_blank" rel="noopener noreferrer" title="Chat on WhatsApp">
-                      <MessageCircle className="h-5 w-5" />
+                    <a href={getWhatsAppLink(`Hi, I'm interested in your ${service.title} service.`)} target="_blank" rel="noopener noreferrer" aria-label={`Chat about ${service.title} on WhatsApp`}>
+                      <MessageCircle className="h-5 w-5" aria-hidden="true" />
                     </a>
                   </Button>
                 </CardFooter>
@@ -254,7 +254,7 @@ export default function Home() {
                       </div>
                       <div>
                         <span className="font-bold text-white block">Automatic Shutoff</span>
-                        <span className="text-slate-400 text-sm">Automatically turns off water if a major leak is detected.</span>
+                        <span className="text-slate-300 text-sm">Automatically turns off water if a major leak is detected.</span>
                       </div>
                     </li>
                     <li className="flex items-start gap-3">
@@ -263,7 +263,7 @@ export default function Home() {
                       </div>
                       <div>
                         <span className="font-bold text-white block">App Monitoring</span>
-                        <span className="text-slate-400 text-sm">Track water usage and get alerts directly on your phone.</span>
+                        <span className="text-slate-300 text-sm">Track water usage and get alerts directly on your phone.</span>
                       </div>
                     </li>
                     <li className="flex items-start gap-3">
@@ -272,7 +272,7 @@ export default function Home() {
                       </div>
                       <div>
                         <span className="font-bold text-white block">Insurance Discounts</span>
-                        <span className="text-slate-400 text-sm">Many homeowners insurance providers offer discounts for installing this device.</span>
+                        <span className="text-slate-300 text-sm">Many homeowners insurance providers offer discounts for installing this device.</span>
                       </div>
                     </li>
                  </ul>
@@ -592,7 +592,7 @@ export default function Home() {
                       </div>
                       <div>
                         <span className="font-bold text-white block">{item.title}</span>
-                        <span className="text-slate-400 text-sm">{item.desc}</span>
+                        <span className="text-slate-300 text-sm">{item.desc}</span>
                       </div>
                     </li>
                   ))}
@@ -622,7 +622,7 @@ export default function Home() {
                     <div key={i} className="flex items-center justify-between p-3 rounded-lg bg-slate-900/50 border border-slate-700">
                       <div>
                         <div className="font-semibold text-white text-sm">{p.project}</div>
-                        <div className="text-xs text-slate-400">{p.range}</div>
+                        <div className="text-xs text-slate-300">{p.range}</div>
                       </div>
                       <Badge className="bg-primary/20 text-sky-300 border-primary/40 text-xs">{p.tag}</Badge>
                     </div>
@@ -639,7 +639,7 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-8">
             <div className="flex-shrink-0 bg-red-100 p-5 rounded-2xl">
-              <AlertTriangle className="h-12 w-12 text-red-600" />
+              <AlertTriangle className="h-12 w-12 text-red-600" aria-hidden="true" />
             </div>
             <div className="flex-1 text-center md:text-left">
               <h2 className="text-2xl md:text-3xl font-heading font-bold text-slate-900 mb-2">

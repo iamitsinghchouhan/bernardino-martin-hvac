@@ -1,6 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger, DialogTitle } from "@/components/ui/dialog";
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { Button } from "@/components/ui/button";
 
 const PROJECTS = [
@@ -91,6 +92,9 @@ export function ProjectGallery() {
             <Dialog key={project.id}>
               <DialogTrigger asChild>
                 <div 
+                  role="button"
+                  aria-label={`View project: ${project.title}`}
+                  tabIndex={0}
                   className={`group relative overflow-hidden rounded-xl cursor-pointer shadow-md hover:shadow-xl transition-all duration-300 bg-slate-200 ${
                     index === 0 || index === 7 ? "md:col-span-2 md:row-span-2 h-[516px]" : ""
                   }`}
@@ -119,7 +123,8 @@ export function ProjectGallery() {
                   </div>
                 </div>
               </DialogTrigger>
-              <DialogContent className="max-w-4xl p-0 overflow-hidden bg-white border-none rounded-2xl shadow-2xl">
+              <DialogContent className="max-w-4xl p-0 overflow-hidden bg-white border-none rounded-2xl shadow-2xl" aria-describedby={undefined}>
+                <VisuallyHidden><DialogTitle>{project.title}</DialogTitle></VisuallyHidden>
                 <div className="flex flex-col md:flex-row h-full">
                     <div className="w-full md:w-2/3 bg-black flex items-center justify-center relative overflow-hidden">
                          <div className="absolute inset-0 bg-black/10 backdrop-blur-[2px] z-0"></div>
@@ -137,9 +142,9 @@ export function ProjectGallery() {
                             <Badge variant="secondary" className="mb-2 bg-primary/5 text-primary hover:bg-primary/10">
                                 {project.category}
                             </Badge>
-                            <h2 className="text-2xl md:text-3xl font-heading font-bold text-slate-900 mb-2 leading-tight">
+                            <h3 className="text-2xl md:text-3xl font-heading font-bold text-slate-900 mb-2 leading-tight">
                                 {project.title}
-                            </h2>
+                            </h3>
                             <p className="text-sm font-medium text-slate-500 flex items-center gap-2">
                                 <span className="w-2 h-2 rounded-full bg-green-500"></span>
                                 {project.location}

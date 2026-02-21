@@ -41,14 +41,14 @@ export default function Services() {
                     height={480}
                   />
                   <div className="absolute top-4 right-4 z-20 bg-white/95 backdrop-blur text-slate-900 text-xs font-bold px-3 py-1.5 rounded-full shadow-sm flex items-center gap-1.5">
-                    <Clock className="h-3.5 w-3.5 text-primary" /> {service.duration}
+                    <Clock className="h-3.5 w-3.5 text-primary" aria-hidden="true" /> {service.duration}
                   </div>
                 </div>
                 
                 <CardContent className="p-6 flex-1 flex flex-col">
                   <div className="flex items-start gap-4 mb-4">
                     <div className="p-2.5 rounded-xl bg-primary/5 text-primary group-hover:bg-primary group-hover:text-white transition-colors shadow-sm">
-                      <service.icon className="h-6 w-6" />
+                      <service.icon className="h-6 w-6" aria-hidden="true" />
                     </div>
                     <CardTitle className="text-xl font-bold text-slate-900 group-hover:text-primary transition-colors leading-tight pt-1">
                       {service.title}
@@ -58,7 +58,7 @@ export default function Services() {
                     {service.description}
                   </p>
                   <div className="flex items-center gap-2 text-sm font-bold text-secondary bg-secondary/10 w-fit px-3 py-1.5 rounded-md">
-                    <Check className="h-4 w-4" /> 
+                    <Check className="h-4 w-4" aria-hidden="true" /> 
                     <span>{service.price}</span>
                   </div>
                 </CardContent>
@@ -68,8 +68,8 @@ export default function Services() {
                     <Link href={`/booking?service=${service.id}`}>Book Now</Link>
                   </Button>
                   <Button variant="outline" size="icon" className="border-secondary/20 text-secondary hover:bg-secondary/5 hover:text-secondary hover:border-secondary/30 transition-colors" asChild>
-                    <a href={getWhatsAppLink(`Hi, I'm interested in your ${service.title} service.`)} target="_blank" rel="noopener noreferrer" title="Chat on WhatsApp">
-                      <MessageCircle className="h-5 w-5" />
+                    <a href={getWhatsAppLink(`Hi, I'm interested in your ${service.title} service.`)} target="_blank" rel="noopener noreferrer" aria-label={`Chat about ${service.title} on WhatsApp`}>
+                      <MessageCircle className="h-5 w-5" aria-hidden="true" />
                     </a>
                   </Button>
                 </CardFooter>
