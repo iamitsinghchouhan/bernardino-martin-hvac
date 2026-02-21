@@ -203,7 +203,7 @@ export default function Dashboard() {
             <Card className="bg-primary text-white border-none">
               <CardHeader>
                 <CardTitle>Need Service?</CardTitle>
-                <CardDescription className="text-blue-100">Schedule your next maintenance visit easily.</CardDescription>
+                <CardDescription className="text-slate-300">Schedule your next maintenance visit easily.</CardDescription>
               </CardHeader>
               <CardContent>
                  <Button className="w-full bg-white text-primary hover:bg-slate-100 font-bold" asChild>

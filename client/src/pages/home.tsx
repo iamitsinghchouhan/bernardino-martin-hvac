@@ -30,13 +30,13 @@ export default function Home() {
         <div className="container mx-auto px-4 relative z-10 text-white">
           <div className="max-w-3xl animate-in slide-in-from-left-10 duration-700 fade-in">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/20 border border-primary/50 backdrop-blur-sm mb-6">
-              <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
-              <span className="text-sm font-medium text-blue-100">Licensed, Bonded & Insured #109283</span>
+              <span className="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+              <span className="text-sm font-medium text-slate-200">Licensed, Bonded & Insured #109283</span>
             </div>
             
             <h1 className="text-4xl md:text-6xl font-heading font-bold leading-tight mb-6">
               BERNARDINO MARTIN'S <br/>
-              <span className="text-primary-foreground text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-green-400">Heating, Air Conditioning, Solar</span>
+              <span className="text-primary-foreground text-transparent bg-clip-text bg-gradient-to-r from-sky-300 to-emerald-400">Heating, Air Conditioning, Solar</span>
             </h1>
             
             <p className="text-lg md:text-xl text-slate-200 mb-8 max-w-lg leading-relaxed shadow-black/50 drop-shadow-sm">
@@ -44,12 +44,12 @@ export default function Home() {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="h-14 px-8 text-lg font-bold bg-primary hover:bg-blue-600 shadow-xl shadow-blue-900/20" asChild>
+              <Button size="lg" className="h-14 px-8 text-lg font-bold bg-primary hover:bg-primary/90 shadow-xl shadow-primary/20" asChild>
                 <Link href="/booking">
                   Book Appointment
                 </Link>
               </Button>
-              <Button size="lg" className="h-14 px-8 text-lg font-bold bg-green-600 hover:bg-green-700 text-white border-0 shadow-xl shadow-green-900/20" asChild>
+              <Button size="lg" className="h-14 px-8 text-lg font-bold bg-secondary hover:bg-secondary/90 text-white border-0 shadow-xl shadow-secondary/20" asChild>
                 <a href={getWhatsAppLink("Hello! I'm interested in booking a service.")} target="_blank" rel="noopener noreferrer">
                   <MessageCircle className="mr-2 h-5 w-5" />
                   WhatsApp Chat
@@ -66,9 +66,9 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 -mt-24 relative z-20">
             {PROMOS.map((promo, i) => (
               <Card key={i} className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-white overflow-hidden group">
-                <div className="h-2 bg-gradient-to-r from-primary to-green-500" />
+                <div className="h-2 bg-gradient-to-r from-primary to-secondary" />
                 <CardContent className="p-8 text-center flex flex-col items-center justify-center h-full min-h-[220px]">
-                  <Badge variant="secondary" className="mb-4 bg-blue-50 text-blue-700 hover:bg-blue-100 border-blue-100 px-3 py-1 text-sm font-bold">
+                  <Badge variant="secondary" className="mb-4 bg-primary/5 text-primary hover:bg-primary/10 border-primary/10 px-3 py-1 text-sm font-bold">
                     {promo.title}
                   </Badge>
                   <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-primary transition-colors">
@@ -79,7 +79,7 @@ export default function Home() {
                   </p>
                   <div className="mt-auto pt-4 border-t border-slate-100 w-full flex justify-between items-center text-xs text-slate-400 font-mono">
                     <span>CODE: {promo.code}</span>
-                    <span className="flex items-center text-green-600 font-bold">
+                    <span className="flex items-center text-secondary font-bold">
                       Claim Now <ArrowRight className="ml-1 h-3 w-3" />
                     </span>
                   </div>
@@ -181,7 +181,7 @@ export default function Home() {
                 
                 <CardContent className="p-6 flex-1">
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="p-2 rounded-lg bg-blue-50 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+                    <div className="p-2 rounded-lg bg-primary/5 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
                       <service.icon className="h-6 w-6" />
                     </div>
                     <h3 className="text-xl font-bold text-slate-900 group-hover:text-primary transition-colors">
@@ -191,7 +191,7 @@ export default function Home() {
                   <p className="text-slate-600 mb-4 line-clamp-3">
                     {service.description}
                   </p>
-                  <div className="flex items-center gap-2 text-sm font-semibold text-green-600 mb-4 bg-green-50 w-fit px-3 py-1.5 rounded-md">
+                  <div className="flex items-center gap-2 text-sm font-semibold text-secondary mb-4 bg-secondary/5 w-fit px-3 py-1.5 rounded-md">
                     <Check className="h-4 w-4" /> 
                     <span>{service.price}</span>
                   </div>
@@ -201,7 +201,7 @@ export default function Home() {
                   <Button className="flex-1 bg-slate-900 group-hover:bg-primary transition-colors" asChild>
                     <Link href={`/booking?service=${service.id}`}>Book Now</Link>
                   </Button>
-                  <Button variant="outline" size="icon" className="border-green-200 text-green-600 hover:bg-green-50" asChild>
+                  <Button variant="outline" size="icon" className="border-secondary/20 text-secondary hover:bg-secondary/5" asChild>
                     <a href={getWhatsAppLink(`Hi, I'm interested in your ${service.title} service.`)} target="_blank" rel="noopener noreferrer" title="Chat on WhatsApp">
                       <MessageCircle className="h-5 w-5" />
                     </a>
@@ -222,13 +222,13 @@ export default function Home() {
       {/* Premium Moen Smart Valve Feature */}
       <section className="py-20 bg-slate-900 text-white relative overflow-hidden">
         <div className="absolute top-0 right-0 -mr-48 -mt-48 w-96 h-96 bg-primary rounded-full blur-3xl opacity-20"></div>
-        <div className="absolute bottom-0 left-0 -ml-48 -mb-48 w-96 h-96 bg-blue-500 rounded-full blur-3xl opacity-20"></div>
+        <div className="absolute bottom-0 left-0 -ml-48 -mb-48 w-96 h-96 bg-primary rounded-full blur-3xl opacity-20"></div>
         
         <div className="container mx-auto px-4 relative z-10">
           <div className="bg-slate-800/50 border border-slate-700 rounded-3xl p-8 md:p-12 backdrop-blur-sm">
             <div className="flex flex-col lg:flex-row items-center gap-12">
               <div className="w-full lg:w-1/2 space-y-6">
-                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 border border-blue-500/50 text-blue-300 font-bold text-sm">
+                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/20 border border-primary/40 text-sky-300 font-bold text-sm">
                     <Droplets className="h-4 w-4" /> Smart Plumbing Solutions
                  </div>
                  <h2 className="text-3xl md:text-5xl font-heading font-bold text-white leading-tight">
@@ -282,7 +282,7 @@ export default function Home() {
                     <div className="absolute bottom-6 left-6 right-6">
                        <div className="bg-slate-900/80 backdrop-blur-md p-4 rounded-xl border border-slate-700 flex items-center justify-between">
                           <span className="font-bold text-white">Moen Authorized Installer</span>
-                          <Shield className="h-6 w-6 text-blue-400" />
+                          <Shield className="h-6 w-6 text-sky-400" />
                        </div>
                     </div>
                  </div>
@@ -313,13 +313,13 @@ export default function Home() {
                   <div className="md:w-2/5 bg-slate-900 text-white p-10 flex flex-col justify-center relative overflow-hidden">
                      <div className="absolute top-0 left-0 w-full h-full opacity-10" style={{backgroundImage: "url('/images/real-ac-service.png')", backgroundSize: "cover"}}></div>
                      <div className="relative z-10 text-center">
-                        <div className="inline-block bg-primary/20 text-blue-300 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest mb-6">
+                        <div className="inline-block bg-primary/20 text-sky-300 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest mb-6">
                            Comfort Club
                         </div>
                         <div className="text-5xl font-black mb-2">$19<span className="text-xl text-slate-400 font-medium">/mo</span></div>
                         <p className="text-slate-300 text-sm mb-8">Billed annually at $228/year</p>
                         
-                        <Button className="w-full bg-primary hover:bg-blue-600 text-white font-bold h-12 shadow-lg shadow-blue-500/20" asChild>
+                        <Button className="w-full bg-primary hover:bg-primary/90 text-white font-bold h-12 shadow-lg shadow-primary/20" asChild>
                            <Link href="/booking?service=hvac-maintenance">Join the Club</Link>
                         </Button>
                      </div>
@@ -336,7 +336,7 @@ export default function Home() {
                            "Extended lifespan of your equipment"
                         ].map((feature, i) => (
                            <li key={i} className="flex items-start gap-3">
-                              <div className="bg-green-100 p-1 rounded-full text-green-600 shrink-0 mt-1">
+                              <div className="bg-secondary/10 p-1 rounded-full text-secondary shrink-0 mt-1">
                                  <Check className="h-4 w-4" />
                               </div>
                               <span className="text-slate-700 font-medium">{feature}</span>
@@ -362,7 +362,7 @@ export default function Home() {
                    className="rounded-2xl shadow-2xl w-full max-w-lg mx-auto relative z-10 border-4 border-white"
                  />
                  <div className="absolute -bottom-6 -right-6 bg-white p-4 rounded-xl shadow-xl z-20 flex items-center gap-3">
-                    <div className="bg-green-100 p-2 rounded-full text-green-600">
+                    <div className="bg-secondary/10 p-2 rounded-full text-secondary">
                       <Star className="h-6 w-6 fill-current" />
                     </div>
                     <div>
@@ -373,7 +373,7 @@ export default function Home() {
                </div>
             </div>
             <div className="w-full md:w-1/2 space-y-6">
-              <div className="inline-block px-4 py-1.5 rounded-full bg-blue-100 text-primary font-bold text-sm mb-2">
+              <div className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary font-bold text-sm mb-2">
                 Why Choose Bernardino Martin HVAC?
               </div>
               <h2 className="text-3xl md:text-4xl font-heading font-bold text-slate-900">
@@ -392,7 +392,7 @@ export default function Home() {
                   "Certified Solar, Plumbing & HVAC Technicians"
                 ].map((item, i) => (
                   <li key={i} className="flex items-center gap-3 text-slate-800 font-medium">
-                    <div className="bg-green-100 text-green-600 p-1 rounded-full">
+                    <div className="bg-secondary/10 text-secondary p-1 rounded-full">
                       <Check className="h-4 w-4" />
                     </div>
                     {item}
@@ -401,12 +401,12 @@ export default function Home() {
               </ul>
               
               <div className="pt-4 flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="bg-primary hover:bg-blue-700 shadow-lg shadow-blue-500/20" asChild>
+                <Button size="lg" className="bg-primary hover:bg-primary/90 shadow-lg shadow-primary/20" asChild>
                   <a href={`tel:${COMPANY_PHONE.replace(/\D/g, '')}`}>
                     <Phone className="mr-2 h-5 w-5" /> Call {COMPANY_PHONE}
                   </a>
                 </Button>
-                <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white border-0 shadow-lg shadow-green-900/20" asChild>
+                <Button size="lg" className="bg-secondary hover:bg-secondary/90 text-white border-0 shadow-lg shadow-secondary/20" asChild>
                   <a href={getWhatsAppLink("Hi, I have a few questions about your services.")} target="_blank" rel="noopener noreferrer">
                     <MessageCircle className="mr-2 h-5 w-5" />
                     WhatsApp Chat
@@ -426,14 +426,14 @@ export default function Home() {
           <h2 className="text-3xl md:text-5xl font-heading font-bold mb-6">
             Ready to Upgrade Your Home?
           </h2>
-          <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+          <p className="text-xl text-slate-200 mb-8 max-w-2xl mx-auto">
             Schedule your service today and take advantage of our monthly specials. Fast, reliable, and always professional.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Button size="lg" variant="secondary" className="h-14 px-10 text-lg font-bold bg-white text-primary hover:bg-slate-100" asChild>
               <Link href="/booking">Book Online Now</Link>
             </Button>
-            <Button size="lg" className="h-14 px-10 text-lg font-bold bg-green-600 text-white hover:bg-green-700 border-0" asChild>
+            <Button size="lg" className="h-14 px-10 text-lg font-bold bg-secondary text-white hover:bg-secondary/90 border-0" asChild>
               <a href={getWhatsAppLink("Hello! I'm interested in booking a service.")} target="_blank" rel="noopener noreferrer">
                  <MessageCircle className="mr-2 h-5 w-5" />
                  Chat on WhatsApp

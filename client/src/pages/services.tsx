@@ -15,7 +15,7 @@ export default function Services() {
       <section className="bg-slate-900 text-white py-20 relative overflow-hidden">
         <div className="absolute inset-0 opacity-20" style={{backgroundImage: "url('/images/hero-home.png')", backgroundSize: "cover", backgroundPosition: "center"}}></div>
         <div className="container mx-auto px-4 relative z-10 text-center max-w-3xl">
-          <h1 className="text-4xl md:text-5xl font-heading font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-blue-100 to-white">
+          <h1 className="text-4xl md:text-5xl font-heading font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-slate-300 to-white">
             Our Services
           </h1>
           <p className="text-lg md:text-xl text-slate-300">
@@ -44,7 +44,7 @@ export default function Services() {
                 
                 <CardContent className="p-6 flex-1 flex flex-col">
                   <div className="flex items-start gap-4 mb-4">
-                    <div className="p-2.5 rounded-xl bg-blue-50 text-primary group-hover:bg-primary group-hover:text-white transition-colors shadow-sm">
+                    <div className="p-2.5 rounded-xl bg-primary/5 text-primary group-hover:bg-primary group-hover:text-white transition-colors shadow-sm">
                       <service.icon className="h-6 w-6" />
                     </div>
                     <CardTitle className="text-xl font-bold text-slate-900 group-hover:text-primary transition-colors leading-tight pt-1">
@@ -54,7 +54,7 @@ export default function Services() {
                   <p className="text-slate-600 mb-6 flex-1 text-sm leading-relaxed">
                     {service.description}
                   </p>
-                  <div className="flex items-center gap-2 text-sm font-bold text-green-600 bg-green-50 w-fit px-3 py-1.5 rounded-md">
+                  <div className="flex items-center gap-2 text-sm font-bold text-secondary bg-secondary/10 w-fit px-3 py-1.5 rounded-md">
                     <Check className="h-4 w-4" /> 
                     <span>{service.price}</span>
                   </div>
@@ -64,7 +64,7 @@ export default function Services() {
                   <Button className="flex-1 bg-slate-900 group-hover:bg-primary transition-colors font-semibold shadow-md" asChild>
                     <Link href={`/booking?service=${service.id}`}>Book Now</Link>
                   </Button>
-                  <Button variant="outline" size="icon" className="border-green-200 text-green-600 hover:bg-green-50 hover:text-green-700 hover:border-green-300 transition-colors" asChild>
+                  <Button variant="outline" size="icon" className="border-secondary/20 text-secondary hover:bg-secondary/5 hover:text-secondary hover:border-secondary/30 transition-colors" asChild>
                     <a href={getWhatsAppLink(`Hi, I'm interested in your ${service.title} service.`)} target="_blank" rel="noopener noreferrer" title="Chat on WhatsApp">
                       <MessageCircle className="h-5 w-5" />
                     </a>

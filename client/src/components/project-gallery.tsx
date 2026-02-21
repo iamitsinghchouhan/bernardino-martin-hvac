@@ -129,7 +129,7 @@ export function ProjectGallery() {
                     </div>
                     <div className="w-full md:w-1/3 p-8 flex flex-col justify-center bg-white">
                         <div className="mb-6">
-                            <Badge variant="secondary" className="mb-2 bg-blue-50 text-blue-700 hover:bg-blue-100">
+                            <Badge variant="secondary" className="mb-2 bg-primary/5 text-primary hover:bg-primary/10">
                                 {project.category}
                             </Badge>
                             <h2 className="text-2xl md:text-3xl font-heading font-bold text-slate-900 mb-2 leading-tight">
