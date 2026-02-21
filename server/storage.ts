@@ -1,7 +1,7 @@
 import { db } from "./db";
-import { bookings, contactMessages, invoices } from "@shared/schema";
-import type { Booking, InsertBooking, ContactMessage, InsertContactMessage, Invoice, InsertInvoice } from "@shared/schema";
-import { eq, or, desc } from "drizzle-orm";
+import { bookings, contactMessages, invoices, reminders } from "@shared/schema";
+import type { Booking, InsertBooking, ContactMessage, InsertContactMessage, Invoice, InsertInvoice, Reminder, InsertReminder } from "@shared/schema";
+import { eq, or, desc, and, lte } from "drizzle-orm";
 
 export interface IStorage {
   createBooking(booking: InsertBooking): Promise<Booking>;
@@ -14,6 +14,12 @@ export interface IStorage {
   getInvoiceByNumber(invoiceNumber: string): Promise<Invoice | undefined>;
   getInvoicesByEmail(email: string): Promise<Invoice[]>;
   markInvoicePaid(invoiceNumber: string): Promise<Invoice | undefined>;
+
+  createReminder(reminder: InsertReminder): Promise<Reminder>;
+  getRemindersByBookingId(bookingId: number): Promise<Reminder[]>;
+  getPendingReminders(): Promise<Reminder[]>;
+  markReminderSent(id: number): Promise<Reminder | undefined>;
+  getRemindersByEmail(email: string): Promise<Reminder[]>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -56,6 +62,33 @@ export class DatabaseStorage implements IStorage {
       .where(eq(invoices.invoiceNumber, invoiceNumber))
       .returning();
     return result;
+  }
+  async createReminder(reminder: InsertReminder): Promise<Reminder> {
+    const [result] = await db.insert(reminders).values(reminder).returning();
+    return result;
+  }
+
+  async getRemindersByBookingId(bookingId: number): Promise<Reminder[]> {
+    return db.select().from(reminders).where(eq(reminders.bookingId, bookingId)).orderBy(desc(reminders.scheduledFor));
+  }
+
+  async getPendingReminders(): Promise<Reminder[]> {
+    return db.select().from(reminders)
+      .where(and(eq(reminders.status, "pending"), lte(reminders.scheduledFor, new Date())))
+      .orderBy(reminders.scheduledFor);
+  }
+
+  async markReminderSent(id: number): Promise<Reminder | undefined> {
+    const [result] = await db
+      .update(reminders)
+      .set({ status: "sent", sentAt: new Date() })
+      .where(eq(reminders.id, id))
+      .returning();
+    return result;
+  }
+
+  async getRemindersByEmail(email: string): Promise<Reminder[]> {
+    return db.select().from(reminders).where(eq(reminders.customerEmail, email)).orderBy(desc(reminders.scheduledFor));
   }
 }
 

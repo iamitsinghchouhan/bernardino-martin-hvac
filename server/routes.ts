@@ -3,6 +3,7 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertBookingSchema, insertContactMessageSchema } from "@shared/schema";
 import { z } from "zod";
+import { scheduleRemindersForBooking, startReminderEngine } from "./reminder-engine";
 
 export async function registerRoutes(
   httpServer: Server,
@@ -13,6 +14,7 @@ export async function registerRoutes(
     try {
       const data = insertBookingSchema.parse(req.body);
       const booking = await storage.createBooking(data);
+      await scheduleRemindersForBooking(booking);
       res.status(201).json(booking);
     } catch (error) {
       if (error instanceof z.ZodError) {
@@ -90,6 +92,32 @@ export async function registerRoutes(
       res.status(500).json({ message: "Failed to process payment" });
     }
   });
+
+  app.get("/api/reminders", async (req, res) => {
+    try {
+      const email = req.query.email as string | undefined;
+      if (!email) {
+        return res.status(400).json({ message: "Email is required" });
+      }
+      const remindersList = await storage.getRemindersByEmail(email);
+      res.json(remindersList);
+    } catch (error) {
+      console.error("Get reminders error:", error);
+      res.status(500).json({ message: "Failed to get reminders" });
+    }
+  });
+
+  app.get("/api/reminders/pending", async (_req, res) => {
+    try {
+      const pending = await storage.getPendingReminders();
+      res.json(pending);
+    } catch (error) {
+      console.error("Get pending reminders error:", error);
+      res.status(500).json({ message: "Failed to get pending reminders" });
+    }
+  });
+
+  startReminderEngine();
 
   return httpServer;
 }
