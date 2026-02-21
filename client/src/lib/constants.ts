@@ -188,6 +188,8 @@ export const SERVICES = [
 ];
 
 export const CITIES = [
-  "Los Angeles", "Santa Monica", "Beverly Hills", "Pasadena", "Glendale", "Burbank", 
-  "North Hollywood", "Sherman Oaks", "Encino", "Van Nuys", "Studio City", "Culver City"
+  "Malibu", "Burbank", "Gardena", "Glendale", "Torrance", "Hawthorne", 
+  "Inglewood", "El Segundo", "Long Beach", "Culver City", "Los Angeles", 
+  "Santa Monica", "Hermosa Beach", "Redondo Beach", "West Hollywood", 
+  "Manhattan Beach", "San Fernando Valley", "Playa Del Rey"
 ];
