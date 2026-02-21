@@ -34,6 +34,8 @@ The project follows a three-directory monorepo pattern:
 - Booking (appointment scheduling form submits to `/api/bookings`)
 - Payment (invoice lookup and payment flow)
 - Dashboard (customer portal — lookup by email to see invoices/bookings)
+- Admin Login (`/admin/login` — password-based admin authentication)
+- Admin Dashboard (`/admin` — tabbed panel: overview stats, appointments management, invoices CRUD, contact messages, reminders)
 
 **Key Client Patterns:**
 - `apiRequest()` utility in `lib/queryClient.ts` handles all API calls with JSON content type and credentials
@@ -53,7 +55,20 @@ The project follows a three-directory monorepo pattern:
 - `GET /api/bookings` — List bookings (optionally filtered by email query param)
 - `POST /api/contact` — Submit a contact message
 - `GET /api/invoices/lookup` — Look up invoices by email or invoice number
-- Invoice creation and payment marking endpoints (in storage layer)
+- `POST /api/invoices/:invoiceNumber/pay` — Mark an invoice as paid
+- `GET /api/reminders` — Get reminders by email
+- `GET /api/reminders/pending` — Get all pending reminders
+- **Admin Routes** (all require session auth via `requireAdmin` middleware):
+  - `POST /api/admin/login` — Admin login with ADMIN_PASSWORD secret
+  - `POST /api/admin/logout` — Admin logout (destroys session)
+  - `GET /api/admin/me` — Check admin auth status
+  - `GET /api/admin/stats` — Dashboard aggregate statistics
+  - `GET /api/admin/bookings` — All bookings
+  - `PATCH /api/admin/bookings/:id/status` — Update booking status
+  - `GET /api/admin/invoices` — All invoices
+  - `POST /api/admin/invoices` — Create new invoice
+  - `GET /api/admin/contacts` — All contact messages
+  - `GET /api/admin/reminders` — All reminders
 
 **Request Validation:** Zod schemas (generated via `drizzle-zod` from the DB schema) validate all incoming POST data.
 
