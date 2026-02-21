@@ -431,6 +431,241 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Testimonials / Trust Reinforcement */}
+      <section className="py-20 bg-slate-50 border-t border-slate-200">
+        <div className="container mx-auto px-4">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <Badge className="bg-secondary/10 text-secondary border-secondary/20 hover:bg-secondary/20 px-4 py-1.5 mb-4 text-sm font-bold">Customer Reviews</Badge>
+            <h2 className="text-3xl md:text-4xl font-heading font-bold text-slate-900 mb-4">
+              What Our Customers Say
+            </h2>
+            <p className="text-lg text-slate-600">
+              Real feedback from homeowners and businesses across Los Angeles who trust us with their comfort.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {[
+              {
+                name: "Maria G.",
+                location: "Glendale, CA",
+                service: "AC Installation",
+                review: "Bernardino and his team were incredible. They installed a brand new AC system in one day and the pricing was very fair. Our house has never been more comfortable. Highly recommend!",
+                rating: 5,
+              },
+              {
+                name: "James T.",
+                location: "Burbank, CA",
+                service: "Solar Panel Installation",
+                review: "We wanted to go solar and got quotes from several companies. BM HVAC was the most transparent and affordable. The installation was clean, professional, and our electric bill dropped significantly.",
+                rating: 5,
+              },
+              {
+                name: "Patricia L.",
+                location: "San Fernando Valley",
+                service: "Emergency Heating Repair",
+                review: "Our heater broke on a cold night and they came out the same evening. Fixed the problem quickly and didn't overcharge us. This is a company that actually cares about their customers.",
+                rating: 5,
+              },
+            ].map((t, i) => (
+              <Card key={i} className="bg-white border-slate-100 shadow-md hover:shadow-lg transition-shadow" data-testid={`card-testimonial-${i}`}>
+                <CardContent className="p-6 space-y-4">
+                  <div className="flex gap-0.5">
+                    {Array.from({ length: t.rating }).map((_, s) => (
+                      <Star key={s} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                    ))}
+                  </div>
+                  <p className="text-slate-700 leading-relaxed text-sm">"{t.review}"</p>
+                  <div className="border-t pt-4">
+                    <div className="font-bold text-slate-900">{t.name}</div>
+                    <div className="text-xs text-slate-500">{t.service} &bull; {t.location}</div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Educational / Advice Content */}
+      <section className="py-20 bg-white border-t border-slate-100">
+        <div className="container mx-auto px-4">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <Badge className="bg-primary/10 text-primary border-primary/20 hover:bg-primary/20 px-4 py-1.5 mb-4 text-sm font-bold">Expert Tips</Badge>
+            <h2 className="text-3xl md:text-4xl font-heading font-bold text-slate-900 mb-4">
+              HVAC Tips & Energy Savings Guide
+            </h2>
+            <p className="text-lg text-slate-600">
+              Expert advice from our certified technicians to help you save money and keep your systems running efficiently.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <Card className="border-slate-100 shadow-md" data-testid="card-tips-0">
+              <CardContent className="p-6 space-y-4">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="p-2 rounded-lg bg-primary/10 text-primary">
+                    <Shield className="h-5 w-5" />
+                  </div>
+                  <h3 className="text-lg font-bold text-slate-900">Maintenance Best Practices</h3>
+                </div>
+                <ul className="space-y-2.5">
+                  {["Change air filters every 1-3 months", "Schedule professional tune-ups twice a year", "Keep outdoor units clear of debris and vegetation", "Check thermostat batteries and calibration annually", "Inspect ductwork for leaks and seal gaps"].map((tip, j) => (
+                    <li key={j} className="flex items-start gap-2 text-sm text-slate-600">
+                      <Check className="h-4 w-4 text-secondary shrink-0 mt-0.5" />
+                      <span>{tip}</span>
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+            <Card className="border-slate-100 shadow-md" data-testid="card-tips-1">
+              <CardContent className="p-6 space-y-4">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="p-2 rounded-lg bg-secondary/10 text-secondary">
+                    <Activity className="h-5 w-5" />
+                  </div>
+                  <h3 className="text-lg font-bold text-slate-900">Energy Efficiency Tips</h3>
+                </div>
+                <ul className="space-y-2.5">
+                  {["Install a programmable or smart thermostat", "Seal windows and doors to prevent air leaks", "Use ceiling fans to assist air circulation", "Consider upgrading to a high-efficiency HVAC system", "Add insulation to attic and crawl spaces"].map((tip, j) => (
+                    <li key={j} className="flex items-start gap-2 text-sm text-slate-600">
+                      <Check className="h-4 w-4 text-secondary shrink-0 mt-0.5" />
+                      <span>{tip}</span>
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+            <Card className="border-slate-100 shadow-md" data-testid="card-tips-2">
+              <CardContent className="p-6 space-y-4">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="p-2 rounded-lg bg-red-100 text-red-600">
+                    <AlertTriangle className="h-5 w-5" />
+                  </div>
+                  <h3 className="text-lg font-bold text-slate-900">When to Call a Professional</h3>
+                </div>
+                <ul className="space-y-2.5">
+                  {["Unusual noises from your HVAC unit", "Inconsistent temperatures between rooms", "System cycling on and off frequently", "Spike in energy bills without usage changes", "Visible ice buildup on refrigerant lines"].map((tip, j) => (
+                    <li key={j} className="flex items-start gap-2 text-sm text-slate-600">
+                      <Check className="h-4 w-4 text-secondary shrink-0 mt-0.5" />
+                      <span>{tip}</span>
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="text-center mt-12">
+            <Button variant="outline" className="border-primary text-primary hover:bg-primary/5 font-semibold" asChild>
+              <Link href="/quote">Get a Free Expert Assessment</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Financing / Payment Options */}
+      <section className="py-20 bg-slate-900 text-white border-t border-slate-800">
+        <div className="container mx-auto px-4">
+          <div className="max-w-5xl mx-auto">
+            <div className="flex flex-col lg:flex-row items-center gap-12">
+              <div className="w-full lg:w-1/2 space-y-6">
+                <Badge className="bg-secondary/20 text-green-300 border-secondary/40">Flexible Payment Options</Badge>
+                <h2 className="text-3xl md:text-4xl font-heading font-bold text-white">
+                  Affordable Comfort, Your Way
+                </h2>
+                <p className="text-lg text-slate-300 leading-relaxed">
+                  Major upgrades and installations shouldn't break the bank. We offer flexible payment solutions so you can invest in your home's comfort without the stress.
+                </p>
+
+                <ul className="space-y-4 pt-2">
+                  {[
+                    { title: "Transparent Upfront Pricing", desc: "No hidden fees or surprise charges. Know the full cost before work begins." },
+                    { title: "Flexible Payment Plans", desc: "Spread the cost of larger projects into manageable monthly payments." },
+                    { title: "Free Estimates on Major Projects", desc: "Get a detailed written quote before making any commitment." },
+                    { title: "Seasonal Promotions & Discounts", desc: "Take advantage of our monthly specials to save on services." },
+                  ].map((item, i) => (
+                    <li key={i} className="flex items-start gap-3">
+                      <div className="bg-secondary/20 p-1.5 rounded-full text-secondary mt-0.5">
+                        <Check className="h-4 w-4" />
+                      </div>
+                      <div>
+                        <span className="font-bold text-white block">{item.title}</span>
+                        <span className="text-slate-400 text-sm">{item.desc}</span>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="pt-4 flex flex-col sm:flex-row gap-3">
+                  <Button size="lg" className="bg-secondary hover:bg-secondary/90 text-white font-bold shadow-lg shadow-secondary/20" asChild>
+                    <Link href="/quote">Get a Free Quote</Link>
+                  </Button>
+                  <Button size="lg" variant="outline" className="border-slate-600 text-slate-200 hover:bg-white/10" asChild>
+                    <a href={`tel:${COMPANY_PHONE.replace(/\D/g, '')}`}>
+                      <Phone className="mr-2 h-5 w-5" /> Discuss Options
+                    </a>
+                  </Button>
+                </div>
+              </div>
+
+              <div className="w-full lg:w-1/2">
+                <div className="bg-slate-800/50 border border-slate-700 rounded-2xl p-8 space-y-6">
+                  <h3 className="text-xl font-bold text-white text-center">Popular Upgrade Projects</h3>
+                  {[
+                    { project: "Central AC Installation", range: "Starting from $3,500", tag: "Most Popular" },
+                    { project: "Solar Panel System", range: "Custom quote with rebates", tag: "Best Value" },
+                    { project: "Complete HVAC Replacement", range: "Starting from $5,000", tag: "Long-Term Savings" },
+                    { project: "Ductless Mini-Split System", range: "Starting from $2,500", tag: "Energy Efficient" },
+                  ].map((p, i) => (
+                    <div key={i} className="flex items-center justify-between p-3 rounded-lg bg-slate-900/50 border border-slate-700">
+                      <div>
+                        <div className="font-semibold text-white text-sm">{p.project}</div>
+                        <div className="text-xs text-slate-400">{p.range}</div>
+                      </div>
+                      <Badge className="bg-primary/20 text-sky-300 border-primary/40 text-xs">{p.tag}</Badge>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Emergency / Priority Service */}
+      <section className="py-16 bg-red-50 border-t border-red-100">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-8">
+            <div className="flex-shrink-0 bg-red-100 p-5 rounded-2xl">
+              <AlertTriangle className="h-12 w-12 text-red-600" />
+            </div>
+            <div className="flex-1 text-center md:text-left">
+              <h2 className="text-2xl md:text-3xl font-heading font-bold text-slate-900 mb-2">
+                Need Emergency Service?
+              </h2>
+              <p className="text-slate-600 mb-1">
+                No heat? AC failure? Water leak? We offer same-day emergency service across Los Angeles — including nights and weekends.
+              </p>
+              <p className="text-sm text-slate-500">
+                Priority scheduling available for Comfort Club members at no extra charge.
+              </p>
+            </div>
+            <div className="flex flex-col gap-3 flex-shrink-0">
+              <Button size="lg" className="bg-red-600 hover:bg-red-700 text-white font-bold shadow-lg shadow-red-500/20 h-12 px-6" asChild>
+                <a href={`tel:${COMPANY_PHONE.replace(/\D/g, '')}`}>
+                  <Phone className="mr-2 h-5 w-5" /> Call Now
+                </a>
+              </Button>
+              <Button size="lg" variant="outline" className="border-red-200 text-red-700 hover:bg-red-100 font-semibold" asChild>
+                <Link href="/quote">Request Priority Quote</Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="py-20 bg-primary text-white text-center relative overflow-hidden">
         <div className="absolute inset-0 bg-slate-900/20 mix-blend-multiply"></div>
