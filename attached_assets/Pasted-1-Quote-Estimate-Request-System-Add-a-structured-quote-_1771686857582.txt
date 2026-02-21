@@ -1,0 +1,108 @@
+1. Quote / Estimate Request System
+
+Add a structured quote / estimate request interface allowing customers to submit detailed service inquiries.
+
+Include fields for:
+
+• Service type selection
+• Residential / Commercial selection
+• Problem / request description
+• Urgency level (standard / priority)
+• Contact information
+• Optional image or file upload support
+
+Ensure the form feels professional, minimal, and trust-focused.
+
+⸻
+
+✅ 2. Customer Invoice Lookup Portal
+
+Create a customer-facing invoice lookup system where users can:
+
+• Enter email and/or invoice number
+• View past invoices
+• Download invoice documents (PDF-ready structure)
+• View payment status (paid / pending)
+
+Maintain a clean, secure, professional interface.
+
+⸻
+
+✅ 3. Testimonial / Trust Reinforcement Section
+
+Add a testimonial / customer trust section designed for service-business credibility.
+
+Structure to support:
+
+• Customer reviews
+• Service descriptions
+• Optional location context
+• Clean professional layout
+
+Avoid clutter or decorative styling changes.
+
+⸻
+
+✅ 4. Sticky Mobile Conversion Bar
+
+Add a mobile-optimized sticky action bar including:
+
+• Call Now
+• WhatsApp Chat
+• Book Service / Contact
+
+Ensure behavior activates only on smaller screens.
+
+⸻
+
+✅ 5. Educational / Advice Content Section
+
+Add a structured informational / learning section supporting high-intent service topics such as:
+
+• Signs you need AC repair
+• Maintenance best practices
+• Energy efficiency insights
+
+Preserve SEO-friendly heading structure.
+
+⸻
+
+✅ 6. Financing / Payment Options Section
+
+Add a trust-building financing / payment flexibility section framed for large service projects.
+
+Focus on:
+
+• Upgrade framing
+• Customer reassurance
+• Clean professional tone
+
+⸻
+
+✅ 7. Emergency / Priority Service Framing
+
+Add subtle priority/emergency service messaging elements that increase conversion motivation without aggressive styling changes.
+
+⸻
+
+✅ 8. Admin Panel Expansion
+
+Enhance admin capabilities to support:
+
+• Appointment monitoring
+• Invoice visibility
+• Payment tracking
+• Customer record overview
+
+Maintain separation from public UI.
+
+⸻
+
+⚠ Critical Constraints
+
+• Preserve existing layout and design system
+• Do not alter typography hierarchy
+• Do not modify branding style
+• Avoid introducing visual clutter
+• Focus on functional additions and UX coherence
+• Maintain performance efficiency
