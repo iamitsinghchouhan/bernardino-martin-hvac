@@ -1,14 +1,122 @@
-import type { Express } from "express";
+import type { Express, Request, Response, NextFunction } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertBookingSchema, insertContactMessageSchema } from "@shared/schema";
+import { insertBookingSchema, insertContactMessageSchema, insertInvoiceSchema } from "@shared/schema";
 import { z } from "zod";
 import { scheduleRemindersForBooking, startReminderEngine } from "./reminder-engine";
+
+function requireAdmin(req: Request, res: Response, next: NextFunction) {
+  if (!req.session?.isAdmin) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+  next();
+}
 
 export async function registerRoutes(
   httpServer: Server,
   app: Express
 ): Promise<Server> {
+
+  app.post("/api/admin/login", (req, res) => {
+    const { password } = req.body;
+    if (password === process.env.ADMIN_PASSWORD) {
+      req.session.isAdmin = true;
+      return res.json({ success: true });
+    }
+    res.status(401).json({ message: "Invalid password" });
+  });
+
+  app.post("/api/admin/logout", (req, res) => {
+    req.session.destroy(() => {
+      res.json({ success: true });
+    });
+  });
+
+  app.get("/api/admin/me", (req, res) => {
+    res.json({ isAdmin: !!req.session?.isAdmin });
+  });
+
+  app.get("/api/admin/stats", requireAdmin, async (_req, res) => {
+    try {
+      const stats = await storage.getDashboardStats();
+      res.json(stats);
+    } catch (error) {
+      console.error("Admin stats error:", error);
+      res.status(500).json({ message: "Failed to get stats" });
+    }
+  });
+
+  app.get("/api/admin/bookings", requireAdmin, async (_req, res) => {
+    try {
+      const allBookings = await storage.getBookings();
+      res.json(allBookings);
+    } catch (error) {
+      console.error("Admin bookings error:", error);
+      res.status(500).json({ message: "Failed to get bookings" });
+    }
+  });
+
+  app.patch("/api/admin/bookings/:id/status", requireAdmin, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const { status } = req.body;
+      if (!status || !["pending", "confirmed", "completed", "cancelled"].includes(status)) {
+        return res.status(400).json({ message: "Invalid status" });
+      }
+      const booking = await storage.updateBookingStatus(id, status);
+      if (!booking) {
+        return res.status(404).json({ message: "Booking not found" });
+      }
+      res.json(booking);
+    } catch (error) {
+      console.error("Update booking status error:", error);
+      res.status(500).json({ message: "Failed to update booking" });
+    }
+  });
+
+  app.get("/api/admin/invoices", requireAdmin, async (_req, res) => {
+    try {
+      const allInvoices = await storage.getAllInvoices();
+      res.json(allInvoices);
+    } catch (error) {
+      console.error("Admin invoices error:", error);
+      res.status(500).json({ message: "Failed to get invoices" });
+    }
+  });
+
+  app.post("/api/admin/invoices", requireAdmin, async (req, res) => {
+    try {
+      const data = insertInvoiceSchema.parse(req.body);
+      const invoice = await storage.createInvoice(data);
+      res.status(201).json(invoice);
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ message: "Invalid invoice data", errors: error.errors });
+      }
+      console.error("Create invoice error:", error);
+      res.status(500).json({ message: "Failed to create invoice" });
+    }
+  });
+
+  app.get("/api/admin/contacts", requireAdmin, async (_req, res) => {
+    try {
+      const messages = await storage.getContactMessages();
+      res.json(messages);
+    } catch (error) {
+      console.error("Admin contacts error:", error);
+      res.status(500).json({ message: "Failed to get contacts" });
+    }
+  });
+
+  app.get("/api/admin/reminders", requireAdmin, async (_req, res) => {
+    try {
+      const allReminders = await storage.getAllReminders();
+      res.json(allReminders);
+    } catch (error) {
+      console.error("Admin reminders error:", error);
+      res.status(500).json({ message: "Failed to get reminders" });
+    }
+  });
 
   app.post("/api/bookings", async (req, res) => {
     try {

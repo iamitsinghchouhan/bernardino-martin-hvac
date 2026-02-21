@@ -1,18 +1,32 @@
 import { db } from "./db";
 import { bookings, contactMessages, invoices, reminders } from "@shared/schema";
 import type { Booking, InsertBooking, ContactMessage, InsertContactMessage, Invoice, InsertInvoice, Reminder, InsertReminder } from "@shared/schema";
-import { eq, or, desc, and, lte } from "drizzle-orm";
+import { eq, or, desc, and, lte, count, sql } from "drizzle-orm";
+
+export interface DashboardStats {
+  totalBookings: number;
+  pendingBookings: number;
+  totalInvoices: number;
+  paidInvoices: number;
+  unpaidInvoices: number;
+  totalRevenue: number;
+  totalContacts: number;
+  pendingReminders: number;
+}
 
 export interface IStorage {
   createBooking(booking: InsertBooking): Promise<Booking>;
   getBookings(): Promise<Booking[]>;
   getBookingsByEmail(email: string): Promise<Booking[]>;
+  updateBookingStatus(id: number, status: string): Promise<Booking | undefined>;
 
   createContactMessage(msg: InsertContactMessage): Promise<ContactMessage>;
+  getContactMessages(): Promise<ContactMessage[]>;
 
   createInvoice(invoice: InsertInvoice): Promise<Invoice>;
   getInvoiceByNumber(invoiceNumber: string): Promise<Invoice | undefined>;
   getInvoicesByEmail(email: string): Promise<Invoice[]>;
+  getAllInvoices(): Promise<Invoice[]>;
   markInvoicePaid(invoiceNumber: string): Promise<Invoice | undefined>;
 
   createReminder(reminder: InsertReminder): Promise<Reminder>;
@@ -20,6 +34,9 @@ export interface IStorage {
   getPendingReminders(): Promise<Reminder[]>;
   markReminderSent(id: number): Promise<Reminder | undefined>;
   getRemindersByEmail(email: string): Promise<Reminder[]>;
+  getAllReminders(): Promise<Reminder[]>;
+
+  getDashboardStats(): Promise<DashboardStats>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -89,6 +106,57 @@ export class DatabaseStorage implements IStorage {
 
   async getRemindersByEmail(email: string): Promise<Reminder[]> {
     return db.select().from(reminders).where(eq(reminders.customerEmail, email)).orderBy(desc(reminders.scheduledFor));
+  }
+
+  async updateBookingStatus(id: number, status: string): Promise<Booking | undefined> {
+    const [result] = await db
+      .update(bookings)
+      .set({ status })
+      .where(eq(bookings.id, id))
+      .returning();
+    return result;
+  }
+
+  async getContactMessages(): Promise<ContactMessage[]> {
+    return db.select().from(contactMessages).orderBy(desc(contactMessages.createdAt));
+  }
+
+  async getAllInvoices(): Promise<Invoice[]> {
+    return db.select().from(invoices).orderBy(desc(invoices.createdAt));
+  }
+
+  async getAllReminders(): Promise<Reminder[]> {
+    return db.select().from(reminders).orderBy(desc(reminders.scheduledFor));
+  }
+
+  async getDashboardStats(): Promise<DashboardStats> {
+    const [bookingStats] = await db.select({
+      total: count(),
+      pending: count(sql`CASE WHEN ${bookings.status} = 'pending' THEN 1 END`),
+    }).from(bookings);
+
+    const [invoiceStats] = await db.select({
+      total: count(),
+      paid: count(sql`CASE WHEN ${invoices.status} = 'paid' THEN 1 END`),
+      unpaid: count(sql`CASE WHEN ${invoices.status} != 'paid' THEN 1 END`),
+      revenue: sql<number>`COALESCE(SUM(CASE WHEN ${invoices.status} = 'paid' THEN ${invoices.amount} ELSE 0 END), 0)`,
+    }).from(invoices);
+
+    const [contactStats] = await db.select({ total: count() }).from(contactMessages);
+    const [reminderStats] = await db.select({
+      pending: count(sql`CASE WHEN ${reminders.status} = 'pending' THEN 1 END`),
+    }).from(reminders);
+
+    return {
+      totalBookings: bookingStats.total,
+      pendingBookings: bookingStats.pending,
+      totalInvoices: invoiceStats.total,
+      paidInvoices: invoiceStats.paid,
+      unpaidInvoices: invoiceStats.unpaid,
+      totalRevenue: Number(invoiceStats.revenue),
+      totalContacts: contactStats.total,
+      pendingReminders: reminderStats.pending,
+    };
   }
 }
 
