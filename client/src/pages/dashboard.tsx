@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { Download, User, CreditCard, Plus, Shield, Search, CalendarDays, Loader2 } from "lucide-react";
+import { Download, User, CreditCard, Plus, Shield, Search, CalendarDays, Loader2, Bell, Clock, Mail, MessageSquare } from "lucide-react";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "wouter";
@@ -21,6 +21,17 @@ export default function Dashboard() {
       const res = await fetch(`/api/invoices/lookup?email=${encodeURIComponent(searchEmail)}`);
       if (res.status === 404) return [];
       if (!res.ok) throw new Error("Failed to load invoices");
+      return res.json();
+    },
+    enabled: !!searchEmail,
+  });
+
+  const { data: reminders, isLoading: remindersLoading } = useQuery({
+    queryKey: ["/api/reminders", searchEmail],
+    queryFn: async () => {
+      if (!searchEmail) return [];
+      const res = await fetch(`/api/reminders?email=${encodeURIComponent(searchEmail)}`);
+      if (!res.ok) throw new Error("Failed to load reminders");
       return res.json();
     },
     enabled: !!searchEmail,
@@ -142,6 +153,50 @@ export default function Dashboard() {
                       ))}
                     </TableBody>
                   </Table>
+                )}
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2"><Bell className="h-5 w-5" /> Appointment Reminders</CardTitle>
+                <CardDescription>Automated reminders for your upcoming appointments.</CardDescription>
+              </CardHeader>
+              <CardContent>
+                {remindersLoading ? (
+                  <div className="flex items-center justify-center py-8 text-slate-500">
+                    <Loader2 className="h-5 w-5 animate-spin mr-2" /> Loading...
+                  </div>
+                ) : !reminders || reminders.length === 0 ? (
+                  <div className="text-center py-8 text-slate-500">
+                    <Bell className="h-10 w-10 mx-auto mb-3 text-slate-300" />
+                    <p>No reminders scheduled yet.</p>
+                    <p className="text-xs text-slate-400 mt-1">Reminders are automatically created when you book an appointment.</p>
+                  </div>
+                ) : (
+                  <div className="space-y-3">
+                    {reminders.map((r: any) => (
+                      <div key={r.id} className="flex items-start gap-3 p-3 rounded-lg border bg-slate-50" data-testid={`reminder-${r.id}`}>
+                        <div className={`p-2 rounded-full shrink-0 ${r.status === 'sent' ? 'bg-secondary/10 text-secondary' : 'bg-yellow-50 text-yellow-600'}`}>
+                          {r.channel === 'email' ? <Mail className="h-4 w-4" /> : <MessageSquare className="h-4 w-4" />}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2">
+                            <span className="font-medium text-sm">{r.reminderType === '24h_before' ? '24-hour reminder' : '1-hour reminder'}</span>
+                            <Badge variant="outline" className={`text-xs ${r.status === 'sent' ? 'bg-green-50 text-green-700 border-green-200' : 'bg-yellow-50 text-yellow-700 border-yellow-200'}`}>
+                              {r.status === 'sent' ? 'Sent' : 'Scheduled'}
+                            </Badge>
+                          </div>
+                          <p className="text-xs text-slate-500 mt-1">{r.serviceTitle} — {r.appointmentDate}</p>
+                          <div className="flex items-center gap-1 text-xs text-slate-400 mt-1">
+                            <Clock className="h-3 w-3" />
+                            <span>via {r.channel === 'email' ? 'Email' : 'SMS'}</span>
+                            {r.sentAt && <span> · Sent {new Date(r.sentAt).toLocaleString()}</span>}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 )}
               </CardContent>
             </Card>

@@ -39,6 +39,22 @@ export const invoices = pgTable("invoices", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
+export const reminders = pgTable("reminders", {
+  id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
+  bookingId: integer("booking_id").notNull(),
+  customerName: text("customer_name").notNull(),
+  customerEmail: text("customer_email").notNull(),
+  customerPhone: text("customer_phone").notNull(),
+  serviceTitle: text("service_title").notNull(),
+  appointmentDate: text("appointment_date").notNull(),
+  reminderType: text("reminder_type").notNull(),
+  channel: text("channel").notNull().default("email"),
+  status: text("status").notNull().default("pending"),
+  scheduledFor: timestamp("scheduled_for").notNull(),
+  sentAt: timestamp("sent_at"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
 export const insertBookingSchema = createInsertSchema(bookings).omit({
   id: true,
   status: true,
@@ -62,3 +78,11 @@ export type ContactMessage = typeof contactMessages.$inferSelect;
 export type InsertContactMessage = z.infer<typeof insertContactMessageSchema>;
 export type Invoice = typeof invoices.$inferSelect;
 export type InsertInvoice = z.infer<typeof insertInvoiceSchema>;
+
+export const insertReminderSchema = createInsertSchema(reminders).omit({
+  id: true,
+  sentAt: true,
+  createdAt: true,
+});
+export type Reminder = typeof reminders.$inferSelect;
+export type InsertReminder = z.infer<typeof insertReminderSchema>;
