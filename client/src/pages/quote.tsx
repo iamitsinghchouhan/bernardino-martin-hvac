@@ -68,7 +68,7 @@ export default function Quote() {
           <Card className="max-w-md w-full text-center shadow-xl border-t-4 border-t-green-500" data-testid="quote-success">
             <CardContent className="p-10">
               <div className="mx-auto bg-secondary/10 p-4 rounded-full w-fit mb-6">
-                <CheckCircle className="h-10 w-10 text-secondary" />
+                <CheckCircle className="h-10 w-10 text-secondary" aria-hidden="true" />
               </div>
               <h2 className="text-2xl font-heading font-bold mb-3">Quote Request Received!</h2>
               <p className="text-slate-600 mb-6">
@@ -177,8 +177,9 @@ export default function Quote() {
                     </div>
 
                     <div className="space-y-2">
-                      <label className="text-sm font-medium">Describe Your Project or Issue</label>
+                      <label htmlFor="quote-description" className="text-sm font-medium">Describe Your Project or Issue</label>
                       <Textarea
+                        id="quote-description"
                         placeholder="Tell us about the problem, system details, or what you're looking for..."
                         value={description}
                         onChange={e => setDescription(e.target.value)}
@@ -188,15 +189,27 @@ export default function Quote() {
                       />
                     </div>
 
-                    <div className="border-t pt-6">
-                      <h3 className="text-sm font-semibold mb-4 text-slate-700">Your Contact Information</h3>
+                    <fieldset className="border-t pt-6">
+                      <legend className="text-sm font-semibold mb-4 text-slate-700">Your Contact Information</legend>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <Input placeholder="Full Name" value={fullName} onChange={e => setFullName(e.target.value)} required data-testid="input-quote-name" />
-                        <Input placeholder="Phone Number" value={phone} onChange={e => setPhone(e.target.value)} required data-testid="input-quote-phone" />
-                        <Input placeholder="Email Address" type="email" value={email} onChange={e => setEmail(e.target.value)} required data-testid="input-quote-email" />
-                        <Input placeholder="Property Address (optional)" value={address} onChange={e => setAddress(e.target.value)} data-testid="input-quote-address" />
+                        <div>
+                          <label htmlFor="quote-name" className="sr-only">Full Name</label>
+                          <Input id="quote-name" placeholder="Full Name" value={fullName} onChange={e => setFullName(e.target.value)} required data-testid="input-quote-name" aria-label="Full Name" />
+                        </div>
+                        <div>
+                          <label htmlFor="quote-phone" className="sr-only">Phone Number</label>
+                          <Input id="quote-phone" placeholder="Phone Number" value={phone} onChange={e => setPhone(e.target.value)} required data-testid="input-quote-phone" aria-label="Phone Number" />
+                        </div>
+                        <div>
+                          <label htmlFor="quote-email" className="sr-only">Email Address</label>
+                          <Input id="quote-email" placeholder="Email Address" type="email" value={email} onChange={e => setEmail(e.target.value)} required data-testid="input-quote-email" aria-label="Email Address" />
+                        </div>
+                        <div>
+                          <label htmlFor="quote-address" className="sr-only">Property Address</label>
+                          <Input id="quote-address" placeholder="Property Address (optional)" value={address} onChange={e => setAddress(e.target.value)} data-testid="input-quote-address" aria-label="Property Address" />
+                        </div>
                       </div>
-                    </div>
+                    </fieldset>
 
                     <Button
                       type="submit"
@@ -205,7 +218,7 @@ export default function Quote() {
                       data-testid="button-submit-quote"
                     >
                       {quoteMutation.isPending ? (
-                        <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Submitting...</>
+                        <><Loader2 className="mr-2 h-4 w-4 animate-spin" aria-hidden="true" /> Submitting...</>
                       ) : (
                         "Get My Free Quote"
                       )}

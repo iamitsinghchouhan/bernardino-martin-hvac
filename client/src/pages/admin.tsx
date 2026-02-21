@@ -42,9 +42,9 @@ function StatusBadge({ status }: { status: string }) {
 function StatCard({ label, value, sub }: { label: string; value: string | number; sub?: string }) {
   return (
     <div className="bg-[#1a1f4e] rounded-xl p-5 border border-white/5">
-      <p className="text-gray-400 text-sm mb-1">{label}</p>
+      <p className="text-gray-300 text-sm mb-1">{label}</p>
       <p className="text-2xl font-bold text-white" style={{ fontFamily: "'Outfit', sans-serif" }}>{value}</p>
-      {sub && <p className="text-xs text-gray-500 mt-1">{sub}</p>}
+      {sub && <p className="text-xs text-gray-400 mt-1">{sub}</p>}
     </div>
   );
 }

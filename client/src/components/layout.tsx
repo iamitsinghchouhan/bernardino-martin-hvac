@@ -33,10 +33,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
   ];
 
   return (
+    <>
+    <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:z-[100] focus:top-2 focus:left-2 focus:bg-primary focus:text-white focus:px-4 focus:py-2 focus:rounded-md focus:font-semibold">
+      Skip to main content
+    </a>
     <div className="flex flex-col min-h-screen font-sans">
       {/* Emergency Banner */}
-      <div className="bg-red-600 text-white py-2.5 text-xs md:text-sm font-bold flex justify-center items-center gap-2 px-4 text-center">
-        <AlertCircle className="h-4 w-4 animate-pulse shrink-0" />
+      <div className="bg-red-600 text-white py-2.5 text-xs md:text-sm font-bold flex justify-center items-center gap-2 px-4 text-center" role="alert">
+        <AlertCircle className="h-4 w-4 animate-pulse shrink-0" aria-hidden="true" />
         <span>24/7 EMERGENCY SERVICE AVAILABLE IN LOS ANGELES — <a href={`tel:${COMPANY_PHONE.replace(/\D/g, '')}`} className="underline hover:text-red-100 transition-colors">{COMPANY_PHONE}</a></span>
       </div>
 
@@ -44,7 +48,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <div className="bg-slate-900 text-slate-300 py-2 text-xs md:text-sm font-medium">
         <div className="container mx-auto px-4 flex justify-between items-center">
           <div className="flex items-center gap-2">
-            <ShieldCheck className="h-4 w-4 text-green-400" />
+            <ShieldCheck className="h-4 w-4 text-green-400" aria-hidden="true" />
             <span>Licensed, Bonded & Insured #109283</span>
           </div>
           <div className="hidden md:flex gap-4">
@@ -62,8 +66,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
       >
         <div className="container mx-auto px-4 h-20 flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 group">
-              <img src="/logo-bm.webp" alt="BM Logo" className="h-14 w-14 object-contain rounded-lg bg-white p-1 shadow-sm border border-gray-100 group-hover:scale-105 transition-transform duration-300" loading="eager" fetchPriority="high" width={128} height={128} />
+          <Link href="/" className="flex items-center gap-3 group" aria-label="Bernardino Martin HVAC - Home">
+              <img src="/logo-bm.webp" alt="Bernardino Martin HVAC logo" className="h-14 w-14 object-contain rounded-lg bg-white p-1 shadow-sm border border-gray-100 group-hover:scale-105 transition-transform duration-300" loading="eager" fetchPriority="high" width={128} height={128} />
               <div className="flex flex-col">
                 <span className="font-heading font-bold text-lg leading-none text-primary tracking-tight">Bernardino Martin</span>
                 <span className="text-[10px] font-semibold text-secondary tracking-[0.2em] uppercase">Heating &bull; AC &bull; Solar</span>
@@ -71,9 +75,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden lg:flex items-center gap-8">
+          <nav className="hidden lg:flex items-center gap-8" aria-label="Main navigation">
             {navLinks.map((link) => (
-              <Link key={link.href} href={link.href} className={`text-sm font-medium transition-colors hover:text-primary ${
+              <Link key={link.href} href={link.href} aria-current={location === link.href ? "page" : undefined} className={`text-sm font-medium transition-colors hover:text-primary ${
                   location === link.href ? "text-primary font-semibold" : "text-slate-600"
                 }`}>
                   {link.label}
@@ -106,30 +110,30 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
           {/* Mobile Menu */}
           <div className="flex items-center gap-2 lg:hidden">
-             <a href={getWhatsAppLink("Hi, I have a question about your HVAC/Solar services.")} target="_blank" rel="noopener noreferrer">
-               <Button size="icon" className="rounded-full bg-secondary hover:bg-secondary/90 text-white shadow-sm border-0">
-                 <MessageCircle className="h-5 w-5" />
+             <a href={getWhatsAppLink("Hi, I have a question about your HVAC/Solar services.")} target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+               <Button size="icon" className="rounded-full bg-secondary hover:bg-secondary/90 text-white shadow-sm border-0" aria-hidden="true" tabIndex={-1}>
+                 <MessageCircle className="h-5 w-5" aria-hidden="true" />
                </Button>
              </a>
-             <a href={`tel:${COMPANY_PHONE.replace(/\D/g, '')}`}>
-               <Button size="icon" variant="outline" className="rounded-full border-primary/20 text-primary hover:bg-primary/10">
-                 <Phone className="h-5 w-5" />
+             <a href={`tel:${COMPANY_PHONE.replace(/\D/g, '')}`} aria-label={`Call us at ${COMPANY_PHONE}`}>
+               <Button size="icon" variant="outline" className="rounded-full border-primary/20 text-primary hover:bg-primary/10" aria-hidden="true" tabIndex={-1}>
+                 <Phone className="h-5 w-5" aria-hidden="true" />
                </Button>
              </a>
              <Sheet>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="-mr-2">
-                  <Menu className="h-6 w-6" />
+                <Button variant="ghost" size="icon" className="-mr-2" aria-label="Open navigation menu">
+                  <Menu className="h-6 w-6" aria-hidden="true" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-[300px] sm:w-[400px]">
-                <nav className="flex flex-col gap-6 mt-10">
+              <SheetContent side="right" className="w-[300px] sm:w-[400px]" aria-label="Navigation menu">
+                <nav className="flex flex-col gap-6 mt-10" aria-label="Mobile navigation">
                   <Link href="/" className="flex items-center gap-2 mb-6">
-                      <img src="/logo-bm.webp" alt="BM Logo" className="h-12 w-12 object-contain rounded-lg bg-white p-1 shadow-sm border border-gray-100" loading="eager" fetchPriority="high" width={128} height={128} />
+                      <img src="/logo-bm.webp" alt="Bernardino Martin HVAC logo" className="h-12 w-12 object-contain rounded-lg bg-white p-1 shadow-sm border border-gray-100" loading="eager" fetchPriority="high" width={128} height={128} />
                       <span className="font-heading font-bold text-lg text-primary">Bernardino Martin HVAC</span>
                   </Link>
                   {navLinks.map((link) => (
-                    <Link key={link.href} href={link.href} className={`text-lg font-medium py-2 border-b border-gray-100 ${
+                    <Link key={link.href} href={link.href} aria-current={location === link.href ? "page" : undefined} className={`text-lg font-medium py-2 border-b border-gray-100 ${
                         location === link.href ? "text-primary" : "text-slate-600"
                       }`}>
                         {link.label}
@@ -159,7 +163,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         </div>
       </header>
 
-      <main className="flex-1">
+      <main className="flex-1" id="main-content">
         {children}
       </main>
 
@@ -167,12 +171,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <ChatWidget />
       </Suspense>
 
-      <footer className="bg-slate-900 text-slate-300 py-12 border-t border-slate-800">
+      <footer className="bg-slate-900 text-slate-300 py-12 border-t border-slate-800" role="contentinfo">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
             <div>
               <div className="flex items-center gap-3 mb-4 text-white">
-                <img src="/logo-bm.webp" alt="BM Logo" className="h-16 w-16 object-contain rounded-lg bg-white p-1.5 shadow-md" loading="lazy" width={128} height={128} />
+                <img src="/logo-bm.webp" alt="Bernardino Martin HVAC logo" className="h-16 w-16 object-contain rounded-lg bg-white p-1.5 shadow-md" loading="lazy" width={128} height={128} />
                 <div className="flex flex-col">
                   <span className="font-heading font-bold text-lg leading-tight">Bernardino Martin</span>
                   <span className="text-[10px] font-semibold text-secondary tracking-[0.2em] uppercase">Heating &bull; AC &bull; Solar</span>
@@ -182,7 +186,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 BERNARDINO MARTIN'S Heating Air Conditioning, Solar. Top-rated HVAC, Solar, and Plumbing services in Los Angeles.
               </p>
               <div className="flex items-center gap-2 text-sm font-semibold text-secondary">
-                <ShieldCheck className="h-4 w-4" />
+                <ShieldCheck className="h-4 w-4" aria-hidden="true" />
                 <span>Licensed, Bonded & Insured</span>
               </div>
             </div>
@@ -256,5 +260,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
         </div>
       </footer>
     </div>
+    </>
   );
 }
