@@ -60,8 +60,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
           {/* Logo */}
           <Link href="/">
             <a className="flex items-center gap-2 group">
-              <div className="bg-gradient-to-br from-primary to-blue-600 text-white p-2 rounded-lg group-hover:shadow-lg transition-all duration-300">
-                <Sun className="h-6 w-6" />
+              <div className="bg-white text-primary p-1 rounded-lg group-hover:shadow-lg transition-all duration-300 border border-slate-100 flex items-center justify-center">
+                <img src="/favicon.png" alt="Bernardino Martin Logo" className="h-8 w-8 object-contain" />
               </div>
               <div className="flex flex-col">
                 <span className="font-heading font-bold text-xl leading-none text-slate-900 tracking-tight">Bernardino Martin</span>
@@ -128,10 +128,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 <nav className="flex flex-col gap-6 mt-10">
                   <Link href="/">
                     <a className="flex items-center gap-2 mb-6">
-                      <div className="bg-primary text-white p-2 rounded-md">
-                        <Sun className="h-5 w-5" />
+                      <div className="bg-white border p-1 rounded-md">
+                        <img src="/favicon.png" alt="Logo" className="h-6 w-6 object-contain" />
                       </div>
-                      <span className="font-heading font-bold text-lg">Bernardino Martin HVAC</span>
+                      <span className="font-heading font-bold text-lg text-slate-900">Bernardino Martin HVAC</span>
                     </a>
                   </Link>
                   {navLinks.map((link) => (
@@ -178,7 +178,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
             <div>
               <div className="flex items-center gap-2 mb-4 text-white">
-                <Sun className="h-6 w-6 text-primary" />
+                <div className="bg-white p-1 rounded-lg">
+                  <img src="/favicon.png" alt="Logo" className="h-8 w-8 object-contain" />
+                </div>
                 <span className="font-heading font-bold text-xl leading-tight">Bernardino Martin<br/>HVAC</span>
               </div>
               <p className="text-sm leading-relaxed mb-4 text-slate-400">
