@@ -8,7 +8,7 @@ const PROJECTS = [
     id: 1,
     title: "Commercial Rooftop HVAC",
     category: "Commercial HVAC",
-    image: "/images/real-rooftop-hvac.png",
+    image: "/images/real-rooftop-hvac.webp",
     description: "Complete installation of high-efficiency package units for a commercial complex in Downtown LA. This project involved crane lifting and custom ductwork integration.",
     location: "Downtown Los Angeles"
   },
@@ -16,7 +16,7 @@ const PROJECTS = [
     id: 2,
     title: "Residential Solar System",
     category: "Solar",
-    image: "/images/real-solar-install.png",
+    image: "/images/real-solar-install.webp",
     description: "20-panel solar array installation with inverter system for a family home. Optimized for maximum sun exposure and energy savings.",
     location: "Pasadena, CA"
   },
@@ -24,7 +24,7 @@ const PROJECTS = [
     id: 3,
     title: "Precision AC Diagnostics",
     category: "Repair",
-    image: "/images/real-diagnostics.png",
+    image: "/images/real-diagnostics.webp",
     description: "Advanced diagnostic troubleshooting to identify and fix cooling efficiency issues using digital manifold gauges.",
     location: "Sherman Oaks, CA"
   },
@@ -32,7 +32,7 @@ const PROJECTS = [
     id: 4,
     title: "Underground Pipe Trenching",
     category: "Plumbing",
-    image: "/images/real-trenching.png",
+    image: "/images/real-trenching.webp",
     description: "Excavation and trenching for new underground main water line installation. Replaced old galvanized pipes with durable copper.",
     location: "Van Nuys, CA"
   },
@@ -40,7 +40,7 @@ const PROJECTS = [
     id: 5,
     title: "Copper Main Line Welding",
     category: "Plumbing",
-    image: "/images/real-copper-welding.png",
+    image: "/images/real-copper-welding.webp",
     description: "Expert copper pipe welding for a durable and leak-free main water supply line. Precision craftsmanship ensures longevity.",
     location: "Burbank, CA"
   },
@@ -48,7 +48,7 @@ const PROJECTS = [
     id: 6,
     title: "Custom Ductwork Fabrication",
     category: "HVAC",
-    image: "/images/real-ductwork.png",
+    image: "/images/real-ductwork.webp",
     description: "Installation of custom-fabricated insulated ductwork for optimal airflow and energy efficiency in a residential attic.",
     location: "Glendale, CA"
   },
@@ -56,7 +56,7 @@ const PROJECTS = [
     id: 7,
     title: "Heavy Equipment Lifting",
     category: "Commercial",
-    image: "/images/real-crane-lift.png",
+    image: "/images/real-crane-lift.webp",
     description: "Crane lift operation for safe positioning of large commercial HVAC units. Safety and precision are our top priorities.",
     location: "North Hollywood, CA"
   },
@@ -64,7 +64,7 @@ const PROJECTS = [
     id: 8,
     title: "Solar Electrical Testing",
     category: "Solar",
-    image: "/images/real-solar-test.png",
+    image: "/images/real-solar-test.webp",
     description: "Comprehensive electrical testing and commissioning of a new solar energy system to ensure it meets all performance standards.",
     location: "Santa Monica, CA"
   }
@@ -99,6 +99,8 @@ export function ProjectGallery() {
                     src={project.image} 
                     alt={project.title} 
                     loading="lazy"
+                    width={800}
+                    height={600}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-90 transition-opacity duration-300 flex flex-col justify-end p-6">
@@ -124,6 +126,9 @@ export function ProjectGallery() {
                         <img 
                             src={project.image} 
                             alt={project.title} 
+                            loading="lazy"
+                            width={800}
+                            height={600}
                             className="max-h-[60vh] md:max-h-[80vh] w-full object-contain relative z-10"
                         />
                     </div>

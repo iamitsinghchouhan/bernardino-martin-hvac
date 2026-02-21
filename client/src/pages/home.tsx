@@ -20,9 +20,13 @@ export default function Home() {
       <section className="relative h-[600px] flex items-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img 
-            src="/images/real-solar-install.png" 
+            src="/images/real-solar-install.webp" 
             alt="Bernardino Martin HVAC Installation Team" 
             className="w-full h-full object-cover"
+            loading="eager"
+            fetchPriority="high"
+            width={1920}
+            height={1080}
           />
           <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/50 to-transparent" />
         </div>
@@ -134,7 +138,7 @@ export default function Home() {
             <div className="w-full lg:w-1/2 relative">
                <div className="absolute -inset-4 bg-gradient-to-tr from-slate-200 to-slate-50 rounded-3xl transform -rotate-3 z-0"></div>
                <div className="relative z-10 aspect-square rounded-2xl overflow-hidden shadow-2xl border-8 border-white">
-                  <img src="/images/real-diagnostics.png" alt="HVAC Technician diagnosing AC problem" className="w-full h-full object-cover" />
+                  <img src="/images/real-diagnostics.webp" alt="HVAC Technician diagnosing AC problem" className="w-full h-full object-cover" loading="lazy" width={1920} height={1080} />
                </div>
                
                {/* Floating Stats */}
@@ -173,6 +177,9 @@ export default function Home() {
                     src={service.image} 
                     alt={service.title} 
                     className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+                    loading="lazy"
+                    width={640}
+                    height={480}
                   />
                   <div className="absolute top-4 right-4 z-20 bg-white/90 backdrop-blur text-slate-900 text-xs font-bold px-3 py-1 rounded-full shadow-sm flex items-center gap-1">
                     <Clock className="h-3 w-3" /> {service.duration}
@@ -277,7 +284,7 @@ export default function Home() {
               </div>
               <div className="w-full lg:w-1/2">
                  <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-slate-700 group">
-                    <img src="/images/real-trenching.png" alt="Plumbing Installation" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                    <img src="/images/real-trenching.webp" alt="Plumbing Installation" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" width={1920} height={1080} />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent"></div>
                     <div className="absolute bottom-6 left-6 right-6">
                        <div className="bg-slate-900/80 backdrop-blur-md p-4 rounded-xl border border-slate-700 flex items-center justify-between">
@@ -311,7 +318,7 @@ export default function Home() {
             <div className="max-w-4xl mx-auto">
                <div className="bg-white rounded-3xl shadow-xl overflow-hidden flex flex-col md:flex-row border border-slate-100">
                   <div className="md:w-2/5 bg-slate-900 text-white p-10 flex flex-col justify-center relative overflow-hidden">
-                     <div className="absolute top-0 left-0 w-full h-full opacity-10" style={{backgroundImage: "url('/images/real-ac-service.png')", backgroundSize: "cover"}}></div>
+                     <div className="absolute top-0 left-0 w-full h-full opacity-10" style={{backgroundImage: "url('/images/real-ac-service.webp')", backgroundSize: "cover"}}></div>
                      <div className="relative z-10 text-center">
                         <div className="inline-block bg-primary/20 text-sky-300 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest mb-6">
                            Comfort Club
@@ -357,9 +364,12 @@ export default function Home() {
                <div className="relative">
                  <div className="absolute -inset-4 bg-primary/10 rounded-3xl transform rotate-2"></div>
                  <img 
-                   src="/images/technician.png" 
+                   src="/images/technician.webp" 
                    alt="Friendly Bernardino Martin Technician" 
                    className="rounded-2xl shadow-2xl w-full max-w-lg mx-auto relative z-10 border-4 border-white"
+                   loading="lazy"
+                   width={1920}
+                   height={1080}
                  />
                  <div className="absolute -bottom-6 -right-6 bg-white p-4 rounded-xl shadow-xl z-20 flex items-center gap-3">
                     <div className="bg-secondary/10 p-2 rounded-full text-secondary">
@@ -421,7 +431,7 @@ export default function Home() {
       {/* CTA Section */}
       <section className="py-20 bg-primary text-white text-center relative overflow-hidden">
         <div className="absolute inset-0 bg-slate-900/20 mix-blend-multiply"></div>
-        <div className="absolute inset-0 opacity-10" style={{backgroundImage: "url('/images/hero-home.png')", backgroundSize: "cover", backgroundPosition: "center"}}></div>
+        <div className="absolute inset-0 opacity-10" style={{backgroundImage: "url('/images/hero-home.webp')", backgroundSize: "cover", backgroundPosition: "center"}}></div>
         <div className="container mx-auto px-4 relative z-10">
           <h2 className="text-3xl md:text-5xl font-heading font-bold mb-6">
             Ready to Upgrade Your Home?
