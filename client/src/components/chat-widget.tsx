@@ -149,7 +149,7 @@ export function ChatWidget() {
       {/* Floating Toggle Button */}
       <Button
         onClick={() => setIsOpen(!isOpen)}
-        className={`fixed bottom-6 right-6 z-50 rounded-full h-14 w-14 shadow-2xl transition-all duration-300 ${isOpen ? 'rotate-90 bg-slate-800 hover:bg-slate-900' : 'bg-primary hover:bg-blue-600 animate-bounce-subtle'}`}
+        className={`fixed bottom-6 right-6 z-50 rounded-full h-14 w-14 shadow-2xl transition-all duration-300 ${isOpen ? 'rotate-90 bg-slate-800 hover:bg-slate-900' : 'bg-primary hover:bg-primary/90 animate-bounce-subtle'}`}
       >
         {isOpen ? <X className="h-6 w-6" /> : <MessageCircle className="h-7 w-7" />}
       </Button>
@@ -163,11 +163,11 @@ export function ChatWidget() {
                 <AvatarImage src="/images/technician.png" />
                 <AvatarFallback>BM</AvatarFallback>
                 </Avatar>
-                <span className="absolute bottom-0 right-0 w-3 h-3 bg-green-400 border-2 border-primary rounded-full"></span>
+                <span className="absolute bottom-0 right-0 w-3 h-3 bg-secondary border-2 border-primary rounded-full"></span>
             </div>
             <div>
               <CardTitle className="text-lg font-bold">Customer Support</CardTitle>
-              <p className="text-xs text-blue-100">Online | Replies instantly</p>
+              <p className="text-xs text-slate-300">Online | Replies instantly</p>
             </div>
           </CardHeader>
           
@@ -195,7 +195,7 @@ export function ChatWidget() {
                                 variant="outline"
                                 size="sm"
                                 onClick={opt.action}
-                                className="w-full justify-between text-xs font-semibold hover:bg-blue-50 hover:text-primary hover:border-blue-200 transition-colors bg-slate-50"
+                                className="w-full justify-between text-xs font-semibold hover:bg-primary/5 hover:text-primary hover:border-primary/20 transition-colors bg-slate-50"
                             >
                                 {opt.label}
                                 <ChevronRight className="h-3 w-3 opacity-50" />
@@ -225,7 +225,7 @@ export function ChatWidget() {
                 onChange={(e) => setInputValue(e.target.value)}
                 className="flex-1 bg-slate-50 border-slate-200 focus-visible:ring-primary"
               />
-              <Button type="submit" size="icon" className="bg-primary hover:bg-blue-600">
+              <Button type="submit" size="icon" className="bg-primary hover:bg-primary/90">
                 <Send className="h-4 w-4" />
               </Button>
             </form>

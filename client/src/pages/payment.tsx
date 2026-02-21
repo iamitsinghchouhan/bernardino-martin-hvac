@@ -168,7 +168,7 @@ export default function Payment() {
               <CardContent className="p-6">
                 {selectedInvoice.status === 'paid' ? (
                   <div className="text-center py-6">
-                    <CheckCircle className="h-12 w-12 text-green-600 mx-auto mb-4" />
+                    <CheckCircle className="h-12 w-12 text-secondary mx-auto mb-4" />
                     <h3 className="text-xl font-bold mb-2">Already Paid</h3>
                     <p className="text-slate-600 mb-4">This invoice has already been paid.</p>
                     <Button variant="outline" onClick={() => { setStep(1); setSelectedInvoice(null); }}>Look Up Another Invoice</Button>
@@ -236,7 +236,7 @@ export default function Payment() {
                       </div>
                     </div>
 
-                    <Button type="submit" className="w-full bg-primary hover:bg-blue-600 h-12 text-lg font-bold shadow-lg shadow-blue-500/20" disabled={payMutation.isPending} data-testid="button-pay-now">
+                    <Button type="submit" className="w-full bg-primary hover:bg-primary/90 h-12 text-lg font-bold shadow-lg shadow-primary/20" disabled={payMutation.isPending} data-testid="button-pay-now">
                       {payMutation.isPending ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Processing...</> : `Pay ${formatAmount(selectedInvoice.amount)}`}
                     </Button>
                     
@@ -283,8 +283,8 @@ export default function Payment() {
           {step === 3 && selectedInvoice && (
             <Card className="shadow-xl text-center p-8">
               <CardContent className="space-y-6 pt-6">
-                <div className="mx-auto bg-green-100 p-4 rounded-full w-fit">
-                  <CheckCircle className="h-12 w-12 text-green-600" />
+                <div className="mx-auto bg-secondary/10 p-4 rounded-full w-fit">
+                  <CheckCircle className="h-12 w-12 text-secondary" />
                 </div>
                 <div className="space-y-2">
                   <h2 className="text-3xl font-bold text-slate-900" data-testid="text-payment-success">Payment Successful!</h2>

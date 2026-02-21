@@ -76,11 +76,11 @@ export default function Contact() {
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <MessageCircle className="h-6 w-6 text-green-600 mt-1" />
+                  <MessageCircle className="h-6 w-6 text-secondary mt-1" />
                   <div>
                     <h3 className="font-semibold text-slate-900">WhatsApp</h3>
                     <p className="text-slate-600 mb-2">Chat with us instantly</p>
-                    <Button size="sm" className="bg-green-600 hover:bg-green-700 text-white border-0" asChild>
+                    <Button size="sm" className="bg-secondary hover:bg-secondary/90 text-white border-0" asChild>
                       <a href={getWhatsAppLink("Hello! I have a question about your services.")} target="_blank" rel="noopener noreferrer">
                         Chat on WhatsApp
                       </a>
@@ -126,8 +126,8 @@ export default function Contact() {
             <CardContent>
               {submitted ? (
                 <div className="text-center py-8">
-                  <div className="mx-auto bg-green-100 p-4 rounded-full w-fit mb-4">
-                    <CheckCircle className="h-8 w-8 text-green-600" />
+                  <div className="mx-auto bg-secondary/10 p-4 rounded-full w-fit mb-4">
+                    <CheckCircle className="h-8 w-8 text-secondary" />
                   </div>
                   <h3 className="text-xl font-bold mb-2">Message Sent!</h3>
                   <p className="text-slate-600 mb-6">Thank you for reaching out. We'll respond within 24 hours.</p>
@@ -158,7 +158,7 @@ export default function Contact() {
                     <Textarea id="message" placeholder="How can we help you?" className="min-h-[120px]" value={message} onChange={e => setMessage(e.target.value)} required data-testid="input-contact-message" />
                   </div>
                   
-                  <Button type="submit" className="w-full bg-primary hover:bg-blue-600" disabled={contactMutation.isPending} data-testid="button-send-message">
+                  <Button type="submit" className="w-full bg-primary hover:bg-primary/90" disabled={contactMutation.isPending} data-testid="button-send-message">
                     {contactMutation.isPending ? (
                       <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Sending...</>
                     ) : (

@@ -40,58 +40,57 @@
 :root {
   /* Clean White Background */
   --background: 0 0% 100%;
-  --foreground: 222 47% 11%; /* Dark Blue-Gray for text */
+  --foreground: 230 44% 16%; /* Deep Navy text */
 
-  /* Primary Blue (Trust/HVAC) */
-  --primary: 215 100% 45%; /* Vivid Blue */
+  /* Primary Deep Navy (from BM logo "B") */
+  --primary: 234 55% 20%; /* Deep Navy #1B1F4B */
   --primary-foreground: 0 0% 100%;
 
-  /* Secondary Green (Solar/Eco) */
-  --secondary: 142 76% 36%; /* Green */
+  /* Secondary Green (from BM logo "M") */
+  --secondary: 136 56% 46%; /* Vibrant Green #3DB54A */
   --secondary-foreground: 0 0% 100%;
 
   /* Accent/Callout */
-  --accent: 210 40% 96%; /* Very light blue */
-  --accent-foreground: 222 47% 11%;
+  --accent: 230 30% 96%; /* Very light navy tint */
+  --accent-foreground: 230 44% 16%;
 
   /* Cards/Surfaces */
   --card: 0 0% 100%;
-  --card-foreground: 222 47% 11%;
+  --card-foreground: 230 44% 16%;
   
   --popover: 0 0% 100%;
-  --popover-foreground: 222 47% 11%;
+  --popover-foreground: 230 44% 16%;
 
   /* Muted */
-  --muted: 210 40% 96.1%;
-  --muted-foreground: 215.4 16.3% 46.9%;
+  --muted: 230 20% 96%;
+  --muted-foreground: 230 12% 46%;
 
   /* Borders */
-  --border: 214.3 31.8% 91.4%;
-  --input: 214.3 31.8% 91.4%;
-  --ring: 215 100% 45%;
+  --border: 230 20% 91%;
+  --input: 230 20% 91%;
+  --ring: 234 55% 20%;
 
   --radius: 0.5rem;
 }
 
 .dark {
-  /* Kept for safety, but user requested clean white theme */
-  --background: 222 47% 11%;
-  --foreground: 210 40% 98%;
-  --primary: 215 100% 50%;
+  --background: 230 44% 10%;
+  --foreground: 230 10% 96%;
+  --primary: 234 55% 30%;
   --primary-foreground: 0 0% 100%;
-  --secondary: 142 70% 45%;
+  --secondary: 136 56% 46%;
   --secondary-foreground: 0 0% 100%;
-  --accent: 217 33% 17%;
-  --accent-foreground: 210 40% 98%;
-  --card: 222 47% 11%;
-  --card-foreground: 210 40% 98%;
-  --popover: 222 47% 11%;
-  --popover-foreground: 210 40% 98%;
-  --muted: 217 33% 17.5%;
-  --muted-foreground: 215 20.2% 65.1%;
-  --border: 217 33% 17.5%;
-  --input: 217 33% 17.5%;
-  --ring: 212.7 26.8% 83.9%;
+  --accent: 230 33% 17%;
+  --accent-foreground: 230 10% 96%;
+  --card: 230 44% 10%;
+  --card-foreground: 230 10% 96%;
+  --popover: 230 44% 10%;
+  --popover-foreground: 230 10% 96%;
+  --muted: 230 33% 17.5%;
+  --muted-foreground: 230 15% 65%;
+  --border: 230 33% 17.5%;
+  --input: 230 33% 17.5%;
+  --ring: 234 55% 30%;
 }
 
 @layer base {

@@ -20,7 +20,7 @@ export default function About() {
             <h2 className="text-2xl font-bold text-slate-900">Why Choose Us?</h2>
             <ul className="space-y-4">
               <li className="flex gap-4">
-                <div className="bg-blue-100 p-2 h-fit rounded-lg text-primary">
+                <div className="bg-primary/5 p-2 h-fit rounded-lg text-primary">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                 </div>
                 <div>
@@ -29,7 +29,7 @@ export default function About() {
                 </div>
               </li>
               <li className="flex gap-4">
-                <div className="bg-blue-100 p-2 h-fit rounded-lg text-primary">
+                <div className="bg-primary/5 p-2 h-fit rounded-lg text-primary">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
                 </div>
                 <div>
@@ -38,7 +38,7 @@ export default function About() {
                 </div>
               </li>
               <li className="flex gap-4">
-                <div className="bg-blue-100 p-2 h-fit rounded-lg text-primary">
+                <div className="bg-primary/5 p-2 h-fit rounded-lg text-primary">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
                 </div>
                 <div>

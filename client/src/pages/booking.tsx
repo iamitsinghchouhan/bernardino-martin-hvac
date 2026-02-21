@@ -69,8 +69,8 @@ export default function Booking() {
         <div className="container mx-auto px-4 py-20 min-h-[60vh] flex items-center justify-center">
           <Card className="max-w-md w-full text-center shadow-xl border-t-4 border-t-green-500">
             <CardContent className="p-10">
-              <div className="mx-auto bg-green-100 p-4 rounded-full w-fit mb-6">
-                <CheckCircle className="h-10 w-10 text-green-600" />
+              <div className="mx-auto bg-secondary/10 p-4 rounded-full w-fit mb-6">
+                <CheckCircle className="h-10 w-10 text-secondary" />
               </div>
               <h2 className="text-2xl font-heading font-bold mb-3">Request Received!</h2>
               <p className="text-slate-600 mb-6">
@@ -150,7 +150,7 @@ export default function Booking() {
                 <div className="mt-8 pt-6 border-t">
                   <Button
                     type="submit"
-                    className="w-full md:w-auto md:ml-auto block bg-primary hover:bg-blue-600"
+                    className="w-full md:w-auto md:ml-auto block bg-primary hover:bg-primary/90"
                     disabled={bookingMutation.isPending || !selectedService || !fullName || !phone || !email || !address}
                     data-testid="button-submit-booking"
                   >
