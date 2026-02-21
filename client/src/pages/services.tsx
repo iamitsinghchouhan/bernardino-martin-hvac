@@ -13,7 +13,7 @@ export default function Services() {
       
       {/* Hero Section */}
       <section className="bg-slate-900 text-white py-20 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-20" style={{backgroundImage: "url('/images/hero-home.png')", backgroundSize: "cover", backgroundPosition: "center"}}></div>
+        <div className="absolute inset-0 opacity-20" style={{backgroundImage: "url('/images/hero-home.webp')", backgroundSize: "cover", backgroundPosition: "center"}}></div>
         <div className="container mx-auto px-4 relative z-10 text-center max-w-3xl">
           <h1 className="text-4xl md:text-5xl font-heading font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-slate-300 to-white">
             Our Services
@@ -36,6 +36,9 @@ export default function Services() {
                     src={service.image} 
                     alt={service.title} 
                     className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+                    loading="lazy"
+                    width={640}
+                    height={480}
                   />
                   <div className="absolute top-4 right-4 z-20 bg-white/95 backdrop-blur text-slate-900 text-xs font-bold px-3 py-1.5 rounded-full shadow-sm flex items-center gap-1.5">
                     <Clock className="h-3.5 w-3.5 text-primary" /> {service.duration}

@@ -56,7 +56,7 @@ export default function ServiceAreas() {
       
       {/* Hero Section */}
       <section className="bg-slate-900 text-white py-20 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-20" style={{backgroundImage: "url('/images/hero-home.png')", backgroundSize: "cover", backgroundPosition: "center"}}></div>
+        <div className="absolute inset-0 opacity-20" style={{backgroundImage: "url('/images/hero-home.webp')", backgroundSize: "cover", backgroundPosition: "center"}}></div>
         <div className="container mx-auto px-4 relative z-10 text-center max-w-3xl">
           <h1 className="text-4xl md:text-5xl font-heading font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-slate-300 to-white">
             Our Service Areas
@@ -107,13 +107,11 @@ export default function ServiceAreas() {
           <h2 className="text-3xl font-heading font-bold mb-8 text-center">Cities We Serve</h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {CITIES.map((city) => (
-              <Link key={city} href={`/booking?service=ac-repair`}>
-                <a className="flex items-center gap-3 p-4 bg-white border border-slate-200 rounded-xl hover:border-primary hover:shadow-lg hover:-translate-y-1 transition-all group">
+              <Link key={city} href={`/booking?service=ac-repair`} className="flex items-center gap-3 p-4 bg-white border border-slate-200 rounded-xl hover:border-primary hover:shadow-lg hover:-translate-y-1 transition-all group">
                   <div className="bg-primary/5 p-2 rounded-lg group-hover:bg-primary transition-colors">
                     <MapPin className="h-4 w-4 text-primary group-hover:text-white transition-colors" />
                   </div>
                   <span className="font-semibold text-slate-700 group-hover:text-slate-900">{city}</span>
-                </a>
               </Link>
             ))}
           </div>

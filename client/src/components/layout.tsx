@@ -62,25 +62,21 @@ export function Layout({ children }: { children: React.ReactNode }) {
       >
         <div className="container mx-auto px-4 h-20 flex items-center justify-between">
           {/* Logo */}
-          <Link href="/">
-            <a className="flex items-center gap-3 group">
-              <img src="/logo-bm.png" alt="BM Logo" className="h-14 w-14 object-contain rounded-lg bg-white p-1 shadow-sm border border-gray-100 group-hover:scale-105 transition-transform duration-300" />
+          <Link href="/" className="flex items-center gap-3 group">
+              <img src="/logo-bm.webp" alt="BM Logo" className="h-14 w-14 object-contain rounded-lg bg-white p-1 shadow-sm border border-gray-100 group-hover:scale-105 transition-transform duration-300" loading="eager" fetchPriority="high" width={128} height={128} />
               <div className="flex flex-col">
                 <span className="font-heading font-bold text-lg leading-none text-primary tracking-tight">Bernardino Martin</span>
                 <span className="text-[10px] font-semibold text-secondary tracking-[0.2em] uppercase">Heating &bull; AC &bull; Solar</span>
               </div>
-            </a>
           </Link>
 
           {/* Desktop Nav */}
           <nav className="hidden lg:flex items-center gap-8">
             {navLinks.map((link) => (
-              <Link key={link.href} href={link.href}>
-                <a className={`text-sm font-medium transition-colors hover:text-primary ${
+              <Link key={link.href} href={link.href} className={`text-sm font-medium transition-colors hover:text-primary ${
                   location === link.href ? "text-primary font-semibold" : "text-slate-600"
                 }`}>
                   {link.label}
-                </a>
               </Link>
             ))}
           </nav>
@@ -128,19 +124,15 @@ export function Layout({ children }: { children: React.ReactNode }) {
               </SheetTrigger>
               <SheetContent side="right" className="w-[300px] sm:w-[400px]">
                 <nav className="flex flex-col gap-6 mt-10">
-                  <Link href="/">
-                    <a className="flex items-center gap-2 mb-6">
-                      <img src="/logo-bm.png" alt="BM Logo" className="h-12 w-12 object-contain rounded-lg bg-white p-1 shadow-sm border border-gray-100" />
+                  <Link href="/" className="flex items-center gap-2 mb-6">
+                      <img src="/logo-bm.webp" alt="BM Logo" className="h-12 w-12 object-contain rounded-lg bg-white p-1 shadow-sm border border-gray-100" loading="eager" fetchPriority="high" width={128} height={128} />
                       <span className="font-heading font-bold text-lg text-primary">Bernardino Martin HVAC</span>
-                    </a>
                   </Link>
                   {navLinks.map((link) => (
-                    <Link key={link.href} href={link.href}>
-                      <a className={`text-lg font-medium py-2 border-b border-gray-100 ${
+                    <Link key={link.href} href={link.href} className={`text-lg font-medium py-2 border-b border-gray-100 ${
                         location === link.href ? "text-primary" : "text-slate-600"
                       }`}>
                         {link.label}
-                      </a>
                     </Link>
                   ))}
                   <div className="flex flex-col gap-3 mt-4">
@@ -178,7 +170,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
             <div>
               <div className="flex items-center gap-3 mb-4 text-white">
-                <img src="/logo-bm.png" alt="BM Logo" className="h-16 w-16 object-contain rounded-lg bg-white p-1.5 shadow-md" />
+                <img src="/logo-bm.webp" alt="BM Logo" className="h-16 w-16 object-contain rounded-lg bg-white p-1.5 shadow-md" loading="lazy" width={128} height={128} />
                 <div className="flex flex-col">
                   <span className="font-heading font-bold text-lg leading-tight">Bernardino Martin</span>
                   <span className="text-[10px] font-semibold text-secondary tracking-[0.2em] uppercase">Heating &bull; AC &bull; Solar</span>
@@ -196,22 +188,22 @@ export function Layout({ children }: { children: React.ReactNode }) {
             <div>
               <h3 className="text-white font-bold mb-4 font-heading">Services</h3>
               <ul className="space-y-2 text-sm">
-                <li><Link href="/services"><a className="hover:text-secondary transition-colors">AC Repair & Installation</a></Link></li>
-                <li><Link href="/services"><a className="hover:text-secondary transition-colors">Heating Services</a></Link></li>
-                <li><Link href="/services"><a className="hover:text-secondary transition-colors">Solar Panel Installation</a></Link></li>
-                <li><Link href="/services"><a className="hover:text-secondary transition-colors">Maintenance Tune-Ups</a></Link></li>
-                <li><Link href="/services"><a className="hover:text-secondary transition-colors">Plumbing & Pipe Work</a></Link></li>
+                <li><Link href="/services" className="hover:text-secondary transition-colors">AC Repair & Installation</Link></li>
+                <li><Link href="/services" className="hover:text-secondary transition-colors">Heating Services</Link></li>
+                <li><Link href="/services" className="hover:text-secondary transition-colors">Solar Panel Installation</Link></li>
+                <li><Link href="/services" className="hover:text-secondary transition-colors">Maintenance Tune-Ups</Link></li>
+                <li><Link href="/services" className="hover:text-secondary transition-colors">Plumbing & Pipe Work</Link></li>
               </ul>
             </div>
 
             <div>
               <h3 className="text-white font-bold mb-4 font-heading">Service Areas</h3>
               <ul className="space-y-2 text-sm">
-                <li><Link href="/service-areas"><a className="hover:text-secondary transition-colors">Los Angeles</a></Link></li>
-                <li><Link href="/service-areas"><a className="hover:text-secondary transition-colors">Santa Monica</a></Link></li>
-                <li><Link href="/service-areas"><a className="hover:text-secondary transition-colors">Pasadena</a></Link></li>
-                <li><Link href="/service-areas"><a className="hover:text-secondary transition-colors">Beverly Hills</a></Link></li>
-                <li><Link href="/service-areas"><a className="hover:text-secondary transition-colors">All Locations</a></Link></li>
+                <li><Link href="/service-areas" className="hover:text-secondary transition-colors">Los Angeles</Link></li>
+                <li><Link href="/service-areas" className="hover:text-secondary transition-colors">Santa Monica</Link></li>
+                <li><Link href="/service-areas" className="hover:text-secondary transition-colors">Pasadena</Link></li>
+                <li><Link href="/service-areas" className="hover:text-secondary transition-colors">Beverly Hills</Link></li>
+                <li><Link href="/service-areas" className="hover:text-secondary transition-colors">All Locations</Link></li>
               </ul>
             </div>
 

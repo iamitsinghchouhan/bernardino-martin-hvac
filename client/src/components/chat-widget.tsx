@@ -160,7 +160,7 @@ export function ChatWidget() {
           <CardHeader className="bg-primary text-white p-4 rounded-t-xl flex flex-row items-center gap-3">
             <div className="relative">
                 <Avatar className="h-10 w-10 border-2 border-white/50">
-                <AvatarImage src="/images/technician.png" />
+                <AvatarImage src="/images/technician.webp" />
                 <AvatarFallback>BM</AvatarFallback>
                 </Avatar>
                 <span className="absolute bottom-0 right-0 w-3 h-3 bg-secondary border-2 border-primary rounded-full"></span>
