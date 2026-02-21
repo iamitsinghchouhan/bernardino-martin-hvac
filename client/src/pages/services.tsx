@@ -9,7 +9,7 @@ import { Check, MessageCircle, Clock } from "lucide-react";
 export default function Services() {
   return (
     <Layout>
-      <SEO title="Services" description="Comprehensive HVAC and Solar services including installation, repair, and maintenance." />
+      <SEO title="HVAC, Solar & Plumbing Services in Los Angeles" description="AC repair, heating installation, solar panel systems & plumbing services in Los Angeles. Licensed technicians, same-day service & free estimates. Call (818) 356-3468." />
       
       {/* Hero Section */}
       <section className="bg-slate-900 text-white py-20 relative overflow-hidden">

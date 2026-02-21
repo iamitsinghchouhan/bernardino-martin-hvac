@@ -12,8 +12,8 @@ export default function Home() {
   return (
     <Layout>
       <SEO 
-        title="Home" 
-        description={`${COMPANY_NAME}. Top-rated HVAC, Solar, and Plumbing services in Los Angeles. Get 10% off AC repair, heating services, and solar installation.`}
+        title="Los Angeles HVAC, Solar & Plumbing Services" 
+        description={`${COMPANY_NAME} — Licensed & insured heating, air conditioning, solar panel installation & plumbing in Los Angeles. 24/7 emergency service. Call (818) 356-3468 for a free estimate.`}
       />
       
       {/* Hero Section - Using Real Job Photo */}

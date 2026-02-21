@@ -91,7 +91,7 @@ export default function Payment() {
 
   return (
     <Layout>
-      <SEO title="Pay Online" description="Secure online payment portal for Bernardino Martin HVAC services." noindex={true} />
+      <SEO title="Pay Your HVAC Invoice Online – Secure Payment Portal" description="Pay your Bernardino Martin HVAC service invoice online. Secure, fast & convenient payment for heating, cooling, solar & plumbing services in Los Angeles." noindex={true} />
       <div className="container mx-auto px-4 py-20 min-h-[80vh] flex items-center justify-center bg-slate-50">
         <div className="w-full max-w-lg">
           {step === 1 && (

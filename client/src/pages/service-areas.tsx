@@ -52,7 +52,7 @@ export default function ServiceAreas() {
 
   return (
     <Layout>
-      <SEO title="Service Areas" description="We serve Los Angeles and surrounding areas with professional HVAC and Solar services." />
+      <SEO title="HVAC & Solar Service Areas – Los Angeles, Pasadena & Beyond" description="Serving Los Angeles, Santa Monica, Pasadena, Beverly Hills & surrounding cities with professional HVAC repair, solar installation & plumbing. Call for same-day service." />
       
       {/* Hero Section */}
       <section className="bg-slate-900 text-white py-20 relative overflow-hidden">
