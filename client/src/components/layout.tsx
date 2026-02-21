@@ -24,6 +24,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
     { href: "/about", label: "About Us" },
     { href: "/services", label: "Services" },
     { href: "/service-areas", label: "Service Areas" },
+    { href: "/payment", label: "Pay Online" },
     { href: "/contact", label: "Contact Us" },
   ];
 
@@ -224,6 +225,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 </li>
               </ul>
               <div className="flex flex-col gap-2 mt-4">
+                <Button className="w-full bg-slate-800 hover:bg-slate-700 text-white" asChild>
+                  <Link href="/payment">Pay Invoice Online</Link>
+                </Button>
                 <Button className="w-full bg-primary hover:bg-blue-600" asChild>
                   <Link href="/booking">Book Appointment</Link>
                 </Button>
