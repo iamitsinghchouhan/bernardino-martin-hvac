@@ -68,6 +68,15 @@ The project follows a three-directory monorepo pattern:
 1. **`bookings`** — Service appointment requests (service details, customer info, preferred date, status)
 2. **`contact_messages`** — Contact form submissions (name, phone, email, message)
 3. **`invoices`** — Customer invoices (invoice number, customer info, amount in cents, status, due date, paid timestamp)
+4. **`reminders`** — Automated appointment reminders (booking reference, customer info, reminder type, channel, scheduled time, sent status)
+
+### Reminder Engine
+- `server/reminder-engine.ts` handles automated appointment reminders
+- When a booking is created, 24-hour (email) and 1-hour (SMS) reminders are auto-scheduled
+- Background engine checks for pending reminders every 60 seconds and processes them
+- Currently logs reminders to console (ready for SendGrid/Twilio integration)
+- API: `GET /api/reminders?email=xxx` returns reminders for a customer
+- Dashboard shows reminder status cards with channel type and delivery status
 
 ### Storage Layer
 - `server/storage.ts` implements `IStorage` interface with `DatabaseStorage` class
