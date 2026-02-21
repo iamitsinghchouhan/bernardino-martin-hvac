@@ -47,7 +47,7 @@ export const SERVICES = [
     description: "Professional duct cleaning to improve indoor air quality and optimize airflow throughout your home.",
     price: "Custom Quote",
     duration: "2-4 Hours",
-    image: "/images/svc-clean-ducts.jpg",
+    image: "/images/svc-clean-ducts.png",
     icon: Fan
   },
   {
@@ -56,7 +56,7 @@ export const SERVICES = [
     description: "Installation, repair, and maintenance for energy-efficient ductless mini-split systems.",
     price: "Custom Quote",
     duration: "Varies",
-    image: "/images/svc-ductless.jpg",
+    image: "/images/svc-ductless.png",
     icon: Thermometer
   },
   {
@@ -65,7 +65,7 @@ export const SERVICES = [
     description: "Comprehensive heating system inspections to ensure safe and reliable winter operation.",
     price: "From $69",
     duration: "1 Hour",
-    image: "/images/svc-heating-maint.jpg",
+    image: "/images/svc-heating-maint.png",
     icon: Flame
   },
   {
@@ -74,7 +74,7 @@ export const SERVICES = [
     description: "Complete system tune-ups covering both heating and cooling components for year-round comfort.",
     price: "From $89",
     duration: "1.5 Hours",
-    image: "/images/svc-hvac-maint.jpg",
+    image: "/images/svc-hvac-maint.png",
     icon: Wrench
   },
   {
@@ -83,7 +83,7 @@ export const SERVICES = [
     description: "Expert installation of high-efficiency air conditioning systems tailored to your home's needs.",
     price: "Free Estimate",
     duration: "1-2 Days",
-    image: "/images/svc-install-ac.jpg",
+    image: "/images/svc-install-ac.png",
     icon: Wind
   },
   {
@@ -92,7 +92,7 @@ export const SERVICES = [
     description: "Custom ductwork design and installation for optimal air distribution and system performance.",
     price: "Free Estimate",
     duration: "1-3 Days",
-    image: "/images/svc-install-ducts.jpg",
+    image: "/images/svc-install-ducts.png",
     icon: Fan
   },
   {
@@ -101,7 +101,7 @@ export const SERVICES = [
     description: "Professional furnace and heating system installation ensuring maximum safety and warmth.",
     price: "Free Estimate",
     duration: "1-2 Days",
-    image: "/images/svc-install-heating.jpg",
+    image: "/images/svc-install-heating.png",
     icon: Flame
   },
   {
@@ -110,7 +110,7 @@ export const SERVICES = [
     description: "Smart thermostat installation and programming for better energy management and convenience.",
     price: "From $129",
     duration: "1 Hour",
-    image: "/images/svc-install-thermostat.jpg",
+    image: "/images/svc-install-thermostat.png",
     icon: Settings
   },
   {
@@ -119,7 +119,7 @@ export const SERVICES = [
     description: "Fast, reliable diagnostics and repair for all makes and models of air conditioning systems.",
     price: "$89 Service Call",
     duration: "1-2 Hours",
-    image: "/images/svc-repair-ac.jpg",
+    image: "/images/svc-repair-ac.png",
     icon: PenTool
   },
   {
@@ -128,7 +128,7 @@ export const SERVICES = [
     description: "Sealing leaks and repairing damaged ductwork to restore system efficiency and airflow.",
     price: "Custom Quote",
     duration: "2-4 Hours",
-    image: "/images/svc-repair-ducts.jpg",
+    image: "/images/svc-repair-ducts.png",
     icon: Wrench
   },
   {
@@ -137,7 +137,7 @@ export const SERVICES = [
     description: "Emergency repairs and troubleshooting for furnaces and heating units to restore warmth fast.",
     price: "$89 Service Call",
     duration: "1-2 Hours",
-    image: "/images/svc-repair-heating.jpg",
+    image: "/images/svc-repair-heating.png",
     icon: PenTool
   },
   {
@@ -146,7 +146,7 @@ export const SERVICES = [
     description: "Comprehensive troubleshooting and repair services for complex heating and cooling issues.",
     price: "$89 Service Call",
     duration: "1-3 Hours",
-    image: "/images/svc-repair-hvac.jpg",
+    image: "/images/svc-repair-hvac.png",
     icon: Wrench
   },
   {
@@ -155,7 +155,7 @@ export const SERVICES = [
     description: "Fixing connectivity issues, replacing faulty sensors, and restoring proper thermostat function.",
     price: "From $89",
     duration: "1 Hour",
-    image: "/images/svc-repair-thermostat.jpg",
+    image: "/images/svc-repair-thermostat.png",
     icon: Settings
   },
   {
@@ -173,7 +173,7 @@ export const SERVICES = [
     description: "Maintenance, cleaning, and repair for existing solar systems to ensure peak efficiency.",
     price: "From $149",
     duration: "2 Hours",
-    image: "/images/svc-solar-service.jpg", 
+    image: "/images/svc-solar-service.png", 
     icon: Zap
   },
   {
@@ -182,7 +182,7 @@ export const SERVICES = [
     description: "Specialized in underground pipe trenching, copper main line welding, and pipe deformation repair.",
     price: "Custom Quote",
     duration: "Varies",
-    image: "/images/svc-plumbing.jpg",
+    image: "/images/svc-plumbing.png",
     icon: Droplets
   }
 ];
