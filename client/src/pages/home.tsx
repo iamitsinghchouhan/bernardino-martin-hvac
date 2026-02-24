@@ -14,7 +14,7 @@ export default function Home() {
     <Layout>
       <SEO 
         title="Los Angeles HVAC, Solar & Plumbing Services" 
-        description={`${COMPANY_NAME} — Licensed & insured heating, air conditioning, solar panel installation & plumbing in Los Angeles. 24/7 emergency service. Call (818) 356-3468 for a free estimate.`}
+        description={`${COMPANY_NAME} — Licensed & insured heating, air conditioning, solar panel installation & plumbing in Los Angeles. 24/7 emergency service. Call (818) 400-0227 for a free estimate.`}
       />
       
       {/* Hero Section - Using Real Job Photo */}

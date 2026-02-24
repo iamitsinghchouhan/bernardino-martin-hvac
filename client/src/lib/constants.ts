@@ -3,10 +3,10 @@ import {
   MessageCircle, Droplets, Fan, Settings, Flame, PenTool 
 } from "lucide-react";
 
-export const COMPANY_PHONE = "(818) 356-3468";
+export const COMPANY_PHONE = "(818) 400-0227";
 export const COMPANY_NAME = "BERNARDINO MARTIN'S Heating Air Conditioning, Solar";
 
-export const WHATSAPP_NUMBER = "18183563468";
+export const WHATSAPP_NUMBER = "18184000227";
 
 export function getWhatsAppLink(message: string = "Hello, I would like to inquire about your services.") {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
