@@ -122,8 +122,8 @@ The project follows a three-directory monorepo pattern:
 - **Recharts** — Chart components (available but may not be actively used on all pages)
 
 ### Communication Integrations
-- **WhatsApp** — Deep links to WhatsApp for customer communication (configured with business phone number `18183563468`)
-- **Phone** — Click-to-call links using company phone `(818) 356-3468`
+- **WhatsApp** — Deep links to WhatsApp for customer communication (configured with business phone number `18184000227`)
+- **Phone** — Click-to-call links using company phone `(818) 400-0227`
 
 ### Build/Dev Tooling
 - **Vite** — Frontend build tool with HMR
