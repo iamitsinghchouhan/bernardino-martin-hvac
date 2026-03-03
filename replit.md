@@ -50,6 +50,8 @@ The project follows a three-directory monorepo pattern:
 - **Dev Server:** Vite dev server middleware is integrated for HMR during development (`server/vite.ts`)
 - **Production:** Static files served from `dist/public` (`server/static.ts`)
 
+**Session Management:** PostgreSQL-backed sessions via `connect-pg-simple` (uses the existing `pg.Pool` connection; auto-creates `session` table)
+
 **API Routes (in `server/routes.ts`):**
 - `POST /api/bookings` — Create a service booking
 - `GET /api/bookings` — List bookings (optionally filtered by email query param)
