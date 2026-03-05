@@ -6,6 +6,50 @@ import { serveStatic } from "./static";
 import { createServer } from "http";
 import crypto from "crypto";
 import { pool } from "./db";
+import { logger } from "./logger";
+
+const isProduction = process.env.NODE_ENV === "production";
+
+process.on("uncaughtException", (err) => {
+  logger.fatal({ err }, "Uncaught exception — process will continue but this should be investigated");
+});
+
+process.on("unhandledRejection", (reason) => {
+  logger.error({ reason }, "Unhandled promise rejection");
+});
+
+function validateEnv() {
+  const missing: string[] = [];
+
+  if (!process.env.DATABASE_URL) {
+    missing.push("DATABASE_URL");
+  }
+
+  if (missing.length > 0) {
+    throw new Error(`Missing required environment variables: ${missing.join(", ")}`);
+  }
+
+  if (!process.env.SESSION_SECRET) {
+    if (isProduction) {
+      logger.warn("SESSION_SECRET is not set — sessions will not persist across server restarts in production");
+    } else {
+      logger.info("SESSION_SECRET not set — using random secret for development");
+    }
+  }
+
+  const optional: { key: string; label: string }[] = [
+    { key: "STRIPE_SECRET_KEY", label: "Stripe payment integration" },
+    { key: "ADMIN_PASSWORD", label: "Admin panel login" },
+  ];
+
+  for (const { key, label } of optional) {
+    if (!process.env[key]) {
+      logger.info(`Optional env variable ${key} not set — ${label} may be unavailable`);
+    }
+  }
+}
+
+validateEnv();
 
 const PgStore = connectPgSimple(session);
 
@@ -34,8 +78,6 @@ app.use(
 
 app.use(express.urlencoded({ extended: false }));
 
-const isProduction = process.env.NODE_ENV === "production";
-
 if (isProduction) {
   app.set("trust proxy", 1);
 }
@@ -60,14 +102,7 @@ app.use(
 );
 
 export function log(message: string, source = "express") {
-  const formattedTime = new Date().toLocaleTimeString("en-US", {
-    hour: "numeric",
-    minute: "2-digit",
-    second: "2-digit",
-    hour12: true,
-  });
-
-  console.log(`${formattedTime} [${source}] ${message}`);
+  logger.info({ source }, message);
 }
 
 app.use((req, res, next) => {
@@ -84,12 +119,16 @@ app.use((req, res, next) => {
   res.on("finish", () => {
     const duration = Date.now() - start;
     if (path.startsWith("/api")) {
-      let logLine = `${req.method} ${path} ${res.statusCode} in ${duration}ms`;
-      if (capturedJsonResponse) {
-        logLine += ` :: ${JSON.stringify(capturedJsonResponse)}`;
-      }
-
-      log(logLine);
+      logger.info(
+        {
+          method: req.method,
+          path,
+          statusCode: res.statusCode,
+          duration,
+          ...(capturedJsonResponse ? { response: capturedJsonResponse } : {}),
+        },
+        `${req.method} ${path} ${res.statusCode} in ${duration}ms`,
+      );
     }
   });
 
@@ -103,7 +142,7 @@ app.use((req, res, next) => {
     const status = err.status || err.statusCode || 500;
     const message = err.message || "Internal Server Error";
 
-    console.error("Internal Server Error:", err);
+    logger.error({ err, status }, "Request error");
 
     if (res.headersSent) {
       return next(err);
@@ -112,9 +151,6 @@ app.use((req, res, next) => {
     return res.status(status).json({ message });
   });
 
-  // importantly only setup vite in development and after
-  // setting up all the other routes so the catch-all route
-  // doesn't interfere with the other routes
   if (process.env.NODE_ENV === "production") {
     serveStatic(app);
   } else {
@@ -122,10 +158,6 @@ app.use((req, res, next) => {
     await setupVite(httpServer, app);
   }
 
-  // ALWAYS serve the app on the port specified in the environment variable PORT
-  // Other ports are firewalled. Default to 5000 if not specified.
-  // this serves both the API and the client.
-  // It is the only port that is not firewalled.
   const port = parseInt(process.env.PORT || "5000", 10);
   httpServer.listen(
     {

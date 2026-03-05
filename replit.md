@@ -121,8 +121,20 @@ The project follows a three-directory monorepo pattern:
 
 ## External Dependencies
 
+### Logging
+- **Logger:** Pino structured logger (`server/logger.ts`) replaces raw console.log across all server files
+- **Dev mode:** Pretty-printed with colors via pino-pretty
+- **Production mode:** JSON-structured logs for deployment log analysis
+- All API routes, reminders, and errors use structured logging with context fields
+
+### Server Stability
+- **Process error handlers:** `uncaughtException` and `unhandledRejection` handlers in `server/index.ts`
+- **Env validation:** Startup checks for `DATABASE_URL`, `SESSION_SECRET`, `STRIPE_SECRET_KEY`, `ADMIN_PASSWORD`
+- **SSL:** PostgreSQL connection uses `ssl: { rejectUnauthorized: false }` for compatibility
+- **Sessions:** PostgreSQL-backed via `connect-pg-simple` (auto-creates `session` table)
+
 ### Required Services
-- **PostgreSQL Database** — Required. Set `DATABASE_URL` environment variable. Used for all persistent data (bookings, contacts, invoices).
+- **PostgreSQL Database** — Required. Set `DATABASE_URL` environment variable. Used for all persistent data (bookings, contacts, invoices, sessions).
 
 ### Frontend Libraries
 - **Leaflet** — Interactive maps for service area visualization (loaded from CDN for marker icons)

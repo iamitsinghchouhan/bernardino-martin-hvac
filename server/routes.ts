@@ -4,6 +4,7 @@ import { storage } from "./storage";
 import { insertBookingSchema, insertContactMessageSchema, insertInvoiceSchema, insertQuoteSchema } from "@shared/schema";
 import { z } from "zod";
 import { scheduleRemindersForBooking, startReminderEngine } from "./reminder-engine";
+import { logger } from "./logger";
 
 function requireAdmin(req: Request, res: Response, next: NextFunction) {
   if (!req.session?.isAdmin) {
@@ -41,7 +42,7 @@ export async function registerRoutes(
       const stats = await storage.getDashboardStats();
       res.json(stats);
     } catch (error) {
-      console.error("Admin stats error:", error);
+      logger.error({ err: error }, "Admin stats error");
       res.status(500).json({ message: "Failed to get stats" });
     }
   });
@@ -51,7 +52,7 @@ export async function registerRoutes(
       const allBookings = await storage.getBookings();
       res.json(allBookings);
     } catch (error) {
-      console.error("Admin bookings error:", error);
+      logger.error({ err: error }, "Admin bookings error");
       res.status(500).json({ message: "Failed to get bookings" });
     }
   });
@@ -69,7 +70,7 @@ export async function registerRoutes(
       }
       res.json(booking);
     } catch (error) {
-      console.error("Update booking status error:", error);
+      logger.error({ err: error }, "Update booking status error");
       res.status(500).json({ message: "Failed to update booking" });
     }
   });
@@ -79,7 +80,7 @@ export async function registerRoutes(
       const allInvoices = await storage.getAllInvoices();
       res.json(allInvoices);
     } catch (error) {
-      console.error("Admin invoices error:", error);
+      logger.error({ err: error }, "Admin invoices error");
       res.status(500).json({ message: "Failed to get invoices" });
     }
   });
@@ -93,7 +94,7 @@ export async function registerRoutes(
       if (error instanceof z.ZodError) {
         return res.status(400).json({ message: "Invalid invoice data", errors: error.errors });
       }
-      console.error("Create invoice error:", error);
+      logger.error({ err: error }, "Create invoice error");
       res.status(500).json({ message: "Failed to create invoice" });
     }
   });
@@ -103,7 +104,7 @@ export async function registerRoutes(
       const messages = await storage.getContactMessages();
       res.json(messages);
     } catch (error) {
-      console.error("Admin contacts error:", error);
+      logger.error({ err: error }, "Admin contacts error");
       res.status(500).json({ message: "Failed to get contacts" });
     }
   });
@@ -113,7 +114,7 @@ export async function registerRoutes(
       const allReminders = await storage.getAllReminders();
       res.json(allReminders);
     } catch (error) {
-      console.error("Admin reminders error:", error);
+      logger.error({ err: error }, "Admin reminders error");
       res.status(500).json({ message: "Failed to get reminders" });
     }
   });
@@ -127,7 +128,7 @@ export async function registerRoutes(
       if (error instanceof z.ZodError) {
         return res.status(400).json({ message: "Invalid quote data", errors: error.errors });
       }
-      console.error("Quote error:", error);
+      logger.error({ err: error }, "Quote error");
       res.status(500).json({ message: "Failed to submit quote request" });
     }
   });
@@ -137,7 +138,7 @@ export async function registerRoutes(
       const allQuotes = await storage.getQuotes();
       res.json(allQuotes);
     } catch (error) {
-      console.error("Admin quotes error:", error);
+      logger.error({ err: error }, "Admin quotes error");
       res.status(500).json({ message: "Failed to get quotes" });
     }
   });
@@ -152,7 +153,7 @@ export async function registerRoutes(
       if (error instanceof z.ZodError) {
         return res.status(400).json({ message: "Invalid booking data", errors: error.errors });
       }
-      console.error("Booking error:", error);
+      logger.error({ err: error }, "Booking error");
       res.status(500).json({ message: "Failed to create booking" });
     }
   });
@@ -165,7 +166,7 @@ export async function registerRoutes(
         : await storage.getBookings();
       res.json(bookings);
     } catch (error) {
-      console.error("Get bookings error:", error);
+      logger.error({ err: error }, "Get bookings error");
       res.status(500).json({ message: "Failed to get bookings" });
     }
   });
@@ -179,7 +180,7 @@ export async function registerRoutes(
       if (error instanceof z.ZodError) {
         return res.status(400).json({ message: "Invalid message data", errors: error.errors });
       }
-      console.error("Contact error:", error);
+      logger.error({ err: error }, "Contact error");
       res.status(500).json({ message: "Failed to send message" });
     }
   });
@@ -207,7 +208,7 @@ export async function registerRoutes(
 
       res.status(400).json({ message: "Please provide an invoice number or email" });
     } catch (error) {
-      console.error("Invoice lookup error:", error);
+      logger.error({ err: error }, "Invoice lookup error");
       res.status(500).json({ message: "Failed to look up invoice" });
     }
   });
@@ -220,7 +221,7 @@ export async function registerRoutes(
       }
       res.json(invoice);
     } catch (error) {
-      console.error("Payment error:", error);
+      logger.error({ err: error }, "Payment error");
       res.status(500).json({ message: "Failed to process payment" });
     }
   });
@@ -234,7 +235,7 @@ export async function registerRoutes(
       const remindersList = await storage.getRemindersByEmail(email);
       res.json(remindersList);
     } catch (error) {
-      console.error("Get reminders error:", error);
+      logger.error({ err: error }, "Get reminders error");
       res.status(500).json({ message: "Failed to get reminders" });
     }
   });
@@ -244,7 +245,7 @@ export async function registerRoutes(
       const pending = await storage.getPendingReminders();
       res.json(pending);
     } catch (error) {
-      console.error("Get pending reminders error:", error);
+      logger.error({ err: error }, "Get pending reminders error");
       res.status(500).json({ message: "Failed to get pending reminders" });
     }
   });
