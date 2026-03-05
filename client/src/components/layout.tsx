@@ -245,7 +245,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
             </div>
           </div>
           
-          <div className="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
+          <div className="pt-8 pb-20 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-xs text-slate-500">&copy; {new Date().getFullYear()} {COMPANY_FULL}. All rights reserved.</p>
             <div className="flex items-center gap-4 text-slate-400">
                <a href="https://www.youtube.com/@bernardinomartinhvac" target="_blank" rel="noopener noreferrer" className="hover:text-secondary transition-colors" aria-label="YouTube" data-testid="link-youtube"><Youtube className="h-5 w-5" /></a>
