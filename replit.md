@@ -115,7 +115,7 @@ server/
 - **ORM:** Drizzle ORM with `drizzle-orm/node-postgres` driver
 - **Schema Location:** `shared/schema.ts`
 - **Migrations:** Managed via `drizzle-kit push` (schema-push approach)
-- **Connection:** `pg.Pool` in `server/db.ts` with SSL (`rejectUnauthorized: false`)
+- **Connection:** `pg.Pool` in `server/db.ts` with SSL (`rejectUnauthorized: false`, auto-appends `sslmode=no-verify` if missing)
 - **Tables:** bookings, contact_messages, invoices, reminders, quotes, session
 
 ### Database Backup System
