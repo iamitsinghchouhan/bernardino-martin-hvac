@@ -94,6 +94,10 @@ app.use(helmet({
 
 app.use(compression());
 
+app.get("/health", (_req: Request, res: Response) => {
+  res.status(200).json({ status: "ok", timestamp: new Date().toISOString() });
+});
+
 app.use(
   express.json({
     limit: "1mb",
@@ -111,10 +115,10 @@ if (isProduction) {
   app.set("trust proxy", 1);
 
   app.use((req: Request, res: Response, next: NextFunction) => {
-    if (req.path === "/health") {
+    if (req.path === "/health" || req.path === "/") {
       return next();
     }
-    if (req.headers["x-forwarded-proto"] !== "https") {
+    if (req.headers["x-forwarded-proto"] && req.headers["x-forwarded-proto"] !== "https") {
       return res.redirect(301, `https://${req.hostname}${req.originalUrl}`);
     }
     next();
