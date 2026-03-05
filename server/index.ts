@@ -1,12 +1,16 @@
 import express, { type Request, Response, NextFunction } from "express";
 import session from "express-session";
 import connectPgSimple from "connect-pg-simple";
+import helmet from "helmet";
+import compression from "compression";
 import { registerRoutes } from "./routes";
 import { serveStatic } from "./static";
 import { createServer } from "http";
 import crypto from "crypto";
 import { pool } from "./db";
 import { logger } from "./logger";
+import { sanitizeInput } from "./middleware/sanitize";
+import { errorHandler } from "./middleware/error-handler";
 
 const isProduction = process.env.NODE_ENV === "production";
 
@@ -68,18 +72,49 @@ declare module "express-session" {
   }
 }
 
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
+      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://cdnjs.cloudflare.com"],
+      fontSrc: ["'self'", "https://fonts.gstatic.com", "https://cdnjs.cloudflare.com"],
+      imgSrc: ["'self'", "data:", "blob:", "https://basemaps.cartocdn.com", "https://cdnjs.cloudflare.com", "https://*.tile.openstreetmap.org"],
+      mediaSrc: ["'self'", "blob:"],
+      connectSrc: ["'self'", "ws:", "wss:"],
+      frameSrc: ["'none'"],
+      objectSrc: ["'none'"],
+      baseUri: ["'self'"],
+    },
+  },
+  crossOriginEmbedderPolicy: false,
+  crossOriginResourcePolicy: { policy: "cross-origin" },
+}));
+
+app.use(compression());
+
 app.use(
   express.json({
+    limit: "1mb",
     verify: (req, _res, buf) => {
       req.rawBody = buf;
     },
   }),
 );
 
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: false, limit: "1mb" }));
+
+app.use(sanitizeInput);
 
 if (isProduction) {
   app.set("trust proxy", 1);
+
+  app.use((req: Request, res: Response, next: NextFunction) => {
+    if (req.headers["x-forwarded-proto"] !== "https") {
+      return res.redirect(301, `https://${req.hostname}${req.originalUrl}`);
+    }
+    next();
+  });
 }
 
 app.use(
@@ -95,15 +130,11 @@ app.use(
     cookie: {
       secure: isProduction,
       httpOnly: true,
-      sameSite: "lax",
+      sameSite: "strict",
       maxAge: 24 * 60 * 60 * 1000,
     },
   }),
 );
-
-export function log(message: string, source = "express") {
-  logger.info({ source }, message);
-}
 
 app.use((req, res, next) => {
   const start = Date.now();
@@ -138,20 +169,9 @@ app.use((req, res, next) => {
 (async () => {
   await registerRoutes(httpServer, app);
 
-  app.use((err: any, _req: Request, res: Response, next: NextFunction) => {
-    const status = err.status || err.statusCode || 500;
-    const message = err.message || "Internal Server Error";
+  app.use(errorHandler);
 
-    logger.error({ err, status }, "Request error");
-
-    if (res.headersSent) {
-      return next(err);
-    }
-
-    return res.status(status).json({ message });
-  });
-
-  if (process.env.NODE_ENV === "production") {
+  if (isProduction) {
     serveStatic(app);
   } else {
     const { setupVite } = await import("./vite");
@@ -166,7 +186,7 @@ app.use((req, res, next) => {
       reusePort: true,
     },
     () => {
-      log(`serving on port ${port}`);
+      logger.info({ source: "express" }, `serving on port ${port}`);
     },
   );
 })();

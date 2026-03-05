@@ -59,17 +59,39 @@ export const insertBookingSchema = createInsertSchema(bookings).omit({
   id: true,
   status: true,
   createdAt: true,
+}).extend({
+  fullName: z.string().trim().min(1).max(200),
+  email: z.string().trim().email().max(320),
+  phone: z.string().trim().min(7).max(30),
+  address: z.string().trim().min(1).max(500),
+  serviceId: z.string().trim().min(1).max(100),
+  serviceTitle: z.string().trim().min(1).max(200),
+  preferredDate: z.string().trim().min(1).max(50),
+  notes: z.string().trim().max(2000).optional().nullable(),
 });
 
 export const insertContactMessageSchema = createInsertSchema(contactMessages).omit({
   id: true,
   createdAt: true,
+}).extend({
+  name: z.string().trim().min(1).max(200),
+  email: z.string().trim().email().max(320),
+  phone: z.string().trim().max(30).optional().nullable(),
+  message: z.string().trim().min(1).max(5000),
 });
 
 export const insertInvoiceSchema = createInsertSchema(invoices).omit({
   id: true,
   paidAt: true,
   createdAt: true,
+}).extend({
+  invoiceNumber: z.string().trim().min(1).max(50),
+  customerEmail: z.string().trim().email().max(320),
+  customerName: z.string().trim().min(1).max(200),
+  serviceTitle: z.string().trim().min(1).max(200),
+  amount: z.number().int().positive(),
+  status: z.string().trim().max(50).optional(),
+  dueDate: z.string().trim().max(50).optional().nullable(),
 });
 
 export type Booking = typeof bookings.$inferSelect;
@@ -105,6 +127,15 @@ export const insertQuoteSchema = createInsertSchema(quotes).omit({
   id: true,
   status: true,
   createdAt: true,
+}).extend({
+  serviceType: z.string().trim().min(1).max(100),
+  propertyType: z.string().trim().min(1).max(100),
+  description: z.string().trim().min(1).max(5000),
+  urgency: z.string().trim().max(50).optional(),
+  fullName: z.string().trim().min(1).max(200),
+  phone: z.string().trim().min(7).max(30),
+  email: z.string().trim().email().max(320),
+  address: z.string().trim().max(500).optional().nullable(),
 });
 export type Quote = typeof quotes.$inferSelect;
 export type InsertQuote = z.infer<typeof insertQuoteSchema>;

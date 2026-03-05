@@ -180,7 +180,7 @@ export default function Home() {
             <div className="w-full lg:w-1/2 relative">
                <div className="absolute -inset-4 bg-gradient-to-tr from-slate-200 to-slate-50 rounded-3xl transform -rotate-3 z-0"></div>
                <div className="relative z-10 aspect-square rounded-2xl overflow-hidden shadow-2xl border-8 border-white">
-                  <img src="/images/real-diagnostics.webp" alt="HVAC Technician diagnosing AC problem" className="w-full h-full object-cover" loading="lazy" width={1920} height={1080} />
+                  <img src="/images/real-diagnostics.webp" alt="HVAC Technician diagnosing AC problem" className="w-full h-full object-cover" loading="lazy" decoding="async" width={1920} height={1080} />
                </div>
                
                {/* Floating Stats */}
@@ -220,6 +220,7 @@ export default function Home() {
                     alt={service.title} 
                     className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
                     loading="lazy"
+                    decoding="async"
                     width={640}
                     height={480}
                   />
@@ -326,7 +327,7 @@ export default function Home() {
               </div>
               <div className="w-full lg:w-1/2">
                  <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-slate-700 group">
-                    <img src="/images/real-trenching.webp" alt="Plumbing Installation" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" width={1920} height={1080} />
+                    <img src="/images/real-trenching.webp" alt="Plumbing Installation" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" decoding="async" width={1920} height={1080} />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent"></div>
                     <div className="absolute bottom-6 left-6 right-6">
                        <div className="bg-slate-900/80 backdrop-blur-md p-4 rounded-xl border border-slate-700 flex items-center justify-between">
@@ -412,6 +413,7 @@ export default function Home() {
                    alt="BERNARDINO MARTIN Professional Technician" 
                    className="rounded-2xl shadow-2xl w-full max-w-lg mx-auto relative z-10 border-4 border-white"
                    loading="lazy"
+                   decoding="async"
                    width={1920}
                    height={1080}
                  />
