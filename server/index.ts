@@ -111,6 +111,9 @@ if (isProduction) {
   app.set("trust proxy", 1);
 
   app.use((req: Request, res: Response, next: NextFunction) => {
+    if (req.path === "/health") {
+      return next();
+    }
     if (req.headers["x-forwarded-proto"] !== "https") {
       return res.redirect(301, `https://${req.hostname}${req.originalUrl}`);
     }
@@ -181,31 +184,29 @@ app.use((req, res, next) => {
 });
 
 (async () => {
-  const port = parseInt(process.env.PORT || "5000", 10);
+  await registerRoutes(httpServer, app);
 
+  app.use(errorHandler);
+
+  const serverDir = typeof __dirname !== "undefined" ? __dirname : path.dirname(new URL(import.meta.url).pathname);
+  app.use(express.static(path.resolve(serverDir, "..", "public")));
+
+  if (isProduction) {
+    serveStatic(app);
+  } else {
+    const { setupVite } = await import("./vite");
+    await setupVite(httpServer, app);
+  }
+
+  const port = parseInt(process.env.PORT || "5000", 10);
   httpServer.listen(
     {
       port,
       host: "0.0.0.0",
       reusePort: true,
     },
-    async () => {
+    () => {
       logger.info({ source: "express" }, `serving on port ${port}`);
-
-      await registerRoutes(httpServer, app);
-
-      app.use(errorHandler);
-
-      app.use(express.static(path.resolve(import.meta.dirname, "..", "public")));
-
-      if (isProduction) {
-        serveStatic(app);
-      } else {
-        const { setupVite } = await import("./vite");
-        await setupVite(httpServer, app);
-      }
-
-      logger.info({ source: "express" }, "application fully initialized");
     },
   );
 })();
