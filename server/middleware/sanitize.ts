@@ -28,11 +28,7 @@ export function sanitizeInput(req: Request, _res: Response, next: NextFunction) 
     req.body = stripHtml(req.body);
   }
   if (req.query && typeof req.query === "object") {
-    for (const key of Object.keys(req.query)) {
-      if (typeof req.query[key] === "string") {
-        req.query[key] = stripHtml(req.query[key]) as string;
-      }
-    }
+    req.query = stripHtml(req.query) as typeof req.query;
   }
   next();
 }
