@@ -327,7 +327,7 @@ export default function Home() {
               </div>
               <div className="w-full lg:w-1/2">
                  <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-slate-700 group">
-                    <img src="/images/real-trenching.webp" alt="Plumbing Installation" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" decoding="async" width={1920} height={1080} />
+                    <img src="/images/moen-smart-water-shutoff.webp" alt="Moen Flo Smart Water Monitor and Shutoff — professional installation on copper pipe" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" decoding="async" width={1920} height={1080} />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent"></div>
                     <div className="absolute bottom-6 left-6 right-6">
                        <div className="bg-slate-900/80 backdrop-blur-md p-4 rounded-xl border border-slate-700 flex items-center justify-between">
