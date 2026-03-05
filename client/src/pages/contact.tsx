@@ -47,7 +47,7 @@ export default function Contact() {
 
   return (
     <Layout>
-      <SEO title="Contact Us – Get a Free HVAC & Solar Estimate in Los Angeles" description="Contact Bernardino Martin HVAC for free estimates on AC repair, heating, solar & plumbing in Los Angeles. Call (818) 400-0227 or message us 24/7." />
+      <SEO title="Contact Us – Get a Free HVAC & Solar Estimate in Los Angeles" description="Contact BERNARDINO MARTIN — Heating • Air Conditioning • Solar for free estimates on AC repair, heating, solar & plumbing in Los Angeles. Call (818) 400-0227 or message us 24/7." />
       <div className="container mx-auto px-4 py-20">
         <h1 className="text-4xl font-heading font-bold mb-6 text-center" data-testid="text-contact-title">Contact Us</h1>
         <p className="text-center text-slate-600 mb-12 max-w-2xl mx-auto">

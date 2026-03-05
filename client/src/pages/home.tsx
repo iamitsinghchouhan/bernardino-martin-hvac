@@ -2,63 +2,104 @@ import { Layout } from "@/components/layout";
 import { SEO } from "@/components/seo";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { PROMOS, SERVICES, COMPANY_PHONE, COMPANY_NAME, getWhatsAppLink } from "@/lib/constants";
+import { PROMOS, SERVICES, COMPANY_PHONE, COMPANY_NAME, COMPANY_FULL, getWhatsAppLink } from "@/lib/constants";
 import { ArrowRight, Check, Star, Clock, Calendar, MessageCircle, AlertTriangle, Droplets, Shield, Activity } from "lucide-react";
 import { Link } from "wouter";
 import { Badge } from "@/components/ui/badge";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useState, useEffect, useRef } from "react";
 const ProjectGallery = lazy(() => import("@/components/project-gallery").then(m => ({ default: m.ProjectGallery })));
 
+const HERO_VIDEOS = [
+  "/videos/hvac_repair_outdoor.mp4",
+  "/videos/solar_panel_install.mp4",
+  "/videos/plumbing_copper_pipes.mp4",
+];
+
 export default function Home() {
+  const [currentVideo, setCurrentVideo] = useState(0);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    const handleEnded = () => {
+      setCurrentVideo((prev) => (prev + 1) % HERO_VIDEOS.length);
+    };
+    video.addEventListener("ended", handleEnded);
+    return () => video.removeEventListener("ended", handleEnded);
+  }, []);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.src = HERO_VIDEOS[currentVideo];
+    video.load();
+    video.play().catch(() => {});
+  }, [currentVideo]);
+
   return (
     <Layout>
       <SEO 
         title="Los Angeles HVAC, Solar & Plumbing Services" 
-        description={`${COMPANY_NAME} — Licensed & insured heating, air conditioning, solar panel installation & plumbing in Los Angeles. 24/7 emergency service. Call (818) 400-0227 for a free estimate.`}
+        description={`${COMPANY_FULL} — Licensed & insured heating, air conditioning, solar panel installation & plumbing in Los Angeles. 24/7 emergency service. Call (818) 400-0227 for a free estimate.`}
       />
       
-      {/* Hero Section - Using Real Job Photo */}
-      <section className="relative h-[600px] flex items-center overflow-hidden">
+      {/* Hero Section - Video Background */}
+      <section className="relative h-[650px] md:h-[700px] flex items-center overflow-hidden" data-testid="hero-section">
         <div className="absolute inset-0 z-0">
-          <img 
-            src="/images/real-solar-install.webp" 
-            alt="Bernardino Martin HVAC Installation Team" 
+          <video
+            ref={videoRef}
             className="w-full h-full object-cover"
-            loading="eager"
-            fetchPriority="high"
-            width={1920}
-            height={1080}
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/50 to-transparent" />
+            autoPlay
+            muted
+            playsInline
+            preload="auto"
+            poster="/images/real-solar-install.webp"
+          >
+            <source src={HERO_VIDEOS[0]} type="video/mp4" />
+          </video>
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-900/85 via-slate-900/60 to-slate-900/30" />
         </div>
         
         <div className="container mx-auto px-4 relative z-10 text-white">
           <div className="max-w-3xl animate-in slide-in-from-left-10 duration-700 fade-in">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/20 border border-primary/50 backdrop-blur-sm mb-6">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm mb-6">
               <span className="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
-              <span className="text-sm font-medium text-slate-200">Licensed, Bonded & Insured #109283</span>
+              <span className="text-sm font-medium text-slate-100">Licensed &bull; Bonded &bull; Insured</span>
             </div>
             
-            <h1 className="text-4xl md:text-6xl font-heading font-bold leading-tight mb-6">
-              BERNARDINO MARTIN'S <br/>
-              <span className="text-primary-foreground text-transparent bg-clip-text bg-gradient-to-r from-sky-300 to-emerald-400">Heating, Air Conditioning, Solar</span>
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-heading font-black leading-tight mb-2 tracking-tight" data-testid="text-hero-title">
+              BERNARDINO MARTIN
             </h1>
+            <p className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold mb-6">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-300 to-emerald-400">Heating &bull; Air Conditioning &bull; Solar</span>
+            </p>
             
-            <p className="text-lg md:text-xl text-slate-200 mb-8 max-w-lg leading-relaxed shadow-black/50 drop-shadow-sm">
-              Your trusted Los Angeles experts for residential & commercial HVAC, Solar, and Plumbing. Real work, honest pricing, and quality results.
+            <p className="text-lg md:text-xl text-slate-200 mb-4 max-w-lg leading-relaxed drop-shadow-sm">
+              Serving Los Angeles & Surrounding Areas
+            </p>
+            <p className="text-base text-slate-300 mb-8 max-w-lg leading-relaxed">
+              Your trusted experts for residential & commercial HVAC, Solar, and Plumbing. Real work, honest pricing, and quality results.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="h-14 px-8 text-lg font-bold bg-primary hover:bg-primary/90 shadow-xl shadow-primary/20" asChild>
-                <Link href="/booking">
-                  Book Appointment
-                </Link>
+              <Button size="lg" className="h-14 px-8 text-lg font-bold bg-primary hover:bg-primary/90 shadow-xl shadow-primary/20" asChild data-testid="button-hero-call">
+                <a href={`tel:${COMPANY_PHONE.replace(/\D/g, '')}`}>
+                  <Phone className="mr-2 h-5 w-5" aria-hidden="true" />
+                  Call Now
+                </a>
               </Button>
-              <Button size="lg" className="h-14 px-8 text-lg font-bold bg-secondary hover:bg-secondary/90 text-white border-0 shadow-xl shadow-secondary/20" asChild>
+              <Button size="lg" className="h-14 px-8 text-lg font-bold bg-secondary hover:bg-secondary/90 text-white border-0 shadow-xl shadow-secondary/20" asChild data-testid="button-hero-whatsapp">
                 <a href={getWhatsAppLink("Hello! I'm interested in booking a service.")} target="_blank" rel="noopener noreferrer">
                   <MessageCircle className="mr-2 h-5 w-5" aria-hidden="true" />
                   WhatsApp Chat
                 </a>
+              </Button>
+              <Button size="lg" variant="outline" className="h-14 px-8 text-lg font-bold border-white/30 text-white hover:bg-white/10 backdrop-blur-sm" asChild data-testid="button-hero-book">
+                <Link href="/booking">
+                  <Calendar className="mr-2 h-5 w-5" aria-hidden="true" />
+                  Book Online
+                </Link>
               </Button>
             </div>
           </div>
@@ -314,7 +355,7 @@ export default function Home() {
                 Premium HVAC Maintenance Plan
               </h2>
               <p className="text-lg text-slate-600">
-                Join the Bernardino Martin Comfort Club and protect your investment. Regular maintenance extends system life, reduces energy bills, and prevents costly breakdowns.
+                Join the BERNARDINO MARTIN Comfort Club and protect your investment. Regular maintenance extends system life, reduces energy bills, and prevents costly breakdowns.
               </p>
             </div>
 
@@ -368,7 +409,7 @@ export default function Home() {
                  <div className="absolute -inset-4 bg-primary/10 rounded-3xl transform rotate-2"></div>
                  <img 
                    src="/images/technician.webp" 
-                   alt="Friendly Bernardino Martin Technician" 
+                   alt="BERNARDINO MARTIN Professional Technician" 
                    className="rounded-2xl shadow-2xl w-full max-w-lg mx-auto relative z-10 border-4 border-white"
                    loading="lazy"
                    width={1920}
@@ -387,7 +428,7 @@ export default function Home() {
             </div>
             <div className="w-full md:w-1/2 space-y-6">
               <div className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary font-bold text-sm mb-2">
-                Why Choose Bernardino Martin HVAC?
+                Why Choose BERNARDINO MARTIN?
               </div>
               <h2 className="text-3xl md:text-4xl font-heading font-bold text-slate-900">
                 Your Trusted Local Partners for a Comfortable Home
@@ -457,7 +498,7 @@ export default function Home() {
                 name: "James T.",
                 location: "Burbank, CA",
                 service: "Solar Panel Installation",
-                review: "We wanted to go solar and got quotes from several companies. BM HVAC was the most transparent and affordable. The installation was clean, professional, and our electric bill dropped significantly.",
+                review: "We wanted to go solar and got quotes from several companies. Bernardino Martin was the most transparent and affordable. The installation was clean, professional, and our electric bill dropped significantly.",
                 rating: 5,
               },
               {

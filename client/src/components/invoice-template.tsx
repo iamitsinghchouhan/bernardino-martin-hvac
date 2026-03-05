@@ -1,4 +1,4 @@
-import { COMPANY_NAME, COMPANY_PHONE } from "@/lib/constants";
+import { COMPANY_NAME, COMPANY_FULL, COMPANY_PHONE } from "@/lib/constants";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 
@@ -34,7 +34,7 @@ export function InvoiceTemplate({ invoice }: { invoice?: InvoiceData }) {
           <p className="text-slate-500 font-bold tracking-widest text-sm">#{number}</p>
         </div>
         <div className="text-right">
-          <h2 className="text-xl font-bold text-slate-900 mb-1">{COMPANY_NAME}</h2>
+          <h2 className="text-xl font-bold text-slate-900 mb-1">{COMPANY_NAME}<br /><span className="text-sm font-medium text-slate-600">Heating, Air Conditioning, Solar</span></h2>
           <p className="text-sm text-slate-600">{COMPANY_PHONE}</p>
           <p className="text-sm text-slate-600">info@bernardinomartin.com</p>
           <p className="text-sm text-slate-500 mt-2 font-medium">Lic #109283</p>
@@ -96,7 +96,7 @@ export function InvoiceTemplate({ invoice }: { invoice?: InvoiceData }) {
         <p className="mb-4 max-w-2xl leading-relaxed">
           Payment is due upon receipt. All workmanship is guaranteed for 1 year from the date of service. 
           Please contact our office within 48 hours for any billing discrepancies.
-          Thank you for choosing {COMPANY_NAME}!
+          Thank you for choosing {COMPANY_FULL}!
         </p>
         <p className="italic text-center mt-12 text-xs opacity-70">
           This is an electronically generated invoice. No signature is required.

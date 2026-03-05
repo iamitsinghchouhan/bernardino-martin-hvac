@@ -4,7 +4,9 @@ import {
 } from "lucide-react";
 
 export const COMPANY_PHONE = "(818) 400-0227";
-export const COMPANY_NAME = "BERNARDINO MARTIN'S Heating Air Conditioning, Solar";
+export const COMPANY_NAME = "BERNARDINO MARTIN";
+export const COMPANY_TAGLINE = "Heating • Air Conditioning • Solar";
+export const COMPANY_FULL = "BERNARDINO MARTIN — Heating • Air Conditioning • Solar";
 
 export const WHATSAPP_NUMBER = "18184000227";
 

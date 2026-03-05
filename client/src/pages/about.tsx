@@ -1,15 +1,15 @@
 import { Layout } from "@/components/layout";
 import { SEO } from "@/components/seo";
-import { COMPANY_NAME } from "@/lib/constants";
+import { COMPANY_NAME, COMPANY_FULL } from "@/lib/constants";
 
 export default function About() {
   return (
     <Layout>
-      <SEO title="About Us – Trusted HVAC & Solar Contractors in Los Angeles" description={`${COMPANY_NAME} — Licensed, bonded & insured HVAC and solar contractors serving Los Angeles. Learn why homeowners trust us for heating, cooling, solar & plumbing services.`} />
+      <SEO title="About Us – Trusted HVAC & Solar Contractors in Los Angeles" description={`${COMPANY_FULL} — Licensed, bonded & insured HVAC and solar contractors serving Los Angeles. Learn why homeowners trust us for heating, cooling, solar & plumbing services.`} />
       <div className="container mx-auto px-4 py-20">
         <h1 className="text-4xl font-heading font-bold mb-6">About Us</h1>
         <p className="text-lg text-slate-600 mb-8">
-          {COMPANY_NAME} is a locally owned and operated business dedicated to providing top-quality heating, cooling, solar, and plumbing solutions to Los Angeles residents and businesses.
+          {COMPANY_FULL} is a locally owned and operated business dedicated to providing top-quality heating, cooling, solar, and plumbing solutions to Los Angeles residents and businesses.
         </p>
         <p className="text-lg text-slate-600">
           With years of experience and a team of certified technicians, we ensure your home stays comfortable, efficient, and safe year-round.
@@ -53,7 +53,7 @@ export default function About() {
              <h2 className="text-2xl font-bold text-slate-900">Our Commitment</h2>
              <div className="bg-slate-50 p-6 rounded-xl border border-slate-100 h-full">
                 <p className="text-slate-600 mb-6 leading-relaxed">
-                  At {COMPANY_NAME}, we believe in doing the job right the first time. We continuously train our technicians on the latest technologies, including high-efficiency HVAC systems, smart home integrations, and advanced solar solutions.
+                  At {COMPANY_FULL}, we believe in doing the job right the first time. We continuously train our technicians on the latest technologies, including high-efficiency HVAC systems, smart home integrations, and advanced solar solutions.
                 </p>
                 <p className="text-slate-600 leading-relaxed">
                   Our goal is not just to fix your immediate problem, but to build a lasting relationship as your trusted home service provider for years to come.

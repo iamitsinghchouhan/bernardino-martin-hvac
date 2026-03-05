@@ -1,8 +1,16 @@
-# Bernardino Martin HVAC - Business Website
+# BERNARDINO MARTIN — Heating • Air Conditioning • Solar
 
 ## Overview
 
-This is a full-stack business website for **BERNARDINO MARTIN'S Heating Air Conditioning, Solar** — a local HVAC, solar, and plumbing services company in Los Angeles. The application provides service booking, contact forms, invoice management, online payment lookup, a customer dashboard, and an interactive service area map. It's a React + Express monorepo with PostgreSQL for data persistence.
+This is a full-stack business website for **BERNARDINO MARTIN — Heating • Air Conditioning • Solar** — a local HVAC, solar, and plumbing services company in Los Angeles. The application provides service booking, contact forms, invoice management, online payment lookup, a customer dashboard, and an interactive service area map. It's a React + Express monorepo with PostgreSQL for data persistence.
+
+## Brand Guidelines
+- **Official Name:** BERNARDINO MARTIN (all caps)
+- **Tagline:** Heating • Air Conditioning • Solar (with bullet separators)
+- **Full Format:** BERNARDINO MARTIN / Heating • Air Conditioning • Solar
+- **Colors:** Blue (primary) and Green (secondary/accents)
+- **Hero Section:** Video background with 3 rotating AI-generated clips (HVAC, solar, plumbing)
+- **Video Files:** `/public/videos/hvac_repair_outdoor.mp4`, `solar_panel_install.mp4`, `plumbing_copper_pipes.mp4`
 
 ## User Preferences
 

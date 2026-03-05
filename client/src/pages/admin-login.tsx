@@ -30,7 +30,7 @@ export default function AdminLogin() {
             <span className="text-white font-bold text-2xl" style={{ fontFamily: "'Outfit', sans-serif" }}>BM</span>
           </div>
           <h1 className="text-2xl font-bold text-white" style={{ fontFamily: "'Outfit', sans-serif" }}>Admin Panel</h1>
-          <p className="text-gray-400 mt-1 text-sm">Bernardino Martin's HVAC</p>
+          <p className="text-gray-400 mt-1 text-sm">BERNARDINO MARTIN — Heating • Air Conditioning • Solar</p>
         </div>
 
         <form onSubmit={handleSubmit} className="bg-[#1a1f4e] rounded-2xl p-8 shadow-2xl border border-white/5">

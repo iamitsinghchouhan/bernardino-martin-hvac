@@ -3,7 +3,7 @@ import { Phone, Menu, X, Calendar, MessageCircle, Sun, ShieldCheck, AlertCircle,
 import { useState, useEffect, lazy, Suspense } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { COMPANY_PHONE, COMPANY_NAME, getWhatsAppLink } from "@/lib/constants";
+import { COMPANY_PHONE, COMPANY_NAME, COMPANY_FULL, getWhatsAppLink } from "@/lib/constants";
 const ChatWidget = lazy(() => import("@/components/chat-widget").then(m => ({ default: m.ChatWidget })));
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -66,11 +66,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
       >
         <div className="container mx-auto px-4 h-20 flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 group" aria-label="Bernardino Martin HVAC - Home">
-              <img src="/logo-bm.webp" alt="Bernardino Martin HVAC logo" className="h-14 w-14 object-contain rounded-lg bg-white p-1 shadow-sm border border-gray-100 group-hover:scale-105 transition-transform duration-300" loading="eager" fetchPriority="high" width={128} height={128} />
+          <Link href="/" className="flex items-center gap-3 group" aria-label="BERNARDINO MARTIN Heating Air Conditioning Solar - Home">
+              <img src="/logo-bm.webp" alt="BERNARDINO MARTIN Heating Air Conditioning Solar logo" className="h-14 w-14 object-contain rounded-lg bg-white p-1 shadow-sm border border-gray-100 group-hover:scale-105 transition-transform duration-300" loading="eager" fetchPriority="high" width={128} height={128} />
               <div className="flex flex-col">
-                <span className="font-heading font-bold text-lg leading-none text-primary tracking-tight">Bernardino Martin</span>
-                <span className="text-[10px] font-semibold text-secondary tracking-[0.2em] uppercase">Heating &bull; AC &bull; Solar</span>
+                <span className="font-heading font-bold text-lg leading-none text-primary tracking-tight">BERNARDINO MARTIN</span>
+                <span className="text-[10px] font-semibold text-secondary tracking-[0.2em] uppercase">Heating &bull; Air Conditioning &bull; Solar</span>
               </div>
           </Link>
 
@@ -129,8 +129,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
               <SheetContent side="right" className="w-[300px] sm:w-[400px]" aria-label="Navigation menu">
                 <nav className="flex flex-col gap-6 mt-10" aria-label="Mobile navigation">
                   <Link href="/" className="flex items-center gap-2 mb-6">
-                      <img src="/logo-bm.webp" alt="Bernardino Martin HVAC logo" className="h-12 w-12 object-contain rounded-lg bg-white p-1 shadow-sm border border-gray-100" loading="eager" fetchPriority="high" width={128} height={128} />
-                      <span className="font-heading font-bold text-lg text-primary">Bernardino Martin HVAC</span>
+                      <img src="/logo-bm.webp" alt="BERNARDINO MARTIN Heating Air Conditioning Solar logo" className="h-12 w-12 object-contain rounded-lg bg-white p-1 shadow-sm border border-gray-100" loading="eager" fetchPriority="high" width={128} height={128} />
+                      <div className="flex flex-col">
+                        <span className="font-heading font-bold text-lg text-primary">BERNARDINO MARTIN</span>
+                        <span className="text-[9px] font-semibold text-secondary tracking-[0.15em] uppercase">Heating &bull; Air Conditioning &bull; Solar</span>
+                      </div>
                   </Link>
                   {navLinks.map((link) => (
                     <Link key={link.href} href={link.href} aria-current={location === link.href ? "page" : undefined} className={`text-lg font-medium py-2 border-b border-gray-100 ${
@@ -176,14 +179,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
             <div>
               <div className="flex items-center gap-3 mb-4 text-white">
-                <img src="/logo-bm.webp" alt="Bernardino Martin HVAC logo" className="h-16 w-16 object-contain rounded-lg bg-white p-1.5 shadow-md" loading="lazy" width={128} height={128} />
+                <img src="/logo-bm.webp" alt="BERNARDINO MARTIN Heating Air Conditioning Solar logo" className="h-16 w-16 object-contain rounded-lg bg-white p-1.5 shadow-md" loading="lazy" width={128} height={128} />
                 <div className="flex flex-col">
-                  <span className="font-heading font-bold text-lg leading-tight">Bernardino Martin</span>
-                  <span className="text-[10px] font-semibold text-secondary tracking-[0.2em] uppercase">Heating &bull; AC &bull; Solar</span>
+                  <span className="font-heading font-bold text-lg leading-tight">BERNARDINO MARTIN</span>
+                  <span className="text-[10px] font-semibold text-secondary tracking-[0.2em] uppercase">Heating &bull; Air Conditioning &bull; Solar</span>
                 </div>
               </div>
               <p className="text-sm leading-relaxed mb-4 text-slate-400">
-                BERNARDINO MARTIN'S Heating Air Conditioning, Solar. Top-rated HVAC, Solar, and Plumbing services in Los Angeles.
+                BERNARDINO MARTIN — Heating, Air Conditioning, Solar. Top-rated HVAC, Solar, and Plumbing services in Los Angeles.
               </p>
               <div className="flex items-center gap-2 text-sm font-semibold text-secondary">
                 <ShieldCheck className="h-4 w-4" aria-hidden="true" />
@@ -243,7 +246,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           </div>
           
           <div className="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-xs text-slate-500">&copy; {new Date().getFullYear()} {COMPANY_NAME}. All rights reserved.</p>
+            <p className="text-xs text-slate-500">&copy; {new Date().getFullYear()} {COMPANY_FULL}. All rights reserved.</p>
             <div className="flex items-center gap-4 text-slate-400">
                <a href="#" className="hover:text-secondary transition-colors" aria-label="Instagram"><Instagram className="h-5 w-5" /></a>
                <a href="#" className="hover:text-secondary transition-colors" aria-label="LinkedIn"><Linkedin className="h-5 w-5" /></a>

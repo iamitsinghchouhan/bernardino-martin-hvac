@@ -436,7 +436,7 @@ export default function AdminDashboard() {
             </div>
             <div>
               <h1 className="text-lg font-bold text-white" style={{ fontFamily: "'Outfit', sans-serif" }}>Admin Panel</h1>
-              <p className="text-xs text-gray-500 hidden sm:block">Bernardino Martin's HVAC</p>
+              <p className="text-xs text-gray-500 hidden sm:block">BERNARDINO MARTIN — Heating • Air Conditioning • Solar</p>
             </div>
           </div>
           <button
