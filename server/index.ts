@@ -3,6 +3,7 @@ import session from "express-session";
 import connectPgSimple from "connect-pg-simple";
 import helmet from "helmet";
 import compression from "compression";
+import path from "path";
 import { registerRoutes } from "./routes";
 import { serveStatic } from "./static";
 import { createServer } from "http";
@@ -170,6 +171,8 @@ app.use((req, res, next) => {
   await registerRoutes(httpServer, app);
 
   app.use(errorHandler);
+
+  app.use(express.static(path.resolve(import.meta.dirname, "..", "public")));
 
   if (isProduction) {
     serveStatic(app);
