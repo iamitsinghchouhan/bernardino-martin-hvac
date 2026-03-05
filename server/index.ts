@@ -80,7 +80,7 @@ app.use(helmet({
       scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
       styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://cdnjs.cloudflare.com"],
       fontSrc: ["'self'", "https://fonts.gstatic.com", "https://cdnjs.cloudflare.com"],
-      imgSrc: ["'self'", "data:", "blob:", "https://basemaps.cartocdn.com", "https://cdnjs.cloudflare.com", "https://*.tile.openstreetmap.org"],
+      imgSrc: ["'self'", "data:", "blob:", "https://*.basemaps.cartocdn.com", "https://basemaps.cartocdn.com", "https://cdnjs.cloudflare.com", "https://*.tile.openstreetmap.org", "https://raw.githubusercontent.com"],
       mediaSrc: ["'self'", "blob:"],
       connectSrc: ["'self'", "ws:", "wss:"],
       frameSrc: ["'none'"],

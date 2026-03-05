@@ -33,7 +33,7 @@ const statusColors: Record<string, string> = {
 
 function StatusBadge({ status }: { status: string }) {
   return (
-    <span className={`px-2.5 py-1 rounded-full text-xs font-medium capitalize ${statusColors[status] || "bg-gray-500/20 text-gray-300"}`}>
+    <span className={`px-3 py-1 rounded-full text-sm font-semibold capitalize ${statusColors[status] || "bg-gray-500/20 text-gray-300"}`}>
       {status}
     </span>
   );
@@ -41,10 +41,10 @@ function StatusBadge({ status }: { status: string }) {
 
 function StatCard({ label, value, sub }: { label: string; value: string | number; sub?: string }) {
   return (
-    <div className="bg-[#1a1f4e] rounded-xl p-5 border border-white/5">
-      <p className="text-gray-300 text-sm mb-1">{label}</p>
-      <p className="text-2xl font-bold text-white" style={{ fontFamily: "'Outfit', sans-serif" }}>{value}</p>
-      {sub && <p className="text-xs text-gray-400 mt-1">{sub}</p>}
+    <div className="bg-[#1a1f4e] rounded-xl p-6 border border-white/5">
+      <p className="text-gray-300 text-base mb-1">{label}</p>
+      <p className="text-3xl font-bold text-white" style={{ fontFamily: "'Outfit', sans-serif" }}>{value}</p>
+      {sub && <p className="text-sm text-gray-400 mt-1">{sub}</p>}
     </div>
   );
 }
@@ -59,7 +59,7 @@ function OverviewTab() {
 
   return (
     <div data-testid="admin-overview">
-      <h2 className="text-xl font-bold text-white mb-6" style={{ fontFamily: "'Outfit', sans-serif" }}>Dashboard Overview</h2>
+      <h2 className="text-2xl font-bold text-white mb-6" style={{ fontFamily: "'Outfit', sans-serif" }}>Dashboard Overview</h2>
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard label="Total Bookings" value={stats.totalBookings} sub={`${stats.pendingBookings} pending`} />
         <StatCard label="Total Invoices" value={stats.totalInvoices} sub={`${stats.paidInvoices} paid / ${stats.unpaidInvoices} unpaid`} />
@@ -90,7 +90,7 @@ function AppointmentsTab() {
 
   return (
     <div data-testid="admin-appointments">
-      <h2 className="text-xl font-bold text-white mb-6" style={{ fontFamily: "'Outfit', sans-serif" }}>Appointments</h2>
+      <h2 className="text-2xl font-bold text-white mb-6" style={{ fontFamily: "'Outfit', sans-serif" }}>Appointments</h2>
       {!bookings?.length ? (
         <EmptyState text="No appointments yet" />
       ) : (
@@ -100,24 +100,24 @@ function AppointmentsTab() {
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-3 mb-1">
-                    <h3 className="text-white font-semibold truncate">{b.fullName}</h3>
+                    <h3 className="text-white font-semibold text-lg truncate">{b.fullName}</h3>
                     <StatusBadge status={b.status} />
                   </div>
-                  <p className="text-sm text-gray-400">{b.serviceTitle}</p>
-                  <div className="flex flex-wrap gap-x-4 gap-y-1 mt-2 text-xs text-gray-500">
+                  <p className="text-base text-gray-400">{b.serviceTitle}</p>
+                  <div className="flex flex-wrap gap-x-4 gap-y-1 mt-2 text-sm text-gray-500">
                     <span>{b.email}</span>
                     <span>{b.phone}</span>
                     <span>Preferred: {b.preferredDate}</span>
                     <span>Created: {formatDateTime(b.createdAt)}</span>
                   </div>
-                  {b.notes && <p className="text-xs text-gray-500 mt-1 italic">"{b.notes}"</p>}
+                  {b.notes && <p className="text-sm text-gray-500 mt-1 italic">"{b.notes}"</p>}
                 </div>
                 <div className="flex gap-2 flex-shrink-0">
                   <select
                     data-testid={`select-booking-status-${b.id}`}
                     value={b.status}
                     onChange={(e) => updateStatus.mutate({ id: b.id, status: e.target.value })}
-                    className="px-3 py-1.5 rounded-lg bg-[#0f1235] border border-white/10 text-white text-sm focus:outline-none focus:ring-2 focus:ring-[#3DB54A]"
+                    className="px-3 py-2 rounded-lg bg-[#0f1235] border border-white/10 text-white text-base focus:outline-none focus:ring-2 focus:ring-[#3DB54A]"
                   >
                     <option value="pending">Pending</option>
                     <option value="confirmed">Confirmed</option>
@@ -180,7 +180,7 @@ function InvoicesTab() {
   return (
     <div data-testid="admin-invoices">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-xl font-bold text-white" style={{ fontFamily: "'Outfit', sans-serif" }}>Invoices</h2>
+        <h2 className="text-2xl font-bold text-white" style={{ fontFamily: "'Outfit', sans-serif" }}>Invoices</h2>
         <button
           data-testid="button-create-invoice"
           onClick={() => setShowForm(!showForm)}
@@ -238,11 +238,11 @@ function InvoicesTab() {
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-3 mb-1">
-                    <h3 className="text-white font-semibold">{inv.invoiceNumber}</h3>
+                    <h3 className="text-white font-semibold text-lg">{inv.invoiceNumber}</h3>
                     <StatusBadge status={inv.status} />
                   </div>
-                  <p className="text-sm text-gray-400">{inv.customerName} — {inv.serviceTitle}</p>
-                  <div className="flex flex-wrap gap-x-4 gap-y-1 mt-2 text-xs text-gray-500">
+                  <p className="text-base text-gray-400">{inv.customerName} — {inv.serviceTitle}</p>
+                  <div className="flex flex-wrap gap-x-4 gap-y-1 mt-2 text-sm text-gray-500">
                     <span>{inv.customerEmail}</span>
                     <span>Amount: {formatCurrency(inv.amount)}</span>
                     {inv.dueDate && <span>Due: {inv.dueDate}</span>}
@@ -276,7 +276,7 @@ function ContactsTab() {
 
   return (
     <div data-testid="admin-contacts">
-      <h2 className="text-xl font-bold text-white mb-6" style={{ fontFamily: "'Outfit', sans-serif" }}>Contact Messages</h2>
+      <h2 className="text-2xl font-bold text-white mb-6" style={{ fontFamily: "'Outfit', sans-serif" }}>Contact Messages</h2>
       {!messages?.length ? (
         <EmptyState text="No contact messages yet" />
       ) : (
@@ -284,11 +284,11 @@ function ContactsTab() {
           {messages.map((m) => (
             <div key={m.id} className="bg-[#1a1f4e] rounded-xl p-5 border border-white/5" data-testid={`card-contact-${m.id}`}>
               <div className="flex items-center gap-3 mb-2">
-                <h3 className="text-white font-semibold">{m.name}</h3>
-                <span className="text-xs text-gray-500">{formatDateTime(m.createdAt)}</span>
+                <h3 className="text-white font-semibold text-lg">{m.name}</h3>
+                <span className="text-sm text-gray-500">{formatDateTime(m.createdAt)}</span>
               </div>
-              <p className="text-sm text-gray-300 mb-2">{m.message}</p>
-              <div className="flex gap-4 text-xs text-gray-500">
+              <p className="text-base text-gray-300 mb-2">{m.message}</p>
+              <div className="flex gap-4 text-sm text-gray-500">
                 <span>{m.email}</span>
                 {m.phone && <span>{m.phone}</span>}
               </div>
@@ -309,7 +309,7 @@ function RemindersTab() {
 
   return (
     <div data-testid="admin-reminders">
-      <h2 className="text-xl font-bold text-white mb-6" style={{ fontFamily: "'Outfit', sans-serif" }}>Reminders</h2>
+      <h2 className="text-2xl font-bold text-white mb-6" style={{ fontFamily: "'Outfit', sans-serif" }}>Reminders</h2>
       {!reminderList?.length ? (
         <EmptyState text="No reminders yet" />
       ) : (
@@ -317,12 +317,12 @@ function RemindersTab() {
           {reminderList.map((r) => (
             <div key={r.id} className="bg-[#1a1f4e] rounded-xl p-5 border border-white/5" data-testid={`card-reminder-${r.id}`}>
               <div className="flex items-center gap-3 mb-1">
-                <h3 className="text-white font-semibold">{r.customerName}</h3>
+                <h3 className="text-white font-semibold text-lg">{r.customerName}</h3>
                 <StatusBadge status={r.status} />
-                <span className="px-2 py-0.5 rounded-full text-xs bg-[#0f1235] text-gray-400 capitalize">{r.channel}</span>
+                <span className="px-2.5 py-0.5 rounded-full text-sm bg-[#0f1235] text-gray-400 capitalize">{r.channel}</span>
               </div>
-              <p className="text-sm text-gray-400">{r.serviceTitle} — {r.reminderType}</p>
-              <div className="flex flex-wrap gap-x-4 gap-y-1 mt-2 text-xs text-gray-500">
+              <p className="text-base text-gray-400">{r.serviceTitle} — {r.reminderType}</p>
+              <div className="flex flex-wrap gap-x-4 gap-y-1 mt-2 text-sm text-gray-500">
                 <span>Scheduled: {formatDateTime(r.scheduledFor)}</span>
                 <span>Appointment: {r.appointmentDate}</span>
                 {r.sentAt && <span>Sent: {formatDateTime(r.sentAt)}</span>}
@@ -345,8 +345,8 @@ function LoadingSpinner() {
 
 function EmptyState({ text }: { text: string }) {
   return (
-    <div className="text-center py-12 text-gray-500">
-      <p>{text}</p>
+    <div className="text-center py-12 text-gray-400">
+      <p className="text-lg">{text}</p>
     </div>
   );
 }
@@ -360,7 +360,7 @@ function QuotesTab() {
 
   return (
     <div data-testid="admin-quotes">
-      <h2 className="text-xl font-bold text-white mb-6" style={{ fontFamily: "'Outfit', sans-serif" }}>Quote Requests</h2>
+      <h2 className="text-2xl font-bold text-white mb-6" style={{ fontFamily: "'Outfit', sans-serif" }}>Quote Requests</h2>
       {!quoteList?.length ? (
         <EmptyState text="No quote requests yet" />
       ) : (
@@ -370,15 +370,15 @@ function QuotesTab() {
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-3 mb-1">
-                    <h3 className="text-white font-semibold">{q.fullName}</h3>
+                    <h3 className="text-white font-semibold text-lg">{q.fullName}</h3>
                     <StatusBadge status={q.status} />
-                    <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${q.urgency === "priority" ? "bg-red-500/20 text-red-300" : "bg-blue-500/20 text-blue-300"}`}>
+                    <span className={`px-2.5 py-0.5 rounded-full text-sm font-medium ${q.urgency === "priority" ? "bg-red-500/20 text-red-300" : "bg-blue-500/20 text-blue-300"}`}>
                       {q.urgency}
                     </span>
                   </div>
-                  <p className="text-sm text-gray-400">{q.serviceType} &bull; {q.propertyType}</p>
-                  <p className="text-sm text-gray-300 mt-2">{q.description}</p>
-                  <div className="flex flex-wrap gap-x-4 gap-y-1 mt-2 text-xs text-gray-500">
+                  <p className="text-base text-gray-400">{q.serviceType} &bull; {q.propertyType}</p>
+                  <p className="text-base text-gray-300 mt-2">{q.description}</p>
+                  <div className="flex flex-wrap gap-x-4 gap-y-1 mt-2 text-sm text-gray-500">
                     <span>{q.email}</span>
                     <span>{q.phone}</span>
                     {q.address && <span>{q.address}</span>}
@@ -435,8 +435,8 @@ export default function AdminDashboard() {
               <span className="text-white font-bold text-sm" style={{ fontFamily: "'Outfit', sans-serif" }}>BM</span>
             </div>
             <div>
-              <h1 className="text-lg font-bold text-white" style={{ fontFamily: "'Outfit', sans-serif" }}>Admin Panel</h1>
-              <p className="text-xs text-gray-500 hidden sm:block">BERNARDINO MARTIN — Heating • Air Conditioning • Solar</p>
+              <h1 className="text-xl font-bold text-white" style={{ fontFamily: "'Outfit', sans-serif" }}>Admin Panel</h1>
+              <p className="text-sm text-gray-500 hidden sm:block">BERNARDINO MARTIN — Heating • Air Conditioning • Solar</p>
             </div>
           </div>
           <button
@@ -456,7 +456,7 @@ export default function AdminDashboard() {
               key={tab.id}
               data-testid={`tab-${tab.id}`}
               onClick={() => setActiveTab(tab.id)}
-              className={`px-4 py-3 text-sm font-medium whitespace-nowrap transition-colors border-b-2 ${
+              className={`px-4 py-3 text-base font-medium whitespace-nowrap transition-colors border-b-2 ${
                 activeTab === tab.id
                   ? "text-[#3DB54A] border-[#3DB54A]"
                   : "text-gray-400 border-transparent hover:text-gray-200"
