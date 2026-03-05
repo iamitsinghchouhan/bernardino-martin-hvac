@@ -1,11 +1,12 @@
 import { storage } from "./storage";
 import type { Booking } from "@shared/schema";
+import { logger } from "./logger";
 
 export async function scheduleRemindersForBooking(booking: Booking) {
   const appointmentDate = new Date(booking.preferredDate);
 
   if (isNaN(appointmentDate.getTime())) {
-    console.warn(`Invalid appointment date for booking ${booking.id}: ${booking.preferredDate}`);
+    logger.warn({ bookingId: booking.id, date: booking.preferredDate }, "Invalid appointment date for booking");
     return;
   }
 
@@ -48,11 +49,11 @@ export async function scheduleRemindersForBooking(booking: Booking) {
     try {
       await storage.createReminder(reminder);
     } catch (err) {
-      console.error(`Failed to create ${reminder.reminderType} reminder for booking ${booking.id}:`, err);
+      logger.error({ err, bookingId: booking.id, type: reminder.reminderType }, "Failed to create reminder");
     }
   }
 
-  console.log(`Scheduled ${remindersToCreate.length} reminder(s) for booking #${booking.id}`);
+  logger.info({ bookingId: booking.id, count: remindersToCreate.length }, "Scheduled reminders for booking");
 }
 
 export async function processReminders() {
@@ -62,22 +63,28 @@ export async function processReminders() {
     for (const reminder of pendingReminders) {
       try {
         if (reminder.channel === "email") {
-          console.log(`[REMINDER] Email to ${reminder.customerEmail}: Your ${reminder.serviceTitle} appointment is coming up on ${reminder.appointmentDate}`);
+          logger.info(
+            { channel: "email", to: reminder.customerEmail, service: reminder.serviceTitle, date: reminder.appointmentDate },
+            "Sending email reminder",
+          );
         } else if (reminder.channel === "sms") {
-          console.log(`[REMINDER] SMS to ${reminder.customerPhone}: Your ${reminder.serviceTitle} appointment is coming up on ${reminder.appointmentDate}`);
+          logger.info(
+            { channel: "sms", to: reminder.customerPhone, service: reminder.serviceTitle, date: reminder.appointmentDate },
+            "Sending SMS reminder",
+          );
         }
 
         await storage.markReminderSent(reminder.id);
       } catch (err) {
-        console.error(`Failed to process reminder ${reminder.id}:`, err);
+        logger.error({ err, reminderId: reminder.id }, "Failed to process reminder");
       }
     }
 
     if (pendingReminders.length > 0) {
-      console.log(`Processed ${pendingReminders.length} reminder(s)`);
+      logger.info({ count: pendingReminders.length }, "Processed reminders");
     }
   } catch (err) {
-    console.error("Reminder processing error:", err);
+    logger.error({ err }, "Reminder processing error");
   }
 }
 
@@ -85,7 +92,7 @@ let reminderInterval: ReturnType<typeof setInterval> | null = null;
 
 export function startReminderEngine() {
   reminderInterval = setInterval(processReminders, 60 * 1000);
-  console.log("Reminder engine started (checks every 60 seconds)");
+  logger.info("Reminder engine started (checks every 60 seconds)");
 }
 
 export function stopReminderEngine() {
