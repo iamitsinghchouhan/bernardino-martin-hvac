@@ -5,7 +5,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { COMPANY_NAME, COMPANY_PHONE, getWhatsAppLink } from "@/lib/constants";
+import { COMPANY_FULL, COMPANY_PHONE, getWhatsAppLink } from "@/lib/constants";
 import { Link } from "wouter";
 
 interface Message {
@@ -21,7 +21,7 @@ export function ChatWidget() {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "1",
-      text: `Hi there! Welcome to ${COMPANY_NAME}. How can we help you today?`,
+      text: `Hi there! Welcome to ${COMPANY_FULL}. How can we help you today?`,
       sender: "bot",
       type: "options",
       options: [

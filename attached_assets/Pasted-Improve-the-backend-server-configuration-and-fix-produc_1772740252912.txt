@@ -1,0 +1,67 @@
+Improve the backend server configuration and fix production warnings without changing any existing website functionality or UI.
+
+Address the following issues:
+
+1. PostgreSQL SSL Warning
+Update the PostgreSQL connection configuration to explicitly use secure SSL settings compatible with future pg versions.
+
+Ensure the database connection uses:
+ssl: { rejectUnauthorized: false }
+or the equivalent sslmode configuration.
+
+Do not break the existing DATABASE_URL environment variable.
+
+2. Replace Express MemoryStore
+The application currently uses express-session with MemoryStore which is not suitable for production.
+
+Replace MemoryStore with PostgreSQL session storage using "connect-pg-simple".
+
+Steps:
+- Install connect-pg-simple
+- Configure express-session to store sessions in PostgreSQL
+- Use the existing database connection pool
+- Create a "session" table automatically if it does not exist
+
+Ensure the admin panel login and authentication continue working exactly the same.
+
+3. Improve Server Stability
+Add proper Node.js process error handling to prevent silent crashes.
+
+Implement:
+
+process.on("uncaughtException")
+process.on("unhandledRejection")
+
+Log errors clearly without shutting down the application unexpectedly.
+
+4. Environment Variable Validation
+Add a startup validation to confirm required environment variables exist:
+
+DATABASE_URL
+SESSION_SECRET
+STRIPE_SECRET_KEY (if Stripe integration is enabled)
+
+If any are missing, log a clear warning in the console.
+
+5. Improve Logging
+Replace excessive console.log usage with a structured logger using "pino".
+
+Ensure logs remain readable in Replit deployment logs.
+
+6. Maintain Existing Functionality
+Do NOT change:
+- Website layout
+- Admin panel behavior
+- Payment flow
+- Database schema (except session table)
+- API routes
+
+7. Deployment Stability
+Ensure the Node server starts cleanly without warnings in production mode.
+
+After implementing these changes:
+- rebuild the application
+- restart the deployment
+- verify no warnings appear in the Replit log console.
+
+Do not remove any existing functionality.
