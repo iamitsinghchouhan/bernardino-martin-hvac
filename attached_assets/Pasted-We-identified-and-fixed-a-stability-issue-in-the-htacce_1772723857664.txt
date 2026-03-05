@@ -1,0 +1,27 @@
+We identified and fixed a stability issue in the .htaccess module (v2.4.4, Feb 12 build) that could cause OpenLiteSpeed worker processes to crash when serving error pages (403, 404, 500, etc.). We recommend updating immediately.
+
+Update Now →
+What Happened
+When your server returns a 4xx or 5xx error response, the module's header processing function was called before certain internal variables were fully initialized. This caused a crash (segfault) in the OLS worker process. OLS automatically restarts the worker, so your server stays online, but the repeated crashes waste CPU and can cause brief request interruptions.
+
+The Fix
+The updated module now skips header processing for error responses entirely — error pages don't need .htaccess header rules applied anyway. The fix is a simple, safe guard that eliminates the crash completely. We've deployed and verified it on our own infrastructure with zero crashes since.
+
+How to Update
+If you installed the module via CyberPanel, upgrading CyberPanel will automatically pull the fixed module. To update manually, visit our module page for installation instructions:
+
+cyberpanel.net/cyberpanel-htaccess-module →
+
+How to Check if You're Affected
+Run this command to check for recent OLS worker crashes:
+
+grep "child process with pid.*exited with signal 11" /usr/local/lsws/logs/error.log | tail -5
+If you see "signal 11" entries, your module is affected. Updating will stop these crashes immediately.
+
+Why the .htaccess Module Matters
+If you're not yet using the module, here's what you're missing:
+
+✓	Seamless Apache migration — Your existing .htaccess rules work instantly on OpenLiteSpeed, no rewrites needed
+✓	PHP configuration via .htaccess — php_value and php_flag directives that were previously impossible on OLS
+✓	WordPress brute force protection — Server-level blocking of wp-login.php and xmlrpc.php attacks, faster than any plugin
+✓	Less than 0.5ms overhead — 98%+ Apache directive coverage with zero noticeable performance impact
