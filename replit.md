@@ -21,8 +21,37 @@ Preferred communication style: Simple, everyday language.
 ### Monorepo Structure
 The project follows a three-directory monorepo pattern:
 - **`client/`** — React frontend (SPA)
-- **`server/`** — Express.js backend (API server)
+- **`server/`** — Express.js backend (API server, enterprise-grade modular architecture)
 - **`shared/`** — Shared TypeScript types and database schema (used by both client and server)
+
+### Backend Module Architecture (`server/`)
+```
+server/
+├── index.ts              # App entry point, middleware chain, server startup
+├── db.ts                 # PostgreSQL pool + Drizzle ORM connection
+├── logger.ts             # Pino structured logger
+├── storage.ts            # IStorage interface + DatabaseStorage class
+├── static.ts             # Production static file serving with cache headers
+├── vite.ts               # Dev server Vite integration
+├── backup.ts             # Database backup system (daily scheduled + manual)
+├── reminder-engine.ts    # Automated booking reminder scheduling
+├── routes.ts             # Route registration (thin — delegates to controllers)
+├── middleware/
+│   ├── auth.ts           # requireAdmin session middleware
+│   ├── error-handler.ts  # Centralized error handler with structured responses
+│   ├── rate-limit.ts     # Rate limiters (global, login, form, payment)
+│   └── sanitize.ts       # XSS/injection input sanitization
+├── controllers/
+│   ├── admin.ts          # Admin login, stats, CRUD operations
+│   ├── bookings.ts       # Booking create/list
+│   ├── contacts.ts       # Contact form submission
+│   ├── health.ts         # /health endpoint
+│   ├── invoices.ts       # Invoice lookup/payment
+│   ├── quotes.ts         # Quote request submission
+│   └── reminders.ts      # Reminder queries
+└── utils/
+    └── errors.ts         # AppError class + error codes
+```
 
 ### Frontend (`client/src/`)
 - **Framework:** React with TypeScript
@@ -31,7 +60,9 @@ The project follows a three-directory monorepo pattern:
 - **UI Components:** shadcn/ui component library (New York style) built on Radix UI primitives
 - **Styling:** Tailwind CSS v4 with CSS variables for theming, custom fonts (Inter + Outfit via Google Fonts)
 - **Map:** Leaflet + react-leaflet for the interactive service areas map
-- **Build Tool:** Vite
+- **Build Tool:** Vite with manual chunk splitting (vendor-react, vendor-ui, vendor-maps, vendor-charts, vendor-forms)
+- **Code Splitting:** React.lazy() for all pages except Home; ProjectGallery lazy-loaded within Home
+- **Image Optimization:** WebP format, lazy loading with `decoding="async"`, hero video preloaded
 
 **Pages:**
 - Home (hero, promos, services overview, project gallery)
@@ -45,110 +76,113 @@ The project follows a three-directory monorepo pattern:
 - Admin Login (`/admin/login` — password-based admin authentication)
 - Admin Dashboard (`/admin` — tabbed panel: overview stats, appointments management, invoices CRUD, contact messages, reminders)
 
-**Key Client Patterns:**
-- `apiRequest()` utility in `lib/queryClient.ts` handles all API calls with JSON content type and credentials
-- `SEO` component dynamically updates document title, meta tags, and canonical URLs
-- `Layout` component provides consistent header (with emergency banner, trust bar, navigation) and footer
-- `ChatWidget` provides a bot-style quick-action chat overlay
+### Security Stack
+- **Helmet:** CSP, XSS protection, frameguard, referrer policy, hides X-Powered-By
+- **Rate Limiting:** express-rate-limit on all API routes (global: 100/15min), stricter for login (5/15min), forms (10/15min), payments (10/15min)
+- **Input Sanitization:** Global middleware strips HTML tags from all request bodies and query params
+- **Request Validation:** Zod schemas with `.trim()`, `.email()`, min/max length constraints on all form fields
+- **Session Cookies:** httpOnly, secure (production), sameSite=strict, 24h expiry
+- **HTTPS Redirect:** Production traffic redirected to HTTPS
+- **Admin Protection:** Session-based auth with `requireAdmin` middleware on all admin routes
+- **Structured Errors:** All API errors return `{ success: false, message, errorCode }` format
 
-### Backend (`server/`)
-- **Framework:** Express.js on Node.js
-- **Language:** TypeScript, compiled with tsx (dev) and esbuild (production)
-- **API Pattern:** RESTful JSON API under `/api/` prefix
-- **Dev Server:** Vite dev server middleware is integrated for HMR during development (`server/vite.ts`)
-- **Production:** Static files served from `dist/public` (`server/static.ts`)
-
-**Session Management:** PostgreSQL-backed sessions via `connect-pg-simple` (uses the existing `pg.Pool` connection; auto-creates `session` table)
-
-**API Routes (in `server/routes.ts`):**
-- `POST /api/bookings` — Create a service booking
-- `GET /api/bookings` — List bookings (optionally filtered by email query param)
-- `POST /api/contact` — Submit a contact message
+### API Routes
+- `GET /health` — Server health check (uptime, database status)
+- `POST /api/bookings` — Create a service booking (rate limited)
+- `GET /api/bookings` — List bookings (optionally filtered by email)
+- `POST /api/contact` — Submit a contact message (rate limited)
+- `POST /api/quotes` — Submit a quote request (rate limited)
 - `GET /api/invoices/lookup` — Look up invoices by email or invoice number
-- `POST /api/invoices/:invoiceNumber/pay` — Mark an invoice as paid
+- `POST /api/invoices/:invoiceNumber/pay` — Mark invoice as paid (rate limited)
 - `GET /api/reminders` — Get reminders by email
 - `GET /api/reminders/pending` — Get all pending reminders
-- **Admin Routes** (all require session auth via `requireAdmin` middleware):
-  - `POST /api/admin/login` — Admin login with ADMIN_PASSWORD secret
-  - `POST /api/admin/logout` — Admin logout (destroys session)
+- **Admin Routes** (all require session auth):
+  - `POST /api/admin/login` — Admin login (strict rate limit: 5/15min)
+  - `POST /api/admin/logout` — Admin logout
   - `GET /api/admin/me` — Check admin auth status
-  - `GET /api/admin/stats` — Dashboard aggregate statistics
+  - `GET /api/admin/stats` — Dashboard statistics
   - `GET /api/admin/bookings` — All bookings
   - `PATCH /api/admin/bookings/:id/status` — Update booking status
   - `GET /api/admin/invoices` — All invoices
   - `POST /api/admin/invoices` — Create new invoice
   - `GET /api/admin/contacts` — All contact messages
   - `GET /api/admin/reminders` — All reminders
-
-**Request Validation:** Zod schemas (generated via `drizzle-zod` from the DB schema) validate all incoming POST data.
+  - `GET /api/admin/quotes` — All quote requests
+  - `POST /api/admin/backup` — Manual database backup trigger
 
 ### Database
 - **Database:** PostgreSQL (required — `DATABASE_URL` environment variable must be set)
 - **ORM:** Drizzle ORM with `drizzle-orm/node-postgres` driver
 - **Schema Location:** `shared/schema.ts`
-- **Migrations:** Managed via `drizzle-kit push` (schema-push approach, no migration files needed in dev)
-- **Connection:** `pg.Pool` in `server/db.ts`
+- **Migrations:** Managed via `drizzle-kit push` (schema-push approach)
+- **Connection:** `pg.Pool` in `server/db.ts` with SSL (`rejectUnauthorized: false`)
+- **Tables:** bookings, contact_messages, invoices, reminders, quotes, session
 
-**Database Tables:**
-1. **`bookings`** — Service appointment requests (service details, customer info, preferred date, status)
-2. **`contact_messages`** — Contact form submissions (name, phone, email, message)
-3. **`invoices`** — Customer invoices (invoice number, customer info, amount in cents, status, due date, paid timestamp)
-4. **`reminders`** — Automated appointment reminders (booking reference, customer info, reminder type, channel, scheduled time, sent status)
+### Database Backup System
+- **Location:** `server/backup.ts`
+- **Schedule:** Automatic daily backups via setInterval
+- **Manual:** `POST /api/admin/backup` (admin-only)
+- **Format:** Compressed SQL dumps (`backup-YYYY-MM-DD-HHmmss.sql.gz`) in `backups/` directory
+- **Retention:** Keeps last 7 backups, auto-deletes older ones
+- **Logging:** Success/failure events logged via Pino
 
 ### Reminder Engine
 - `server/reminder-engine.ts` handles automated appointment reminders
 - When a booking is created, 24-hour (email) and 1-hour (SMS) reminders are auto-scheduled
-- Background engine checks for pending reminders every 60 seconds and processes them
-- Currently logs reminders to console (ready for SendGrid/Twilio integration)
-- API: `GET /api/reminders?email=xxx` returns reminders for a customer
-- Dashboard shows reminder status cards with channel type and delivery status
+- Background engine checks for pending reminders every 60 seconds
+- Currently logs reminders (ready for SendGrid/Twilio integration)
 
-### Storage Layer
-- `server/storage.ts` implements `IStorage` interface with `DatabaseStorage` class
-- All database operations go through this layer, making it easy to swap implementations
-- Uses Drizzle query builder with proper ordering (descending by creation date)
+### Logging
+- **Logger:** Pino structured logger (`server/logger.ts`)
+- **Dev mode:** Pretty-printed with colors via pino-pretty
+- **Production mode:** JSON-structured logs for deployment analysis
+- All API routes, reminders, backups, and errors use structured logging with context fields
+
+### Performance Optimizations
+- **Compression:** gzip/brotli via `compression` middleware
+- **Static Caching:** Hashed assets cached for 1 year (immutable), HTML never cached
+- **Code Splitting:** Vite manualChunks for vendor libraries (React, UI, maps, charts, forms)
+- **Lazy Loading:** React.lazy() for all routes except Home; images use `loading="lazy"` + `decoding="async"`
+- **Font Optimization:** Google Fonts preloaded with `font-display: swap`, non-render-blocking
+- **Video Preloading:** Hero video preloaded in HTML head
+- **Image Formats:** WebP across all images
 
 ### Build Pipeline
-- **Dev:** `tsx server/index.ts` runs the Express server which loads Vite middleware for the frontend
-- **Build:** Custom `script/build.ts` runs Vite build for client, then esbuild for server bundling
-- **Production:** `node dist/index.cjs` serves the built static files + API
-- Server dependencies are selectively bundled (allowlist in build script) to reduce cold start times
+- **Dev:** `tsx server/index.ts` runs Express with Vite middleware for HMR
+- **Build:** Custom `script/build.ts` runs Vite build (client) then esbuild (server)
+- **Production:** `node dist/index.cjs` serves built static files + API
+- **Allowlisted deps:** compression, helmet, express-rate-limit, pino, and others bundled for faster cold starts
 
-### SEO & Meta
-- Custom `SEO` component for per-page meta tags
-- Custom Vite plugin (`vite-plugin-meta-images.ts`) updates OpenGraph/Twitter image meta tags at build time
-- Canonical URL support
+## Environment Variables
+
+### Required
+- `DATABASE_URL` — PostgreSQL connection string (server won't start without it)
+
+### Recommended
+- `SESSION_SECRET` — Session signing key (random in dev; production logs warning if missing)
+- `ADMIN_PASSWORD` — Password for admin panel login
+
+### Optional
+- `STRIPE_SECRET_KEY` — Stripe payment integration
+- `PORT` — Server port (default: 5000)
+- `NODE_ENV` — `development` or `production`
 
 ## External Dependencies
 
-### Logging
-- **Logger:** Pino structured logger (`server/logger.ts`) replaces raw console.log across all server files
-- **Dev mode:** Pretty-printed with colors via pino-pretty
-- **Production mode:** JSON-structured logs for deployment log analysis
-- All API routes, reminders, and errors use structured logging with context fields
-
-### Server Stability
-- **Process error handlers:** `uncaughtException` and `unhandledRejection` handlers in `server/index.ts`
-- **Env validation:** Startup checks for `DATABASE_URL`, `SESSION_SECRET`, `STRIPE_SECRET_KEY`, `ADMIN_PASSWORD`
-- **SSL:** PostgreSQL connection uses `ssl: { rejectUnauthorized: false }` for compatibility
-- **Sessions:** PostgreSQL-backed via `connect-pg-simple` (auto-creates `session` table)
-
-### Required Services
-- **PostgreSQL Database** — Required. Set `DATABASE_URL` environment variable. Used for all persistent data (bookings, contacts, invoices, sessions).
-
 ### Frontend Libraries
-- **Leaflet** — Interactive maps for service area visualization (loaded from CDN for marker icons)
+- **Leaflet** — Interactive maps for service area visualization
 - **Google Fonts** — Inter and Outfit font families
-- **Radix UI** — Headless UI primitives (dialog, dropdown, tabs, etc.)
+- **Radix UI** — Headless UI primitives
 - **Embla Carousel** — Carousel/slider component
-- **Recharts** — Chart components (available but may not be actively used on all pages)
+- **Recharts** — Chart components
+- **Framer Motion** — Animations
 
 ### Communication Integrations
-- **WhatsApp** — Deep links to WhatsApp for customer communication (configured with business phone number `18184000227`)
-- **Phone** — Click-to-call links using company phone `(818) 400-0227`
+- **WhatsApp** — Deep links with business phone `18184000227`
+- **Phone** — Click-to-call links `(818) 400-0227`
 
 ### Build/Dev Tooling
 - **Vite** — Frontend build tool with HMR
-- **esbuild** — Server bundler for production builds
+- **esbuild** — Server bundler for production
 - **Drizzle Kit** — Database schema management
 - **tsx** — TypeScript execution for development

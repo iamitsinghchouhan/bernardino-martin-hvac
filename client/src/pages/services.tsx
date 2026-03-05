@@ -37,6 +37,7 @@ export default function Services() {
                     alt={service.title} 
                     className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
                     loading="lazy"
+                    decoding="async"
                     width={640}
                     height={480}
                   />
