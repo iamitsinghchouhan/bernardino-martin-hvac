@@ -118,24 +118,37 @@ if (isProduction) {
   });
 }
 
-app.use(
-  session({
-    store: new PgStore({
-      pool,
-      createTableIfMissing: true,
-      pruneSessionInterval: 60 * 15,
-    }),
-    secret: process.env.SESSION_SECRET || crypto.randomBytes(32).toString("hex"),
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-      secure: isProduction,
-      httpOnly: true,
-      sameSite: "strict",
-      maxAge: 24 * 60 * 60 * 1000,
+const sessionSecret = process.env.SESSION_SECRET || crypto.randomBytes(32).toString("hex");
+
+const sessionMiddleware = session({
+  store: new PgStore({
+    pool,
+    createTableIfMissing: true,
+    pruneSessionInterval: 60 * 15,
+    errorLog: (err: Error) => {
+      logger.error({ err }, "Session store error");
     },
   }),
-);
+  secret: sessionSecret,
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    secure: isProduction,
+    httpOnly: true,
+    sameSite: "strict",
+    maxAge: 24 * 60 * 60 * 1000,
+  },
+});
+
+app.use((req: Request, res: Response, next: NextFunction) => {
+  sessionMiddleware(req, res, (err) => {
+    if (err) {
+      logger.error({ err }, "Session middleware error — continuing without session");
+      return next();
+    }
+    next();
+  });
+});
 
 app.use((req, res, next) => {
   const start = Date.now();
@@ -168,28 +181,31 @@ app.use((req, res, next) => {
 });
 
 (async () => {
-  await registerRoutes(httpServer, app);
-
-  app.use(errorHandler);
-
-  app.use(express.static(path.resolve(import.meta.dirname, "..", "public")));
-
-  if (isProduction) {
-    serveStatic(app);
-  } else {
-    const { setupVite } = await import("./vite");
-    await setupVite(httpServer, app);
-  }
-
   const port = parseInt(process.env.PORT || "5000", 10);
+
   httpServer.listen(
     {
       port,
       host: "0.0.0.0",
       reusePort: true,
     },
-    () => {
+    async () => {
       logger.info({ source: "express" }, `serving on port ${port}`);
+
+      await registerRoutes(httpServer, app);
+
+      app.use(errorHandler);
+
+      app.use(express.static(path.resolve(import.meta.dirname, "..", "public")));
+
+      if (isProduction) {
+        serveStatic(app);
+      } else {
+        const { setupVite } = await import("./vite");
+        await setupVite(httpServer, app);
+      }
+
+      logger.info({ source: "express" }, "application fully initialized");
     },
   );
 })();

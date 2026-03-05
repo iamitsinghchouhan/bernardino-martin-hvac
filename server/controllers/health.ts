@@ -18,7 +18,7 @@ export async function healthCheck(_req: Request, res: Response) {
   const seconds = Math.floor(uptimeSeconds % 60);
   const uptime = `${hours}h ${minutes}m ${seconds}s`;
 
-  res.json({
+  res.status(200).json({
     status: dbStatus === "connected" ? "ok" : "degraded",
     uptime,
     database: dbStatus,
