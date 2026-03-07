@@ -111,25 +111,27 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 -mt-24 relative z-20">
             {PROMOS.map((promo, i) => (
-              <Card key={i} className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-white overflow-hidden group">
-                <div className="h-2 bg-gradient-to-r from-primary to-secondary" />
-                <CardContent className="p-8 text-center flex flex-col items-center justify-center h-full min-h-[220px]">
-                  <Badge variant="secondary" className="mb-4 bg-primary/5 text-primary hover:bg-primary/10 border-primary/10 px-3 py-1 text-sm font-bold">
-                    {promo.title}
-                  </Badge>
-                  <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-primary transition-colors">
-                    {promo.sub || "Limited Time Offer"}
-                  </h3>
-                  <p className="text-slate-600 mb-6 font-medium">
-                    {promo.description}
-                  </p>
-                  <div className="mt-auto pt-4 border-t border-slate-100 w-full flex justify-between items-center text-xs text-slate-500 font-mono">
-                    <span>CODE: {promo.code}</span>
-                    <span className="flex items-center text-secondary font-bold">
-                      Claim Now <ArrowRight className="ml-1 h-3 w-3" />
-                    </span>
-                  </div>
-                </CardContent>
+              <Card key={i} className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-white overflow-hidden group cursor-pointer" data-testid={`card-promo-${i}`}>
+                <Link href="/booking">
+                  <div className="h-2 bg-gradient-to-r from-primary to-secondary" />
+                  <CardContent className="p-8 text-center flex flex-col items-center justify-center h-full min-h-[220px]">
+                    <Badge variant="secondary" className="mb-4 bg-primary/5 text-primary hover:bg-primary/10 border-primary/10 px-3 py-1 text-sm font-bold">
+                      {promo.title}
+                    </Badge>
+                    <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-primary transition-colors">
+                      {promo.sub || "Limited Time Offer"}
+                    </h3>
+                    <p className="text-slate-600 mb-6 font-medium">
+                      {promo.description}
+                    </p>
+                    <div className="mt-auto pt-4 border-t border-slate-100 w-full flex justify-between items-center text-xs text-slate-500 font-mono">
+                      <span>CODE: {promo.code}</span>
+                      <span className="flex items-center text-secondary font-bold">
+                        Claim Now <ArrowRight className="ml-1 h-3 w-3" />
+                      </span>
+                    </div>
+                  </CardContent>
+                </Link>
               </Card>
             ))}
           </div>
