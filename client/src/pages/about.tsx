@@ -25,7 +25,7 @@ export default function About() {
                 </div>
                 <div>
                   <h3 className="font-bold text-lg">Licensed, Bonded & Insured</h3>
-                  <p className="text-slate-600">State Contractor License #109283. We carry comprehensive liability and workers' compensation insurance for your peace of mind.</p>
+                  <p className="text-slate-600">We carry comprehensive liability and workers' compensation insurance for your peace of mind.</p>
                 </div>
               </li>
               <li className="flex gap-4">

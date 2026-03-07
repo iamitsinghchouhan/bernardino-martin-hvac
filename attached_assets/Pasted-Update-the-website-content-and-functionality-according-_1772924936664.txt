@@ -1,0 +1,143 @@
+Update the website content and functionality according to the client requirements without changing the existing design layout or breaking any current functionality.
+
+Implement the following changes:
+
+1. Add New Services
+
+Update the services section and services pages to include the following services:
+
+HVAC Service
+Plumbing Service
+Electrical Service
+Solar Service
+Automatic Smart Irrigation Service
+Landscaping
+Sod Installation
+Planting
+Network Service
+
+Organize the services logically so the services page remains clean and easy to read.
+
+Suggested structure:
+
+Home Services
+- HVAC Service
+- Plumbing Service
+- Electrical Service
+- Solar Service
+
+Outdoor & Property Services
+- Automatic Smart Irrigation Service
+- Landscaping
+- Sod Installation
+- Planting
+
+Technology Services
+- Network Service
+
+Ensure each service links to the relevant service page.
+
+2. Smart Irrigation System Explanation
+
+Add a highlighted informational section describing the smart irrigation system and smart valve technology.
+
+Use the following explanation:
+
+Installing a modern electronic irrigation system allows homeowners to monitor and control their irrigation directly from a mobile phone. Smart shut-off valves can detect leaks and automatically prevent water damage, helping avoid accidents and costly insurance claims. In many cases, homeowners may qualify for insurance discounts of up to 40% when installing certified smart water protection systems. Documentation can be provided after installation for insurance verification.
+
+Ensure this section appears on the irrigation service page and is also referenced on the main services page.
+
+3. Remove Fake Licensing Number
+
+Locate and remove any text displaying a fake or placeholder licensing number such as:
+
+“Licensed, Bonded & Insured #109283”
+
+Replace it with the following wording:
+
+Licensed, Bonded & Insured
+
+Add a message near the booking section that states:
+
+"We will verify licensing when you book your appointment."
+
+Do NOT add any license number yet.
+
+4. Update Business Email Across the Entire Website
+
+Replace all existing business email addresses with:
+
+martinsolarstar@gmail.com
+
+Update the email everywhere including:
+
+- Contact page
+- Footer
+- Admin notification settings
+- Booking forms
+- Email links
+- Any contact sections across all pages
+
+Ensure mailto links use the updated email.
+
+5. Add Email Verification for Form Submissions
+
+Implement email validation and verification to prevent fake submissions.
+
+Requirements:
+
+- Validate email format before submission
+- Prevent obviously invalid email addresses
+- Send a verification email before creating an account or booking record
+- Only process confirmed emails
+
+Apply verification to:
+
+- contact forms
+- booking forms
+- any account creation or request forms
+
+Ensure the user experience remains simple.
+
+6. Apply Watermark to All Website Images
+
+Implement a watermark overlay system for all images used on the website.
+
+Watermark text:
+
+"BERNARDINO MARTIN – OFFICIAL SERVICE MEDIA"
+
+Requirements:
+
+- Apply watermark automatically to all images across the site
+- Use a semi-transparent overlay
+- Maintain readability of the images
+- Do not distort or crop images
+- Apply watermark through CSS or image rendering so existing images do not need manual editing
+- Ensure responsiveness on mobile and desktop
+
+The watermark should apply to:
+
+- gallery images
+- service images
+- hero images
+- media library images
+
+7. Maintain Existing Design
+
+Do NOT modify:
+
+- existing layout
+- styling
+- booking system
+- admin panel functionality
+- payment system
+- SEO structure
+
+Only update content and add the requested features.
+
+After implementing all changes:
+
+- rebuild the project
+- verify the site runs without errors
+- confirm all forms still work correctly.

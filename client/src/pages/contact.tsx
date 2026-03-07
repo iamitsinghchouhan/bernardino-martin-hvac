@@ -10,12 +10,14 @@ import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
+import { validateEmail } from "@/lib/email-validation";
 
 export default function Contact() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [emailError, setEmailError] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const { toast } = useToast();
 
@@ -42,6 +44,12 @@ export default function Contact() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const emailCheck = validateEmail(email);
+    if (!emailCheck.valid) {
+      setEmailError(emailCheck.error || "Invalid email");
+      return;
+    }
+    setEmailError("");
     contactMutation.mutate({ name, phone: phone || null, email, message });
   };
 
@@ -92,7 +100,7 @@ export default function Contact() {
                   <Mail className="h-6 w-6 text-primary mt-1" aria-hidden="true" />
                   <div>
                     <h3 className="font-semibold text-slate-900">Email</h3>
-                    <p className="text-slate-600">service@bernardinomartinhvac.com</p>
+                    <p className="text-slate-600"><a href="mailto:martinsolarstar@gmail.com" className="hover:text-primary transition-colors">martinsolarstar@gmail.com</a></p>
                   </div>
                 </div>
                 
@@ -150,7 +158,8 @@ export default function Contact() {
                   
                   <div className="space-y-2">
                     <label htmlFor="email" className="text-sm font-medium">Email</label>
-                    <Input id="email" type="email" placeholder="Your Email Address" value={email} onChange={e => setEmail(e.target.value)} required data-testid="input-contact-email" />
+                    <Input id="email" type="email" placeholder="Your Email Address" value={email} onChange={e => { setEmail(e.target.value); setEmailError(""); }} required data-testid="input-contact-email" className={emailError ? "border-red-500" : ""} />
+                    {emailError && <p className="text-xs text-red-500 mt-1">{emailError}</p>}
                   </div>
                   
                   <div className="space-y-2">

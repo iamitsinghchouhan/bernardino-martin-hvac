@@ -65,7 +65,7 @@ export function ServiceAreasMap() {
             <Marker key={city} position={coords} icon={customIcon}>
               <Popup className="font-sans">
                 <div className="text-center font-bold">{city}</div>
-                <div className="text-xs text-primary mt-1"><Link href={`/booking?service=ac-repair`}>Book Service Here</Link></div>
+                <div className="text-xs text-primary mt-1"><Link href={`/booking?service=hvac-service`}>Book Service Here</Link></div>
               </Popup>
             </Marker>
           );
