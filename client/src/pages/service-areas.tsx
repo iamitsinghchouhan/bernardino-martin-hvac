@@ -39,7 +39,7 @@ export default function ServiceAreas() {
           <h2 className="text-3xl font-heading font-bold mb-8 text-center">Cities We Serve</h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {CITIES.map((city) => (
-              <Link key={city} href={`/booking?service=hvac-service`} className="flex items-center gap-3 p-4 bg-white border border-slate-200 rounded-xl hover:border-primary hover:shadow-lg hover:-translate-y-1 transition-all group">
+              <Link key={city} href={`/booking?service=ac-maintenance`} className="flex items-center gap-3 p-4 bg-white border border-slate-200 rounded-xl hover:border-primary hover:shadow-lg hover:-translate-y-1 transition-all group">
                   <div className="bg-primary/5 p-2 rounded-lg group-hover:bg-primary transition-colors">
                     <MapPin className="h-4 w-4 text-primary group-hover:text-white transition-colors" />
                   </div>

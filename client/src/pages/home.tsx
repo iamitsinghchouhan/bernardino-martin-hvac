@@ -321,7 +321,7 @@ export default function Home() {
                  
                  <div className="pt-6">
                     <Button size="lg" className="bg-white text-slate-900 hover:bg-slate-100 font-bold px-8 h-14" asChild>
-                       <Link href="/booking?service=plumbing-service">Request Installation Quote</Link>
+                       <Link href="/booking?service=plumbing-underground">Request Installation Quote</Link>
                     </Button>
                  </div>
               </div>
@@ -372,7 +372,7 @@ export default function Home() {
                         <p className="text-slate-300 text-sm mb-8">Billed annually at $228/year</p>
                         
                         <Button className="w-full bg-primary hover:bg-primary/90 text-white font-bold h-12 shadow-lg shadow-primary/20" asChild>
-                           <Link href="/booking?service=hvac-service">Join the Club</Link>
+                           <Link href="/booking?service=hvac-maintenance">Join the Club</Link>
                         </Button>
                      </div>
                   </div>

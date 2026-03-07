@@ -69,7 +69,7 @@ server/
 **Pages:**
 - Home (hero video, promos, services overview, project gallery)
 - About
-- Services (9 services in 3 categories: Home Services, Outdoor & Property, Technology; includes Smart Irrigation info section)
+- Services (23 services in 6 categories: HVAC & Heating, Solar & Energy, Plumbing, Electrical, Outdoor & Property, Technology; includes Smart Irrigation info section)
 - Service Areas (interactive Leaflet map with LA-area cities)
 - Contact (form submits to `/api/contact`)
 - Booking (appointment scheduling form submits to `/api/bookings`)

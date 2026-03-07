@@ -1,0 +1,117 @@
+1. Restore Existing Services
+
+Do NOT remove any existing services that were previously on the website.
+
+Restore all original services exactly as they existed before the recent update.
+
+Ensure all previously available service cards and service pages remain intact.
+
+2. Add New Services WITHOUT Removing Existing Ones
+
+Add the following new services in addition to the existing ones:
+
+HVAC Service
+Plumbing Service
+Electrical Service
+Solar Service
+Automatic Smart Irrigation Service
+Landscaping
+Sod Installation
+Planting
+Network Service
+
+These services should appear alongside the existing services.
+
+Ensure the layout remains clean and responsive.
+
+3. Generate Professional Images for the New Services
+
+For each new service, generate a realistic professional image that matches the business and service type.
+
+Image style requirements:
+
+- realistic contractor work scenes
+- residential and commercial service environments
+- Los Angeles style homes where appropriate
+- professional technicians working with equipment
+- clean and trustworthy visual tone
+
+Examples:
+
+HVAC Service:
+technician repairing outdoor AC condenser unit
+
+Plumbing Service:
+technician installing copper piping or fixing plumbing lines
+
+Electrical Service:
+electrician installing electrical panel or wiring
+
+Solar Service:
+solar panels being installed on residential roof
+
+Automatic Smart Irrigation Service:
+smart irrigation valve connected to mobile phone system
+
+Landscaping:
+professional landscaping installation around residential home
+
+Sod Installation:
+fresh green sod installation on lawn
+
+Planting:
+plants and garden installation around property
+
+Network Service:
+technician installing networking equipment or routers
+
+Images must be optimized for fast loading and mobile performance.
+
+Do not replace images that already exist for previously implemented services.
+
+Only generate images for the new services.
+
+4. Fix the Watermark
+
+The watermark currently applied to images is too large and intrusive.
+
+Update the watermark so that it is:
+
+- small
+- subtle
+- semi-transparent
+- positioned in the lower corner of the image
+
+Watermark text:
+
+BERNARDINO MARTIN
+
+Requirements:
+
+- opacity around 10–15%
+- small size
+- bottom-right placement
+- not visually distracting
+- difficult to crop out
+
+Ensure the watermark does not affect layout, image quality, or mobile responsiveness.
+
+5. Preserve Current Website Structure
+
+Do NOT modify:
+
+- existing page layouts
+- SEO structure
+- booking system
+- admin panel
+- payment page
+- existing service images
+
+Only restore removed services, add the new services, generate images for those new services, and adjust the watermark size.
+
+After completing the changes:
+
+- rebuild the application
+- verify services display correctly
+- confirm images load properly
+- confirm watermark is subtle and not intrusive.

@@ -91,7 +91,7 @@ export default function Services() {
                   </div>
                 </div>
 
-                {category === "Outdoor & Property Services" && (
+                {category === "Outdoor & Property" && (
                   <div className="mb-16 bg-gradient-to-br from-blue-50 to-green-50 rounded-2xl p-8 md:p-12 border border-blue-100 shadow-sm" data-testid="section-smart-irrigation-info">
                     <div className="max-w-4xl mx-auto">
                       <div className="flex items-center gap-3 mb-6">
