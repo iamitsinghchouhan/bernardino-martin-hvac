@@ -46,7 +46,7 @@ export default function Home() {
       
       {/* Hero Section - Video Background */}
       <section className="relative h-[650px] md:h-[700px] flex items-center overflow-hidden" data-testid="hero-section">
-        <div className="absolute inset-0 z-0">
+        <div className="watermark absolute inset-0 z-0">
           <video
             ref={videoRef}
             className="w-full h-full object-cover"
@@ -179,7 +179,7 @@ export default function Home() {
             
             <div className="w-full lg:w-1/2 relative">
                <div className="absolute -inset-4 bg-gradient-to-tr from-slate-200 to-slate-50 rounded-3xl transform -rotate-3 z-0"></div>
-               <div className="relative z-10 aspect-square rounded-2xl overflow-hidden shadow-2xl border-8 border-white">
+               <div className="watermark relative z-10 aspect-square rounded-2xl overflow-hidden shadow-2xl border-8 border-white">
                   <img src="/images/real-diagnostics.webp" alt="HVAC Technician diagnosing AC problem" className="w-full h-full object-cover" loading="lazy" decoding="async" width={1920} height={1080} />
                </div>
                
@@ -211,9 +211,9 @@ export default function Home() {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {SERVICES.slice(0, 6).map((service) => (
+            {SERVICES.slice(0, 6).map((service: typeof SERVICES[number]) => (
               <Card key={service.id} className="group overflow-hidden border-slate-100 shadow-md hover:shadow-2xl transition-all duration-300 flex flex-col bg-white">
-                <div className="aspect-[4/3] overflow-hidden relative">
+                <div className="watermark aspect-[4/3] overflow-hidden relative">
                   <div className="absolute inset-0 bg-slate-900/10 group-hover:bg-slate-900/0 transition-colors z-10" />
                   <img 
                     src={service.image} 
@@ -263,7 +263,7 @@ export default function Home() {
           
           <div className="mt-16 text-center">
              <Button variant="outline" size="lg" className="border-slate-300 text-slate-700 hover:text-primary hover:border-primary font-bold h-14 px-8" asChild>
-               <Link href="/services">View All 14 Services</Link>
+               <Link href="/services">View All {SERVICES.length} Services</Link>
              </Button>
           </div>
         </div>
@@ -321,12 +321,12 @@ export default function Home() {
                  
                  <div className="pt-6">
                     <Button size="lg" className="bg-white text-slate-900 hover:bg-slate-100 font-bold px-8 h-14" asChild>
-                       <Link href="/booking?service=plumbing-underground">Request Installation Quote</Link>
+                       <Link href="/booking?service=plumbing-service">Request Installation Quote</Link>
                     </Button>
                  </div>
               </div>
               <div className="w-full lg:w-1/2">
-                 <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-slate-700 group">
+                 <div className="watermark relative w-full aspect-video rounded-2xl overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-slate-700 group">
                     <img src="/images/moen-smart-water-shutoff.webp" alt="Moen Flo Smart Water Monitor and Shutoff — professional installation on copper pipe" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" decoding="async" width={1920} height={1080} />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent"></div>
                     <div className="absolute bottom-6 left-6 right-6">
@@ -372,7 +372,7 @@ export default function Home() {
                         <p className="text-slate-300 text-sm mb-8">Billed annually at $228/year</p>
                         
                         <Button className="w-full bg-primary hover:bg-primary/90 text-white font-bold h-12 shadow-lg shadow-primary/20" asChild>
-                           <Link href="/booking?service=hvac-maintenance">Join the Club</Link>
+                           <Link href="/booking?service=hvac-service">Join the Club</Link>
                         </Button>
                      </div>
                   </div>
@@ -406,7 +406,7 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center gap-12">
             <div className="w-full md:w-1/2">
-               <div className="relative">
+               <div className="watermark relative">
                  <div className="absolute -inset-4 bg-primary/10 rounded-3xl transform rotate-2"></div>
                  <img 
                    src="/images/technician.webp" 
@@ -441,7 +441,7 @@ export default function Home() {
               
               <ul className="space-y-4">
                 {[
-                  "Licensed, Bonded & Insured (#109283)",
+                  "Licensed, Bonded & Insured",
                   "Top-Rated on Google & Yelp",
                   "Upfront Pricing - No Hidden Fees",
                   "Same-Day Emergency Service",

@@ -49,7 +49,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <div className="container mx-auto px-4 flex justify-between items-center">
           <div className="flex items-center gap-2">
             <ShieldCheck className="h-4 w-4 text-green-400" aria-hidden="true" />
-            <span>Licensed, Bonded & Insured #109283</span>
+            <span>Licensed, Bonded & Insured</span>
           </div>
           <div className="hidden md:flex gap-4">
             <span>Commercial & Residential</span>

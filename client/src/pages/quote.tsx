@@ -11,6 +11,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { CheckCircle, Loader2, Shield, Clock, Phone } from "lucide-react";
+import { validateEmail } from "@/lib/email-validation";
 import { Badge } from "@/components/ui/badge";
 
 export default function Quote() {
@@ -22,6 +23,7 @@ export default function Quote() {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
+  const [emailError, setEmailError] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const { toast } = useToast();
 
@@ -48,6 +50,12 @@ export default function Quote() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const emailCheck = validateEmail(email);
+    if (!emailCheck.valid) {
+      setEmailError(emailCheck.error || "Invalid email");
+      return;
+    }
+    setEmailError("");
     quoteMutation.mutate({
       serviceType,
       propertyType,
@@ -202,7 +210,8 @@ export default function Quote() {
                         </div>
                         <div>
                           <label htmlFor="quote-email" className="sr-only">Email Address</label>
-                          <Input id="quote-email" placeholder="Email Address" type="email" value={email} onChange={e => setEmail(e.target.value)} required data-testid="input-quote-email" aria-label="Email Address" />
+                          <Input id="quote-email" placeholder="Email Address" type="email" value={email} onChange={e => { setEmail(e.target.value); setEmailError(""); }} required data-testid="input-quote-email" aria-label="Email Address" className={emailError ? "border-red-500" : ""} />
+                          {emailError && <p className="text-xs text-red-500 mt-1">{emailError}</p>}
                         </div>
                         <div>
                           <label htmlFor="quote-address" className="sr-only">Property Address</label>

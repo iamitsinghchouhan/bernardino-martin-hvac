@@ -63,11 +63,13 @@ server/
 - **Build Tool:** Vite with manual chunk splitting (vendor-react, vendor-ui, vendor-maps, vendor-charts, vendor-forms)
 - **Code Splitting:** React.lazy() for all pages except Home; ProjectGallery lazy-loaded within Home
 - **Image Optimization:** WebP format, lazy loading with `decoding="async"`, hero video preloaded
+- **Image Watermarks:** CSS-based watermark overlay ("BERNARDINO MARTIN – OFFICIAL SERVICE MEDIA") on all content images via `.watermark` class
+- **Email Validation:** Strict email validation on all forms (booking, contact, quote) blocking disposable email domains (mailinator, guerrillamail, etc.) with client-side and server-side Zod schema validation
 
 **Pages:**
-- Home (hero, promos, services overview, project gallery)
+- Home (hero video, promos, services overview, project gallery)
 - About
-- Services (full service listing)
+- Services (9 services in 3 categories: Home Services, Outdoor & Property, Technology; includes Smart Irrigation info section)
 - Service Areas (interactive Leaflet map with LA-area cities)
 - Contact (form submits to `/api/contact`)
 - Booking (appointment scheduling form submits to `/api/bookings`)
@@ -80,7 +82,7 @@ server/
 - **Helmet:** CSP, XSS protection, frameguard, referrer policy, hides X-Powered-By
 - **Rate Limiting:** express-rate-limit on all API routes (global: 100/15min), stricter for login (5/15min), forms (10/15min), payments (10/15min)
 - **Input Sanitization:** Global middleware strips HTML tags from all request bodies and query params
-- **Request Validation:** Zod schemas with `.trim()`, `.email()`, min/max length constraints on all form fields
+- **Request Validation:** Zod schemas with `.trim()`, `strictEmail` (disposable domain blocking), min/max length constraints on all form fields
 - **Session Cookies:** httpOnly, secure (production), sameSite=strict, 24h expiry
 - **HTTPS Redirect:** Production traffic redirected to HTTPS
 - **Admin Protection:** Session-based auth with `requireAdmin` middleware on all admin routes

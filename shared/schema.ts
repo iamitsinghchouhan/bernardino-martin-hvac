@@ -3,6 +3,25 @@ import { pgTable, text, varchar, timestamp, integer, boolean } from "drizzle-orm
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
+const BLOCKED_DOMAINS = [
+  "mailinator.com", "guerrillamail.com", "tempmail.com", "throwaway.email",
+  "yopmail.com", "sharklasers.com", "guerrillamailblock.com", "grr.la",
+  "dispostable.com", "trashmail.com", "fakeinbox.com", "tempail.com",
+  "maildrop.cc", "10minutemail.com", "getnada.com", "temp-mail.org",
+  "mohmal.com", "burnermail.io", "mailnesia.com"
+];
+
+export const strictEmail = z.string().trim().email().max(320)
+  .refine((email) => {
+    const domain = email.split("@")[1]?.toLowerCase();
+    if (!domain) return false;
+    if (BLOCKED_DOMAINS.includes(domain)) return false;
+    if (!domain.includes(".")) return false;
+    const tld = domain.split(".").pop();
+    if (!tld || tld.length < 2) return false;
+    return true;
+  }, { message: "Please use a valid, non-disposable email address" });
+
 export const bookings = pgTable("bookings", {
   id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
   serviceId: text("service_id").notNull(),
@@ -61,7 +80,7 @@ export const insertBookingSchema = createInsertSchema(bookings).omit({
   createdAt: true,
 }).extend({
   fullName: z.string().trim().min(1).max(200),
-  email: z.string().trim().email().max(320),
+  email: strictEmail,
   phone: z.string().trim().min(7).max(30),
   address: z.string().trim().min(1).max(500),
   serviceId: z.string().trim().min(1).max(100),
@@ -75,7 +94,7 @@ export const insertContactMessageSchema = createInsertSchema(contactMessages).om
   createdAt: true,
 }).extend({
   name: z.string().trim().min(1).max(200),
-  email: z.string().trim().email().max(320),
+  email: strictEmail,
   phone: z.string().trim().max(30).optional().nullable(),
   message: z.string().trim().min(1).max(5000),
 });
@@ -86,7 +105,7 @@ export const insertInvoiceSchema = createInsertSchema(invoices).omit({
   createdAt: true,
 }).extend({
   invoiceNumber: z.string().trim().min(1).max(50),
-  customerEmail: z.string().trim().email().max(320),
+  customerEmail: strictEmail,
   customerName: z.string().trim().min(1).max(200),
   serviceTitle: z.string().trim().min(1).max(200),
   amount: z.number().int().positive(),
@@ -134,7 +153,7 @@ export const insertQuoteSchema = createInsertSchema(quotes).omit({
   urgency: z.string().trim().max(50).optional(),
   fullName: z.string().trim().min(1).max(200),
   phone: z.string().trim().min(7).max(30),
-  email: z.string().trim().email().max(320),
+  email: strictEmail,
   address: z.string().trim().max(500).optional().nullable(),
 });
 export type Quote = typeof quotes.$inferSelect;

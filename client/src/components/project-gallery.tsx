@@ -95,7 +95,7 @@ export function ProjectGallery() {
                   role="button"
                   aria-label={`View project: ${project.title}`}
                   tabIndex={0}
-                  className={`group relative overflow-hidden rounded-xl cursor-pointer shadow-md hover:shadow-xl transition-all duration-300 bg-slate-200 ${
+                  className={`watermark group relative overflow-hidden rounded-xl cursor-pointer shadow-md hover:shadow-xl transition-all duration-300 bg-slate-200 ${
                     index === 0 || index === 7 ? "md:col-span-2 md:row-span-2 h-[516px]" : ""
                   }`}
                 >
@@ -126,7 +126,7 @@ export function ProjectGallery() {
               <DialogContent className="max-w-4xl p-0 overflow-hidden bg-white border-none rounded-2xl shadow-2xl" aria-describedby={undefined}>
                 <VisuallyHidden><DialogTitle>{project.title}</DialogTitle></VisuallyHidden>
                 <div className="flex flex-col md:flex-row h-full">
-                    <div className="w-full md:w-2/3 bg-black flex items-center justify-center relative overflow-hidden">
+                    <div className="watermark w-full md:w-2/3 bg-black flex items-center justify-center relative overflow-hidden">
                          <div className="absolute inset-0 bg-black/10 backdrop-blur-[2px] z-0"></div>
                         <img 
                             src={project.image} 

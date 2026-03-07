@@ -12,6 +12,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { CheckCircle, Loader2 } from "lucide-react";
+import { validateEmail } from "@/lib/email-validation";
 
 export default function Booking() {
   const [date, setDate] = useState<Date | undefined>(new Date());
@@ -21,6 +22,7 @@ export default function Booking() {
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
   const [notes, setNotes] = useState("");
+  const [emailError, setEmailError] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const { toast } = useToast();
 
@@ -47,6 +49,12 @@ export default function Booking() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const emailCheck = validateEmail(email);
+    if (!emailCheck.valid) {
+      setEmailError(emailCheck.error || "Invalid email");
+      return;
+    }
+    setEmailError("");
     const service = SERVICES.find(s => s.id === selectedService);
     if (!service || !date) return;
 
@@ -131,7 +139,8 @@ export default function Booking() {
                       </div>
                       <div className="space-y-2">
                         <label htmlFor="booking-email" className="sr-only">Email Address</label>
-                        <Input id="booking-email" placeholder="Email Address" type="email" value={email} onChange={e => setEmail(e.target.value)} required data-testid="input-email" className="mb-2" aria-label="Email Address" />
+                        <Input id="booking-email" placeholder="Email Address" type="email" value={email} onChange={e => { setEmail(e.target.value); setEmailError(""); }} required data-testid="input-email" className={`mb-2 ${emailError ? "border-red-500" : ""}`} aria-label="Email Address" />
+                        {emailError && <p className="text-xs text-red-500">{emailError}</p>}
                       </div>
                       <div className="space-y-2">
                         <label htmlFor="booking-address" className="sr-only">Street Address</label>
@@ -160,6 +169,10 @@ export default function Booking() {
                 </div>
 
                 <div className="mt-8 pt-6 border-t">
+                  <p className="text-sm text-slate-500 mb-4 flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary shrink-0"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    We will verify licensing when you book your appointment.
+                  </p>
                   <Button
                     type="submit"
                     className="w-full md:w-auto md:ml-auto block bg-primary hover:bg-primary/90"

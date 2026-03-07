@@ -36,8 +36,7 @@ export function InvoiceTemplate({ invoice }: { invoice?: InvoiceData }) {
         <div className="text-right">
           <h2 className="text-xl font-bold text-slate-900 mb-1">{COMPANY_NAME}<br /><span className="text-sm font-medium text-slate-600">Heating, Air Conditioning, Solar</span></h2>
           <p className="text-sm text-slate-600">{COMPANY_PHONE}</p>
-          <p className="text-sm text-slate-600">info@bernardinomartin.com</p>
-          <p className="text-sm text-slate-500 mt-2 font-medium">Lic #109283</p>
+          <p className="text-sm text-slate-600">martinsolarstar@gmail.com</p>
         </div>
       </div>
 
