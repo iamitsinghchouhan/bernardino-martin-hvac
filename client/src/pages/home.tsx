@@ -46,7 +46,7 @@ export default function Home() {
       
       {/* Hero Section - Video Background */}
       <section className="relative h-[650px] md:h-[700px] flex items-center overflow-hidden" data-testid="hero-section">
-        <div className="watermark absolute inset-0 z-0">
+        <div className="absolute inset-0 z-0">
           <video
             ref={videoRef}
             className="w-full h-full object-cover"
