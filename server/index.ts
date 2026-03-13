@@ -186,9 +186,9 @@ app.use((req, res, next) => {
   /*
   SPA fallback so React routes work
   */
-  app.get("*", (req, res) => {
-    res.sendFile(path.join(distPath, "index.html"));
-  });
+  app.use((req, res) => {
+   res.sendFile(path.join(distPath, "index.html"));
+});
 
   if (!isProduction) {
     const { setupVite } = await import("./vite");
