@@ -1,5 +1,5 @@
 import "dotenv/config";
-import express, { Request, Response, NextFunction } from "express";
+import express, { type Request, Response, NextFunction } from "express";
 import session from "express-session";
 import connectPgSimple from "connect-pg-simple";
 import helmet from "helmet";
@@ -41,6 +41,9 @@ const PgStore = connectPgSimple(session);
 const app = express();
 const httpServer = createServer(app);
 
+/*
+Security headers
+*/
 app.use(
   helmet({
     crossOriginEmbedderPolicy: false,
@@ -49,16 +52,17 @@ app.use(
 
 app.use(compression());
 
-app.use(
-  express.json({
-    limit: "1mb",
-  })
-);
-
+/*
+Body parsing
+*/
+app.use(express.json({ limit: "1mb" }));
 app.use(express.urlencoded({ extended: false, limit: "1mb" }));
 
 app.use(sanitizeInput);
 
+/*
+Session setup
+*/
 const sessionSecret =
   process.env.SESSION_SECRET || crypto.randomBytes(32).toString("hex");
 
@@ -80,10 +84,16 @@ app.use(
   })
 );
 
+/*
+Health check
+*/
 app.get("/health", (_req: Request, res: Response) => {
   res.json({ status: "ok" });
 });
 
+/*
+API logging
+*/
 app.use((req, res, next) => {
   const start = Date.now();
 
@@ -94,7 +104,7 @@ app.use((req, res, next) => {
       logger.info({
         method: req.method,
         path: req.path,
-        status: res.statusCode,
+        statusCode: res.statusCode,
         duration,
       });
     }
@@ -104,14 +114,28 @@ app.use((req, res, next) => {
 });
 
 (async () => {
+  /*
+  Register API routes
+  */
   await registerRoutes(httpServer, app);
 
   app.use(errorHandler);
 
-  const distPath = path.resolve(process.cwd(), "dist/public");
+  /*
+  React build location
+  dist/index.cjs → dist/public
+  */
+  const distPath = path.join(__dirname, "public");
 
+  /*
+  Serve static assets
+  */
   app.use(express.static(distPath));
 
+  /*
+  React SPA fallback
+  (no wildcard routes to avoid path-to-regexp crash)
+  */
   app.use((req: Request, res: Response) => {
     res.sendFile(path.join(distPath, "index.html"));
   });
