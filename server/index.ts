@@ -179,16 +179,15 @@ app.use((req, res, next) => {
   IMPORTANT FIX
   Serve the built React frontend correctly
   */
+  // Static files (React build)
   const distPath = path.resolve(process.cwd(), "dist/public");
 
   app.use(express.static(distPath));
 
-  /*
-  SPA fallback so React routes work
-  */
-  app.use((req, res) => {
-   res.sendFile(path.join(distPath, "index.html"));
-});
+  // React SPA fallback
+  app.get("/*", (req: Request, res: Response) => {
+    res.sendFile(path.join(distPath, "index.html"));
+  });
 
   if (!isProduction) {
     const { setupVite } = await import("./vite");
