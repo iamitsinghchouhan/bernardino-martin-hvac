@@ -1,5 +1,5 @@
 import "dotenv/config";
-import express, { type Request, Response, NextFunction } from "express";
+import express, { Request, Response, NextFunction } from "express";
 import session from "express-session";
 import connectPgSimple from "connect-pg-simple";
 import helmet from "helmet";
@@ -16,53 +16,36 @@ import { errorHandler } from "./middleware/error-handler";
 
 const isProduction = process.env.NODE_ENV === "production";
 
-process.on("uncaughtException", (err) => {
-  logger.fatal({ err }, "Uncaught exception");
-});
-
-process.on("unhandledRejection", (reason) => {
-  logger.error({ reason }, "Unhandled promise rejection");
-});
-
-function validateEnv() {
-  if (!process.env.DATABASE_URL) {
-    throw new Error("DATABASE_URL must be set");
-  }
-
-  if (!process.env.SESSION_SECRET) {
-    logger.warn("SESSION_SECRET not set — using temporary secret");
-  }
-}
-
-validateEnv();
-
 const PgStore = connectPgSimple(session);
 
 const app = express();
 const httpServer = createServer(app);
 
-/*
-Security headers
-*/
+process.on("uncaughtException", (err) => {
+  logger.error({ err }, "Uncaught exception");
+});
+
+process.on("unhandledRejection", (reason) => {
+  logger.error({ reason }, "Unhandled rejection");
+});
+
+if (!process.env.DATABASE_URL) {
+  throw new Error("DATABASE_URL must be set");
+}
+
 app.use(
   helmet({
-    crossOriginEmbedderPolicy: false,
+    crossOriginEmbedderPolicy: false
   })
 );
 
 app.use(compression());
 
-/*
-Body parsing
-*/
 app.use(express.json({ limit: "1mb" }));
-app.use(express.urlencoded({ extended: false, limit: "1mb" }));
+app.use(express.urlencoded({ extended: false }));
 
 app.use(sanitizeInput);
 
-/*
-Session setup
-*/
 const sessionSecret =
   process.env.SESSION_SECRET || crypto.randomBytes(32).toString("hex");
 
@@ -70,7 +53,7 @@ app.use(
   session({
     store: new PgStore({
       pool,
-      createTableIfMissing: true,
+      createTableIfMissing: true
     }),
     secret: sessionSecret,
     resave: false,
@@ -78,34 +61,25 @@ app.use(
     cookie: {
       secure: false,
       httpOnly: true,
-      sameSite: "lax",
-      maxAge: 24 * 60 * 60 * 1000,
-    },
+      sameSite: "lax"
+    }
   })
 );
 
-/*
-Health check
-*/
 app.get("/health", (_req: Request, res: Response) => {
   res.json({ status: "ok" });
 });
 
-/*
-API logging
-*/
 app.use((req, res, next) => {
   const start = Date.now();
 
   res.on("finish", () => {
-    const duration = Date.now() - start;
-
     if (req.path.startsWith("/api")) {
       logger.info({
         method: req.method,
         path: req.path,
-        statusCode: res.statusCode,
-        duration,
+        status: res.statusCode,
+        duration: Date.now() - start
       });
     }
   });
@@ -114,33 +88,29 @@ app.use((req, res, next) => {
 });
 
 (async () => {
-  /*
-  Register API routes
-  */
   await registerRoutes(httpServer, app);
 
   app.use(errorHandler);
 
-  /*
-  React build location
-  dist/index.cjs → dist/public
-  */
-  const distPath = path.join(__dirname, "public");
+  const distPath = path.resolve(__dirname, "public");
 
-  /*
-  Serve static assets
-  */
+  // serve static files
   app.use(express.static(distPath));
 
-  /*
-  React SPA fallback
-  (no wildcard routes to avoid path-to-regexp crash)
-  */
-  app.use((req: Request, res: Response) => {
+  // React SPA fallback WITHOUT wildcard route
+  app.use((req: Request, res: Response, next: NextFunction) => {
+    if (req.path.startsWith("/api")) {
+      return next();
+    }
+
+    if (req.method !== "GET") {
+      return next();
+    }
+
     res.sendFile(path.join(distPath, "index.html"));
   });
 
-  const port = parseInt(process.env.PORT || "3000", 10);
+  const port = Number(process.env.PORT || 3000);
 
   httpServer.listen(port, "0.0.0.0", () => {
     logger.info(`Server running on port ${port}`);
