@@ -5,8 +5,8 @@ import connectPgSimple from "connect-pg-simple";
 import helmet from "helmet";
 import compression from "compression";
 import path from "path";
-import { createServer } from "http";
 import crypto from "crypto";
+import { createServer } from "http";
 
 import { registerRoutes } from "./routes";
 import { pool } from "./db";
@@ -16,18 +16,25 @@ import { errorHandler } from "./middleware/error-handler";
 
 const isProduction = process.env.NODE_ENV === "production";
 
+/* ================================
+   Environment Validation
+================================ */
+
 if (!process.env.DATABASE_URL) {
-  throw new Error("DATABASE_URL must be set");
+  throw new Error("DATABASE_URL must be set in environment variables");
 }
 
-const PgStore = connectPgSimple(session);
+/* ================================
+   Express Setup
+================================ */
 
 const app = express();
 const httpServer = createServer(app);
 
-/*
-Disable strict CSP because it blocks Vite/React scripts
-*/
+/* ================================
+   Security
+================================ */
+
 app.use(
   helmet({
     contentSecurityPolicy: false,
@@ -35,12 +42,30 @@ app.use(
   })
 );
 
+/* ================================
+   Performance
+================================ */
+
 app.use(compression());
+
+/* ================================
+   Body Parsing
+================================ */
 
 app.use(express.json({ limit: "1mb" }));
 app.use(express.urlencoded({ extended: false }));
 
+/* ================================
+   Input Sanitization
+================================ */
+
 app.use(sanitizeInput);
+
+/* ================================
+   Session Configuration
+================================ */
+
+const PgStore = connectPgSimple(session);
 
 const sessionSecret =
   process.env.SESSION_SECRET || crypto.randomBytes(32).toString("hex");
@@ -63,14 +88,22 @@ app.use(
   })
 );
 
+/* ================================
+   Health Check
+================================ */
+
 app.get("/health", (_req: Request, res: Response) => {
-  res.json({ status: "ok" });
+  res.json({
+    status: "ok",
+    time: new Date().toISOString(),
+  });
 });
 
-/*
-API logging
-*/
-app.use((req, res, next) => {
+/* ================================
+   API Logging
+================================ */
+
+app.use((req: Request, res: Response, next: NextFunction) => {
   const start = Date.now();
 
   res.on("finish", () => {
@@ -87,29 +120,40 @@ app.use((req, res, next) => {
   next();
 });
 
+/* ================================
+   Server Boot
+================================ */
+
 (async () => {
+  /* Register API routes */
   await registerRoutes(httpServer, app);
 
+  /* Global error handler */
   app.use(errorHandler);
 
-  /*
-  Serve React build
-  dist/index.cjs -> dist/public
-  */
-  const distPath = path.resolve(__dirname, "public");
+  /* ================================
+     React Frontend
+  ================================= */
+
+  const distPath = path.resolve(process.cwd(), "dist/public");
 
   app.use(express.static(distPath));
 
   /*
-  SPA fallback
+  React SPA fallback
+  (DO NOT use "*" or "/*" here)
   */
-  app.get("*", (req: Request, res: Response) => {
+  app.use((req: Request, res: Response) => {
     res.sendFile(path.join(distPath, "index.html"));
   });
+
+  /* ================================
+     Start Server
+  ================================= */
 
   const port = Number(process.env.PORT || 3000);
 
   httpServer.listen(port, "0.0.0.0", () => {
-    logger.info(`Server running on port ${port}`);
+    logger.info(`🚀 Server running on port ${port}`);
   });
 })();
