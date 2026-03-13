@@ -17,7 +17,7 @@ import { errorHandler } from "./middleware/error-handler";
 const isProduction = process.env.NODE_ENV === "production";
 
 process.on("uncaughtException", (err) => {
-  logger.fatal({ err }, "Uncaught exception — process will continue but this should be investigated");
+  logger.fatal({ err }, "Uncaught exception — investigate immediately");
 });
 
 process.on("unhandledRejection", (reason) => {
@@ -37,20 +37,9 @@ function validateEnv() {
 
   if (!process.env.SESSION_SECRET) {
     if (isProduction) {
-      logger.warn("SESSION_SECRET is not set — sessions will not persist across server restarts in production");
+      logger.warn("SESSION_SECRET not set — sessions may reset on restart");
     } else {
-      logger.info("SESSION_SECRET not set — using random secret for development");
-    }
-  }
-
-  const optional: { key: string; label: string }[] = [
-    { key: "STRIPE_SECRET_KEY", label: "Stripe payment integration" },
-    { key: "ADMIN_PASSWORD", label: "Admin panel login" },
-  ];
-
-  for (const { key, label } of optional) {
-    if (!process.env[key]) {
-      logger.info(`Optional env variable ${key} not set — ${label} may be unavailable`);
+      logger.info("SESSION_SECRET not set — generating temporary secret");
     }
   }
 }
@@ -74,33 +63,37 @@ declare module "express-session" {
   }
 }
 
+/*
+Helmet security configuration
+Relaxed slightly for React/Vite compatibility
+*/
 app.use(
   helmet({
     contentSecurityPolicy: {
       directives: {
         defaultSrc: ["'self'"],
         scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
-        styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://cdnjs.cloudflare.com"],
-        fontSrc: ["'self'", "https://fonts.gstatic.com", "https://cdnjs.cloudflare.com"],
+        styleSrc: [
+          "'self'",
+          "'unsafe-inline'",
+          "https://fonts.googleapis.com",
+          "https://cdnjs.cloudflare.com",
+        ],
+        fontSrc: [
+          "'self'",
+          "https://fonts.gstatic.com",
+          "https://cdnjs.cloudflare.com",
+        ],
         imgSrc: [
           "'self'",
           "data:",
           "blob:",
-          "https://*.basemaps.cartocdn.com",
-          "https://basemaps.cartocdn.com",
-          "https://cdnjs.cloudflare.com",
-          "https://*.tile.openstreetmap.org",
-          "https://raw.githubusercontent.com",
+          "https://*",
         ],
-        mediaSrc: ["'self'", "blob:"],
         connectSrc: ["'self'", "ws:", "wss:"],
-        frameSrc: ["'none'"],
-        objectSrc: ["'none'"],
-        baseUri: ["'self'"],
       },
     },
     crossOriginEmbedderPolicy: false,
-    crossOriginResourcePolicy: { policy: "cross-origin" },
   })
 );
 
@@ -127,28 +120,20 @@ if (isProduction) {
   app.set("trust proxy", 1);
 
   app.use((req: Request, res: Response, next: NextFunction) => {
-    if (req.path === "/health" || req.path === "/") {
-      return next();
+    if (req.headers["x-forwarded-proto"] === "http") {
+      return res.redirect(`https://${req.headers.host}${req.url}`);
     }
-
-    if (req.headers["x-forwarded-proto"] && req.headers["x-forwarded-proto"] !== "https") {
-      return res.redirect(301, `https://${req.hostname}${req.originalUrl}`);
-    }
-
     next();
   });
 }
 
-const sessionSecret = process.env.SESSION_SECRET || crypto.randomBytes(32).toString("hex");
+const sessionSecret =
+  process.env.SESSION_SECRET || crypto.randomBytes(32).toString("hex");
 
 const sessionMiddleware = session({
   store: new PgStore({
     pool,
     createTableIfMissing: true,
-    pruneSessionInterval: 60 * 15,
-    errorLog: (err: Error) => {
-      logger.error({ err }, "Session store error");
-    },
   }),
   secret: sessionSecret,
   resave: false,
@@ -156,46 +141,28 @@ const sessionMiddleware = session({
   cookie: {
     secure: isProduction,
     httpOnly: true,
-    sameSite: "strict",
+    sameSite: "lax",
     maxAge: 24 * 60 * 60 * 1000,
   },
 });
 
-app.use((req: Request, res: Response, next: NextFunction) => {
-  sessionMiddleware(req, res, (err) => {
-    if (err) {
-      logger.error({ err }, "Session middleware error — continuing without session");
-      return next();
-    }
-    next();
-  });
-});
+app.use(sessionMiddleware);
 
 app.use((req, res, next) => {
   const start = Date.now();
-  const routePath = req.path;
-  let capturedJsonResponse: Record<string, any> | undefined = undefined;
-
-  const originalResJson = res.json;
-
-  res.json = function (bodyJson, ...args) {
-    capturedJsonResponse = bodyJson;
-    return originalResJson.apply(res, [bodyJson, ...args]);
-  };
 
   res.on("finish", () => {
     const duration = Date.now() - start;
 
-    if (routePath.startsWith("/api")) {
+    if (req.path.startsWith("/api")) {
       logger.info(
         {
           method: req.method,
-          path: routePath,
+          path: req.path,
           statusCode: res.statusCode,
           duration,
-          ...(capturedJsonResponse ? { response: capturedJsonResponse } : {}),
         },
-        `${req.method} ${routePath} ${res.statusCode} in ${duration}ms`
+        `${req.method} ${req.path} ${res.statusCode} in ${duration}ms`
       );
     }
   });
@@ -208,14 +175,22 @@ app.use((req, res, next) => {
 
   app.use(errorHandler);
 
-  // FIXED: Removed import.meta fallback
-  const serverDir = __dirname;
+  /*
+  IMPORTANT FIX
+  Serve the built React frontend correctly
+  */
+  const distPath = path.resolve(process.cwd(), "dist/public");
 
-  app.use(express.static(path.resolve(serverDir, "..", "public")));
+  app.use(express.static(distPath));
 
-  if (isProduction) {
-    serveStatic(app);
-  } else {
+  /*
+  SPA fallback so React routes work
+  */
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(distPath, "index.html"));
+  });
+
+  if (!isProduction) {
     const { setupVite } = await import("./vite");
     await setupVite(httpServer, app);
   }
@@ -226,10 +201,9 @@ app.use((req, res, next) => {
     {
       port,
       host: "0.0.0.0",
-      reusePort: true,
     },
     () => {
-      logger.info({ source: "express" }, `Server running on port ${port}`);
+      logger.info(`Server running on port ${port}`);
     }
   );
 })();
