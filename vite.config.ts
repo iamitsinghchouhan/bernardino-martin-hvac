@@ -5,44 +5,42 @@ import path from "path";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 import { metaImagesPlugin } from "./vite-plugin-meta-images";
 
+// Proper directory resolution compatible with Node + Vite
+const rootDir = path.resolve(__dirname);
+
 export default defineConfig({
   plugins: [
     react(),
     runtimeErrorOverlay(),
     tailwindcss(),
     metaImagesPlugin(),
-    ...(process.env.NODE_ENV !== "production" &&
-    process.env.REPL_ID !== undefined
-      ? [
-          await import("@replit/vite-plugin-cartographer").then((m) =>
-            m.cartographer(),
-          ),
-          await import("@replit/vite-plugin-dev-banner").then((m) =>
-            m.devBanner(),
-          ),
-        ]
-      : []),
   ],
+
   resolve: {
     alias: {
-      "@": path.resolve(import.meta.dirname, "client", "src"),
-      "@shared": path.resolve(import.meta.dirname, "shared"),
-      "@assets": path.resolve(import.meta.dirname, "attached_assets"),
+      "@": path.resolve(rootDir, "client/src"),
+      "@shared": path.resolve(rootDir, "shared"),
+      "@assets": path.resolve(rootDir, "attached_assets"),
     },
   },
+
   css: {
     postcss: {
       plugins: [],
     },
   },
-  root: path.resolve(import.meta.dirname, "client"),
+
+  root: path.resolve(rootDir, "client"),
+
   build: {
-    outDir: path.resolve(import.meta.dirname, "dist/public"),
+    outDir: path.resolve(rootDir, "dist/public"),
     emptyOutDir: true,
+
     rollupOptions: {
       output: {
         manualChunks: {
           "vendor-react": ["react", "react-dom"],
+
           "vendor-ui": [
             "@radix-ui/react-dialog",
             "@radix-ui/react-dropdown-menu",
@@ -54,16 +52,21 @@ export default defineConfig({
             "@radix-ui/react-accordion",
             "framer-motion",
           ],
+
           "vendor-maps": ["leaflet", "react-leaflet"],
+
           "vendor-charts": ["recharts"],
+
           "vendor-forms": ["react-hook-form", "@hookform/resolvers"],
         },
       },
     },
   },
+
   server: {
     host: "0.0.0.0",
     allowedHosts: true,
+
     fs: {
       strict: true,
       deny: ["**/.*"],
