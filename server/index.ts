@@ -73,24 +73,35 @@ declare module "express-session" {
   }
 }
 
-app.use(helmet({
-  contentSecurityPolicy: {
-    directives: {
-      defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
-      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://cdnjs.cloudflare.com"],
-      fontSrc: ["'self'", "https://fonts.gstatic.com", "https://cdnjs.cloudflare.com"],
-      imgSrc: ["'self'", "data:", "blob:", "https://*.basemaps.cartocdn.com", "https://basemaps.cartocdn.com", "https://cdnjs.cloudflare.com", "https://*.tile.openstreetmap.org", "https://raw.githubusercontent.com"],
-      mediaSrc: ["'self'", "blob:"],
-      connectSrc: ["'self'", "ws:", "wss:"],
-      frameSrc: ["'none'"],
-      objectSrc: ["'none'"],
-      baseUri: ["'self'"],
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
+        styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://cdnjs.cloudflare.com"],
+        fontSrc: ["'self'", "https://fonts.gstatic.com", "https://cdnjs.cloudflare.com"],
+        imgSrc: [
+          "'self'",
+          "data:",
+          "blob:",
+          "https://*.basemaps.cartocdn.com",
+          "https://basemaps.cartocdn.com",
+          "https://cdnjs.cloudflare.com",
+          "https://*.tile.openstreetmap.org",
+          "https://raw.githubusercontent.com",
+        ],
+        mediaSrc: ["'self'", "blob:"],
+        connectSrc: ["'self'", "ws:", "wss:"],
+        frameSrc: ["'none'"],
+        objectSrc: ["'none'"],
+        baseUri: ["'self'"],
+      },
     },
-  },
-  crossOriginEmbedderPolicy: false,
-  crossOriginResourcePolicy: { policy: "cross-origin" },
-}));
+    crossOriginEmbedderPolicy: false,
+    crossOriginResourcePolicy: { policy: "cross-origin" },
+  })
+);
 
 app.use(compression());
 
@@ -104,7 +115,7 @@ app.use(
     verify: (req, _res, buf) => {
       req.rawBody = buf;
     },
-  }),
+  })
 );
 
 app.use(express.urlencoded({ extended: false, limit: "1mb" }));
@@ -118,9 +129,11 @@ if (isProduction) {
     if (req.path === "/health" || req.path === "/") {
       return next();
     }
+
     if (req.headers["x-forwarded-proto"] && req.headers["x-forwarded-proto"] !== "https") {
       return res.redirect(301, `https://${req.hostname}${req.originalUrl}`);
     }
+
     next();
   });
 }
@@ -159,10 +172,11 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 
 app.use((req, res, next) => {
   const start = Date.now();
-  const path = req.path;
+  const routePath = req.path;
   let capturedJsonResponse: Record<string, any> | undefined = undefined;
 
   const originalResJson = res.json;
+
   res.json = function (bodyJson, ...args) {
     capturedJsonResponse = bodyJson;
     return originalResJson.apply(res, [bodyJson, ...args]);
@@ -170,16 +184,17 @@ app.use((req, res, next) => {
 
   res.on("finish", () => {
     const duration = Date.now() - start;
-    if (path.startsWith("/api")) {
+
+    if (routePath.startsWith("/api")) {
       logger.info(
         {
           method: req.method,
-          path,
+          path: routePath,
           statusCode: res.statusCode,
           duration,
           ...(capturedJsonResponse ? { response: capturedJsonResponse } : {}),
         },
-        `${req.method} ${path} ${res.statusCode} in ${duration}ms`,
+        `${req.method} ${routePath} ${res.statusCode} in ${duration}ms`
       );
     }
   });
@@ -192,7 +207,9 @@ app.use((req, res, next) => {
 
   app.use(errorHandler);
 
-  const serverDir = typeof __dirname !== "undefined" ? __dirname : path.dirname(new URL(import.meta.url).pathname);
+  // FIXED: Removed import.meta fallback
+  const serverDir = __dirname;
+
   app.use(express.static(path.resolve(serverDir, "..", "public")));
 
   if (isProduction) {
@@ -202,7 +219,8 @@ app.use((req, res, next) => {
     await setupVite(httpServer, app);
   }
 
-  const port = parseInt(process.env.PORT || "5000", 10);
+  const port = parseInt(process.env.PORT || "3000", 10);
+
   httpServer.listen(
     {
       port,
@@ -210,7 +228,7 @@ app.use((req, res, next) => {
       reusePort: true,
     },
     () => {
-      logger.info({ source: "express" }, `serving on port ${port}`);
-    },
+      logger.info({ source: "express" }, `Server running on port ${port}`);
+    }
   );
 })();
