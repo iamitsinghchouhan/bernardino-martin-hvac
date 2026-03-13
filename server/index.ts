@@ -16,26 +16,22 @@ import { errorHandler } from "./middleware/error-handler";
 
 const isProduction = process.env.NODE_ENV === "production";
 
+if (!process.env.DATABASE_URL) {
+  throw new Error("DATABASE_URL must be set");
+}
+
 const PgStore = connectPgSimple(session);
 
 const app = express();
 const httpServer = createServer(app);
 
-process.on("uncaughtException", (err) => {
-  logger.error({ err }, "Uncaught exception");
-});
-
-process.on("unhandledRejection", (reason) => {
-  logger.error({ reason }, "Unhandled rejection");
-});
-
-if (!process.env.DATABASE_URL) {
-  throw new Error("DATABASE_URL must be set");
-}
-
+/*
+Disable strict CSP because it blocks Vite/React scripts
+*/
 app.use(
   helmet({
-    crossOriginEmbedderPolicy: false
+    contentSecurityPolicy: false,
+    crossOriginEmbedderPolicy: false,
   })
 );
 
@@ -53,7 +49,7 @@ app.use(
   session({
     store: new PgStore({
       pool,
-      createTableIfMissing: true
+      createTableIfMissing: true,
     }),
     secret: sessionSecret,
     resave: false,
@@ -61,8 +57,9 @@ app.use(
     cookie: {
       secure: false,
       httpOnly: true,
-      sameSite: "lax"
-    }
+      sameSite: "lax",
+      maxAge: 24 * 60 * 60 * 1000,
+    },
   })
 );
 
@@ -70,6 +67,9 @@ app.get("/health", (_req: Request, res: Response) => {
   res.json({ status: "ok" });
 });
 
+/*
+API logging
+*/
 app.use((req, res, next) => {
   const start = Date.now();
 
@@ -78,8 +78,8 @@ app.use((req, res, next) => {
       logger.info({
         method: req.method,
         path: req.path,
-        status: res.statusCode,
-        duration: Date.now() - start
+        statusCode: res.statusCode,
+        duration: Date.now() - start,
       });
     }
   });
@@ -92,21 +92,18 @@ app.use((req, res, next) => {
 
   app.use(errorHandler);
 
+  /*
+  Serve React build
+  dist/index.cjs -> dist/public
+  */
   const distPath = path.resolve(__dirname, "public");
 
-  // serve static files
   app.use(express.static(distPath));
 
-  // React SPA fallback WITHOUT wildcard route
-  app.use((req: Request, res: Response, next: NextFunction) => {
-    if (req.path.startsWith("/api")) {
-      return next();
-    }
-
-    if (req.method !== "GET") {
-      return next();
-    }
-
+  /*
+  SPA fallback
+  */
+  app.get("*", (req: Request, res: Response) => {
     res.sendFile(path.join(distPath, "index.html"));
   });
 

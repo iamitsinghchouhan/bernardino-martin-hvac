@@ -9,6 +9,7 @@ import { metaImagesPlugin } from "./vite-plugin-meta-images";
 const rootDir = __dirname;
 
 export default defineConfig({
+  base:"/",
   plugins: [
     react(),
     runtimeErrorOverlay(),
