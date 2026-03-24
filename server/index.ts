@@ -169,17 +169,22 @@ app.use((req: Request, res: Response, next: NextFunction) => {
      React Frontend
   ================================= */
 
-  const distPath = path.resolve(process.cwd(), "dist/public");
+  if (isProduction) {
+    const distPath = path.resolve(process.cwd(), "dist/public");
 
-  app.use(express.static(distPath));
+    app.use(express.static(distPath));
 
-  /*
-  React SPA fallback
-  (DO NOT use "*" or "/*" here)
-  */
-  app.use((req: Request, res: Response) => {
-    res.sendFile(path.join(distPath, "index.html"));
-  });
+    app.use((req: Request, res: Response) => {
+      res.sendFile(path.join(distPath, "index.html"));
+    });
+  } else {
+    const { createServer: createViteServer } = await import("vite");
+    const vite = await createViteServer({
+      server: { middlewareMode: true },
+      appType: "spa",
+    });
+    app.use(vite.middlewares);
+  }
 
   /* ================================
      Start Server
