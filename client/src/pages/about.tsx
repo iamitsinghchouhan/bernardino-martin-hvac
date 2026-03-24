@@ -3,7 +3,7 @@ import { Link } from "wouter";
 import { Layout } from "@/components/layout";
 import { SEO } from "@/components/seo";
 import { Button } from "@/components/ui/button";
-import { COMPANY_NAME, COMPANY_FULL, COMPANY_PHONE } from "@/lib/constants";
+import { COMPANY_NAME, COMPANY_PHONE } from "@/lib/constants";
 import { CheckCircle, ShieldCheck, Home, MapPin } from "lucide-react";
 
 /* ─── Scroll-triggered video hook ─── */
@@ -19,7 +19,7 @@ function useScrollVideo(ref: React.RefObject<HTMLVideoElement | null>) {
           el.pause();
         }
       },
-      { threshold: 0.3 }
+      { threshold: 0.4 }
     );
     observer.observe(el);
     return () => observer.disconnect();
@@ -47,6 +47,7 @@ function ServiceRow({ video, title, description, bullets, reverse }: ServiceRowP
         muted
         loop
         playsInline
+        preload="metadata"
         className="w-full h-full object-cover"
       />
     </div>
@@ -54,12 +55,12 @@ function ServiceRow({ video, title, description, bullets, reverse }: ServiceRowP
 
   const textBlock = (
     <div className="flex flex-col justify-center space-y-4">
-      <h3 className="text-2xl font-bold text-slate-900">{title}</h3>
+      <h3 className="text-2xl font-bold text-primary font-heading">{title}</h3>
       <p className="text-slate-600 leading-relaxed">{description}</p>
       <ul className="space-y-2">
         {bullets.map((b) => (
           <li key={b} className="flex items-center gap-2 text-slate-700">
-            <CheckCircle className="text-green-500 shrink-0" size={18} />
+            <CheckCircle className="text-secondary shrink-0" size={18} />
             <span>{b}</span>
           </li>
         ))}
@@ -68,7 +69,7 @@ function ServiceRow({ video, title, description, bullets, reverse }: ServiceRowP
   );
 
   return (
-    <div className={`grid grid-cols-1 md:grid-cols-2 gap-10 items-center py-12 border-b border-slate-100 last:border-0`}>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center py-12 border-b border-slate-100 last:border-0">
       {reverse ? (
         <>
           {textBlock}
@@ -87,9 +88,9 @@ function ServiceRow({ video, title, description, bullets, reverse }: ServiceRowP
 /* ─── Trust Badge ─── */
 function TrustBadge({ label }: { label: string }) {
   return (
-    <div className="flex items-center gap-2 bg-blue-50 border border-blue-100 rounded-full px-4 py-2">
-      <ShieldCheck className="text-blue-600" size={16} />
-      <span className="text-blue-800 font-medium text-sm">{label}</span>
+    <div className="flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-full px-4 py-2">
+      <ShieldCheck className="text-primary" size={16} />
+      <span className="text-primary font-medium text-sm">{label}</span>
     </div>
   );
 }
@@ -104,10 +105,10 @@ interface TrustCardProps {
 function TrustCard({ icon, title, description }: TrustCardProps) {
   return (
     <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 flex flex-col gap-3">
-      <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600">
+      <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
         {icon}
       </div>
-      <h3 className="font-bold text-lg text-slate-900">{title}</h3>
+      <h3 className="font-bold text-lg text-primary">{title}</h3>
       <p className="text-slate-500 text-sm leading-relaxed">{description}</p>
     </div>
   );
@@ -215,30 +216,30 @@ export default function About() {
     <Layout>
       <SEO
         title="About Us – Trusted HVAC & Solar Contractors in Los Angeles"
-        description={`${COMPANY_FULL} — Licensed, bonded & insured HVAC and solar contractors serving Los Angeles. Learn why homeowners trust us for heating, cooling, solar & plumbing services.`}
+        description="BERNARDINO MARTIN — Licensed, bonded & insured HVAC and solar contractors serving Los Angeles. Learn why homeowners trust us for heating, cooling, solar & plumbing services."
       />
 
-      {/* ── Section 1: Hero ── */}
-      <section className="relative min-h-[520px] flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700">
-        <div className="absolute inset-0 bg-blue-950/40" />
-        <div className="relative z-10 text-center px-4 py-20 max-w-3xl mx-auto">
-          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-white mb-3">
-            {COMPANY_NAME}
-          </h1>
-          <p className="text-xl md:text-2xl text-blue-200 font-medium mb-4">
+      {/* ── Section 1: Hero (compact) ── */}
+      <section className="relative flex items-center justify-center overflow-hidden bg-primary py-14 md:py-16">
+        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(ellipse_at_top,_#3DB54A,_transparent)]" />
+        <div className="relative z-10 text-center px-4 max-w-2xl mx-auto">
+          <p className="text-secondary text-sm font-semibold uppercase tracking-widest mb-3">
             Heating • Air Conditioning • Solar
           </p>
-          <p className="text-lg text-blue-100 mb-10">
+          <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-white mb-3 font-heading">
+            {COMPANY_NAME}
+          </h1>
+          <p className="text-white/70 text-base md:text-lg mb-8">
             Los Angeles' trusted home services contractor since day one
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link href="/booking">
-              <Button size="lg" className="bg-white text-blue-800 hover:bg-blue-50 font-bold px-8">
+              <Button size="lg" className="bg-secondary hover:bg-secondary/90 text-white font-bold px-7">
                 Book a Service
               </Button>
             </Link>
             <Link href="/quote">
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10 font-bold px-8">
+              <Button size="lg" variant="outline" className="border-white/40 text-white hover:bg-white/10 font-bold px-7">
                 Get a Free Quote
               </Button>
             </Link>
@@ -247,12 +248,13 @@ export default function About() {
       </section>
 
       {/* ── Section 2: Company Story ── */}
-      <section className="py-20 bg-white">
+      <section className="py-16 bg-white">
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div className="space-y-5">
-              <h2 className="text-3xl font-bold text-slate-900">Who We Are</h2>
-              <p className="text-slate-600 leading-relaxed text-lg">
+              <span className="text-secondary text-sm font-semibold uppercase tracking-widest">Our Story</span>
+              <h2 className="text-3xl font-bold text-primary font-heading">Who We Are</h2>
+              <p className="text-slate-600 leading-relaxed text-base">
                 BERNARDINO MARTIN is a family-owned home services company proudly serving the greater Los Angeles
                 area. We started with a passion for keeping homes comfortable, safe, and energy-efficient. Over the years
                 we have grown into a full-service contractor offering HVAC, solar, plumbing, electrical, landscaping,
@@ -274,7 +276,7 @@ export default function About() {
       </section>
 
       {/* ── Section 3: Meet the Owner ── */}
-      <section className="py-20 bg-slate-50">
+      <section className="py-16 bg-accent">
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div className="rounded-2xl overflow-hidden shadow-xl order-2 md:order-1">
@@ -287,8 +289,9 @@ export default function About() {
               />
             </div>
             <div className="space-y-5 order-1 md:order-2">
-              <h2 className="text-3xl font-bold text-slate-900">Meet Bernardino Martin</h2>
-              <p className="text-slate-600 leading-relaxed text-lg">
+              <span className="text-secondary text-sm font-semibold uppercase tracking-widest">The Founder</span>
+              <h2 className="text-3xl font-bold text-primary font-heading">Meet Bernardino Martin</h2>
+              <p className="text-slate-600 leading-relaxed text-base">
                 Bernardino Martin is the founder and lead technician of the company. With decades of hands-on experience
                 in HVAC, solar installation, and home services across Los Angeles, Bernardino built this company on the
                 values of integrity, quality workmanship, and customer satisfaction. He personally oversees every project
@@ -306,11 +309,12 @@ export default function About() {
       </section>
 
       {/* ── Section 4: Services with Videos ── */}
-      <section className="py-20 bg-white">
+      <section className="py-16 bg-white">
         <div className="container mx-auto px-4 max-w-6xl">
-          <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900">What We Do</h2>
-            <p className="text-slate-500 mt-3 max-w-xl mx-auto">
+          <div className="text-center mb-12">
+            <span className="text-secondary text-sm font-semibold uppercase tracking-widest">Our Services</span>
+            <h2 className="text-3xl md:text-4xl font-bold text-primary font-heading mt-2">What We Do</h2>
+            <p className="text-slate-500 mt-3 max-w-xl mx-auto text-sm">
               From heating and cooling to solar and smart home technology — we handle it all.
             </p>
           </div>
@@ -328,10 +332,11 @@ export default function About() {
       </section>
 
       {/* ── Section 5: Why Choose Us ── */}
-      <section className="py-20 bg-slate-50">
+      <section className="py-16 bg-accent">
         <div className="container mx-auto px-4 max-w-6xl">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900">Why Choose Us</h2>
+          <div className="text-center mb-10">
+            <span className="text-secondary text-sm font-semibold uppercase tracking-widest">Our Promise</span>
+            <h2 className="text-3xl md:text-4xl font-bold text-primary font-heading mt-2">Why Choose Us</h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             <TrustCard
@@ -359,34 +364,35 @@ export default function About() {
       </section>
 
       {/* ── Section 6: Service Areas ── */}
-      <section className="py-20 bg-white">
+      <section className="py-16 bg-white">
         <div className="container mx-auto px-4 max-w-6xl">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900">Proudly Serving Los Angeles</h2>
+          <div className="text-center mb-10">
+            <span className="text-secondary text-sm font-semibold uppercase tracking-widest">Coverage</span>
+            <h2 className="text-3xl md:text-4xl font-bold text-primary font-heading mt-2">
+              Proudly Serving Los Angeles
+            </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
-            <div>
-              <ul className="grid grid-cols-2 gap-2">
-                {cities.map((city) => (
-                  <li key={city} className="flex items-center gap-2 text-slate-700">
-                    <MapPin className="text-blue-500 shrink-0" size={16} />
-                    <span>{city}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="bg-blue-700 text-white rounded-2xl p-8 space-y-4">
-              <h3 className="text-xl font-bold">Your Neighborhood, Our Priority</h3>
-              <p className="text-blue-100 leading-relaxed">
+            <ul className="grid grid-cols-2 gap-y-3 gap-x-4">
+              {cities.map((city) => (
+                <li key={city} className="flex items-center gap-2 text-slate-700 text-sm">
+                  <MapPin className="text-secondary shrink-0" size={14} />
+                  <span>{city}</span>
+                </li>
+              ))}
+            </ul>
+            <div className="bg-primary text-white rounded-2xl p-8 space-y-4">
+              <h3 className="text-xl font-bold font-heading">Your Neighborhood, Our Priority</h3>
+              <p className="text-white/80 leading-relaxed text-sm">
                 We serve homeowners and businesses across the greater Los Angeles area. From the San Fernando Valley to
                 downtown LA, our team is ready to come to you. Call us at{" "}
-                <a href="tel:+18184000227" className="underline font-semibold text-white">
+                <a href="tel:+18184000227" className="underline font-semibold text-secondary">
                   {COMPANY_PHONE}
                 </a>{" "}
                 or book online.
               </p>
               <Link href="/booking">
-                <Button className="bg-white text-blue-800 hover:bg-blue-50 font-bold mt-2">
+                <Button className="bg-secondary hover:bg-secondary/90 text-white font-bold mt-2">
                   Book Online
                 </Button>
               </Link>
@@ -396,20 +402,22 @@ export default function About() {
       </section>
 
       {/* ── Section 7: CTA Footer Banner ── */}
-      <section className="bg-blue-700 py-16">
-        <div className="container mx-auto px-4 text-center max-w-3xl">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4">Ready to Get Started?</h2>
-          <p className="text-blue-100 text-lg mb-8">
+      <section className="bg-primary py-14">
+        <div className="container mx-auto px-4 text-center max-w-2xl">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-3 font-heading">
+            Ready to Get Started?
+          </h2>
+          <p className="text-white/70 text-base mb-8">
             Call us at {COMPANY_PHONE} or book your service online today.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a href="tel:+18184000227">
-              <Button size="lg" className="bg-white text-blue-800 hover:bg-blue-50 font-bold px-8">
+              <Button size="lg" className="bg-secondary hover:bg-secondary/90 text-white font-bold px-8">
                 Call Now
               </Button>
             </a>
             <Link href="/booking">
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10 font-bold px-8">
+              <Button size="lg" variant="outline" className="border-white/40 text-white hover:bg-white/10 font-bold px-8">
                 Book Online
               </Button>
             </Link>
