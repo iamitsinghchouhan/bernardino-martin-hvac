@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 120" role="img" aria-labelledby="title">
+  <title>York</title>
+  <rect width="320" height="120" rx="28" fill="#fff"/>
+  <rect x="86" y="28" width="148" height="64" rx="12" fill="#132f68"/>
+  <text x="160" y="69" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="700" fill="#fff">York</text>
+</svg>

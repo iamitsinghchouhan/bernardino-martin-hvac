@@ -1,5 +1,5 @@
 import { Link, useLocation } from "wouter";
-import { Phone, Menu, X, Calendar, MessageCircle, Sun, ShieldCheck, AlertCircle, Instagram, Facebook, Twitter, Youtube } from "lucide-react";
+import { Phone, Menu, Calendar, MessageCircle, ShieldCheck, AlertCircle, Instagram, Facebook, Youtube, ChevronDown } from "lucide-react";
 import { useState, useEffect, lazy, Suspense } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -23,12 +23,39 @@ export function Layout({ children }: { children: React.ReactNode }) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navLinks = [
+  const navItems = [
     { href: "/", label: "Home" },
-    { href: "/about", label: "About Us" },
-    { href: "/services", label: "Services" },
-    { href: "/service-areas", label: "Service Areas" },
-    { href: "/payment", label: "Pay Online" },
+    {
+      href: "/services",
+      label: "Services",
+      children: [
+        { href: "/services#hvac", label: "HVAC & Heating", desc: "Cooling, heating, ducts and thermostats" },
+        { href: "/services#solar", label: "Solar & Energy", desc: "Panels, maintenance and solar-powered systems" },
+        { href: "/services#plumbing", label: "Plumbing", desc: "General plumbing, jet cleanup and shutoff valves" },
+        { href: "/services#electrical", label: "Electrical", desc: "Panel upgrades and residential electrical work" },
+        { href: "/services#outdoor", label: "Outdoor & Property", desc: "Landscaping, sod, planting and irrigation" },
+        { href: "/services#technology", label: "Technology", desc: "Network wiring and smart home connectivity" },
+      ],
+    },
+    {
+      href: "/booking",
+      label: "Customer Tools",
+      children: [
+        { href: "/booking", label: "Book Online", desc: "Schedule a service appointment" },
+        { href: "/quote", label: "Request Quote", desc: "Ask for a project estimate" },
+        { href: "/payment", label: "Pay Online", desc: "Pay your invoice online" },
+        { href: "/dashboard", label: "Customer Dashboard", desc: "Check invoices and reminders" },
+      ],
+    },
+    {
+      href: "/about",
+      label: "Company",
+      children: [
+        { href: "/about", label: "About Us", desc: "Learn about Bernardino Martin" },
+        { href: "/service-areas", label: "Service Areas", desc: "See the cities we serve" },
+        { href: "/contact", label: "Contact Us", desc: "Reach our team directly" },
+      ],
+    },
     { href: "/contact", label: "Contact Us" },
   ];
 
@@ -41,7 +68,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       {/* Emergency Banner */}
       <div className="bg-red-600 text-white py-2.5 text-xs md:text-sm font-bold flex justify-center items-center gap-2 px-4 text-center" role="alert">
         <AlertCircle className="h-4 w-4 animate-pulse shrink-0" aria-hidden="true" />
-        <span>24/7 EMERGENCY SERVICE AVAILABLE IN LOS ANGELES — <a href={`tel:${COMPANY_PHONE.replace(/\D/g, '')}`} className="underline hover:text-red-100 transition-colors">{COMPANY_PHONE}</a></span>
+        <span>24/7 EMERGENCY SERVICE AVAILABLE IN LOS ANGELES - <a href={`tel:${COMPANY_PHONE.replace(/\D/g, '')}`} className="underline hover:text-red-100 transition-colors">{COMPANY_PHONE}</a></span>
       </div>
 
       {/* Top Bar - Trust & Quick Contact */}
@@ -76,13 +103,54 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
           {/* Desktop Nav */}
           <nav className="hidden lg:flex items-center gap-8" aria-label="Main navigation">
-            {navLinks.map((link) => (
-              <Link key={link.href} href={link.href} aria-current={location === link.href ? "page" : undefined} className={`text-sm font-medium transition-colors hover:text-primary ${
-                  location === link.href ? "text-primary font-semibold" : "text-slate-600"
-                }`}>
-                  {link.label}
-              </Link>
-            ))}
+            {navItems.map((item) => {
+              const isActive =
+                location === item.href ||
+                item.children?.some((child) => location === child.href || location === child.href.split("#")[0]);
+
+              if (!item.children) {
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    aria-current={location === item.href ? "page" : undefined}
+                    className={`text-sm font-medium transition-colors hover:text-primary ${
+                      isActive ? "text-primary font-semibold" : "text-slate-600"
+                    }`}
+                  >
+                    {item.label}
+                  </Link>
+                );
+              }
+
+              return (
+                <div key={item.label} className="group relative py-7">
+                  <Link
+                    href={item.href}
+                    className={`inline-flex items-center gap-1.5 text-sm font-medium transition-colors hover:text-primary ${
+                      isActive ? "text-primary font-semibold" : "text-slate-600"
+                    }`}
+                  >
+                    {item.label}
+                    <ChevronDown className="h-4 w-4 transition-transform duration-200 group-hover:rotate-180" />
+                  </Link>
+                  <div className="pointer-events-none invisible absolute left-1/2 top-full z-50 w-[340px] -translate-x-1/2 translate-y-2 pt-4 opacity-0 transition-all duration-200 group-hover:pointer-events-auto group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
+                    <div className="rounded-2xl border border-slate-200 bg-white p-3 shadow-2xl">
+                      {item.children.map((child) => (
+                        <Link
+                          key={child.href}
+                          href={child.href}
+                          className="block rounded-xl px-4 py-3 transition-colors hover:bg-slate-50"
+                        >
+                          <div className="text-sm font-semibold text-slate-900">{child.label}</div>
+                          <div className="mt-1 text-xs leading-5 text-slate-500">{child.desc}</div>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </nav>
 
           {/* Desktop CTAs */}
@@ -135,12 +203,32 @@ export function Layout({ children }: { children: React.ReactNode }) {
                         <span className="text-[9px] font-semibold text-secondary tracking-[0.15em] uppercase">Heating &bull; Air Conditioning &bull; Solar</span>
                       </div>
                   </Link>
-                  {navLinks.map((link) => (
-                    <Link key={link.href} href={link.href} aria-current={location === link.href ? "page" : undefined} className={`text-lg font-medium py-2 border-b border-gray-100 ${
-                        location === link.href ? "text-primary" : "text-slate-600"
-                      }`}>
-                        {link.label}
-                    </Link>
+                  {navItems.map((item) => (
+                    <div key={item.label} className="border-b border-gray-100 pb-3">
+                      <Link
+                        href={item.href}
+                        aria-current={location === item.href ? "page" : undefined}
+                        className={`block py-2 text-lg font-medium ${
+                          location === item.href ? "text-primary" : "text-slate-700"
+                        }`}
+                      >
+                        {item.label}
+                      </Link>
+                      {item.children ? (
+                        <div className="mt-2 space-y-2 pl-4">
+                          {item.children.map((child) => (
+                            <Link
+                              key={child.href}
+                              href={child.href}
+                              className="block rounded-lg px-3 py-2 text-sm text-slate-500 transition-colors hover:bg-slate-50 hover:text-primary"
+                            >
+                              <div className="font-semibold text-slate-700">{child.label}</div>
+                              <div className="mt-1 text-xs leading-5 text-slate-500">{child.desc}</div>
+                            </Link>
+                          ))}
+                        </div>
+                      ) : null}
+                    </div>
                   ))}
                   <div className="flex flex-col gap-3 mt-4">
                     <Button size="lg" className="w-full bg-primary" asChild>
@@ -186,7 +274,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 </div>
               </div>
               <p className="text-sm leading-relaxed mb-4 text-slate-400">
-                BERNARDINO MARTIN — Heating, Air Conditioning, Solar. Top-rated HVAC, Solar, and Plumbing services in Los Angeles.
+                BERNARDINO MARTIN - Heating, Air Conditioning, Solar. Top-rated HVAC, Solar, and Plumbing services in Los Angeles.
               </p>
               <div className="flex items-center gap-2 text-sm font-semibold text-secondary">
                 <ShieldCheck className="h-4 w-4" aria-hidden="true" />
