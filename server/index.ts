@@ -195,3 +195,4 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   httpServer.listen(port, "0.0.0.0", () => {
     logger.info(`🚀 Server running on port ${port}`);
   });
+})();
