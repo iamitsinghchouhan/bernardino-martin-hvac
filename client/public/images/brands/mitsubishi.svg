@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 120" role="img" aria-labelledby="title">
+  <title>Mitsubishi</title>
+  <rect width="320" height="120" rx="28" fill="#fff"/>
+  <polygon points="58,24 76,48 40,48" fill="#de2f2f"/>
+  <polygon points="94,24 112,48 76,48" fill="#de2f2f"/>
+  <polygon points="76,56 94,82 58,82" fill="#de2f2f"/>
+  <text x="214" y="69" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" fill="#4b5563">Mitsubishi</text>
+</svg>

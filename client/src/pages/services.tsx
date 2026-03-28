@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Layout } from "@/components/layout";
 import { SEO } from "@/components/seo";
 import { SERVICES, SERVICE_CATEGORIES, getWhatsAppLink } from "@/lib/constants";
 import type { Service, ServiceCategory } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import {
   Check,
   MessageCircle,
@@ -16,10 +16,31 @@ import {
   Droplets,
   ShieldCheck,
   Flame,
+  ImageOff,
   X,
 } from "lucide-react";
 
-const BRANDS = ["Carrier", "Trane", "Lennox", "Rheem", "Goodman", "York", "Daikin", "Mitsubishi", "LG", "Bosch"];
+const BRANDS = [
+  { name: "Carrier", image: "/images/brands/carrier.svg" },
+  { name: "Trane", image: "/images/brands/trane.svg" },
+  { name: "Lennox", image: "/images/brands/lennox.svg" },
+  { name: "Rheem", image: "/images/brands/rheem.svg" },
+  { name: "Goodman", image: "/images/brands/goodman.svg" },
+  { name: "York", image: "/images/brands/york.svg" },
+  { name: "Daikin", image: "/images/brands/daikin.svg" },
+  { name: "Mitsubishi", image: "/images/brands/mitsubishi.svg" },
+  { name: "LG", image: "/images/brands/lg.svg" },
+  { name: "Bosch", image: "/images/brands/bosch.svg" },
+] as const;
+
+const HASH_TO_CATEGORY: Record<string, ServiceCategory> = {
+  hvac: "HVAC & Heating",
+  solar: "Solar & Energy",
+  plumbing: "Plumbing",
+  electrical: "Electrical",
+  outdoor: "Outdoor & Property",
+  technology: "Technology",
+};
 
 const HEATING_SPECIALTIES = [
   { label: "Gas Furnace Repair", desc: "All gas furnace makes and models" },
@@ -28,6 +49,77 @@ const HEATING_SPECIALTIES = [
   { label: "Wall Furnace Services", desc: "Safe and efficient wall units" },
   { label: "Furnace Replacement", desc: "Energy-efficient upgrades" },
 ];
+
+function getImageFallbacks(src: string) {
+  const sources = [src];
+
+  if (src.endsWith(".webp")) {
+    sources.push(src.replace(/\.webp$/, ".png"));
+    sources.push(src.replace(/\.webp$/, ".jpg"));
+  } else if (src.endsWith(".png")) {
+    sources.push(src.replace(/\.png$/, ".webp"));
+    sources.push(src.replace(/\.png$/, ".jpg"));
+  } else if (src.endsWith(".jpg")) {
+    sources.push(src.replace(/\.jpg$/, ".webp"));
+    sources.push(src.replace(/\.jpg$/, ".png"));
+  }
+
+  return Array.from(new Set(sources));
+}
+
+function AdaptiveImage({
+  src,
+  alt,
+  className,
+  imgClassName,
+  width,
+  height,
+  priority = false,
+}: {
+  src: string;
+  alt: string;
+  className?: string;
+  imgClassName?: string;
+  width?: number;
+  height?: number;
+  priority?: boolean;
+}) {
+  const fallbacks = useMemo(() => getImageFallbacks(src), [src]);
+  const [index, setIndex] = useState(0);
+  const currentSrc = fallbacks[index];
+
+  useEffect(() => {
+    setIndex(0);
+  }, [src]);
+
+  return (
+    <div className={className}>
+      {currentSrc ? (
+        <img
+          src={currentSrc}
+          alt={alt}
+          className={imgClassName}
+          loading={priority ? "eager" : "lazy"}
+          decoding="async"
+          fetchPriority={priority ? "high" : "auto"}
+          width={width}
+          height={height}
+          onError={() => {
+            if (index < fallbacks.length - 1) {
+              setIndex(index + 1);
+            } else {
+              setIndex(fallbacks.length);
+            }
+          }}
+        />
+      ) : (
+        <div className="flex h-full w-full items-center justify-center bg-slate-100 text-slate-400">
+          <ImageOff className="h-8 w-8" />
+        </div>
+      )}
+    </div>
+  );
+}
 
 function ServiceModal({
   service,
@@ -43,13 +135,14 @@ function ServiceModal({
   return (
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent className="max-h-[90vh] max-w-2xl overflow-y-auto p-0">
-        <div className="relative w-full aspect-video overflow-hidden rounded-t-lg">
-          <img
+        <div className="relative aspect-video w-full overflow-hidden rounded-t-lg">
+          <AdaptiveImage
             src={service.image}
             alt={service.title}
-            className="h-full w-full object-cover"
-            loading="lazy"
-            decoding="async"
+            className="h-full w-full"
+            imgClassName="h-full w-full object-cover"
+            width={1280}
+            height={720}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
           <button
@@ -78,9 +171,7 @@ function ServiceModal({
             {service.price}
           </div>
 
-          <p className="mb-5 text-sm leading-relaxed text-slate-600">
-            {service.overview}
-          </p>
+          <p className="mb-5 text-sm leading-relaxed text-slate-600">{service.overview}</p>
 
           <ul className="mb-6 space-y-2">
             {service.bullets.map((bullet) => (
@@ -123,8 +214,23 @@ function ServiceModal({
 }
 
 export default function Services() {
+  const [location] = useLocation();
   const [activeCategory, setActiveCategory] = useState<ServiceCategory>("HVAC & Heating");
   const [selectedService, setSelectedService] = useState<Service | null>(null);
+
+  useEffect(() => {
+    const syncCategoryFromHash = () => {
+      const hash = window.location.hash.replace("#", "").toLowerCase();
+      const nextCategory = HASH_TO_CATEGORY[hash];
+      if (nextCategory) {
+        setActiveCategory(nextCategory);
+      }
+    };
+
+    syncCategoryFromHash();
+    window.addEventListener("hashchange", syncCategoryFromHash);
+    return () => window.removeEventListener("hashchange", syncCategoryFromHash);
+  }, [location]);
 
   const filteredServices = SERVICES.filter((service) => service.category === activeCategory);
 
@@ -197,14 +303,20 @@ export default function Services() {
           <p className="mb-3 text-center text-xs font-semibold uppercase tracking-widest text-slate-400">
             Trusted Brands We Service
           </p>
-          <div className="flex flex-wrap justify-center gap-2">
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
             {BRANDS.map((brand) => (
-              <span
-                key={brand}
-                className="rounded-full border border-slate-200 bg-slate-50 px-4 py-1.5 text-sm font-medium text-slate-700"
+              <div
+                key={brand.name}
+                className="flex h-24 items-center justify-center rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition-transform hover:-translate-y-0.5 hover:shadow-md"
               >
-                {brand}
-              </span>
+                <img
+                  src={brand.image}
+                  alt={`${brand.name} logo`}
+                  className="h-12 w-full object-contain"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
             ))}
           </div>
         </div>
@@ -275,12 +387,11 @@ export default function Services() {
               >
                 <div className="relative aspect-[4/3] overflow-hidden">
                   <div className="absolute inset-0 z-10 bg-slate-900/10 transition-colors group-hover:bg-slate-900/0" />
-                  <img
+                  <AdaptiveImage
                     src={service.image}
                     alt={service.title}
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    loading="lazy"
-                    decoding="async"
+                    className="h-full w-full"
+                    imgClassName="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                     width={640}
                     height={480}
                   />
@@ -390,7 +501,7 @@ export default function Services() {
               Flexible Financing Available
             </h2>
             <p className="mt-2 text-sm text-slate-500">
-              Get the service you need today — pay over time.
+              Get the service you need today - pay over time.
             </p>
           </div>
           <p className="mx-auto mb-8 max-w-2xl text-center text-sm leading-relaxed text-slate-600">
