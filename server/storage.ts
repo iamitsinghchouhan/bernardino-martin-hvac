@@ -19,7 +19,7 @@ export interface IStorage {
   getBookings(): Promise<Booking[]>;
   getBookingsByEmail(email: string): Promise<Booking[]>;
   updateBookingStatus(id: number, status: string): Promise<Booking | undefined>;
-  deleteBooking(id: number): Promise<Booking | undefined>;
+  deleteBooking(id: number): Promise<boolean>;
 
   createContactMessage(msg: InsertContactMessage): Promise<ContactMessage>;
   getContactMessages(): Promise<ContactMessage[]>;
@@ -29,7 +29,7 @@ export interface IStorage {
   getInvoicesByEmail(email: string): Promise<Invoice[]>;
   getAllInvoices(): Promise<Invoice[]>;
   markInvoicePaid(invoiceNumber: string): Promise<Invoice | undefined>;
-  deleteInvoice(id: number): Promise<Invoice | undefined>;
+  deleteInvoice(id: number): Promise<boolean>;
 
   createReminder(reminder: InsertReminder): Promise<Reminder>;
   getRemindersByBookingId(bookingId: number): Promise<Reminder[]>;
@@ -122,14 +122,13 @@ export class DatabaseStorage implements IStorage {
     return result;
   }
 
-  async deleteBooking(id: number): Promise<Booking | undefined> {
-    await db.delete(reminders).where(eq(reminders.bookingId, id));
+  async deleteBooking(id: number): Promise<boolean> {
+    const deletedBookings = await db.transaction(async (tx) => {
+      await tx.delete(reminders).where(eq(reminders.bookingId, id));
+      return tx.delete(bookings).where(eq(bookings.id, id)).returning({ id: bookings.id });
+    });
 
-    const [result] = await db
-      .delete(bookings)
-      .where(eq(bookings.id, id))
-      .returning();
-    return result;
+    return deletedBookings.length > 0;
   }
 
   async getContactMessages(): Promise<ContactMessage[]> {
@@ -140,12 +139,13 @@ export class DatabaseStorage implements IStorage {
     return db.select().from(invoices).orderBy(desc(invoices.createdAt));
   }
 
-  async deleteInvoice(id: number): Promise<Invoice | undefined> {
-    const [result] = await db
+  async deleteInvoice(id: number): Promise<boolean> {
+    const deletedInvoices = await db
       .delete(invoices)
       .where(eq(invoices.id, id))
-      .returning();
-    return result;
+      .returning({ id: invoices.id });
+
+    return deletedInvoices.length > 0;
   }
 
   async getAllReminders(): Promise<Reminder[]> {
