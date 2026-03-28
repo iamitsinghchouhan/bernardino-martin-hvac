@@ -1,10 +1,24 @@
-import { useState, useEffect, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { useLocation } from "wouter";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { apiRequest } from "@/lib/queryClient";
-import type { Booking, Invoice, ContactMessage, Reminder, Quote } from "@shared/schema";
-import type { DashboardStats } from "../../server-types";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Trash2 } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { useToast } from "@/hooks/use-toast";
+import { apiRequest } from "@/lib/queryClient";
+import type { Booking, ContactMessage, Invoice, Quote, Reminder } from "@shared/schema";
+import type { DashboardStats } from "../../server-types";
 
 type AdminTab = "overview" | "appointments" | "invoices" | "contacts" | "reminders" | "quotes";
 
@@ -12,14 +26,18 @@ function formatCurrency(cents: number) {
   return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(cents / 100);
 }
 
-function formatDate(d: string | Date | null) {
-  if (!d) return "—";
-  return new Date(d).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+function formatDate(value: string | Date | null) {
+  if (!value) return "--";
+  return new Date(value).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
 }
 
-function formatDateTime(d: string | Date | null) {
-  if (!d) return "—";
-  return new Date(d).toLocaleString("en-US", {
+function formatDateTime(value: string | Date | null) {
+  if (!value) return "--";
+  return new Date(value).toLocaleString("en-US", {
     month: "short",
     day: "numeric",
     year: "numeric",
@@ -36,11 +54,16 @@ const statusColors: Record<string, string> = {
   paid: "bg-emerald-100 text-emerald-800",
   unpaid: "bg-orange-100 text-orange-800",
   sent: "bg-emerald-100 text-emerald-800",
+  new: "bg-sky-100 text-sky-800",
 };
 
 function StatusBadge({ status }: { status: string }) {
   return (
-    <span className={`px-3 py-1 rounded-full text-sm font-semibold capitalize ${statusColors[status] || "bg-slate-100 text-slate-700"}`}>
+    <span
+      className={`rounded-full px-3 py-1 text-sm font-semibold capitalize ${
+        statusColors[status] || "bg-slate-100 text-slate-700"
+      }`}
+    >
       {status}
     </span>
   );
@@ -49,59 +72,85 @@ function StatusBadge({ status }: { status: string }) {
 function StatCard({ label, value, sub }: { label: string; value: string | number; sub?: string }) {
   return (
     <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-      <p className="text-slate-600 text-base mb-2">{label}</p>
-      <p className="text-3xl font-bold text-slate-900" style={{ fontFamily: "'Outfit', sans-serif" }}>{value}</p>
-      {sub && <p className="text-base text-slate-500 mt-2">{sub}</p>}
+      <p className="text-sm font-medium text-slate-600">{label}</p>
+      <p className="mt-3 text-2xl font-bold text-slate-950">{value}</p>
+      {sub ? <p className="mt-2 text-sm font-medium text-slate-500">{sub}</p> : null}
     </div>
   );
 }
 
 function SectionCard({ children, testId }: { children: ReactNode; testId?: string }) {
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm" data-testid={testId}>
+    <div
+      className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
+      data-testid={testId}
+    >
       {children}
     </div>
-  );
-}
-
-function DangerButton({
-  onClick,
-  disabled,
-  label,
-  testId,
-}: {
-  onClick: () => void;
-  disabled?: boolean;
-  label: string;
-  testId?: string;
-}) {
-  return (
-    <button
-      type="button"
-      data-testid={testId}
-      onClick={onClick}
-      disabled={disabled}
-      className="inline-flex items-center gap-2 rounded-lg border border-rose-200 bg-rose-50 px-4 py-2.5 text-sm font-semibold text-rose-700 transition-colors hover:bg-rose-100 disabled:cursor-not-allowed disabled:opacity-60"
-    >
-      <Trash2 className="h-4 w-4" aria-hidden="true" />
-      {label}
-    </button>
   );
 }
 
 function LoadingSpinner() {
   return (
     <div className="flex justify-center py-12">
-      <div className="w-8 h-8 border-4 border-[#3DB54A] border-t-transparent rounded-full animate-spin" />
+      <div className="h-8 w-8 rounded-full border-4 border-blue-700 border-t-transparent animate-spin" />
     </div>
   );
 }
 
 function EmptyState({ text }: { text: string }) {
   return (
-    <div className="text-center py-12 text-slate-500">
-      <p className="text-lg">{text}</p>
+    <div className="rounded-2xl border border-dashed border-slate-300 bg-white px-6 py-12 text-center">
+      <p className="text-sm font-medium text-slate-500">{text}</p>
     </div>
+  );
+}
+
+function DeleteConfirmButton({
+  testId,
+  title,
+  description,
+  confirmLabel,
+  disabled,
+  onConfirm,
+}: {
+  testId: string;
+  title: string;
+  description: string;
+  confirmLabel: string;
+  disabled?: boolean;
+  onConfirm: () => void;
+}) {
+  return (
+    <AlertDialog>
+      <AlertDialogTrigger asChild>
+        <Button
+          type="button"
+          variant="outline"
+          data-testid={testId}
+          disabled={disabled}
+          className="border-rose-200 text-rose-700 hover:bg-rose-50 hover:text-rose-800"
+        >
+          <Trash2 className="h-4 w-4" aria-hidden="true" />
+          Delete
+        </Button>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>{title}</AlertDialogTitle>
+          <AlertDialogDescription>{description}</AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction
+            onClick={onConfirm}
+            className="bg-rose-600 text-white hover:bg-rose-700"
+          >
+            {confirmLabel}
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 }
 
@@ -115,12 +164,20 @@ function OverviewTab() {
 
   return (
     <div data-testid="admin-overview">
-      <h2 className="text-3xl font-bold text-slate-900 mb-6" style={{ fontFamily: "'Outfit', sans-serif" }}>Dashboard Overview</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+      <h2 className="mb-6 text-lg font-semibold text-slate-950">Dashboard Overview</h2>
+      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         <StatCard label="Total Bookings" value={stats.totalBookings} sub={`${stats.pendingBookings} pending`} />
-        <StatCard label="Total Invoices" value={stats.totalInvoices} sub={`${stats.paidInvoices} paid / ${stats.unpaidInvoices} unpaid`} />
+        <StatCard
+          label="Total Invoices"
+          value={stats.totalInvoices}
+          sub={`${stats.paidInvoices} paid / ${stats.unpaidInvoices} unpaid`}
+        />
         <StatCard label="Revenue Collected" value={formatCurrency(stats.totalRevenue)} />
-        <StatCard label="Contact Messages" value={stats.totalContacts} sub={`${stats.pendingReminders} pending reminders`} />
+        <StatCard
+          label="Contact Messages"
+          value={stats.totalContacts}
+          sub={`${stats.pendingReminders} pending reminders`}
+        />
       </div>
     </div>
   );
@@ -128,6 +185,7 @@ function OverviewTab() {
 
 function AppointmentsTab() {
   const queryClient = useQueryClient();
+  const { toast } = useToast();
   const { data: bookings, isLoading } = useQuery<Booking[]>({
     queryKey: ["/api/admin/bookings"],
   });
@@ -147,9 +205,18 @@ function AppointmentsTab() {
       await apiRequest("DELETE", `/api/admin/bookings/${id}`);
     },
     onSuccess: () => {
+      toast({
+        title: "Booking deleted successfully",
+      });
       queryClient.invalidateQueries({ queryKey: ["/api/admin/bookings"] });
       queryClient.invalidateQueries({ queryKey: ["/api/admin/reminders"] });
       queryClient.invalidateQueries({ queryKey: ["/api/admin/stats"] });
+    },
+    onError: () => {
+      toast({
+        title: "Failed to delete booking",
+        variant: "destructive",
+      });
     },
   });
 
@@ -157,49 +224,53 @@ function AppointmentsTab() {
 
   return (
     <div data-testid="admin-appointments">
-      <h2 className="text-3xl font-bold text-slate-900 mb-6" style={{ fontFamily: "'Outfit', sans-serif" }}>Appointments</h2>
+      <h2 className="mb-6 text-lg font-semibold text-slate-950">Appointments</h2>
       {!bookings?.length ? (
         <EmptyState text="No appointments yet" />
       ) : (
         <div className="space-y-4">
-          {bookings.map((b) => (
-            <SectionCard key={b.id} testId={`card-booking-${b.id}`}>
-              <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-                <div className="flex-1 min-w-0">
-                  <div className="flex flex-wrap items-center gap-3 mb-2">
-                    <h3 className="text-xl font-semibold text-slate-900 truncate">{b.fullName}</h3>
-                    <StatusBadge status={b.status} />
+          {bookings.map((booking) => (
+            <SectionCard key={booking.id} testId={`card-booking-${booking.id}`}>
+              <div className="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
+                <div className="min-w-0 flex-1">
+                  <div className="flex flex-wrap items-center gap-3">
+                    <h3 className="text-lg font-semibold text-slate-950">{booking.fullName}</h3>
+                    <StatusBadge status={booking.status} />
                   </div>
-                  <p className="text-lg text-slate-700">{b.serviceTitle}</p>
-                  <div className="flex flex-wrap gap-x-4 gap-y-2 mt-3 text-base text-slate-500">
-                    <span>{b.email}</span>
-                    <span>{b.phone}</span>
-                    <span>Preferred: {b.preferredDate}</span>
-                    <span>Created: {formatDateTime(b.createdAt)}</span>
+                  <p className="mt-3 text-sm font-medium text-slate-800">{booking.serviceTitle}</p>
+                  <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-sm font-medium text-slate-600">
+                    <span>{booking.email}</span>
+                    <span>{booking.phone}</span>
+                    <span>Preferred: {booking.preferredDate}</span>
+                    <span>Created: {formatDateTime(booking.createdAt)}</span>
                   </div>
-                  {b.notes && <p className="text-base text-slate-500 mt-3 italic">"{b.notes}"</p>}
+                  {booking.notes ? (
+                    <p className="mt-4 text-sm font-medium italic text-slate-500">"{booking.notes}"</p>
+                  ) : null}
                 </div>
-                <div className="flex flex-col sm:flex-row gap-3 lg:items-center">
+
+                <div className="flex flex-col gap-3 sm:flex-row">
                   <select
-                    data-testid={`select-booking-status-${b.id}`}
-                    value={b.status}
-                    onChange={(e) => updateStatus.mutate({ id: b.id, status: e.target.value })}
-                    className="px-4 py-3 rounded-lg bg-white border border-slate-300 text-slate-800 text-base focus:outline-none focus:ring-2 focus:ring-[#3DB54A]"
+                    data-testid={`select-booking-status-${booking.id}`}
+                    value={booking.status}
+                    onChange={(event) =>
+                      updateStatus.mutate({ id: booking.id, status: event.target.value })
+                    }
+                    className="min-h-10 rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-600"
                   >
                     <option value="pending">Pending</option>
                     <option value="confirmed">Confirmed</option>
                     <option value="completed">Completed</option>
                     <option value="cancelled">Cancelled</option>
                   </select>
-                  <DangerButton
-                    testId={`button-delete-booking-${b.id}`}
+
+                  <DeleteConfirmButton
+                    testId={`button-delete-booking-${booking.id}`}
+                    title="Delete booking?"
+                    description="Are you sure you want to delete this booking? This cannot be undone."
+                    confirmLabel={deleteBooking.isPending ? "Deleting..." : "Delete Booking"}
                     disabled={deleteBooking.isPending}
-                    onClick={() => {
-                      if (window.confirm(`Delete the booking for ${b.fullName}? This will also remove its reminders.`)) {
-                        deleteBooking.mutate(b.id);
-                      }
-                    }}
-                    label={deleteBooking.isPending ? "Deleting..." : "Delete"}
+                    onConfirm={() => deleteBooking.mutate(booking.id)}
                   />
                 </div>
               </div>
@@ -213,6 +284,7 @@ function AppointmentsTab() {
 
 function InvoicesTab() {
   const queryClient = useQueryClient();
+  const { toast } = useToast();
   const { data: invoiceList, isLoading } = useQuery<Invoice[]>({
     queryKey: ["/api/admin/invoices"],
   });
@@ -238,7 +310,15 @@ function InvoicesTab() {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/invoices"] });
       queryClient.invalidateQueries({ queryKey: ["/api/admin/stats"] });
       setShowForm(false);
-      setForm({ invoiceNumber: "", customerEmail: "", customerName: "", serviceTitle: "", amount: "", status: "unpaid", dueDate: "" });
+      setForm({
+        invoiceNumber: "",
+        customerEmail: "",
+        customerName: "",
+        serviceTitle: "",
+        amount: "",
+        status: "unpaid",
+        dueDate: "",
+      });
     },
   });
 
@@ -257,8 +337,17 @@ function InvoicesTab() {
       await apiRequest("DELETE", `/api/admin/invoices/${id}`);
     },
     onSuccess: () => {
+      toast({
+        title: "Invoice deleted successfully",
+      });
       queryClient.invalidateQueries({ queryKey: ["/api/admin/invoices"] });
       queryClient.invalidateQueries({ queryKey: ["/api/admin/stats"] });
+    },
+    onError: () => {
+      toast({
+        title: "Failed to delete invoice",
+        variant: "destructive",
+      });
     },
   });
 
@@ -266,95 +355,101 @@ function InvoicesTab() {
 
   return (
     <div data-testid="admin-invoices">
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-3xl font-bold text-slate-900" style={{ fontFamily: "'Outfit', sans-serif" }}>Invoices</h2>
-        <button
+      <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <h2 className="text-lg font-semibold text-slate-950">Invoices</h2>
+        <Button
           data-testid="button-create-invoice"
-          onClick={() => setShowForm(!showForm)}
-          className="px-5 py-3 rounded-lg bg-[#3DB54A] hover:bg-[#35a241] text-white text-base font-semibold transition-colors"
+          className="bg-blue-700 text-white hover:bg-blue-800"
+          onClick={() => setShowForm((value) => !value)}
         >
-          {showForm ? "Cancel" : "+ New Invoice"}
-        </button>
+          {showForm ? "Cancel" : "New Invoice"}
+        </Button>
       </div>
 
-      {showForm && (
+      {showForm ? (
         <form
-          onSubmit={(e) => { e.preventDefault(); createInvoice.mutate(form); }}
-          className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm mb-6 grid grid-cols-1 sm:grid-cols-2 gap-4"
+          onSubmit={(event) => {
+            event.preventDefault();
+            createInvoice.mutate(form);
+          }}
+          className="mb-6 grid gap-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:grid-cols-2"
         >
           {[
             { label: "Invoice #", key: "invoiceNumber", placeholder: "INV-001", type: "text" },
             { label: "Customer Name", key: "customerName", placeholder: "John Doe", type: "text" },
             { label: "Customer Email", key: "customerEmail", placeholder: "john@example.com", type: "email" },
-            { label: "Service", key: "serviceTitle", placeholder: "AC Repair", type: "text" },
+            { label: "Service", key: "serviceTitle", placeholder: "AC Repair & Diagnostics", type: "text" },
             { label: "Amount ($)", key: "amount", placeholder: "150.00", type: "number" },
-            { label: "Due Date", key: "dueDate", placeholder: "2025-03-01", type: "date" },
+            { label: "Due Date", key: "dueDate", placeholder: "2026-03-29", type: "date" },
           ].map(({ label, key, placeholder, type }) => (
             <div key={key}>
-              <label className="block text-sm font-medium text-slate-600 mb-2">{label}</label>
+              <label className="mb-2 block text-sm font-medium text-slate-700">{label}</label>
               <input
                 data-testid={`input-invoice-${key}`}
                 type={type}
                 value={form[key as keyof typeof form]}
-                onChange={(e) => setForm({ ...form, [key]: e.target.value })}
+                onChange={(event) => setForm({ ...form, [key]: event.target.value })}
                 placeholder={placeholder}
                 required
-                className="w-full px-4 py-3 rounded-lg bg-white border border-slate-300 text-slate-900 text-base placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#3DB54A]"
+                className="min-h-10 w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm font-medium text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600"
               />
             </div>
           ))}
           <div className="sm:col-span-2">
-            <button
+            <Button
               data-testid="button-submit-invoice"
               type="submit"
               disabled={createInvoice.isPending}
-              className="px-6 py-3 rounded-lg bg-[#3DB54A] hover:bg-[#35a241] text-white text-base font-semibold transition-colors disabled:opacity-50"
+              className="bg-blue-700 text-white hover:bg-blue-800"
             >
               {createInvoice.isPending ? "Creating..." : "Create Invoice"}
-            </button>
+            </Button>
           </div>
         </form>
-      )}
+      ) : null}
 
       {!invoiceList?.length ? (
         <EmptyState text="No invoices yet" />
       ) : (
         <div className="space-y-4">
-          {invoiceList.map((inv) => (
-            <SectionCard key={inv.id} testId={`card-invoice-${inv.id}`}>
-              <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-                <div className="flex-1 min-w-0">
-                  <div className="flex flex-wrap items-center gap-3 mb-2">
-                    <h3 className="text-xl font-semibold text-slate-900">{inv.invoiceNumber}</h3>
-                    <StatusBadge status={inv.status} />
+          {invoiceList.map((invoice) => (
+            <SectionCard key={invoice.id} testId={`card-invoice-${invoice.id}`}>
+              <div className="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
+                <div className="min-w-0 flex-1">
+                  <div className="flex flex-wrap items-center gap-3">
+                    <h3 className="text-lg font-semibold text-slate-950">{invoice.invoiceNumber}</h3>
+                    <StatusBadge status={invoice.status} />
                   </div>
-                  <p className="text-lg text-slate-700">{inv.customerName} — {inv.serviceTitle}</p>
-                  <div className="flex flex-wrap gap-x-4 gap-y-2 mt-3 text-base text-slate-500">
-                    <span>{inv.customerEmail}</span>
-                    <span>Amount: {formatCurrency(inv.amount)}</span>
-                    {inv.dueDate && <span>Due: {inv.dueDate}</span>}
-                    {inv.paidAt && <span>Paid: {formatDate(inv.paidAt)}</span>}
+                  <p className="mt-3 text-sm font-medium text-slate-800">
+                    {invoice.customerName} - {invoice.serviceTitle}
+                  </p>
+                  <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-sm font-medium text-slate-600">
+                    <span>{invoice.customerEmail}</span>
+                    <span>Amount: {formatCurrency(invoice.amount)}</span>
+                    {invoice.dueDate ? <span>Due: {invoice.dueDate}</span> : null}
+                    {invoice.paidAt ? <span>Paid: {formatDate(invoice.paidAt)}</span> : null}
                   </div>
                 </div>
-                <div className="flex flex-col sm:flex-row gap-3">
-                  {inv.status !== "paid" && (
-                    <button
-                      data-testid={`button-mark-paid-${inv.id}`}
-                      onClick={() => markPaid.mutate(inv.invoiceNumber)}
-                      className="px-4 py-2.5 rounded-lg bg-emerald-50 text-emerald-700 hover:bg-emerald-100 text-sm font-semibold transition-colors"
+
+                <div className="flex flex-col gap-3 sm:flex-row">
+                  {invoice.status !== "paid" ? (
+                    <Button
+                      data-testid={`button-mark-paid-${invoice.id}`}
+                      variant="outline"
+                      className="border-emerald-200 text-emerald-700 hover:bg-emerald-50 hover:text-emerald-800"
+                      onClick={() => markPaid.mutate(invoice.invoiceNumber)}
                     >
                       Mark Paid
-                    </button>
-                  )}
-                  <DangerButton
-                    testId={`button-delete-invoice-${inv.id}`}
+                    </Button>
+                  ) : null}
+
+                  <DeleteConfirmButton
+                    testId={`button-delete-invoice-${invoice.id}`}
+                    title="Delete invoice?"
+                    description="Are you sure you want to delete this invoice? This cannot be undone."
+                    confirmLabel={deleteInvoice.isPending ? "Deleting..." : "Delete Invoice"}
                     disabled={deleteInvoice.isPending}
-                    onClick={() => {
-                      if (window.confirm(`Delete invoice ${inv.invoiceNumber}?`)) {
-                        deleteInvoice.mutate(inv.id);
-                      }
-                    }}
-                    label={deleteInvoice.isPending ? "Deleting..." : "Delete"}
+                    onConfirm={() => deleteInvoice.mutate(invoice.id)}
                   />
                 </div>
               </div>
@@ -375,21 +470,23 @@ function ContactsTab() {
 
   return (
     <div data-testid="admin-contacts">
-      <h2 className="text-3xl font-bold text-slate-900 mb-6" style={{ fontFamily: "'Outfit', sans-serif" }}>Contact Messages</h2>
+      <h2 className="mb-6 text-lg font-semibold text-slate-950">Contact Messages</h2>
       {!messages?.length ? (
         <EmptyState text="No contact messages yet" />
       ) : (
         <div className="space-y-4">
-          {messages.map((m) => (
-            <SectionCard key={m.id} testId={`card-contact-${m.id}`}>
-              <div className="flex items-center gap-3 mb-2">
-                <h3 className="text-xl font-semibold text-slate-900">{m.name}</h3>
-                <span className="text-base text-slate-500">{formatDateTime(m.createdAt)}</span>
+          {messages.map((message) => (
+            <SectionCard key={message.id} testId={`card-contact-${message.id}`}>
+              <div className="flex flex-wrap items-center gap-3">
+                <h3 className="text-lg font-semibold text-slate-950">{message.name}</h3>
+                <span className="text-sm font-medium text-slate-500">
+                  {formatDateTime(message.createdAt)}
+                </span>
               </div>
-              <p className="text-lg text-slate-700 mb-3">{m.message}</p>
-              <div className="flex flex-wrap gap-4 text-base text-slate-500">
-                <span>{m.email}</span>
-                {m.phone && <span>{m.phone}</span>}
+              <p className="mt-4 text-sm font-medium leading-7 text-slate-700">{message.message}</p>
+              <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-sm font-medium text-slate-600">
+                <span>{message.email}</span>
+                {message.phone ? <span>{message.phone}</span> : null}
               </div>
             </SectionCard>
           ))}
@@ -408,23 +505,27 @@ function RemindersTab() {
 
   return (
     <div data-testid="admin-reminders">
-      <h2 className="text-3xl font-bold text-slate-900 mb-6" style={{ fontFamily: "'Outfit', sans-serif" }}>Reminders</h2>
+      <h2 className="mb-6 text-lg font-semibold text-slate-950">Reminders</h2>
       {!reminderList?.length ? (
         <EmptyState text="No reminders yet" />
       ) : (
         <div className="space-y-4">
-          {reminderList.map((r) => (
-            <SectionCard key={r.id} testId={`card-reminder-${r.id}`}>
-              <div className="flex flex-wrap items-center gap-3 mb-2">
-                <h3 className="text-xl font-semibold text-slate-900">{r.customerName}</h3>
-                <StatusBadge status={r.status} />
-                <span className="px-2.5 py-0.5 rounded-full text-sm bg-slate-100 text-slate-600 capitalize">{r.channel}</span>
+          {reminderList.map((reminder) => (
+            <SectionCard key={reminder.id} testId={`card-reminder-${reminder.id}`}>
+              <div className="flex flex-wrap items-center gap-3">
+                <h3 className="text-lg font-semibold text-slate-950">{reminder.customerName}</h3>
+                <StatusBadge status={reminder.status} />
+                <span className="rounded-full bg-slate-100 px-3 py-1 text-sm font-semibold capitalize text-slate-600">
+                  {reminder.channel}
+                </span>
               </div>
-              <p className="text-lg text-slate-700">{r.serviceTitle} — {r.reminderType}</p>
-              <div className="flex flex-wrap gap-x-4 gap-y-2 mt-3 text-base text-slate-500">
-                <span>Scheduled: {formatDateTime(r.scheduledFor)}</span>
-                <span>Appointment: {r.appointmentDate}</span>
-                {r.sentAt && <span>Sent: {formatDateTime(r.sentAt)}</span>}
+              <p className="mt-3 text-sm font-medium text-slate-800">
+                {reminder.serviceTitle} - {reminder.reminderType}
+              </p>
+              <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-sm font-medium text-slate-600">
+                <span>Scheduled: {formatDateTime(reminder.scheduledFor)}</span>
+                <span>Appointment: {reminder.appointmentDate}</span>
+                {reminder.sentAt ? <span>Sent: {formatDateTime(reminder.sentAt)}</span> : null}
               </div>
             </SectionCard>
           ))}
@@ -443,31 +544,35 @@ function QuotesTab() {
 
   return (
     <div data-testid="admin-quotes">
-      <h2 className="text-3xl font-bold text-slate-900 mb-6" style={{ fontFamily: "'Outfit', sans-serif" }}>Quote Requests</h2>
+      <h2 className="mb-6 text-lg font-semibold text-slate-950">Quote Requests</h2>
       {!quoteList?.length ? (
         <EmptyState text="No quote requests yet" />
       ) : (
         <div className="space-y-4">
-          {quoteList.map((q) => (
-            <SectionCard key={q.id} testId={`card-quote-${q.id}`}>
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                <div className="flex-1 min-w-0">
-                  <div className="flex flex-wrap items-center gap-3 mb-2">
-                    <h3 className="text-xl font-semibold text-slate-900">{q.fullName}</h3>
-                    <StatusBadge status={q.status} />
-                    <span className={`px-2.5 py-0.5 rounded-full text-sm font-medium ${q.urgency === "priority" ? "bg-rose-100 text-rose-700" : "bg-sky-100 text-sky-700"}`}>
-                      {q.urgency}
-                    </span>
-                  </div>
-                  <p className="text-lg text-slate-700">{q.serviceType} • {q.propertyType}</p>
-                  <p className="text-lg text-slate-700 mt-3">{q.description}</p>
-                  <div className="flex flex-wrap gap-x-4 gap-y-2 mt-3 text-base text-slate-500">
-                    <span>{q.email}</span>
-                    <span>{q.phone}</span>
-                    {q.address && <span>{q.address}</span>}
-                    <span>{formatDateTime(q.createdAt)}</span>
-                  </div>
-                </div>
+          {quoteList.map((quote) => (
+            <SectionCard key={quote.id} testId={`card-quote-${quote.id}`}>
+              <div className="flex flex-wrap items-center gap-3">
+                <h3 className="text-lg font-semibold text-slate-950">{quote.fullName}</h3>
+                <StatusBadge status={quote.status} />
+                <span
+                  className={`rounded-full px-3 py-1 text-sm font-semibold capitalize ${
+                    quote.urgency === "priority"
+                      ? "bg-rose-100 text-rose-700"
+                      : "bg-sky-100 text-sky-700"
+                  }`}
+                >
+                  {quote.urgency}
+                </span>
+              </div>
+              <p className="mt-3 text-sm font-medium text-slate-800">
+                {quote.serviceType} - {quote.propertyType}
+              </p>
+              <p className="mt-4 text-sm font-medium leading-7 text-slate-700">{quote.description}</p>
+              <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-sm font-medium text-slate-600">
+                <span>{quote.email}</span>
+                <span>{quote.phone}</span>
+                {quote.address ? <span>{quote.address}</span> : null}
+                <span>{formatDateTime(quote.createdAt)}</span>
               </div>
             </SectionCard>
           ))}
@@ -510,39 +615,44 @@ export default function AdminDashboard() {
   if (isLoading || !auth?.isAdmin) return <LoadingSpinner />;
 
   return (
-    <div className="min-h-screen bg-slate-100" data-testid="admin-dashboard">
-      <header className="border-b border-slate-200 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-5 flex items-center justify-between">
+    <div className="min-h-screen bg-slate-50" data-testid="admin-dashboard">
+      <header className="border-b border-blue-900 bg-blue-900 text-white">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-5 sm:px-6">
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#3DB54A] to-[#2d8a38] flex items-center justify-center shadow-sm">
-              <span className="text-white font-bold text-base" style={{ fontFamily: "'Outfit', sans-serif" }}>BM</span>
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/10 text-base font-bold">
+              BM
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-slate-900" style={{ fontFamily: "'Outfit', sans-serif" }}>Admin Panel</h1>
-              <p className="text-base text-slate-500 hidden sm:block">BERNARDINO MARTIN — Heating • Air Conditioning • Solar</p>
+              <h1 className="text-2xl font-bold">Admin Panel</h1>
+              <p className="text-sm font-medium text-blue-100 hidden sm:block">
+                BERNARDINO MARTIN - Heating - Air Conditioning - Solar
+              </p>
             </div>
           </div>
-          <button
+
+          <Button
             data-testid="button-admin-logout"
+            variant="outline"
+            className="border-white/25 bg-white/10 text-white hover:bg-white/15 hover:text-white"
             onClick={logout}
-            className="px-4 py-2.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-base font-medium transition-colors"
           >
             Sign Out
-          </button>
+          </Button>
         </div>
       </header>
 
-      <nav className="border-b border-slate-200 bg-slate-50 overflow-x-auto">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 flex gap-2">
+      <nav className="border-b border-blue-800 bg-blue-800 text-white">
+        <div className="mx-auto flex max-w-7xl gap-2 overflow-x-auto px-4 sm:px-6">
           {tabs.map((tab) => (
             <button
               key={tab.id}
+              type="button"
               data-testid={`tab-${tab.id}`}
               onClick={() => setActiveTab(tab.id)}
-              className={`px-4 py-4 text-base font-semibold whitespace-nowrap transition-colors border-b-2 ${
+              className={`border-b-2 px-4 py-4 text-sm font-semibold whitespace-nowrap transition-colors ${
                 activeTab === tab.id
-                  ? "text-[#2d8a38] border-[#3DB54A]"
-                  : "text-slate-500 border-transparent hover:text-slate-800"
+                  ? "border-white text-white"
+                  : "border-transparent text-blue-100 hover:text-white"
               }`}
             >
               {tab.label}
@@ -551,13 +661,13 @@ export default function AdminDashboard() {
         </div>
       </nav>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
-        {activeTab === "overview" && <OverviewTab />}
-        {activeTab === "appointments" && <AppointmentsTab />}
-        {activeTab === "invoices" && <InvoicesTab />}
-        {activeTab === "contacts" && <ContactsTab />}
-        {activeTab === "quotes" && <QuotesTab />}
-        {activeTab === "reminders" && <RemindersTab />}
+      <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
+        {activeTab === "overview" ? <OverviewTab /> : null}
+        {activeTab === "appointments" ? <AppointmentsTab /> : null}
+        {activeTab === "invoices" ? <InvoicesTab /> : null}
+        {activeTab === "contacts" ? <ContactsTab /> : null}
+        {activeTab === "quotes" ? <QuotesTab /> : null}
+        {activeTab === "reminders" ? <RemindersTab /> : null}
       </main>
     </div>
   );

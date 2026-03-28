@@ -13,6 +13,7 @@ import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { CheckCircle, Loader2 } from "lucide-react";
 import { validateEmail } from "@/lib/email-validation";
+import { useLocation } from "wouter";
 
 export default function Booking() {
   const [date, setDate] = useState<Date | undefined>(new Date());
@@ -25,6 +26,8 @@ export default function Booking() {
   const [emailError, setEmailError] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const { toast } = useToast();
+  const [location] = useLocation();
+  const preselectedServiceId = new URLSearchParams(window.location.search).get("service");
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -35,7 +38,9 @@ export default function Booking() {
     if (matchedService) {
       setSelectedService(matchedService.id);
     }
-  }, []);
+  }, [location]);
+
+  const preselectedService = SERVICES.find((service) => service.id === selectedService);
 
   const bookingMutation = useMutation({
     mutationFn: async (data: any) => {
@@ -135,6 +140,14 @@ export default function Booking() {
               <CardDescription>Select your service and preferred availability.</CardDescription>
             </CardHeader>
             <CardContent>
+              {preselectedServiceId && preselectedService?.id === preselectedServiceId && (
+                <div className="mb-6 rounded-2xl border border-blue-200 bg-blue-50 px-4 py-4 text-blue-900">
+                  <p className="text-sm font-semibold md:text-base">
+                    You selected: {preselectedService.title} - fill in your details below to confirm your booking.
+                  </p>
+                </div>
+              )}
+
               <form onSubmit={handleSubmit}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div className="space-y-6">
@@ -157,7 +170,7 @@ export default function Booking() {
                     <fieldset className="space-y-2">
                       <legend className="text-sm font-medium">Contact Details</legend>
                       <div className="space-y-2">
-                        <label htmlFor="booking-fullname" className="sr-only">
+                        <label htmlFor="booking-fullname" className="text-sm font-medium">
                           Full Name
                         </label>
                         <Input
@@ -172,7 +185,7 @@ export default function Booking() {
                         />
                       </div>
                       <div className="space-y-2">
-                        <label htmlFor="booking-phone" className="sr-only">
+                        <label htmlFor="booking-phone" className="text-sm font-medium">
                           Phone Number
                         </label>
                         <Input
@@ -187,7 +200,7 @@ export default function Booking() {
                         />
                       </div>
                       <div className="space-y-2">
-                        <label htmlFor="booking-email" className="sr-only">
+                        <label htmlFor="booking-email" className="text-sm font-medium">
                           Email Address
                         </label>
                         <Input
@@ -207,7 +220,7 @@ export default function Booking() {
                         {emailError && <p className="text-xs text-red-500">{emailError}</p>}
                       </div>
                       <div className="space-y-2">
-                        <label htmlFor="booking-address" className="sr-only">
+                        <label htmlFor="booking-address" className="text-sm font-medium">
                           Street Address
                         </label>
                         <Input

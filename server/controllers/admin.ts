@@ -77,15 +77,23 @@ export async function deleteBooking(req: Request, res: Response, next: NextFunct
     const idParam = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
     const id = parseInt(idParam, 10);
     if (Number.isNaN(id)) {
-      throw AppError.validation("Invalid booking id");
+      return res.status(400).json({
+        success: false,
+        message: "Invalid booking ID",
+        errorCode: "INVALID_ID",
+      });
     }
 
-    const booking = await storage.deleteBooking(id);
-    if (!booking) {
-      throw AppError.notFound("Booking not found");
+    const deleted = await storage.deleteBooking(id);
+    if (!deleted) {
+      return res.status(404).json({
+        success: false,
+        message: "Booking not found",
+        errorCode: "NOT_FOUND",
+      });
     }
 
-    res.json({ success: true, booking });
+    return res.json({ success: true, message: "Booking deleted" });
   } catch (err) {
     next(err);
   }
@@ -115,15 +123,23 @@ export async function deleteInvoice(req: Request, res: Response, next: NextFunct
     const idParam = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
     const id = parseInt(idParam, 10);
     if (Number.isNaN(id)) {
-      throw AppError.validation("Invalid invoice id");
+      return res.status(400).json({
+        success: false,
+        message: "Invalid invoice ID",
+        errorCode: "INVALID_ID",
+      });
     }
 
-    const invoice = await storage.deleteInvoice(id);
-    if (!invoice) {
-      throw AppError.notFound("Invoice not found");
+    const deleted = await storage.deleteInvoice(id);
+    if (!deleted) {
+      return res.status(404).json({
+        success: false,
+        message: "Invoice not found",
+        errorCode: "NOT_FOUND",
+      });
     }
 
-    res.json({ success: true, invoice });
+    return res.json({ success: true, message: "Invoice deleted" });
   } catch (err) {
     next(err);
   }
