@@ -6,7 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Calendar } from "@/components/ui/calendar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SERVICES } from "@/lib/constants";
 import { useToast } from "@/hooks/use-toast";
 import { useMutation } from "@tanstack/react-query";
@@ -25,6 +25,17 @@ export default function Booking() {
   const [emailError, setEmailError] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const { toast } = useToast();
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const serviceFromQuery = params.get("service");
+    if (!serviceFromQuery) return;
+
+    const matchedService = SERVICES.find((service) => service.id === serviceFromQuery);
+    if (matchedService) {
+      setSelectedService(matchedService.id);
+    }
+  }, []);
 
   const bookingMutation = useMutation({
     mutationFn: async (data: any) => {
@@ -54,8 +65,9 @@ export default function Booking() {
       setEmailError(emailCheck.error || "Invalid email");
       return;
     }
+
     setEmailError("");
-    const service = SERVICES.find(s => s.id === selectedService);
+    const service = SERVICES.find((s) => s.id === selectedService);
     if (!service || !date) return;
 
     bookingMutation.mutate({
@@ -84,7 +96,18 @@ export default function Booking() {
               <p className="text-slate-600 mb-6">
                 Thank you, <span className="font-semibold">{fullName}</span>. We've received your appointment request and will confirm via email within 24 hours.
               </p>
-              <Button onClick={() => { setSubmitted(false); setFullName(""); setPhone(""); setEmail(""); setAddress(""); setNotes(""); setSelectedService(""); }} variant="outline">
+              <Button
+                onClick={() => {
+                  setSubmitted(false);
+                  setFullName("");
+                  setPhone("");
+                  setEmail("");
+                  setAddress("");
+                  setNotes("");
+                  setSelectedService("");
+                }}
+                variant="outline"
+              >
                 Book Another Service
               </Button>
             </CardContent>
@@ -98,7 +121,9 @@ export default function Booking() {
     <Layout>
       <SEO title="Book Online" description="Schedule your HVAC, Solar, or Plumbing service online. Fast, easy, and secure booking." noindex={true} />
       <div className="container mx-auto px-4 py-20">
-        <h1 className="text-4xl font-heading font-bold mb-6 text-center" data-testid="text-booking-title">Book an Appointment</h1>
+        <h1 className="text-4xl font-heading font-bold mb-6 text-center" data-testid="text-booking-title">
+          Book an Appointment
+        </h1>
         <p className="text-center text-slate-600 mb-12 max-w-2xl mx-auto">
           Choose a date and time that works for you. We'll confirm your appointment shortly.
         </p>
@@ -120,37 +145,94 @@ export default function Booking() {
                           <SelectValue placeholder="Select a service" />
                         </SelectTrigger>
                         <SelectContent>
-                          {SERVICES.map(s => (
-                            <SelectItem key={s.id} value={s.id}>{s.title}</SelectItem>
+                          {SERVICES.map((s) => (
+                            <SelectItem key={s.id} value={s.id}>
+                              {s.title}
+                            </SelectItem>
                           ))}
                         </SelectContent>
                       </Select>
                     </div>
-                    
+
                     <fieldset className="space-y-2">
                       <legend className="text-sm font-medium">Contact Details</legend>
                       <div className="space-y-2">
-                        <label htmlFor="booking-fullname" className="sr-only">Full Name</label>
-                        <Input id="booking-fullname" placeholder="Full Name" value={fullName} onChange={e => setFullName(e.target.value)} required data-testid="input-fullname" className="mb-2" aria-label="Full Name" />
+                        <label htmlFor="booking-fullname" className="sr-only">
+                          Full Name
+                        </label>
+                        <Input
+                          id="booking-fullname"
+                          placeholder="Full Name"
+                          value={fullName}
+                          onChange={(e) => setFullName(e.target.value)}
+                          required
+                          data-testid="input-fullname"
+                          className="mb-2"
+                          aria-label="Full Name"
+                        />
                       </div>
                       <div className="space-y-2">
-                        <label htmlFor="booking-phone" className="sr-only">Phone Number</label>
-                        <Input id="booking-phone" placeholder="Phone Number" value={phone} onChange={e => setPhone(e.target.value)} required data-testid="input-phone" className="mb-2" aria-label="Phone Number" />
+                        <label htmlFor="booking-phone" className="sr-only">
+                          Phone Number
+                        </label>
+                        <Input
+                          id="booking-phone"
+                          placeholder="Phone Number"
+                          value={phone}
+                          onChange={(e) => setPhone(e.target.value)}
+                          required
+                          data-testid="input-phone"
+                          className="mb-2"
+                          aria-label="Phone Number"
+                        />
                       </div>
                       <div className="space-y-2">
-                        <label htmlFor="booking-email" className="sr-only">Email Address</label>
-                        <Input id="booking-email" placeholder="Email Address" type="email" value={email} onChange={e => { setEmail(e.target.value); setEmailError(""); }} required data-testid="input-email" className={`mb-2 ${emailError ? "border-red-500" : ""}`} aria-label="Email Address" />
+                        <label htmlFor="booking-email" className="sr-only">
+                          Email Address
+                        </label>
+                        <Input
+                          id="booking-email"
+                          placeholder="Email Address"
+                          type="email"
+                          value={email}
+                          onChange={(e) => {
+                            setEmail(e.target.value);
+                            setEmailError("");
+                          }}
+                          required
+                          data-testid="input-email"
+                          className={`mb-2 ${emailError ? "border-red-500" : ""}`}
+                          aria-label="Email Address"
+                        />
                         {emailError && <p className="text-xs text-red-500">{emailError}</p>}
                       </div>
                       <div className="space-y-2">
-                        <label htmlFor="booking-address" className="sr-only">Street Address</label>
-                        <Input id="booking-address" placeholder="Street Address" value={address} onChange={e => setAddress(e.target.value)} required data-testid="input-address" aria-label="Street Address" />
+                        <label htmlFor="booking-address" className="sr-only">
+                          Street Address
+                        </label>
+                        <Input
+                          id="booking-address"
+                          placeholder="Street Address"
+                          value={address}
+                          onChange={(e) => setAddress(e.target.value)}
+                          required
+                          data-testid="input-address"
+                          aria-label="Street Address"
+                        />
                       </div>
                     </fieldset>
 
                     <div className="space-y-2">
-                      <label htmlFor="booking-notes" className="text-sm font-medium">Additional Notes (optional)</label>
-                      <Textarea id="booking-notes" placeholder="Describe the issue or any special requests..." value={notes} onChange={e => setNotes(e.target.value)} data-testid="input-notes" />
+                      <label htmlFor="booking-notes" className="text-sm font-medium">
+                        Additional Notes (optional)
+                      </label>
+                      <Textarea
+                        id="booking-notes"
+                        placeholder="Describe the issue or any special requests..."
+                        value={notes}
+                        onChange={(e) => setNotes(e.target.value)}
+                        data-testid="input-notes"
+                      />
                     </div>
                   </div>
 
@@ -162,7 +244,7 @@ export default function Booking() {
                         selected={date}
                         onSelect={setDate}
                         className="rounded-md border"
-                        disabled={(d) => d < new Date(new Date().setHours(0,0,0,0))}
+                        disabled={(d) => d < new Date(new Date().setHours(0, 0, 0, 0))}
                       />
                     </div>
                   </div>
@@ -170,17 +252,40 @@ export default function Booking() {
 
                 <div className="mt-8 pt-6 border-t">
                   <p className="text-sm text-slate-500 mb-4 flex items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary shrink-0"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="text-primary shrink-0"
+                    >
+                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                    </svg>
                     We will verify licensing when you book your appointment.
                   </p>
                   <Button
                     type="submit"
                     className="w-full md:w-auto md:ml-auto block bg-primary hover:bg-primary/90"
-                    disabled={bookingMutation.isPending || !selectedService || !fullName || !phone || !email || !address}
+                    disabled={
+                      bookingMutation.isPending ||
+                      !selectedService ||
+                      !fullName ||
+                      !phone ||
+                      !email ||
+                      !address
+                    }
                     data-testid="button-submit-booking"
                   >
                     {bookingMutation.isPending ? (
-                      <><Loader2 className="mr-2 h-4 w-4 animate-spin" aria-hidden="true" /> Submitting...</>
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" aria-hidden="true" />
+                        Submitting...
+                      </>
                     ) : (
                       "Request Appointment"
                     )}

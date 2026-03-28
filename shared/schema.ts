@@ -1,6 +1,5 @@
 import { sql } from "drizzle-orm";
 import { pgTable, text, varchar, timestamp, integer, boolean } from "drizzle-orm/pg-core";
-import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
 const BLOCKED_DOMAINS = [
@@ -74,11 +73,7 @@ export const reminders = pgTable("reminders", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
-export const insertBookingSchema = createInsertSchema(bookings).omit({
-  id: true,
-  status: true,
-  createdAt: true,
-}).extend({
+export const insertBookingSchema = z.object({
   fullName: z.string().trim().min(1).max(200),
   email: strictEmail,
   phone: z.string().trim().min(7).max(30),
@@ -89,21 +84,14 @@ export const insertBookingSchema = createInsertSchema(bookings).omit({
   notes: z.string().trim().max(2000).optional().nullable(),
 });
 
-export const insertContactMessageSchema = createInsertSchema(contactMessages).omit({
-  id: true,
-  createdAt: true,
-}).extend({
+export const insertContactMessageSchema = z.object({
   name: z.string().trim().min(1).max(200),
   email: strictEmail,
   phone: z.string().trim().max(30).optional().nullable(),
   message: z.string().trim().min(1).max(5000),
 });
 
-export const insertInvoiceSchema = createInsertSchema(invoices).omit({
-  id: true,
-  paidAt: true,
-  createdAt: true,
-}).extend({
+export const insertInvoiceSchema = z.object({
   invoiceNumber: z.string().trim().min(1).max(50),
   customerEmail: strictEmail,
   customerName: z.string().trim().min(1).max(200),
@@ -120,10 +108,18 @@ export type InsertContactMessage = z.infer<typeof insertContactMessageSchema>;
 export type Invoice = typeof invoices.$inferSelect;
 export type InsertInvoice = z.infer<typeof insertInvoiceSchema>;
 
-export const insertReminderSchema = createInsertSchema(reminders).omit({
-  id: true,
-  sentAt: true,
-  createdAt: true,
+export const insertReminderSchema = z.object({
+  bookingId: z.number().int().positive(),
+  customerName: z.string().trim().min(1).max(200),
+  customerEmail: strictEmail,
+  customerPhone: z.string().trim().min(7).max(30),
+  serviceTitle: z.string().trim().min(1).max(200),
+  appointmentDate: z.string().trim().min(1).max(50),
+  reminderType: z.string().trim().min(1).max(100),
+  channel: z.string().trim().max(50).optional(),
+  status: z.string().trim().max(50).optional(),
+  scheduledFor: z.coerce.date(),
+  sentAt: z.coerce.date().optional().nullable(),
 });
 export type Reminder = typeof reminders.$inferSelect;
 export type InsertReminder = z.infer<typeof insertReminderSchema>;
@@ -142,11 +138,7 @@ export const quotes = pgTable("quotes", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
-export const insertQuoteSchema = createInsertSchema(quotes).omit({
-  id: true,
-  status: true,
-  createdAt: true,
-}).extend({
+export const insertQuoteSchema = z.object({
   serviceType: z.string().trim().min(1).max(100),
   propertyType: z.string().trim().min(1).max(100),
   description: z.string().trim().min(1).max(5000),

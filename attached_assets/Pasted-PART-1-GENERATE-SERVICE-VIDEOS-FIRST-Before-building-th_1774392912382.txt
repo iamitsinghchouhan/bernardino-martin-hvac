@@ -1,0 +1,143 @@
+PART 1 — GENERATE SERVICE VIDEOS FIRST
+Before building the About page, generate 7 short video clips for the service sections. Use an AI video generation tool (Sora, Runway ML, or Kling AI) with the following prompts. Save each video in /public/videos/ with the exact filenames listed below.
+Video 1 — save as /public/videos/svc-hvac.mp4
+"A professional HVAC technician repairing an outdoor air conditioning condenser unit beside a suburban home. The technician checks pressure gauges, inspects components, and tightens bolts while the fan spins. Bright sunny weather, palm trees in background, cinematic camera movement. Ultra-realistic cinematic commercial footage, 10 seconds, smooth camera movement, professional uniform, modern Los Angeles suburban home."
+Video 2 — save as /public/videos/svc-solar.mp4
+"Two solar technicians installing solar panels on a residential rooftop under bright sunlight. Workers lift panels into place and secure them to mounting rails while connecting cables. Clear blue sky, modern house, reflective solar panels. Ultra-realistic cinematic commercial footage, 10 seconds, smooth camera movement, professional uniforms, Los Angeles suburban home."
+Video 3 — save as /public/videos/svc-plumbing.mp4
+"A professional plumber repairing pipes under a modern kitchen sink. The plumber tightens pipes using tools and checks water flow while fixing a small leak. Clean kitchen environment, warm indoor lighting. Ultra-realistic cinematic commercial footage, 10 seconds, professional uniform."
+Video 4 — save as /public/videos/svc-electrical.mp4
+"An electrician working on a residential electrical panel box. The electrician carefully arranges wiring and uses a digital voltage tester while wearing safety gloves. Organized wiring and professional work environment. Ultra-realistic cinematic commercial footage, 10 seconds, professional uniform."
+Video 5 — save as /public/videos/svc-irrigation.mp4
+"A landscaped garden with automatic sprinklers watering green grass and plants. A homeowner controls the irrigation system through a smartphone app while sprinklers activate across the lawn. Ultra-realistic cinematic commercial footage, 10 seconds, bright sunny Los Angeles weather."
+Video 6 — save as /public/videos/svc-landscaping.mp4
+"Professional landscapers installing fresh sod rolls on a residential lawn. Workers level soil, place sod, and water the grass. Beautiful suburban home with newly landscaped yard. Ultra-realistic cinematic commercial footage, 10 seconds, bright sunny weather, professional uniforms."
+Video 7 — save as /public/videos/svc-network.mp4
+"A network technician installing ethernet cables and configuring a home router and network switch. Close-up shots of ethernet cables plugging in and router lights blinking while the technician tests internet on a laptop. Ultra-realistic cinematic commercial footage, 10 seconds, clean modern home environment."
+After all 7 videos are saved in /public/videos/, also copy them to /dist/public/videos/ so they are immediately served in production.
+
+PART 2 — RECONSTRUCT THE ABOUT PAGE
+Reconstruct the About page (client/src/pages/about.tsx) for BERNARDINO MARTIN — Heating • Air Conditioning • Solar. Keep all existing imports, SEO component, and routing intact. Do NOT remove any existing functionality.
+Brand:
+
+Company name: BERNARDINO MARTIN (always all caps)
+Tagline: Heating • Air Conditioning • Solar
+Colors: Blue (primary) and Green (secondary/accents)
+Phone: (818) 400-0227
+WhatsApp: 18184000227
+Location: Los Angeles, CA
+Email: martinsolarstar@gmail.com
+
+Page structure — build these sections in order:
+1. Hero Section
+
+Full-width background with a blue gradient overlay
+Large heading: "BERNARDINO MARTIN"
+Subheading: "Heating • Air Conditioning • Solar"
+Short tagline: "Los Angeles' trusted home services contractor since day one"
+Two CTA buttons: "Book a Service" linking to /booking and "Get a Free Quote" linking to /quote
+
+2. Company Story Section
+
+Two-column layout (text left, image right)
+Use image: /images/happy-family-tech.webp
+Heading: "Who We Are"
+Text: "BERNARDINO MARTIN is a family-owned home services company proudly serving the greater Los Angeles area. We started with a passion for keeping homes comfortable, safe, and energy-efficient. Over the years we have grown into a full-service contractor offering HVAC, solar, plumbing, electrical, landscaping, irrigation, and smart technology services — all under one roof. We believe every homeowner deserves reliable, honest, and professional service at a fair price."
+
+3. Meet the Owner Section
+
+Two-column layout (image left, text right)
+Use image: /images/technician.webp
+Heading: "Meet Bernardino Martin"
+Text: "Bernardino Martin is the founder and lead technician of the company. With decades of hands-on experience in HVAC, solar installation, and home services across Los Angeles, Bernardino built this company on the values of integrity, quality workmanship, and customer satisfaction. He personally oversees every project to make sure it meets the highest standards. When you call BERNARDINO MARTIN, you are getting the owner's commitment on every job."
+Show a trust badge row with 3 items: "Licensed & Insured", "Family Owned", "Serving LA Since Day One"
+
+4. Services Overview Section with Scroll-Triggered Videos
+
+Section heading: "What We Do"
+Build 7 service rows. Each row has two columns: LEFT is video, RIGHT is text (alternate left/right for each row)
+Each video must: autoplay when scrolled into view using IntersectionObserver, be muted, loop, have no controls, use playsInline, pause when scrolled out of view
+
+Row 1 — HVAC & Heating
+
+Video: /videos/svc-hvac.mp4
+Title: "HVAC & Heating"
+Description: "We install, repair, and maintain all heating and cooling systems including AC units, ductless mini-splits, furnaces, heat pumps, duct systems, and thermostats. We keep your home comfortable year-round."
+Bullets: AC Repair & Installation, Heating Systems, Duct Cleaning & Installation, Thermostat Services, HVAC Maintenance
+
+Row 2 — Solar & Energy
+
+Video: /videos/svc-solar.mp4
+Title: "Solar & Energy"
+Description: "We design and install complete solar energy systems for residential properties in Los Angeles. Reduce your energy bills and increase your home's value with clean, renewable solar power."
+Bullets: Solar Panel Installation, Solar System Maintenance, Solar Irrigation Systems, Energy Efficiency Consulting
+
+Row 3 — Plumbing
+
+Video: /videos/svc-plumbing.mp4
+Title: "Plumbing Services"
+Description: "We provide a full range of residential plumbing services including pipe installations, fixture upgrades, leak repairs, water filtration, reverse osmosis systems, and soft water installations. Our SMART AUTOMATIC JET CLEANUP system pushes water and waste from inside your home all the way to the street mainline and is fully controllable from your smartphone. Our SMART SHUTOFF VALVE stops water leaks automatically before damage occurs."
+Bullets: Pipe Installation & Repair, Water Filtration & Reverse Osmosis, Smart Shutoff Valve, Jet Cleanup System, Fixture Upgrades
+
+Row 4 — Electrical
+
+Video: /videos/svc-electrical.mp4
+Title: "Electrical Services"
+Description: "Our licensed electricians handle everything from panel upgrades to full home wiring. We ensure your home's electrical system is safe, up to code, and ready for modern demands."
+Bullets: Electrical Panel Installation & Repair, Home Wiring, Safety Inspections, Smart Home Electrical
+
+Row 5 — Outdoor & Landscaping
+
+Video: /videos/svc-landscaping.mp4
+Title: "Outdoor & Landscaping"
+Description: "We transform outdoor spaces with professional landscaping, sod installation, planting, and irrigation. We install San Augustine and RTF sod varieties and design smart irrigation systems controllable from your phone."
+Bullets: Landscaping Design, Sod Installation (San Augustine & RTF), Smart Irrigation Systems, Planting & Garden Care
+
+Row 6 — Smart Irrigation
+
+Video: /videos/svc-irrigation.mp4
+Title: "Smart Irrigation"
+Description: "Our electronic irrigation systems are fully controllable via smartphone. The smart valve reduces water damage risk and can reduce your home insurance up to 40%. We install irrigation systems for gardens, planters, and solar panel cleaning."
+Bullets: App-Controlled Irrigation, Solar Panel Irrigation, Insurance Savings Up to 40%, Smart Valve Installation
+
+Row 7 — Network & Technology
+
+Video: /videos/svc-network.mp4
+Title: "Network & Smart Technology"
+Description: "We install structured network infrastructure for homes and businesses including fiber internet, smart home connectivity, router setup, and full control panel installation."
+Bullets: Structured Network Cabling, Internet & Fiber Installation, Smart Home Connectivity, Router & Panel Setup
+
+5. Why Choose Us Section
+
+4-column grid of trust cards
+Card 1: Icon + "Licensed & Insured" + "Full licensing verified at every booking"
+Card 2: Icon + "Family Owned" + "Bernardino personally oversees every job"
+Card 3: Icon + "All-In-One Contractor" + "23 services across 6 categories"
+Card 4: Icon + "Serving All of LA" + "We cover the entire greater Los Angeles area"
+
+6. Service Areas Section
+
+Heading: "Proudly Serving Los Angeles"
+Two-column layout: left side is a list of cities, right side is a blue-styled area description
+Cities: Los Angeles, Burbank, Glendale, Pasadena, San Fernando Valley, Santa Monica, Hollywood, North Hollywood, Van Nuys, Chatsworth, Northridge, Reseda, Canoga Park, Woodland Hills, Calabasas, Sherman Oaks, Studio City, Encino, Tarzana, West Hills
+Right side text: "We serve homeowners and businesses across the greater Los Angeles area. From the San Fernando Valley to downtown LA, our team is ready to come to you. Call us at (818) 400-0227 or book online."
+
+7. CTA Footer Banner
+
+Full-width blue background
+Heading: "Ready to Get Started?"
+Subtext: "Call us at (818) 400-0227 or book your service online today."
+Two buttons: "Call Now" (tel:+18184000227) and "Book Online" (/booking)
+
+Technical requirements:
+
+Use Tailwind CSS for all styling
+Use the existing SEO component at the top of the page
+Use IntersectionObserver for scroll-triggered video autoplay/pause
+All images use loading="lazy" and decoding="async"
+All videos use muted, loop, playsInline, no controls
+Page must be fully mobile responsive
+Use the existing shadcn/ui Button component for all buttons
+After building the page, copy /public/videos/ to /dist/public/videos/ and run pm2 restart all
+Do NOT use any new npm packages
+Do NOT remove any existing functionality
