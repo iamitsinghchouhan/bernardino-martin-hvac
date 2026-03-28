@@ -24,28 +24,29 @@ export function SEO({ title, description, canonical, noindex = false }: SEOProps
     }
     metaDescription.setAttribute("content", description);
 
-    // Update Canonical URL
+    // Update Canonical URL — fixed domain
     let linkCanonical = document.querySelector('link[rel="canonical"]');
     if (!linkCanonical) {
       linkCanonical = document.createElement("link");
       linkCanonical.setAttribute("rel", "canonical");
       document.head.appendChild(linkCanonical);
     }
-    linkCanonical.setAttribute("href", canonical || `https://bernardinomartin.com${location}`);
+    linkCanonical.setAttribute(
+      "href",
+      canonical || `https://bernardinomartinhvac.com${location}`
+    );
 
-    // Handle NoIndex
+    // Handle Robots meta tag
     let metaRobots = document.querySelector('meta[name="robots"]');
+    if (!metaRobots) {
+      metaRobots = document.createElement("meta");
+      metaRobots.setAttribute("name", "robots");
+      document.head.appendChild(metaRobots);
+    }
     if (noindex) {
-      if (!metaRobots) {
-        metaRobots = document.createElement("meta");
-        metaRobots.setAttribute("name", "robots");
-        document.head.appendChild(metaRobots);
-      }
       metaRobots.setAttribute("content", "noindex, nofollow");
     } else {
-      if (metaRobots) {
-        document.head.removeChild(metaRobots);
-      }
+      metaRobots.setAttribute("content", "index, follow");
     }
   }, [title, description, canonical, location, noindex]);
 
