@@ -31,7 +31,11 @@ export async function lookupInvoice(req: Request, res: Response, next: NextFunct
 
 export async function payInvoice(req: Request, res: Response, next: NextFunction) {
   try {
-    const invoice = await storage.markInvoicePaid(req.params.invoiceNumber);
+    const invoiceNumber = Array.isArray(req.params.invoiceNumber)
+      ? req.params.invoiceNumber[0]
+      : req.params.invoiceNumber;
+
+    const invoice = await storage.markInvoicePaid(invoiceNumber);
     if (!invoice) {
       throw AppError.notFound("Invoice not found");
     }

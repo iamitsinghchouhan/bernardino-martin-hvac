@@ -29,8 +29,10 @@ export async function registerRoutes(
   app.get("/api/admin/stats", requireAdmin, adminCtrl.getStats);
   app.get("/api/admin/bookings", requireAdmin, adminCtrl.getBookings);
   app.patch("/api/admin/bookings/:id/status", requireAdmin, adminCtrl.updateBookingStatus);
+  app.delete("/api/admin/bookings/:id", requireAdmin, adminCtrl.deleteBooking);
   app.get("/api/admin/invoices", requireAdmin, adminCtrl.getInvoices);
   app.post("/api/admin/invoices", requireAdmin, adminCtrl.createInvoice);
+  app.delete("/api/admin/invoices/:id", requireAdmin, adminCtrl.deleteInvoice);
   app.get("/api/admin/contacts", requireAdmin, adminCtrl.getContacts);
   app.get("/api/admin/reminders", requireAdmin, adminCtrl.getReminders);
   app.get("/api/admin/quotes", requireAdmin, adminCtrl.getQuotes);

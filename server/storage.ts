@@ -19,6 +19,7 @@ export interface IStorage {
   getBookings(): Promise<Booking[]>;
   getBookingsByEmail(email: string): Promise<Booking[]>;
   updateBookingStatus(id: number, status: string): Promise<Booking | undefined>;
+  deleteBooking(id: number): Promise<Booking | undefined>;
 
   createContactMessage(msg: InsertContactMessage): Promise<ContactMessage>;
   getContactMessages(): Promise<ContactMessage[]>;
@@ -28,6 +29,7 @@ export interface IStorage {
   getInvoicesByEmail(email: string): Promise<Invoice[]>;
   getAllInvoices(): Promise<Invoice[]>;
   markInvoicePaid(invoiceNumber: string): Promise<Invoice | undefined>;
+  deleteInvoice(id: number): Promise<Invoice | undefined>;
 
   createReminder(reminder: InsertReminder): Promise<Reminder>;
   getRemindersByBookingId(bookingId: number): Promise<Reminder[]>;
@@ -120,12 +122,30 @@ export class DatabaseStorage implements IStorage {
     return result;
   }
 
+  async deleteBooking(id: number): Promise<Booking | undefined> {
+    await db.delete(reminders).where(eq(reminders.bookingId, id));
+
+    const [result] = await db
+      .delete(bookings)
+      .where(eq(bookings.id, id))
+      .returning();
+    return result;
+  }
+
   async getContactMessages(): Promise<ContactMessage[]> {
     return db.select().from(contactMessages).orderBy(desc(contactMessages.createdAt));
   }
 
   async getAllInvoices(): Promise<Invoice[]> {
     return db.select().from(invoices).orderBy(desc(invoices.createdAt));
+  }
+
+  async deleteInvoice(id: number): Promise<Invoice | undefined> {
+    const [result] = await db
+      .delete(invoices)
+      .where(eq(invoices.id, id))
+      .returning();
+    return result;
   }
 
   async getAllReminders(): Promise<Reminder[]> {
