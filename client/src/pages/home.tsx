@@ -3,7 +3,7 @@ import { SEO } from "@/components/seo";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { PROMOS, SERVICES, COMPANY_PHONE, COMPANY_NAME, COMPANY_FULL, getWhatsAppLink } from "@/lib/constants";
-import { ArrowRight, Check, Star, Clock, Calendar, MessageCircle, AlertTriangle, Droplets, Shield, Activity } from "lucide-react";
+import { ArrowRight, Check, Sparkles, Star, Clock, Calendar, MessageCircle, Phone, AlertTriangle, Droplets, Shield, Activity } from "lucide-react";
 import { Link } from "wouter";
 import { Badge } from "@/components/ui/badge";
 import { lazy, Suspense, useState, useEffect, useRef } from "react";
@@ -59,13 +59,23 @@ export default function Home() {
             <source src={HERO_VIDEOS[0]} type="video/mp4" />
           </video>
           <div className="absolute inset-0 bg-gradient-to-r from-slate-900/85 via-slate-900/60 to-slate-900/30" />
+          <div className="pointer-events-none absolute inset-0">
+            <div className="absolute top-16 left-10 w-14 h-20 rounded-[45%_55%] bg-amber-200/70 blur-xl animate-bounce" />
+            <div className="absolute top-24 right-16 w-10 h-10 rounded-full bg-pink-200/80 blur-xl animate-ping" />
+            <div className="absolute bottom-24 left-16 w-16 h-24 rounded-[45%_55%] bg-sky-200/60 blur-xl animate-bounce delay-150" />
+            <div className="absolute bottom-16 right-12 w-12 h-12 rounded-full bg-emerald-200/70 blur-xl animate-pulse" />
+          </div>
         </div>
         
         <div className="container mx-auto px-4 relative z-10 text-white">
           <div className="max-w-3xl animate-in slide-in-from-left-10 duration-700 fade-in">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm mb-6">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm mb-4">
               <span className="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
               <span className="text-sm font-medium text-slate-100">Licensed &bull; Bonded &bull; Insured</span>
+            </div>
+            <div className="inline-flex flex-wrap items-center gap-2 px-4 py-2 rounded-full bg-amber-100/95 border border-amber-200 text-amber-950 shadow-sm mb-6">
+              <span className="text-sm font-semibold">🐰 Easter Special</span>
+              <span className="text-xs uppercase tracking-[0.22em] font-semibold">Spring savings through April</span>
             </div>
             
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-heading font-black leading-tight mb-2 tracking-tight" data-testid="text-hero-title">
@@ -82,25 +92,34 @@ export default function Home() {
               Your trusted experts for residential & commercial HVAC, Solar, and Plumbing. Real work, honest pricing, and quality results.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="h-14 px-8 text-lg font-bold bg-primary hover:bg-primary/90 shadow-xl shadow-primary/20" asChild data-testid="button-hero-call">
-                <a href={`tel:${COMPANY_PHONE.replace(/\D/g, '')}`}>
-                  <Phone className="mr-2 h-5 w-5" aria-hidden="true" />
-                  Call Now
-                </a>
-              </Button>
-              <Button size="lg" className="h-14 px-8 text-lg font-bold bg-secondary hover:bg-secondary/90 text-white border-0 shadow-xl shadow-secondary/20" asChild data-testid="button-hero-whatsapp">
-                <a href={getWhatsAppLink("Hello! I'm interested in booking a service.")} target="_blank" rel="noopener noreferrer">
-                  <MessageCircle className="mr-2 h-5 w-5" aria-hidden="true" />
-                  WhatsApp Chat
-                </a>
-              </Button>
-              <Button size="lg" variant="outline" className="h-14 px-8 text-lg font-bold border-white/30 text-white hover:bg-white/10 backdrop-blur-sm" asChild data-testid="button-hero-book">
-                <Link href="/booking">
-                  <Calendar className="mr-2 h-5 w-5" aria-hidden="true" />
-                  Book Online
-                </Link>
-              </Button>
+            <div className="relative">
+              <div className="absolute -top-14 left-0 right-0 mx-auto flex max-w-xl items-center justify-center gap-3 rounded-full bg-amber-100/95 border border-amber-200 px-4 py-2 shadow-2xl backdrop-blur-md text-amber-950 animate-bounce">
+                <Sparkles className="h-4 w-4 text-amber-500" aria-hidden="true" />
+                <span className="text-xs uppercase tracking-[0.18em] font-semibold">Easter Spring Special — limited time only</span>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button size="lg" className="h-14 px-8 text-lg font-bold bg-primary hover:bg-primary/90 shadow-xl shadow-primary/20" asChild data-testid="button-hero-call">
+                  <a href={`tel:${COMPANY_PHONE.replace(/\D/g, '')}`}>
+                    <Phone className="mr-2 h-5 w-5" aria-hidden="true" />
+                    Call Now
+                  </a>
+                </Button>
+                <Button size="lg" className="h-14 px-8 text-lg font-bold bg-secondary hover:bg-secondary/90 text-white border-0 shadow-xl shadow-secondary/20" asChild data-testid="button-hero-whatsapp">
+                  <a href={getWhatsAppLink("Hello! I'm interested in booking a service.")} target="_blank" rel="noopener noreferrer">
+                    <MessageCircle className="mr-2 h-5 w-5" aria-hidden="true" />
+                    WhatsApp Chat
+                  </a>
+                </Button>
+                <Button size="lg" variant="outline" className="h-14 px-8 text-lg font-bold border-white/30 text-white hover:bg-white/10 backdrop-blur-sm" asChild data-testid="button-hero-book">
+                  <Link href="/booking">
+                    <Calendar className="mr-2 h-5 w-5" aria-hidden="true" />
+                    Book Online
+                    <span className="ml-2 inline-flex items-center justify-center rounded-full bg-amber-300/90 px-2 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-amber-950">
+                      Egg Sale
+                    </span>
+                  </Link>
+                </Button>
+              </div>
             </div>
           </div>
         </div>
