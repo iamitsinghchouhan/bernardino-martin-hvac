@@ -101,17 +101,17 @@ export function Layout({ children }: { children: React.ReactNode }) {
               </div>
           </Link>
           {location === "/" ? (
-            <div className="pointer-events-none absolute top-3 right-6 z-40 w-48 h-24 hidden lg:block">
+            <div className="pointer-events-none absolute top-2 right-32 z-40 w-64 h-28 hidden lg:block">
               <div className="relative w-full h-full">
                 <div className="easter-path absolute inset-0 rounded-full border border-dashed border-white/20" />
-                <div className="easter-bunny absolute left-1 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-white shadow-2xl border border-amber-200 flex items-center justify-center text-lg text-amber-700">
+                <div className="easter-bunny absolute left-0 top-1/2 -translate-y-1/2 w-20 h-20 rounded-full bg-white shadow-2xl border border-amber-200 flex items-center justify-center text-2xl text-amber-700">
                   🐰
                 </div>
-                <span className="easter-egg egg-1 absolute left-20 top-2 w-4 h-6 rounded-full bg-pink-200" />
-                <span className="easter-egg egg-2 absolute left-28 top-8 w-3 h-5 rounded-full bg-amber-200" />
-                <span className="easter-egg egg-3 absolute left-14 top-14 w-4 h-6 rounded-full bg-sky-200" />
-                <span className="easter-sparkle absolute left-8 top-4 block w-2 h-2 rounded-full bg-white/90 shadow-sm" />
-                <span className="easter-sparkle absolute right-6 top-12 block w-2 h-2 rounded-full bg-white/90 shadow-sm" />
+                <span className="easter-egg egg-1 absolute left-28 top-2 w-5 h-7 rounded-full bg-pink-200" />
+                <span className="easter-egg egg-2 absolute left-36 top-10 w-4 h-6 rounded-full bg-amber-200" />
+                <span className="easter-egg egg-3 absolute left-18 top-16 w-5 h-7 rounded-full bg-sky-200" />
+                <span className="easter-sparkle absolute left-12 top-4 block w-2 h-2 rounded-full bg-white/90 shadow-sm" />
+                <span className="easter-sparkle absolute right-8 top-12 block w-2 h-2 rounded-full bg-white/90 shadow-sm" />
               </div>
             </div>
           ) : null}
