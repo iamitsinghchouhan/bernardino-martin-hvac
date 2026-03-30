@@ -115,7 +115,7 @@ export default function Home() {
             </p>
             
             <div className="relative">
-              <div className="absolute -top-14 left-0 right-0 mx-auto flex max-w-xl items-center justify-center gap-3 rounded-full bg-amber-100/95 border border-amber-200 px-4 py-2 shadow-2xl backdrop-blur-md text-amber-950 animate-bounce">
+              <div className="absolute -top-14 -right-2 md:-right-6 lg:-right-10 max-w-[360px] flex items-center justify-end gap-3 rounded-full bg-amber-100/95 border border-amber-200 px-4 py-2 shadow-2xl backdrop-blur-md text-amber-950 animate-bounce">
                 <Sparkles className="h-4 w-4 text-amber-500" aria-hidden="true" />
                 <span className="text-xs uppercase tracking-[0.18em] font-semibold">Easter Spring Special — limited time only</span>
               </div>
