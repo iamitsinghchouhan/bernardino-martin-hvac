@@ -13,29 +13,44 @@ const HERO_VIDEOS = [
   "/videos/hvac_repair_outdoor.mp4",
   "/videos/solar_panel_install.mp4",
   "/videos/plumbing_copper_pipes.mp4",
+  "/videos/svc-hvac.mp4",
+  "/videos/svc-solar.mp4",
+  "/videos/svc-plumbing.mp4",
+  "/videos/svc-electrical.mp4",
+  "/videos/svc-landscaping.mp4",
+  "/videos/svc-irrigation.mp4",
+  "/videos/svc-network.mp4",
 ];
 
 export default function Home() {
   const [currentVideo, setCurrentVideo] = useState(0);
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const [visibleLayer, setVisibleLayer] = useState<0 | 1>(0);
+  const videoRefs = [useRef<HTMLVideoElement>(null), useRef<HTMLVideoElement>(null)];
 
   useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
+    const activeVideo = videoRefs[visibleLayer].current;
+    const inactiveVideo = videoRefs[1 - visibleLayer].current;
+    if (!activeVideo || !inactiveVideo) return;
+
+    const nextIndex = (currentVideo + 1) % HERO_VIDEOS.length;
+
+    activeVideo.src = HERO_VIDEOS[currentVideo];
+    activeVideo.load();
+    activeVideo.play().catch(() => {});
+
+    inactiveVideo.src = HERO_VIDEOS[nextIndex];
+    inactiveVideo.load();
+
     const handleEnded = () => {
-      setCurrentVideo((prev) => (prev + 1) % HERO_VIDEOS.length);
+      inactiveVideo.currentTime = 0;
+      inactiveVideo.play().catch(() => {});
+      setVisibleLayer(1 - visibleLayer);
+      setCurrentVideo(nextIndex);
     };
-    video.addEventListener("ended", handleEnded);
-    return () => video.removeEventListener("ended", handleEnded);
-  }, []);
 
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-    video.src = HERO_VIDEOS[currentVideo];
-    video.load();
-    video.play().catch(() => {});
-  }, [currentVideo]);
+    activeVideo.addEventListener("ended", handleEnded);
+    return () => activeVideo.removeEventListener("ended", handleEnded);
+  }, [currentVideo, visibleLayer]);
 
   return (
     <Layout>
@@ -48,16 +63,23 @@ export default function Home() {
       <section className="relative h-[650px] md:h-[700px] flex items-center overflow-hidden" data-testid="hero-section">
         <div className="absolute inset-0 z-0">
           <video
-            ref={videoRef}
-            className="w-full h-full object-cover"
+            ref={videoRefs[0]}
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${visibleLayer === 0 ? "opacity-100" : "opacity-0"}`}
             autoPlay
             muted
             playsInline
             preload="auto"
             poster="/images/real-solar-install.webp"
-          >
-            <source src={HERO_VIDEOS[0]} type="video/mp4" />
-          </video>
+          />
+          <video
+            ref={videoRefs[1]}
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${visibleLayer === 1 ? "opacity-100" : "opacity-0"}`}
+            autoPlay
+            muted
+            playsInline
+            preload="auto"
+            poster="/images/real-solar-install.webp"
+          />
           <div className="absolute inset-0 bg-gradient-to-r from-slate-900/85 via-slate-900/60 to-slate-900/30" />
           <div className="pointer-events-none absolute inset-0">
             <div className="absolute top-16 left-10 w-14 h-20 rounded-[45%_55%] bg-amber-200/70 blur-xl animate-bounce" />

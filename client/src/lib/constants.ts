@@ -36,11 +36,6 @@ export const PROMOS = [
     code: "EASTER24",
   },
   {
-    title: "10% OFF",
-    description: "Get 10% off this month when you try our services!",
-    code: "TRYUS10",
-  },
-  {
     title: "$89 OFF",
     description: "Free Service Call with Any AC & Heating Repair",
     sub: "Save $89!",
