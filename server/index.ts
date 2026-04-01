@@ -44,35 +44,44 @@ app.use(
           "'self'",
           "'unsafe-inline'",
           "'unsafe-eval'",
+          "https://cdnjs.cloudflare.com",
+          "https://unpkg.com"
         ],
         styleSrc: [
           "'self'",
           "'unsafe-inline'",
           "https://fonts.googleapis.com",
-          "https://cdnjs.cloudflare.com"
+          "https://cdnjs.cloudflare.com",
+          "https://unpkg.com"
         ],
         fontSrc: [
           "'self'",
-          "https://fonts.gstatic.com"
+          "https://fonts.gstatic.com",
+          "https://fonts.googleapis.com"
         ],
         imgSrc: [
           "'self'",
           "data:",
           "blob:",
-          "https:"
+          "https:",
+          "https://cdnjs.cloudflare.com",
+          "https://raw.githubusercontent.com",
+          "https://basemaps.cartocdn.com"
         ],
         connectSrc: [
           "'self'",
           "ws:",
-          "wss:"
+          "wss:",
+          "https://api.mapbox.com",
+          "https://basemaps.cartocdn.com"
         ],
-        frameSrc: [
-          "'self'",
-          "https://js.stripe.com"
-        ],
-      }
+        frameAncestors: ["'self'"],
+        objectSrc: ["'none'"],
+        baseUri: ["'self'"],
+        formAction: ["'self'"]
+      },
     },
-    crossOriginEmbedderPolicy: false
+    crossOriginEmbedderPolicy: false,
   })
 );
 
@@ -171,7 +180,23 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 
   const distPath = path.resolve(process.cwd(), "dist/public");
 
-  app.use(express.static(distPath));
+  app.use(
+    express.static(distPath, {
+      maxAge: "1d",
+      setHeaders: (res, filePath) => {
+        if (filePath.endsWith(".html")) {
+          res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+        } else if (filePath.match(/\.(js|css|json)$/)) {
+          res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
+        } else if (filePath.match(/\.(png|jpg|jpeg|webp|svg|mp4|webm)$/)) {
+          res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
+        }
+      },
+    }),
+  );
+
+  app.use("/images", express.static(path.join(distPath, "images")));
+  app.use("/videos", express.static(path.join(distPath, "videos")));
 
   /*
   React SPA fallback

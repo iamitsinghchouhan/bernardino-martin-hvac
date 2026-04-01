@@ -9,7 +9,8 @@ export async function login(req: Request, res: Response, next: NextFunction) {
     if (!password || password !== process.env.ADMIN_PASSWORD) {
       throw AppError.unauthorized("Invalid password");
     }
-    req.session.isAdmin = true;
+    const session = req.session as unknown as { isAdmin?: boolean };
+    session.isAdmin = true;
     res.json({ success: true });
   } catch (err) {
     next(err);
@@ -27,7 +28,8 @@ export async function logout(req: Request, res: Response, next: NextFunction) {
 }
 
 export async function getMe(req: Request, res: Response) {
-  res.json({ isAdmin: !!req.session?.isAdmin });
+  const session = req.session as unknown as { isAdmin?: boolean };
+  res.json({ isAdmin: !!session.isAdmin });
 }
 
 export async function getStats(_req: Request, res: Response, next: NextFunction) {
