@@ -18,6 +18,9 @@ export function serveStatic(app: Express) {
     }),
   );
 
+  app.use("/images", express.static(path.join(distPath, "images"), { maxAge: "1y", immutable: true }));
+  app.use("/videos", express.static(path.join(distPath, "videos"), { maxAge: "1y", immutable: true }));
+
   app.use(
     express.static(distPath, {
       maxAge: "1h",

@@ -8,8 +8,50 @@ const ChatWidget = lazy(() => import("@/components/chat-widget").then(m => ({ de
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const [location] = useLocation();
-
   const [isScrolled, setIsScrolled] = useState(false);
+
+  const [requestName, setRequestName] = useState("");
+  const [requestEmail, setRequestEmail] = useState("");
+  const [requestPhone, setRequestPhone] = useState("");
+  const [requestServiceType, setRequestServiceType] = useState("");
+  const [requestAddress, setRequestAddress] = useState("");
+  const [requestMessage, setRequestMessage] = useState("");
+  const [requestStatus, setRequestStatus] = useState<"idle" | "pending" | "success" | "error">("idle");
+
+  const handleRequestSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+
+    setRequestStatus("pending");
+
+    try {
+      const response = await fetch("/api/quotes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          serviceType: requestServiceType || "General Service Request",
+          propertyType: "Residential",
+          description: requestMessage || "Service request from sticky form",
+          fullName: requestName,
+          phone: requestPhone,
+          email: requestEmail,
+          address: requestAddress,
+          urgency: "standard",
+        }),
+      });
+
+      if (!response.ok) throw new Error("Failed to submit request");
+
+      setRequestStatus("success");
+      setRequestName("");
+      setRequestEmail("");
+      setRequestPhone("");
+      setRequestServiceType("");
+      setRequestAddress("");
+      setRequestMessage("");
+    } catch (error) {
+      setRequestStatus("error");
+    }
+  };
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "instant" });
@@ -34,8 +76,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
         { href: "/services#plumbing", label: "Plumbing", desc: "General plumbing, jet cleanup and shutoff valves" },
         { href: "/services#electrical", label: "Electrical", desc: "Panel upgrades and residential electrical work" },
         { href: "/services#outdoor", label: "Outdoor & Property", desc: "Landscaping, sod, planting and irrigation" },
-        { href: "/services#technology", label: "Technology", desc: "Network wiring and smart home connectivity" },
-      ],
+        { href: "/services#technology", label: "Technology", desc: "Network wiring and smart home connectivity" },        { href: "/hvac-los-angeles", label: "HVAC Los Angeles", desc: "Local HVAC services" },
+        { href: "/solar-installation-los-angeles", label: "Solar Los Angeles", desc: "Local solar installations" },
+        { href: "/plumbing-los-angeles", label: "Plumbing Los Angeles", desc: "Local plumbing services" },
+        { href: "/electrical-services-los-angeles", label: "Electrical Los Angeles", desc: "Local electrical services" },
+        { href: "/landscaping-los-angeles", label: "Landscaping Los Angeles", desc: "Local landscaping services" },
+        { href: "/irrigation-los-angeles", label: "Irrigation Los Angeles", desc: "Local irrigation services" },
+        { href: "/network-installation-los-angeles", label: "Network Installation Los Angeles", desc: "Local network services" },      ],
     },
     {
       href: "/booking",
@@ -271,7 +318,32 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
       <main className="flex-1" id="main-content">
         {children}
+
+        <section className="mx-auto max-w-4xl rounded-xl border border-primary/20 bg-white/95 p-6 shadow-lg my-10">
+          <h2 className="text-2xl font-semibold mb-4">Request a Service Quote</h2>
+          <p className="mb-6 text-slate-600">Fill this form and we’ll contact you in 15 minutes. This form is available on all pages for fast local lead capture.</p>
+          <form onSubmit={handleRequestSubmit} className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <input required className="rounded-lg border border-slate-300 p-2" placeholder="Full Name" value={requestName} onChange={(e) => setRequestName(e.target.value)} />
+            <input required type="email" className="rounded-lg border border-slate-300 p-2" placeholder="Email" value={requestEmail} onChange={(e) => setRequestEmail(e.target.value)} />
+            <input required className="rounded-lg border border-slate-300 p-2" placeholder="Phone" value={requestPhone} onChange={(e) => setRequestPhone(e.target.value)} />
+            <input className="rounded-lg border border-slate-300 p-2" placeholder="Address" value={requestAddress} onChange={(e) => setRequestAddress(e.target.value)} />
+            <input className="rounded-lg border border-slate-300 p-2 md:col-span-2" placeholder="Service Type (HVAC, Solar, Plumbing, etc.)" value={requestServiceType} onChange={(e) => setRequestServiceType(e.target.value)} />
+            <textarea className="rounded-lg border border-slate-300 p-2 md:col-span-2" rows={4} placeholder="Short description of your request" value={requestMessage} onChange={(e) => setRequestMessage(e.target.value)} />
+            <button type="submit" className="md:col-span-2 rounded-lg bg-primary py-2 px-4 text-white hover:bg-primary/90" disabled={requestStatus === "pending"}>
+              {requestStatus === "pending" ? "Sending..." : "Submit Request"}
+            </button>
+            {requestStatus === "success" && <p className="md:col-span-2 text-sm text-green-700">Thank you! Your service request has been submitted.</p>}
+            {requestStatus === "error" && <p className="md:col-span-2 text-sm text-red-700">Submission failed. Please try again or call us directly.</p>}
+          </form>
+        </section>
       </main>
+
+      <div className="fixed bottom-4 right-4 z-50">
+        <a href="tel:+18184000227" className="inline-flex items-center gap-2 rounded-full bg-red-600 px-5 py-3 text-white font-bold shadow-lg transition hover:bg-red-700">
+          <Phone className="h-4 w-4" />
+          Call Now
+        </a>
+      </div>
 
       <Suspense fallback={null}>
         <ChatWidget />
@@ -290,6 +362,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
               </div>
               <p className="text-sm leading-relaxed mb-4 text-slate-400">
                 BERNARDINO MARTIN - Heating, Air Conditioning, Solar. Top-rated HVAC, Solar, and Plumbing services in Los Angeles.
+              </p>
+              <p className="text-sm leading-relaxed mb-4 text-slate-200">
+                Serving Los Angeles, Burbank, Glendale, Pasadena, and San Fernando Valley.
               </p>
               <div className="flex items-center gap-2 text-sm font-semibold text-secondary">
                 <ShieldCheck className="h-4 w-4" aria-hidden="true" />

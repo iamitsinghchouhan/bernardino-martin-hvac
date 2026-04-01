@@ -18,6 +18,14 @@ const AdminLogin = lazy(() => import("@/pages/admin-login"));
 const Admin = lazy(() => import("@/pages/admin"));
 const NotFound = lazy(() => import("@/pages/not-found"));
 
+const HVACLosAngeles = lazy(() => import("@/pages/seo-service-pages").then((mod) => ({ default: mod.HVACLosAngeles })));
+const SolarInstallationLosAngeles = lazy(() => import("@/pages/seo-service-pages").then((mod) => ({ default: mod.SolarInstallationLosAngeles })));
+const PlumbingLosAngeles = lazy(() => import("@/pages/seo-service-pages").then((mod) => ({ default: mod.PlumbingLosAngeles })));
+const ElectricalServicesLosAngeles = lazy(() => import("@/pages/seo-service-pages").then((mod) => ({ default: mod.ElectricalServicesLosAngeles })));
+const LandscapingLosAngeles = lazy(() => import("@/pages/seo-service-pages").then((mod) => ({ default: mod.LandscapingLosAngeles })));
+const IrrigationLosAngeles = lazy(() => import("@/pages/seo-service-pages").then((mod) => ({ default: mod.IrrigationLosAngeles })));
+const NetworkInstallationLosAngeles = lazy(() => import("@/pages/seo-service-pages").then((mod) => ({ default: mod.NetworkInstallationLosAngeles })));
+
 function PageLoader() {
   return (
     <div className="min-h-screen flex items-center justify-center">
@@ -41,6 +49,15 @@ function Router() {
         <Route path="/quote" component={Quote} />
         <Route path="/admin/login" component={AdminLogin} />
         <Route path="/admin" component={Admin} />
+
+        <Route path="/hvac-los-angeles" component={HVACLosAngeles} />
+        <Route path="/solar-installation-los-angeles" component={SolarInstallationLosAngeles} />
+        <Route path="/plumbing-los-angeles" component={PlumbingLosAngeles} />
+        <Route path="/electrical-services-los-angeles" component={ElectricalServicesLosAngeles} />
+        <Route path="/landscaping-los-angeles" component={LandscapingLosAngeles} />
+        <Route path="/irrigation-los-angeles" component={IrrigationLosAngeles} />
+        <Route path="/network-installation-los-angeles" component={NetworkInstallationLosAngeles} />
+
         <Route component={NotFound} />
       </Switch>
     </Suspense>

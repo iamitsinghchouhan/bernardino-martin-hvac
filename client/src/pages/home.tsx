@@ -44,7 +44,8 @@ export default function Home() {
     const handleEnded = () => {
       inactiveVideo.currentTime = 0;
       inactiveVideo.play().catch(() => {});
-      setVisibleLayer(1 - visibleLayer);
+      const nextLayer: 0 | 1 = visibleLayer === 0 ? 1 : 0;
+      setVisibleLayer(nextLayer);
       setCurrentVideo(nextIndex);
     };
 
@@ -780,7 +781,7 @@ export default function Home() {
   );
 }
 
-function Phone({ className }: { className?: string }) {
+function PhoneIcon({ className }: { className?: string }) {
   return (
     <svg 
       xmlns="http://www.w3.org/2000/svg" 
