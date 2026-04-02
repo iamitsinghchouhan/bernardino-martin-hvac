@@ -1,4 +1,4 @@
 User-agent: *
-Disallow:
+Disallow: /admin
 Allow: /
 Sitemap: https://bernardinomartinhvac.com/sitemap.xml

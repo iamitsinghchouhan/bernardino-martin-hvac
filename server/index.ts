@@ -163,6 +163,17 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   next();
 });
 
+app.use((req: Request, res: Response, next: NextFunction) => {
+  const isAdminRoute = req.path === "/admin" || req.path.startsWith("/admin/");
+  const isApiRoute = req.path.startsWith("/api");
+
+  if (isAdminRoute || isApiRoute) {
+    res.setHeader("X-Robots-Tag", "noindex, nofollow");
+  }
+
+  next();
+});
+
 /* ================================
    Server Boot
 ================================ */
@@ -203,6 +214,9 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   (DO NOT use "*" or "/*" here)
   */
   app.use((req: Request, res: Response) => {
+    if (req.path === "/admin" || req.path.startsWith("/admin/")) {
+      res.setHeader("X-Robots-Tag", "noindex, nofollow");
+    }
     res.sendFile(path.join(distPath, "index.html"));
   });
 

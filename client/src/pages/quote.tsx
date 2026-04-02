@@ -71,7 +71,7 @@ export default function Quote() {
   if (submitted) {
     return (
       <Layout>
-        <SEO title="Quote Request Received" description="Your estimate request has been submitted." noindex={true} />
+        <SEO title="Quote Request Received" description="Your estimate request has been submitted." />
         <div className="container mx-auto px-4 py-20 min-h-[60vh] flex items-center justify-center">
           <Card className="max-w-md w-full text-center shadow-xl border-t-4 border-t-green-500" data-testid="quote-success">
             <CardContent className="p-10">

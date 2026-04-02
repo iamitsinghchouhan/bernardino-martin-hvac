@@ -28,6 +28,18 @@ const NetworkLosAngeles = lazy(() => import("@/pages/seo/network-los-angeles"));
 const HvacBurbank = lazy(() => import("@/pages/seo/hvac-burbank"));
 const HvacGlendale = lazy(() => import("@/pages/seo/hvac-glendale"));
 const HvacPasadena = lazy(() => import("@/pages/seo/hvac-pasadena"));
+const AirConditioningServiceLosAngeles = lazy(() => import("@/pages/seo/air-conditioning-service-los-angeles"));
+const AcRepairLosAngeles = lazy(() => import("@/pages/seo/ac-repair-los-angeles"));
+const MiniSplitServiceLosAngeles = lazy(() => import("@/pages/seo/mini-split-service-los-angeles"));
+const FurnaceServiceLosAngeles = lazy(() => import("@/pages/seo/furnace-service-los-angeles"));
+const HeatPumpLosAngeles = lazy(() => import("@/pages/seo/heat-pump-los-angeles"));
+const SolarOptimizationLosAngeles = lazy(() => import("@/pages/seo/solar-optimization-los-angeles"));
+const PlumbingServiceLosAngeles = lazy(() => import("@/pages/seo/plumbing-service-los-angeles"));
+const LandscapingServicesLosAngeles = lazy(() => import("@/pages/seo/landscaping-services-los-angeles"));
+const SodInstallationLosAngeles = lazy(() => import("@/pages/seo/sod-installation-los-angeles"));
+const PlantersLandscapingLosAngeles = lazy(() => import("@/pages/seo/planters-landscaping-los-angeles"));
+const NetworkRepairLosAngeles = lazy(() => import("@/pages/seo/network-repair-los-angeles"));
+const NewInstallationLosAngeles = lazy(() => import("@/pages/seo/new-installation-los-angeles"));
 
 function PageLoader() {
   return (
@@ -63,6 +75,18 @@ function Router() {
         <Route path="/hvac-burbank" component={HvacBurbank} />
         <Route path="/hvac-glendale" component={HvacGlendale} />
         <Route path="/hvac-pasadena" component={HvacPasadena} />
+        <Route path="/air-conditioning-service-los-angeles" component={AirConditioningServiceLosAngeles} />
+        <Route path="/ac-repair-los-angeles" component={AcRepairLosAngeles} />
+        <Route path="/mini-split-service-los-angeles" component={MiniSplitServiceLosAngeles} />
+        <Route path="/furnace-service-los-angeles" component={FurnaceServiceLosAngeles} />
+        <Route path="/heat-pump-los-angeles" component={HeatPumpLosAngeles} />
+        <Route path="/solar-optimization-los-angeles" component={SolarOptimizationLosAngeles} />
+        <Route path="/plumbing-service-los-angeles" component={PlumbingServiceLosAngeles} />
+        <Route path="/landscaping-services-los-angeles" component={LandscapingServicesLosAngeles} />
+        <Route path="/sod-installation-los-angeles" component={SodInstallationLosAngeles} />
+        <Route path="/planters-landscaping-los-angeles" component={PlantersLandscapingLosAngeles} />
+        <Route path="/network-repair-los-angeles" component={NetworkRepairLosAngeles} />
+        <Route path="/new-installation-los-angeles" component={NewInstallationLosAngeles} />
 
         <Route component={NotFound} />
       </Switch>

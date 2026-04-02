@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useLocation } from "wouter";
 import { apiRequest } from "@/lib/queryClient";
+import { SEO } from "@/components/seo";
 
 export default function AdminLogin() {
   const [password, setPassword] = useState("");
@@ -24,6 +25,7 @@ export default function AdminLogin() {
 
   return (
     <div className="min-h-screen bg-[#0f1235] flex items-center justify-center px-4" data-testid="admin-login-page">
+      <SEO title="Admin Login" description="Secure admin login for Bernardino Martin HVAC." noindex={true} />
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-[#3DB54A] to-[#2d8a38] flex items-center justify-center mx-auto mb-4">
