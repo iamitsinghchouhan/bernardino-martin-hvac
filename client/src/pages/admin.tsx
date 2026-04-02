@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
+import { SEO } from "@/components/seo";
 import type { Booking, ContactMessage, Invoice, Quote, Reminder } from "@shared/schema";
 import type { DashboardStats } from "../../server-types";
 
@@ -616,6 +617,7 @@ export default function AdminDashboard() {
 
   return (
     <div className="min-h-screen bg-slate-50" data-testid="admin-dashboard">
+      <SEO title="Admin Dashboard" description="Manage Bernardino Martin HVAC bookings, invoices, contacts, reminders, and quotes." noindex={true} />
       <header className="border-b border-blue-900 bg-blue-900 text-white">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-5 sm:px-6">
           <div className="flex items-center gap-4">

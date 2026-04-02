@@ -43,11 +43,7 @@ export function SEO({ title, description, canonical, noindex = false }: SEOProps
       metaRobots.setAttribute("name", "robots");
       document.head.appendChild(metaRobots);
     }
-    if (noindex) {
-      metaRobots.setAttribute("content", "noindex, nofollow");
-    } else {
-      metaRobots.setAttribute("content", "index, follow");
-    }
+    metaRobots.setAttribute("content", noindex ? "noindex, nofollow" : "index, follow");
   }, [title, description, canonical, location, noindex]);
 
   return null;

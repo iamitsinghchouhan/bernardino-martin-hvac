@@ -36,21 +36,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://bernardinomartinhvac.com/payment</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://bernardinomartinhvac.com/dashboard</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://bernardinomartinhvac.com/admin/login</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.1</priority>
-  </url>
-  <url>
     <loc>https://bernardinomartinhvac.com/hvac-los-angeles</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -97,6 +82,66 @@
   </url>
   <url>
     <loc>https://bernardinomartinhvac.com/hvac-pasadena</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bernardinomartinhvac.com/air-conditioning-service-los-angeles</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bernardinomartinhvac.com/ac-repair-los-angeles</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bernardinomartinhvac.com/mini-split-service-los-angeles</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bernardinomartinhvac.com/furnace-service-los-angeles</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bernardinomartinhvac.com/heat-pump-los-angeles</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bernardinomartinhvac.com/solar-optimization-los-angeles</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bernardinomartinhvac.com/plumbing-service-los-angeles</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bernardinomartinhvac.com/landscaping-services-los-angeles</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bernardinomartinhvac.com/sod-installation-los-angeles</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bernardinomartinhvac.com/planters-landscaping-los-angeles</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bernardinomartinhvac.com/network-repair-los-angeles</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bernardinomartinhvac.com/new-installation-los-angeles</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
