@@ -309,6 +309,13 @@ export default function Home() {
              <Button variant="outline" size="lg" className="border-slate-300 text-slate-700 hover:text-primary hover:border-primary font-bold h-14 px-8" asChild>
                <Link href="/services">View All {SERVICES.length} Services</Link>
              </Button>
+             <div className="mt-6 flex flex-wrap justify-center gap-4 text-sm">
+               <a href="/hvac-los-angeles" className="text-primary hover:underline font-medium">HVAC Los Angeles</a>
+               <a href="/solar-installation-los-angeles" className="text-primary hover:underline font-medium">Solar Installation LA</a>
+               <a href="/plumbing-los-angeles" className="text-primary hover:underline font-medium">Plumbing LA</a>
+               <a href="/electrical-services-los-angeles" className="text-primary hover:underline font-medium">Electrical Services LA</a>
+               <a href="/landscaping-los-angeles" className="text-primary hover:underline font-medium">Landscaping LA</a>
+             </div>
           </div>
         </div>
       </section>
