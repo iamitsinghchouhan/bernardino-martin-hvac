@@ -18,13 +18,16 @@ const AdminLogin = lazy(() => import("@/pages/admin-login"));
 const Admin = lazy(() => import("@/pages/admin"));
 const NotFound = lazy(() => import("@/pages/not-found"));
 
-const HVACLosAngeles = lazy(() => import("@/pages/seo-service-pages").then((mod) => ({ default: mod.HVACLosAngeles })));
-const SolarInstallationLosAngeles = lazy(() => import("@/pages/seo-service-pages").then((mod) => ({ default: mod.SolarInstallationLosAngeles })));
-const PlumbingLosAngeles = lazy(() => import("@/pages/seo-service-pages").then((mod) => ({ default: mod.PlumbingLosAngeles })));
-const ElectricalServicesLosAngeles = lazy(() => import("@/pages/seo-service-pages").then((mod) => ({ default: mod.ElectricalServicesLosAngeles })));
-const LandscapingLosAngeles = lazy(() => import("@/pages/seo-service-pages").then((mod) => ({ default: mod.LandscapingLosAngeles })));
-const IrrigationLosAngeles = lazy(() => import("@/pages/seo-service-pages").then((mod) => ({ default: mod.IrrigationLosAngeles })));
-const NetworkInstallationLosAngeles = lazy(() => import("@/pages/seo-service-pages").then((mod) => ({ default: mod.NetworkInstallationLosAngeles })));
+const HvacLosAngeles = lazy(() => import("@/pages/seo/hvac-los-angeles"));
+const SolarLosAngeles = lazy(() => import("@/pages/seo/solar-los-angeles"));
+const PlumbingLosAngeles = lazy(() => import("@/pages/seo/plumbing-los-angeles"));
+const ElectricalLosAngeles = lazy(() => import("@/pages/seo/electrical-los-angeles"));
+const LandscapingLosAngeles = lazy(() => import("@/pages/seo/landscaping-los-angeles"));
+const IrrigationLosAngeles = lazy(() => import("@/pages/seo/irrigation-los-angeles"));
+const NetworkLosAngeles = lazy(() => import("@/pages/seo/network-los-angeles"));
+const HvacBurbank = lazy(() => import("@/pages/seo/hvac-burbank"));
+const HvacGlendale = lazy(() => import("@/pages/seo/hvac-glendale"));
+const HvacPasadena = lazy(() => import("@/pages/seo/hvac-pasadena"));
 
 function PageLoader() {
   return (
@@ -50,13 +53,16 @@ function Router() {
         <Route path="/admin/login" component={AdminLogin} />
         <Route path="/admin" component={Admin} />
 
-        <Route path="/hvac-los-angeles" component={HVACLosAngeles} />
-        <Route path="/solar-installation-los-angeles" component={SolarInstallationLosAngeles} />
+        <Route path="/hvac-los-angeles" component={HvacLosAngeles} />
+        <Route path="/solar-installation-los-angeles" component={SolarLosAngeles} />
         <Route path="/plumbing-los-angeles" component={PlumbingLosAngeles} />
-        <Route path="/electrical-services-los-angeles" component={ElectricalServicesLosAngeles} />
+        <Route path="/electrical-services-los-angeles" component={ElectricalLosAngeles} />
         <Route path="/landscaping-los-angeles" component={LandscapingLosAngeles} />
         <Route path="/irrigation-los-angeles" component={IrrigationLosAngeles} />
-        <Route path="/network-installation-los-angeles" component={NetworkInstallationLosAngeles} />
+        <Route path="/network-installation-los-angeles" component={NetworkLosAngeles} />
+        <Route path="/hvac-burbank" component={HvacBurbank} />
+        <Route path="/hvac-glendale" component={HvacGlendale} />
+        <Route path="/hvac-pasadena" component={HvacPasadena} />
 
         <Route component={NotFound} />
       </Switch>

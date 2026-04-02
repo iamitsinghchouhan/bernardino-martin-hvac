@@ -380,6 +380,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 <li><Link href="/services" className="hover:text-secondary transition-colors">Solar Panel Installation</Link></li>
                 <li><Link href="/services" className="hover:text-secondary transition-colors">Maintenance Tune-Ups</Link></li>
                 <li><Link href="/services" className="hover:text-secondary transition-colors">Plumbing & Pipe Work</Link></li>
+                <li><a href="/hvac-los-angeles" className="hover:text-secondary transition-colors">HVAC Los Angeles</a></li>
+                <li><a href="/solar-installation-los-angeles" className="hover:text-secondary transition-colors">Solar Installation LA</a></li>
+                <li><a href="/plumbing-los-angeles" className="hover:text-secondary transition-colors">Plumbing Los Angeles</a></li>
+                <li><a href="/electrical-services-los-angeles" className="hover:text-secondary transition-colors">Electrical Services LA</a></li>
               </ul>
             </div>
 
@@ -391,6 +395,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 <li><Link href="/service-areas" className="hover:text-secondary transition-colors">Pasadena</Link></li>
                 <li><Link href="/service-areas" className="hover:text-secondary transition-colors">Beverly Hills</Link></li>
                 <li><Link href="/service-areas" className="hover:text-secondary transition-colors">All Locations</Link></li>
+                <li><a href="/hvac-burbank" className="hover:text-secondary transition-colors">HVAC Burbank</a></li>
+                <li><a href="/hvac-glendale" className="hover:text-secondary transition-colors">HVAC Glendale</a></li>
+                <li><a href="/hvac-pasadena" className="hover:text-secondary transition-colors">HVAC Pasadena</a></li>
               </ul>
             </div>
 
@@ -422,13 +429,16 @@ export function Layout({ children }: { children: React.ReactNode }) {
               </div>
             </div>
           </div>
-          
-          <div className="pt-8 pb-20 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-xs text-slate-500 text-center mt-4">
+            Proudly serving Los Angeles, Burbank, Glendale, Pasadena, Santa Monica, and the entire San Fernando Valley.
+          </p>
+
+          <div className="pt-8 pb-20 border-t border-slate-800 mt-4 flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-xs text-slate-500">&copy; {new Date().getFullYear()} {COMPANY_FULL}. All rights reserved.</p>
             <div className="flex items-center gap-4 text-slate-400">
-               <a href="https://www.youtube.com/@bernardinomartinhvac" target="_blank" rel="noopener noreferrer" className="hover:text-secondary transition-colors" aria-label="YouTube" data-testid="link-youtube"><Youtube className="h-5 w-5" /></a>
-               <a href="https://www.instagram.com/bernardinomartinsolar/" target="_blank" rel="noopener noreferrer" className="hover:text-secondary transition-colors" aria-label="Instagram" data-testid="link-instagram"><Instagram className="h-5 w-5" /></a>
-               <a href="https://www.facebook.com/profile.php?id=61551460556076" target="_blank" rel="noopener noreferrer" className="hover:text-secondary transition-colors" aria-label="Facebook" data-testid="link-facebook"><Facebook className="h-5 w-5" /></a>
+              <a href="https://www.youtube.com/@bernardinomartinhvac" target="_blank" rel="noopener noreferrer" className="hover:text-secondary transition-colors" aria-label="YouTube" data-testid="link-youtube"><Youtube className="h-5 w-5" /></a>
+              <a href="https://www.instagram.com/bernardinomartinsolar/" target="_blank" rel="noopener noreferrer" className="hover:text-secondary transition-colors" aria-label="Instagram" data-testid="link-instagram"><Instagram className="h-5 w-5" /></a>
+              <a href="https://www.facebook.com/profile.php?id=61551460556076" target="_blank" rel="noopener noreferrer" className="hover:text-secondary transition-colors" aria-label="Facebook" data-testid="link-facebook"><Facebook className="h-5 w-5" /></a>
             </div>
           </div>
         </div>
