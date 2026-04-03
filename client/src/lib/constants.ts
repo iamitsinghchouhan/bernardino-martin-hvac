@@ -30,6 +30,12 @@ export function getWhatsAppLink(message = "Hello, I would like to inquire about 
 
 export const PROMOS = [
   {
+    title: "EASTER25",
+    sub: "15% off this weekend",
+    description: "Use code EASTER25 when you book online for priority scheduling and seasonal savings on qualifying services.",
+    code: "EASTER25",
+  },
+  {
     title: "$79 DIAGNOSTIC",
     sub: "Fast same-day troubleshooting",
     description: "Book a professional HVAC or plumbing diagnostic visit with clear next-step recommendations.",

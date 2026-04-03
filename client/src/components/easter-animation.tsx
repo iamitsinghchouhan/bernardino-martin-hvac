@@ -25,6 +25,9 @@ export function EasterEggs({ container }: { container: "nav" | "hero" }) {
       const size = 10 + Math.random() * 14;
       const duration = 2.5 + Math.random() * 3;
       const delay = Math.random() * 4;
+      if (container === "hero") {
+        egg.className = "easter-hero-egg";
+      }
       egg.style.cssText = `
         position:absolute;
         width:${size}px;
@@ -61,6 +64,31 @@ export function EasterEggs({ container }: { container: "nav" | "hero" }) {
         el.appendChild(sparkle);
         eggs.push(sparkle as HTMLDivElement);
       }
+
+      for (let i = 0; i < 3; i++) {
+        const glow = document.createElement("div");
+        const glowColors = [
+          "rgba(250, 204, 21, 0.18)",
+          "rgba(96, 165, 250, 0.18)",
+          "rgba(244, 114, 182, 0.16)",
+        ];
+        const size = 120 + Math.random() * 70;
+        glow.style.cssText = `
+          position:absolute;
+          width:${size}px;
+          height:${size}px;
+          border-radius:9999px;
+          background:${glowColors[i % glowColors.length]};
+          filter:blur(18px);
+          left:${8 + Math.random() * 75}%;
+          top:${12 + Math.random() * 58}%;
+          pointer-events:none;
+          z-index:4;
+          animation:easterFloat ${5 + Math.random() * 2}s ${Math.random() * 1.5}s ease-in-out infinite;
+        `;
+        el.appendChild(glow);
+        eggs.push(glow as HTMLDivElement);
+      }
     }
 
     return () => eggs.forEach((e) => e.remove());
@@ -69,7 +97,26 @@ export function EasterEggs({ container }: { container: "nav" | "hero" }) {
   return (
     <div
       ref={ref}
-      style={{ position: "absolute", inset: 0, overflow: "hidden", pointerEvents: "none", zIndex: 5 }}
+      style={
+        container === "nav"
+          ? {
+              position: "absolute",
+              left: 0,
+              right: 0,
+              top: 0,
+              height: "55vh",
+              overflow: "hidden",
+              pointerEvents: "none",
+              zIndex: 5,
+            }
+          : {
+              position: "absolute",
+              inset: 0,
+              overflow: "hidden",
+              pointerEvents: "auto",
+              zIndex: 5,
+            }
+      }
     />
   );
 }
@@ -99,19 +146,19 @@ export function EasterBunny() {
 
   return (
     <div
-      ref={bunnyRef}
       style={{
         position: "absolute",
-        bottom: "8px",
+        bottom: "44px",
         left: "30px",
-        fontSize: "28px",
         pointerEvents: "none",
-        zIndex: 20,
+        zIndex: 30,
         animation: "easterHop 0.6s ease-in-out infinite",
         lineHeight: 1,
       }}
     >
-      🐰
+      <div ref={bunnyRef} style={{ fontSize: "28px" }}>
+        🐰
+      </div>
     </div>
   );
 }
@@ -128,8 +175,24 @@ export function EasterStyles() {
         50% { opacity: 1; transform: scale(1); }
       }
       @keyframes easterHop {
-        0%, 100% { bottom: 8px; }
-        50% { bottom: 22px; }
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-14px); }
+      }
+      @keyframes easterFloat {
+        0%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.6; }
+        50% { transform: translate3d(0, -18px, 0) scale(1.06); opacity: 1; }
+      }
+      @media (hover: hover) and (pointer: fine) {
+        .easter-hero-egg {
+          pointer-events: auto;
+          transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+        }
+        .easter-hero-egg:hover {
+          animation-play-state: paused;
+          transform: translateY(-3px) rotate(-10deg) scale(1.15);
+          box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2);
+          filter: saturate(1.08);
+        }
       }
     `}</style>
   );
