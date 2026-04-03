@@ -106,7 +106,17 @@ export default function Home() {
             </p>
             
             <div className="relative">
-              <div className="flex flex-col sm:flex-row gap-4">
+              <div className="pointer-events-none absolute -inset-x-6 -inset-y-5 rounded-[2rem] bg-[radial-gradient(circle_at_top_left,_rgba(250,204,21,0.20),_transparent_36%),radial-gradient(circle_at_bottom_right,_rgba(244,114,182,0.18),_transparent_34%),radial-gradient(circle_at_center,_rgba(96,165,250,0.14),_transparent_46%)] blur-2xl" />
+              <div className="relative mb-5 inline-flex flex-wrap items-center gap-3 rounded-full border border-white/20 bg-white/12 px-4 py-2 text-sm font-semibold text-white shadow-lg backdrop-blur-md">
+                <span className="inline-flex items-center gap-2 rounded-full bg-amber-300/90 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.2em] text-amber-950">
+                  Easter25
+                </span>
+                <span>15% off qualifying services this weekend</span>
+                <Link href="/booking?promo=EASTER25" className="pointer-events-auto text-emerald-200 underline underline-offset-4 hover:text-white">
+                  Book with offer
+                </Link>
+              </div>
+              <div className="relative flex flex-col sm:flex-row gap-4">
                 <Button size="lg" className="h-14 px-8 text-lg font-bold bg-primary hover:bg-primary/90 shadow-xl shadow-primary/20" asChild data-testid="button-hero-call">
                   <a href={`tel:${COMPANY_PHONE.replace(/\D/g, '')}`}>
                     <Phone className="mr-2 h-5 w-5" aria-hidden="true" />
@@ -120,7 +130,7 @@ export default function Home() {
                   </a>
                 </Button>
                 <Button size="lg" variant="outline" className="h-14 px-8 text-lg font-bold border-white/30 text-white hover:bg-white/10 backdrop-blur-sm" asChild data-testid="button-hero-book">
-                  <Link href="/booking">
+                  <Link href="/booking?promo=EASTER25">
                     <Calendar className="mr-2 h-5 w-5" aria-hidden="true" />
                     Book Online
                   </Link>
@@ -136,24 +146,24 @@ export default function Home() {
       {/* Promos Section */}
       <section className="py-12 bg-slate-50 border-b border-slate-200">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 -mt-24 relative z-20">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 -mt-24 relative z-20">
             {PROMOS.map((promo, i) => (
-              <Card key={i} className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-white overflow-hidden group cursor-pointer" data-testid={`card-promo-${i}`}>
-                <Link href="/booking">
-                  <div className="h-2 bg-gradient-to-r from-primary to-secondary" />
+              <Card key={i} className={`border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden group cursor-pointer ${promo.code === "EASTER25" ? "bg-gradient-to-br from-amber-50 via-pink-50 to-emerald-50 ring-1 ring-amber-200/70" : "bg-white"}`} data-testid={`card-promo-${i}`}>
+                <Link href={promo.code === "EASTER25" ? "/booking?promo=EASTER25" : "/booking"}>
+                  <div className={`h-2 ${promo.code === "EASTER25" ? "bg-gradient-to-r from-amber-400 via-pink-400 to-emerald-400" : "bg-gradient-to-r from-primary to-secondary"}`} />
                   <CardContent className="p-8 text-center flex flex-col items-center justify-center h-full min-h-[220px]">
-                    <Badge variant="secondary" className="mb-4 bg-primary/5 text-primary hover:bg-primary/10 border-primary/10 px-3 py-1 text-sm font-bold">
+                    <Badge variant="secondary" className={`mb-4 px-3 py-1 text-sm font-bold ${promo.code === "EASTER25" ? "bg-white/80 text-amber-700 hover:bg-white border-amber-200" : "bg-primary/5 text-primary hover:bg-primary/10 border-primary/10"}`}>
                       {promo.title}
                     </Badge>
-                    <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-primary transition-colors">
+                    <h3 className={`text-xl font-bold mb-3 transition-colors ${promo.code === "EASTER25" ? "text-slate-900 group-hover:text-amber-600" : "text-slate-900 group-hover:text-primary"}`}>
                       {promo.sub || "Limited Time Offer"}
                     </h3>
                     <p className="text-slate-600 mb-6 font-medium">
                       {promo.description}
                     </p>
-                    <div className="mt-auto pt-4 border-t border-slate-100 w-full flex justify-between items-center text-xs text-slate-500 font-mono">
+                    <div className={`mt-auto pt-4 w-full flex justify-between items-center text-xs font-mono ${promo.code === "EASTER25" ? "border-t border-amber-200 text-amber-700" : "border-t border-slate-100 text-slate-500"}`}>
                       <span>CODE: {promo.code}</span>
-                      <span className="flex items-center text-secondary font-bold">
+                      <span className={`flex items-center font-bold ${promo.code === "EASTER25" ? "text-emerald-600" : "text-secondary"}`}>
                         Claim Now <ArrowRight className="ml-1 h-3 w-3" />
                       </span>
                     </div>
@@ -228,7 +238,9 @@ export default function Home() {
       </section>
 
       {/* Services Section */}
-      <section className="py-20 bg-slate-50" id="services">
+      <section className="py-20 bg-slate-50 relative overflow-hidden" id="services">
+        <DecorativeEgg className="left-[8%] top-20 hidden lg:block" colorClass="from-pink-200 to-pink-300" />
+        <DecorativeEgg className="right-[10%] bottom-16 hidden xl:block" colorClass="from-sky-200 to-sky-300" sizeClass="h-10 w-8" />
         <div className="container mx-auto px-4">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-3xl md:text-5xl font-heading font-bold text-slate-900 mb-6">
@@ -438,7 +450,8 @@ export default function Home() {
       </section>
 
       {/* Why Choose Us / Trust Section */}
-      <section className="py-20 bg-white border-t border-slate-200">
+      <section className="py-20 bg-white border-t border-slate-200 relative overflow-hidden">
+        <DecorativeEgg className="right-[7%] top-24 hidden lg:block" colorClass="from-amber-200 to-yellow-200" sizeClass="h-12 w-9" />
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center gap-12">
             <div className="w-full md:w-1/2">
@@ -511,7 +524,8 @@ export default function Home() {
       </section>
 
       {/* Testimonials / Trust Reinforcement */}
-      <section className="py-20 bg-slate-50 border-t border-slate-200">
+      <section className="py-20 bg-slate-50 border-t border-slate-200 relative overflow-hidden">
+        <DecorativeEgg className="left-[6%] bottom-16 hidden lg:block" colorClass="from-emerald-200 to-green-200" />
         <div className="container mx-auto px-4">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <Badge className="bg-secondary/10 text-secondary border-secondary/20 hover:bg-secondary/20 px-4 py-1.5 mb-4 text-sm font-bold">Customer Reviews</Badge>
@@ -787,5 +801,26 @@ function PhoneIcon({ className }: { className?: string }) {
     >
       <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
     </svg>
+  );
+}
+
+function DecorativeEgg({
+  className,
+  colorClass,
+  sizeClass = "h-12 w-9",
+}: {
+  className?: string;
+  colorClass: string;
+  sizeClass?: string;
+}) {
+  return (
+    <div className={`pointer-events-none absolute ${className ?? ""}`} aria-hidden="true">
+      <div
+        className={`relative ${sizeClass} rounded-[50%_50%_45%_45%/60%_60%_40%_40%] border-2 border-white/70 bg-gradient-to-b ${colorClass} shadow-[0_12px_30px_rgba(15,23,42,0.12)] animate-[easterFloat_5.5s_ease-in-out_infinite]`}
+      >
+        <span className="absolute left-1.5 right-1.5 top-2 h-1 rounded-full bg-white/65" />
+        <span className="absolute left-2 right-2 top-5 h-1 rounded-full bg-white/45" />
+      </div>
+    </div>
   );
 }
