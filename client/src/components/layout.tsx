@@ -3,6 +3,7 @@ import { Phone, Menu, Calendar, MessageCircle, ShieldCheck, AlertCircle, Instagr
 import { useState, useEffect, lazy, Suspense } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { EasterBanner, EasterEggs, EasterStyles } from "@/components/easter-animation";
 import { COMPANY_PHONE, COMPANY_NAME, COMPANY_FULL, getWhatsAppLink } from "@/lib/constants";
 const ChatWidget = lazy(() => import("@/components/chat-widget").then(m => ({ default: m.ChatWidget })));
 
@@ -112,6 +113,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
       Skip to main content
     </a>
     <div className="flex flex-col min-h-screen font-sans">
+      <EasterStyles />
+      <EasterBanner />
       {/* Emergency Banner */}
       <div className="bg-red-600 text-white py-2.5 text-xs md:text-sm font-bold flex justify-center items-center gap-2 px-4 text-center" role="alert">
         <AlertCircle className="h-4 w-4 animate-pulse shrink-0" aria-hidden="true" />
@@ -134,10 +137,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
       {/* Sticky Header */}
       <header 
-        className={`sticky top-0 z-50 w-full transition-all duration-300 border-b ${
+        className={`sticky top-0 z-50 relative w-full transition-all duration-300 border-b ${
           isScrolled ? "bg-white/95 backdrop-blur-md shadow-sm border-gray-100" : "bg-white border-transparent"
         }`}
       >
+        <EasterEggs container="nav" />
         <div className="container mx-auto px-4 h-20 flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group" aria-label="BERNARDINO MARTIN Heating Air Conditioning Solar - Home">
@@ -147,22 +151,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 <span className="text-[10px] font-semibold text-secondary tracking-[0.2em] uppercase">Heating &bull; Air Conditioning &bull; Solar</span>
               </div>
           </Link>
-          {location === "/" ? (
-            <div className="pointer-events-none absolute top-2 right-32 z-40 w-64 h-28 hidden lg:block">
-              <div className="relative w-full h-full">
-                <div className="easter-path absolute inset-0 rounded-full border border-dashed border-white/20" />
-                <div className="easter-bunny absolute left-0 top-1/2 -translate-y-1/2 w-20 h-20 rounded-full bg-white shadow-2xl border border-amber-200 flex items-center justify-center text-2xl text-amber-700">
-                  🐰
-                </div>
-                <span className="easter-egg egg-1 absolute left-28 top-2 w-5 h-7 rounded-full bg-pink-200" />
-                <span className="easter-egg egg-2 absolute left-36 top-10 w-4 h-6 rounded-full bg-amber-200" />
-                <span className="easter-egg egg-3 absolute left-18 top-16 w-5 h-7 rounded-full bg-sky-200" />
-                <span className="easter-sparkle absolute left-12 top-4 block w-2 h-2 rounded-full bg-white/90 shadow-sm" />
-                <span className="easter-sparkle absolute right-8 top-12 block w-2 h-2 rounded-full bg-white/90 shadow-sm" />
-              </div>
-            </div>
-          ) : null}
-
           {/* Desktop Nav */}
           <nav className="hidden lg:flex items-center gap-8" aria-label="Main navigation">
             {navItems.map((item) => {
