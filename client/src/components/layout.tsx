@@ -326,7 +326,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         </section>
       </main>
 
-      <div className="fixed bottom-4 right-4 z-50">
+      <div className="fixed bottom-24 right-4 sm:bottom-4 sm:right-24 z-50">
         <a href="tel:+18184000227" className="inline-flex items-center gap-2 rounded-full bg-red-600 px-5 py-3 text-white font-bold shadow-lg transition hover:bg-red-700">
           <Phone className="h-4 w-4" />
           Call Now
