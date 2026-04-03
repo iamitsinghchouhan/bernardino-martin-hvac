@@ -27,6 +27,8 @@ export function EasterEggs({ container }: { container: "nav" | "hero" }) {
       const delay = Math.random() * 4;
       if (container === "hero") {
         egg.className = "easter-hero-egg";
+      } else {
+        egg.className = "easter-nav-egg";
       }
       egg.style.cssText = `
         position:absolute;
@@ -39,7 +41,9 @@ export function EasterEggs({ container }: { container: "nav" | "hero" }) {
         top:-20px;
         pointer-events:none;
         z-index:5;
-        animation:easterFall ${duration}s ${delay}s linear infinite;
+        opacity:${container === "nav" ? "0.98" : "1"};
+        box-shadow:${container === "nav" ? "0 10px 18px rgba(15, 23, 42, 0.18), 0 0 0 1px rgba(255,255,255,0.18) inset" : "none"};
+        animation:${container === "nav" ? "easterFallLong" : "easterFall"} ${duration}s ${delay}s linear infinite;
       `;
       el.appendChild(egg);
       eggs.push(egg);
@@ -104,10 +108,10 @@ export function EasterEggs({ container }: { container: "nav" | "hero" }) {
               left: 0,
               right: 0,
               top: 0,
-              height: "55vh",
-              overflow: "hidden",
+              height: "62vh",
+              overflow: "visible",
               pointerEvents: "none",
-              zIndex: 5,
+              zIndex: 6,
             }
           : {
               position: "absolute",
@@ -170,6 +174,11 @@ export function EasterStyles() {
         0% { transform: translateY(-40px) rotate(0deg); opacity: 1; }
         100% { transform: translateY(120%) rotate(360deg); opacity: 0.2; }
       }
+      @keyframes easterFallLong {
+        0% { transform: translateY(-40px) rotate(0deg) scale(1); opacity: 1; }
+        70% { opacity: 1; }
+        100% { transform: translateY(62vh) rotate(420deg) scale(1.04); opacity: 0.75; }
+      }
       @keyframes easterSparkle {
         0%, 100% { opacity: 0; transform: scale(0); }
         50% { opacity: 1; transform: scale(1); }
@@ -183,6 +192,9 @@ export function EasterStyles() {
         50% { transform: translate3d(0, -18px, 0) scale(1.06); opacity: 1; }
       }
       @media (hover: hover) and (pointer: fine) {
+        .easter-nav-egg {
+          filter: saturate(1.12) brightness(1.05);
+        }
         .easter-hero-egg {
           pointer-events: auto;
           transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
