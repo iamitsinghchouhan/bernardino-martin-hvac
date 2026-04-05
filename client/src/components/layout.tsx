@@ -3,7 +3,7 @@ import { Phone, Menu, Calendar, MessageCircle, ShieldCheck, AlertCircle, Instagr
 import { useState, useEffect, lazy, Suspense } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { EasterBanner, EasterBunny, EasterEggs, EasterStyles } from "@/components/easter-animation";
+import { EasterBanner, EasterEggs, EasterStyles } from "@/components/easter-animation";
 import { COMPANY_PHONE, COMPANY_NAME, COMPANY_FULL, getWhatsAppLink } from "@/lib/constants";
 const ChatWidget = lazy(() => import("@/components/chat-widget").then(m => ({ default: m.ChatWidget })));
 
@@ -151,11 +151,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 <span className="text-[10px] font-semibold text-secondary tracking-[0.2em] uppercase">Heating &bull; Air Conditioning &bull; Solar</span>
               </div>
           </Link>
-          {location === "/" ? (
-            <div className="pointer-events-none absolute left-2 top-1 z-40 hidden h-16 w-28 md:block">
-              <EasterBunny />
-            </div>
-          ) : null}
           {/* Desktop Nav */}
           <nav className="hidden lg:flex items-center gap-8" aria-label="Main navigation">
             {navItems.map((item) => {

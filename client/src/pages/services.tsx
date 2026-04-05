@@ -43,11 +43,36 @@ const HASH_TO_CATEGORY: Record<string, ServiceCategory> = {
 };
 
 const HEATING_SPECIALTIES = [
-  { label: "Gas Furnace Repair", desc: "All gas furnace makes and models" },
-  { label: "Electric Furnace Repair", desc: "Fast diagnostics and repair" },
-  { label: "Floor Furnace Services", desc: "Installation, repair and cleaning" },
-  { label: "Wall Furnace Services", desc: "Safe and efficient wall units" },
-  { label: "Furnace Replacement", desc: "Energy-efficient upgrades" },
+  {
+    label: "Gas Furnace Repair",
+    desc: "All gas furnace makes and models",
+    image: "/images/services/heating-gas-furnace.png",
+    alt: "Gas furnace repair technician Los Angeles",
+  },
+  {
+    label: "Electric Furnace Repair",
+    desc: "Fast diagnostics and repair",
+    image: "/images/services/heating-electric-furnace.png",
+    alt: "Electric furnace repair Los Angeles",
+  },
+  {
+    label: "Floor Furnace Services",
+    desc: "Installation, repair and cleaning",
+    image: "/images/services/heating-floor-furnace.png",
+    alt: "Floor furnace service Los Angeles",
+  },
+  {
+    label: "Wall Furnace Services",
+    desc: "Safe and efficient wall units",
+    image: "/images/services/heating-wall-furnace.png",
+    alt: "Wall furnace service Los Angeles",
+  },
+  {
+    label: "Furnace Replacement",
+    desc: "Energy-efficient upgrades",
+    image: "/images/services/heating-furnace-replacement.png",
+    alt: "Furnace replacement installation Los Angeles",
+  },
 ];
 
 function getImageFallbacks(src: string) {
@@ -351,17 +376,28 @@ export default function Services() {
               <p className="mb-5 text-sm text-slate-500">
                 Expert furnace and heating system services across Los Angeles
               </p>
-              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
-                {HEATING_SPECIALTIES.map(({ label, desc }) => (
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+                {HEATING_SPECIALTIES.map(({ label, desc, image, alt }) => (
                   <div
                     key={label}
-                    className="cursor-default rounded-xl border border-slate-100 bg-white p-4 text-center shadow-sm transition-all hover:border-primary/20 hover:shadow-md"
+                    className="cursor-default overflow-hidden rounded-xl border border-slate-100 bg-white shadow-sm transition-all hover:border-primary/20 hover:shadow-md"
                   >
-                    <div className="mx-auto mb-2 flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">
-                      <Flame className="h-5 w-5 text-primary" />
+                    <div className="aspect-video overflow-hidden">
+                      <img
+                        src={image}
+                        alt={alt}
+                        loading="lazy"
+                        decoding="async"
+                        className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+                      />
                     </div>
-                    <p className="mb-1 text-xs font-bold leading-tight text-slate-900">{label}</p>
-                    <p className="text-xs leading-tight text-slate-500">{desc}</p>
+                    <div className="p-4 text-center">
+                      <div className="mx-auto mb-2 flex h-8 w-8 items-center justify-center rounded-full bg-primary/10">
+                        <Flame className="h-4 w-4 text-primary" />
+                      </div>
+                      <p className="mb-1 text-sm font-bold leading-tight text-slate-900">{label}</p>
+                      <p className="text-xs leading-tight text-slate-500">{desc}</p>
+                    </div>
                   </div>
                 ))}
               </div>

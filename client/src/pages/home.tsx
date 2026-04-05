@@ -2,7 +2,7 @@ import { Layout } from "@/components/layout";
 import { SEO } from "@/components/seo";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { EasterEggs } from "@/components/easter-animation";
+import { EasterBunny, EasterEggs } from "@/components/easter-animation";
 import { PROMOS, SERVICES, COMPANY_PHONE, COMPANY_NAME, COMPANY_FULL, getWhatsAppLink } from "@/lib/constants";
 import { ArrowRight, Check, Star, Clock, Calendar, MessageCircle, Phone, AlertTriangle, Droplets, Shield, Activity } from "lucide-react";
 import { Link } from "wouter";
@@ -94,8 +94,13 @@ export default function Home() {
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-heading font-black leading-tight mb-2 tracking-tight" data-testid="text-hero-title">
               BERNARDINO MARTIN
             </h1>
-            <p className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold mb-6">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-300 to-emerald-400">Heating &bull; Air Conditioning &bull; Solar</span>
+            <p className="mb-6 text-2xl font-heading font-bold md:text-3xl lg:text-4xl">
+              <span className="relative inline-flex items-center pr-16 text-transparent bg-clip-text bg-gradient-to-r from-sky-300 to-emerald-400">
+                Heating &bull; Air Conditioning &bull; Solar
+                <span className="pointer-events-none absolute -right-1 top-1/2 hidden h-12 w-16 -translate-y-1/2 md:block">
+                  <EasterBunny className="block" />
+                </span>
+              </span>
             </p>
             
             <p className="text-lg md:text-xl text-slate-200 mb-4 max-w-lg leading-relaxed drop-shadow-sm">
