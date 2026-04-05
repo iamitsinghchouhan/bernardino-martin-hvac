@@ -3,6 +3,7 @@ import { SEO } from "@/components/seo";
 import {
   SeoCtaBanner,
   SeoHero,
+  SeoImageGrid,
   SeoIntro,
   SeoRelatedLinks,
   SeoServiceAreas,
@@ -40,6 +41,8 @@ export default function ElectricalLosAngeles() {
         badge="Los Angeles Electrical"
         title="Electrical Services in Los Angeles, CA"
         description="Safe, code-conscious electrical upgrades and repairs for Los Angeles homes that need more capacity, better protection, and modern wiring."
+        imageSrc="/images/services/electrical-hero.png"
+        imageAlt="Licensed electrician working on a residential electrical panel in Los Angeles"
       />
 
       <SeoIntro paragraphs={introParagraphs} />
@@ -61,6 +64,26 @@ export default function ElectricalLosAngeles() {
       <SeoServicesList
         heading="Our Electrical Services in Los Angeles"
         items={services}
+      />
+
+      <SeoImageGrid
+        images={[
+          {
+            src: "/images/services/electrical-hero.png",
+            alt: "Licensed electrician Los Angeles",
+            caption: "Electrical Service",
+          },
+          {
+            src: "/images/services/electrical-hero.png",
+            alt: "Electrical panel service Los Angeles",
+            caption: "Panel Upgrades",
+          },
+          {
+            src: "/images/services/electrical-ev-charger.png",
+            alt: "EV charger installation Los Angeles",
+            caption: "EV Charger Installation",
+          },
+        ]}
       />
 
       <SeoWhyChoose heading="Why Los Angeles Homeowners Choose BERNARDINO MARTIN" />

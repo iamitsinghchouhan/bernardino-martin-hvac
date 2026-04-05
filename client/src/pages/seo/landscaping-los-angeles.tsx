@@ -3,6 +3,7 @@ import { SEO } from "@/components/seo";
 import {
   SeoCtaBanner,
   SeoHero,
+  SeoImageGrid,
   SeoIntro,
   SeoRelatedLinks,
   SeoServiceAreas,
@@ -40,6 +41,8 @@ export default function LandscapingLosAngeles() {
         badge="Los Angeles Landscaping"
         title="Landscaping Services in Los Angeles, CA"
         description="Thoughtful outdoor design and installation for Los Angeles homes that need beauty, durability, and water-wise planning."
+        imageSrc="/images/services/landscaping-hero.webp"
+        imageAlt="Professional landscaper working in a drought-tolerant Los Angeles front yard"
       />
 
       <SeoIntro paragraphs={introParagraphs} />
@@ -61,6 +64,26 @@ export default function LandscapingLosAngeles() {
       <SeoServicesList
         heading="Our Landscaping Services in Los Angeles"
         items={services}
+      />
+
+      <SeoImageGrid
+        images={[
+          {
+            src: "/images/services/landscaping-hero.webp",
+            alt: "Landscaping design Los Angeles",
+            caption: "Landscape Design",
+          },
+          {
+            src: "/images/services/landscaping-sod.webp",
+            alt: "Sod installation Los Angeles",
+            caption: "Sod Installation",
+          },
+          {
+            src: "/images/services/landscaping-design.webp",
+            alt: "Drought tolerant landscape Los Angeles",
+            caption: "Drought-Tolerant Landscapes",
+          },
+        ]}
       />
 
       <SeoWhyChoose heading="Why Los Angeles Homeowners Choose BERNARDINO MARTIN" />

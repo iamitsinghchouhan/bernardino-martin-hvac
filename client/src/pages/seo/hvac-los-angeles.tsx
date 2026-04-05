@@ -2,7 +2,9 @@ import { Layout } from "@/components/layout";
 import { SEO } from "@/components/seo";
 import {
   SeoCtaBanner,
+  SeoCityCards,
   SeoHero,
+  SeoImageGrid,
   SeoIntro,
   SeoRelatedLinks,
   SeoServiceAreas,
@@ -43,6 +45,8 @@ export default function HvacLosAngeles() {
         badge="Los Angeles HVAC"
         title="HVAC Services in Los Angeles, CA"
         description="Reliable heating and cooling repair, replacement, and maintenance for Los Angeles homes, apartments, and small businesses."
+        imageSrc="/images/services/hvac-hero.webp"
+        imageAlt="Professional HVAC technician servicing an air conditioning system in Los Angeles"
       />
 
       <SeoIntro paragraphs={introParagraphs} />
@@ -67,12 +71,35 @@ export default function HvacLosAngeles() {
         items={services}
       />
 
+      <SeoImageGrid
+        heading="Our Work"
+        images={[
+          {
+            src: "/images/services/hvac-repair.webp",
+            alt: "AC repair technician Los Angeles",
+            caption: "AC Repair",
+          },
+          {
+            src: "/images/services/hvac-installation.webp",
+            alt: "AC installation Los Angeles",
+            caption: "AC Installation",
+          },
+          {
+            src: "/images/services/hvac-maintenance.webp",
+            alt: "HVAC maintenance tune-up Los Angeles",
+            caption: "HVAC Maintenance",
+          },
+        ]}
+      />
+
       <SeoWhyChoose heading="Why Los Angeles Homeowners Choose BERNARDINO MARTIN" />
 
       <SeoServiceAreas
         heading="Serving All of Los Angeles"
         areas={losAngelesAreas}
       />
+
+      <SeoCityCards />
 
       <SeoCtaBanner
         title="Ready to Book HVAC Service in Los Angeles?"

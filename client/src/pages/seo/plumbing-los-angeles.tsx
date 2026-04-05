@@ -3,6 +3,7 @@ import { SEO } from "@/components/seo";
 import {
   SeoCtaBanner,
   SeoHero,
+  SeoImageGrid,
   SeoIntro,
   SeoRelatedLinks,
   SeoServiceAreas,
@@ -40,6 +41,8 @@ export default function PlumbingLosAngeles() {
         badge="Los Angeles Plumbing"
         title="Plumbing Services in Los Angeles, CA"
         description="Residential plumbing repair and upgrades for Los Angeles homes dealing with aging pipes, hard water, leaks, and efficiency concerns."
+        imageSrc="/images/services/plumbing-hero.webp"
+        imageAlt="Professional plumber working under a kitchen sink in a Los Angeles home"
       />
 
       <SeoIntro paragraphs={introParagraphs} />
@@ -61,6 +64,26 @@ export default function PlumbingLosAngeles() {
       <SeoServicesList
         heading="Our Plumbing Services in Los Angeles"
         items={services}
+      />
+
+      <SeoImageGrid
+        images={[
+          {
+            src: "/images/services/plumbing-hero.webp",
+            alt: "Plumber Los Angeles residential",
+            caption: "Residential Plumbing",
+          },
+          {
+            src: "/images/services/plumbing-pipes.webp",
+            alt: "Copper pipe installation Los Angeles",
+            caption: "Pipe Installation",
+          },
+          {
+            src: "/images/services/plumbing-shutoff.webp",
+            alt: "Smart water shutoff valve Los Angeles",
+            caption: "Smart Shutoff Protection",
+          },
+        ]}
       />
 
       <SeoWhyChoose heading="Why Los Angeles Homeowners Choose BERNARDINO MARTIN" />

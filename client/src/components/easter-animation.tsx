@@ -22,8 +22,8 @@ export function EasterEggs({ container }: { container: "nav" | "hero" }) {
     for (let i = 0; i < count; i++) {
       const egg = document.createElement("div");
       const [bg, border] = colors[Math.floor(Math.random() * colors.length)];
-      const size = 10 + Math.random() * 14;
-      const duration = 2.5 + Math.random() * 3;
+      const size = container === "nav" ? 16 + Math.random() * 12 : 10 + Math.random() * 14;
+      const duration = container === "nav" ? 4.5 + Math.random() * 2.2 : 2.5 + Math.random() * 3;
       const delay = Math.random() * 4;
       if (container === "hero") {
         egg.className = "easter-hero-egg";
@@ -40,9 +40,9 @@ export function EasterEggs({ container }: { container: "nav" | "hero" }) {
         left:${Math.random() * 95}%;
         top:-20px;
         pointer-events:none;
-        z-index:5;
+        z-index:${container === "nav" ? "40" : "5"};
         opacity:${container === "nav" ? "0.98" : "1"};
-        box-shadow:${container === "nav" ? "0 10px 18px rgba(15, 23, 42, 0.18), 0 0 0 1px rgba(255,255,255,0.18) inset" : "none"};
+        box-shadow:${container === "nav" ? "0 12px 22px rgba(15, 23, 42, 0.28), 0 0 0 1px rgba(255,255,255,0.24) inset" : "none"};
         animation:${container === "nav" ? "easterFallLong" : "easterFall"} ${duration}s ${delay}s linear infinite;
       `;
       el.appendChild(egg);
@@ -104,14 +104,14 @@ export function EasterEggs({ container }: { container: "nav" | "hero" }) {
       style={
         container === "nav"
           ? {
-              position: "absolute",
+              position: "fixed",
               left: 0,
               right: 0,
               top: 0,
-              height: "62vh",
+              height: "65vh",
               overflow: "visible",
               pointerEvents: "none",
-              zIndex: 6,
+              zIndex: 40,
             }
           : {
               position: "absolute",
@@ -125,7 +125,11 @@ export function EasterEggs({ container }: { container: "nav" | "hero" }) {
   );
 }
 
-export function EasterBunny() {
+export function EasterBunny({
+  className,
+}: {
+  className?: string;
+}) {
   const bunnyRef = useRef<HTMLDivElement>(null);
   const posRef = useRef({ x: 30, dir: 1 });
   const frameRef = useRef<number>(0);
@@ -136,7 +140,7 @@ export function EasterBunny() {
       if (!el) return;
       const parent = el.parentElement;
       if (!parent) return;
-      const maxX = parent.offsetWidth - 50;
+      const maxX = Math.max(parent.offsetWidth - 50, 24);
       posRef.current.x += posRef.current.dir * 1.5;
       if (posRef.current.x >= maxX) posRef.current.dir = -1;
       if (posRef.current.x <= 10) posRef.current.dir = 1;
@@ -150,10 +154,11 @@ export function EasterBunny() {
 
   return (
     <div
+      className={className}
       style={{
         position: "absolute",
-        bottom: "44px",
-        left: "30px",
+        bottom: "10px",
+        left: "8px",
         pointerEvents: "none",
         zIndex: 30,
         animation: "easterHop 0.6s ease-in-out infinite",
@@ -177,7 +182,7 @@ export function EasterStyles() {
       @keyframes easterFallLong {
         0% { transform: translateY(-40px) rotate(0deg) scale(1); opacity: 1; }
         70% { opacity: 1; }
-        100% { transform: translateY(62vh) rotate(420deg) scale(1.04); opacity: 0.75; }
+        100% { transform: translateY(65vh) rotate(420deg) scale(1.06); opacity: 0.92; }
       }
       @keyframes easterSparkle {
         0%, 100% { opacity: 0; transform: scale(0); }

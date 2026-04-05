@@ -368,6 +368,63 @@ export default function Services() {
             </div>
           )}
 
+          {activeCategory === "Outdoor & Property" && (
+            <div className="mb-10 overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
+              <div className="grid gap-0 lg:grid-cols-[1.2fr_0.8fr]">
+                <div className="p-6 md:p-8">
+                  <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-primary">
+                    <Droplets className="h-4 w-4" />
+                    Featured Irrigation Service
+                  </div>
+                  <h2 className="text-2xl font-bold text-slate-900 md:text-3xl">
+                    Smarter Irrigation for Lawns, Gardens, and Water-Wise Landscaping
+                  </h2>
+                  <p className="mt-4 text-sm leading-7 text-slate-600 md:text-base">
+                    Our irrigation service is built for Los Angeles properties that need more control and less waste.
+                    We install smart controllers, drip systems, sprinkler zones, and shutoff protection that help
+                    homeowners manage outdoor watering from their phone while keeping plants healthy and utility costs in check.
+                  </p>
+                  <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                    {[
+                      "Phone-based scheduling and zone control",
+                      "Drip irrigation for beds, planters, and shrubs",
+                      "Sprinkler optimization for lawns and turf",
+                      "Leak alerts and smart shutoff protection",
+                    ].map((item) => (
+                      <div
+                        key={item}
+                        className="flex items-start gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-4"
+                      >
+                        <div className="rounded-full bg-primary/10 p-2 text-primary">
+                          <Check className="h-4 w-4" />
+                        </div>
+                        <p className="text-sm font-medium text-slate-700">{item}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div className="grid gap-0 sm:grid-cols-2 lg:grid-cols-1">
+                  <AdaptiveImage
+                    src="/images/services/irrigation-install.png"
+                    alt="Technician installing smart irrigation in a residential garden"
+                    className="h-full min-h-[220px]"
+                    imgClassName="h-full w-full object-cover"
+                    width={1280}
+                    height={720}
+                  />
+                  <AdaptiveImage
+                    src="/images/services/irrigation-app.png"
+                    alt="Smartphone controlling a garden irrigation system"
+                    className="h-full min-h-[220px]"
+                    imgClassName="h-full w-full object-cover"
+                    width={1280}
+                    height={720}
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+
           <div className="mb-6 flex items-center justify-between">
             <div>
               <h2 className="text-2xl font-bold text-slate-900">{activeCategory}</h2>
