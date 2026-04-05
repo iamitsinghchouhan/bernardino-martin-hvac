@@ -3,6 +3,7 @@ import { SEO } from "@/components/seo";
 import {
   SeoCtaBanner,
   SeoHero,
+  SeoImageGrid,
   SeoIntro,
   SeoRelatedLinks,
   SeoServiceAreas,
@@ -40,6 +41,8 @@ export default function IrrigationLosAngeles() {
         badge="Los Angeles Irrigation"
         title="Smart Irrigation Systems in Los Angeles, CA"
         description="Water-saving, app-controlled irrigation systems built for Los Angeles landscapes, dry seasons, and year-round property care."
+        imageSrc="/images/services/irrigation-hero.png"
+        imageAlt="Smart irrigation system watering a Los Angeles lawn with app control"
       />
 
       <SeoIntro paragraphs={introParagraphs} />
@@ -61,6 +64,26 @@ export default function IrrigationLosAngeles() {
       <SeoServicesList
         heading="Our Smart Irrigation Services in Los Angeles"
         items={services}
+      />
+
+      <SeoImageGrid
+        images={[
+          {
+            src: "/images/services/irrigation-hero.png",
+            alt: "Smart irrigation system Los Angeles",
+            caption: "Smart Irrigation Systems",
+          },
+          {
+            src: "/images/services/irrigation-install.png",
+            alt: "Irrigation installation Los Angeles",
+            caption: "Irrigation Installation",
+          },
+          {
+            src: "/images/services/irrigation-app.png",
+            alt: "Smart irrigation app control Los Angeles",
+            caption: "App-Controlled Watering",
+          },
+        ]}
       />
 
       <SeoWhyChoose heading="Why Los Angeles Homeowners Choose BERNARDINO MARTIN" />

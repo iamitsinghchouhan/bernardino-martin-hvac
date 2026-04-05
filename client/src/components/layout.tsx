@@ -3,7 +3,7 @@ import { Phone, Menu, Calendar, MessageCircle, ShieldCheck, AlertCircle, Instagr
 import { useState, useEffect, lazy, Suspense } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { EasterBanner, EasterEggs, EasterStyles } from "@/components/easter-animation";
+import { EasterBanner, EasterBunny, EasterEggs, EasterStyles } from "@/components/easter-animation";
 import { COMPANY_PHONE, COMPANY_NAME, COMPANY_FULL, getWhatsAppLink } from "@/lib/constants";
 const ChatWidget = lazy(() => import("@/components/chat-widget").then(m => ({ default: m.ChatWidget })));
 
@@ -151,6 +151,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 <span className="text-[10px] font-semibold text-secondary tracking-[0.2em] uppercase">Heating &bull; Air Conditioning &bull; Solar</span>
               </div>
           </Link>
+          {location === "/" ? (
+            <div className="pointer-events-none absolute left-2 top-1 z-40 hidden h-16 w-28 md:block">
+              <EasterBunny />
+            </div>
+          ) : null}
           {/* Desktop Nav */}
           <nav className="hidden lg:flex items-center gap-8" aria-label="Main navigation">
             {navItems.map((item) => {
@@ -326,8 +331,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
         </section>
       </main>
 
-      <div className="fixed bottom-24 right-4 sm:bottom-4 sm:right-24 z-50">
-        <a href="tel:+18184000227" className="inline-flex items-center gap-2 rounded-full bg-red-600 px-5 py-3 text-white font-bold shadow-lg transition hover:bg-red-700">
+      <div className="fixed bottom-6 right-[5.75rem] z-50">
+        <a href="tel:+18184000227" className="inline-flex items-center gap-2 rounded-full bg-red-600 px-4 py-3 text-sm text-white font-bold shadow-lg transition hover:bg-red-700 sm:px-5 sm:text-base">
           <Phone className="h-4 w-4" />
           Call Now
         </a>

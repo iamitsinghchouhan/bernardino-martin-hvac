@@ -1,16 +1,16 @@
 import { Layout } from "@/components/layout";
 import { SEO } from "@/components/seo";
-import { Button } from "@/components/ui/button";
 import {
-  CityBreadcrumb,
+  CityHero,
   CityProblems,
   SeoCtaBanner,
+  SeoFeatureImage,
+  SeoImageGrid,
   SeoIntro,
   SeoRelatedLinks,
   SeoWhyChoose,
 } from "./shared";
 import { Clock, Phone, Shield, Star } from "lucide-react";
-import { Link } from "wouter";
 
 const introParagraphs: [string, string, string] = [
   "Pasadena has some of the most distinctive residential HVAC challenges in the region because it combines inland summer heat with a large inventory of historic housing. Bernardino Martin provides HVAC services in Pasadena for homeowners who want comfort improvements that respect the age and character of their property. In neighborhoods near Old Pasadena, Bungalow Heaven, and the San Marino border, we regularly see homes that were built long before modern air conditioning was standard. Those properties often need careful retrofitting, updated controls, or ductless and zoned solutions that improve comfort without forcing a one-size-fits-all system into a historic structure.",
@@ -49,41 +49,38 @@ export default function HvacPasadena() {
         description="Trusted HVAC repair & installation in Pasadena, CA. Serving historic homes & modern properties. Call (818) 400-0227."
       />
 
-      <section className="bg-gradient-to-br from-primary via-blue-700 to-blue-900 text-white">
-        <div className="container mx-auto px-4 py-20 md:py-28">
-          <div className="max-w-4xl">
-            <CityBreadcrumb city="Pasadena" />
-            <div className="inline-flex items-center rounded-full border border-white/25 bg-white/10 px-4 py-1.5 text-sm font-semibold uppercase tracking-[0.2em]">
-              Pasadena HVAC
-            </div>
-            <h1 className="mt-6 text-4xl font-heading font-black leading-tight md:text-6xl">
-              HVAC Services in Pasadena, CA
-            </h1>
-            <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-100 md:text-xl">
-              Reliable HVAC service for Pasadena's historic homes, modern upgrades, and high-demand inland summer conditions.
-            </p>
-            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-              <Button
-                size="lg"
-                className="bg-white text-primary hover:bg-slate-100"
-                asChild
-              >
-                <a href="tel:+18184000227">Call (818) 400-0227</a>
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-white/40 bg-transparent text-white hover:bg-white/10"
-                asChild
-              >
-                <Link href="/booking">Book Online</Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
+      <CityHero
+        city="Pasadena"
+        badge="Pasadena HVAC"
+        title="HVAC Services in Pasadena, CA"
+        description="Reliable HVAC service for Pasadena's historic homes, modern upgrades, and high-demand inland summer conditions."
+        imageSrc="/images/services/hvac-pasadena-hero.webp"
+        imageAlt="HVAC technician retrofitting a heating system in a historic Pasadena Craftsman home"
+      />
 
       <SeoIntro paragraphs={introParagraphs} />
+
+      <SeoFeatureImage
+        src="/images/cities/pasadena-city.png"
+        alt="Pasadena California historic homes HVAC service"
+      />
+
+      <SeoImageGrid
+        heading="Pasadena HVAC Services"
+        columns={2}
+        images={[
+          {
+            src: "/images/services/hvac-installation.webp",
+            alt: "HVAC installation in Pasadena CA",
+            caption: "HVAC Installation",
+          },
+          {
+            src: "/images/services/hvac-maintenance.webp",
+            alt: "HVAC maintenance Pasadena CA",
+            caption: "HVAC Maintenance",
+          },
+        ]}
+      />
 
       <CityProblems city="Pasadena" problems={problems} />
 

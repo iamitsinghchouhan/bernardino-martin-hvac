@@ -3,6 +3,7 @@ import { SEO } from "@/components/seo";
 import {
   SeoCtaBanner,
   SeoHero,
+  SeoImageGrid,
   SeoIntro,
   SeoRelatedLinks,
   SeoServiceAreas,
@@ -40,6 +41,8 @@ export default function SolarLosAngeles() {
         badge="Los Angeles Solar"
         title="Solar Panel Installation in Los Angeles, CA"
         description="Custom solar systems for Los Angeles homeowners looking to reduce electric bills and build long-term energy independence."
+        imageSrc="/images/services/solar-hero.webp"
+        imageAlt="Solar technicians installing rooftop solar panels on a Los Angeles home"
       />
 
       <SeoIntro paragraphs={introParagraphs} />
@@ -61,6 +64,26 @@ export default function SolarLosAngeles() {
       <SeoServicesList
         heading="Our Solar Services in Los Angeles"
         items={services}
+      />
+
+      <SeoImageGrid
+        images={[
+          {
+            src: "/images/services/solar-installation.webp",
+            alt: "Solar panel installation Los Angeles",
+            caption: "Solar Installation",
+          },
+          {
+            src: "/images/services/solar-maintenance.webp",
+            alt: "Solar system maintenance Los Angeles",
+            caption: "Solar Maintenance",
+          },
+          {
+            src: "/images/services/solar-hero.webp",
+            alt: "Solar energy system Los Angeles home",
+            caption: "Residential Solar Systems",
+          },
+        ]}
       />
 
       <SeoWhyChoose heading="Why Los Angeles Homeowners Choose BERNARDINO MARTIN" />

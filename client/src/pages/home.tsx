@@ -2,7 +2,7 @@ import { Layout } from "@/components/layout";
 import { SEO } from "@/components/seo";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { EasterEggs, EasterBunny } from "@/components/easter-animation";
+import { EasterEggs } from "@/components/easter-animation";
 import { PROMOS, SERVICES, COMPANY_PHONE, COMPANY_NAME, COMPANY_FULL, getWhatsAppLink } from "@/lib/constants";
 import { ArrowRight, Check, Star, Clock, Calendar, MessageCircle, Phone, AlertTriangle, Droplets, Shield, Activity } from "lucide-react";
 import { Link } from "wouter";
@@ -140,7 +140,6 @@ export default function Home() {
           </div>
         </div>
         <EasterEggs container="hero" />
-        <EasterBunny />
       </section>
 
       {/* Promos Section */}

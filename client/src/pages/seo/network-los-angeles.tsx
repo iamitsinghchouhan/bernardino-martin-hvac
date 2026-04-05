@@ -3,6 +3,7 @@ import { SEO } from "@/components/seo";
 import {
   SeoCtaBanner,
   SeoHero,
+  SeoImageGrid,
   SeoIntro,
   SeoRelatedLinks,
   SeoServiceAreas,
@@ -40,6 +41,8 @@ export default function NetworkLosAngeles() {
         badge="Los Angeles Network"
         title="Network & Smart Home Installation in Los Angeles, CA"
         description="Professional cabling, WiFi planning, and smart home setup for Los Angeles homes and businesses that need reliable connectivity."
+        imageSrc="/images/services/network-hero.png"
+        imageAlt="Network technician installing structured cabling in a Los Angeles home office"
       />
 
       <SeoIntro paragraphs={introParagraphs} />
@@ -61,6 +64,26 @@ export default function NetworkLosAngeles() {
       <SeoServicesList
         heading="Our Network & Smart Home Services in Los Angeles"
         items={services}
+      />
+
+      <SeoImageGrid
+        images={[
+          {
+            src: "/images/services/network-hero.png",
+            alt: "Network installation Los Angeles",
+            caption: "Structured Network Installation",
+          },
+          {
+            src: "/images/services/network-wifi.png",
+            alt: "Whole home WiFi setup Los Angeles",
+            caption: "Whole-Home WiFi",
+          },
+          {
+            src: "/images/services/network-smarthome.png",
+            alt: "Smart home installation Los Angeles",
+            caption: "Smart Home Setup",
+          },
+        ]}
       />
 
       <SeoWhyChoose heading="Why Los Angeles Homeowners Choose BERNARDINO MARTIN" />
