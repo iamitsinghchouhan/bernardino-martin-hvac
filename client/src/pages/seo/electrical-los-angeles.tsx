@@ -41,7 +41,7 @@ export default function ElectricalLosAngeles() {
         badge="Los Angeles Electrical"
         title="Electrical Services in Los Angeles, CA"
         description="Safe, code-conscious electrical upgrades and repairs for Los Angeles homes that need more capacity, better protection, and modern wiring."
-        videoSrc="/videos/svc-electrical-la.mp4"
+        videoSrc="/videos/electrical-la.mp4"
         posterSrc="/images/services/electrical-hero.png"
         imageSrc="/images/services/electrical-hero.png"
         imageAlt="Licensed electrician working on a residential electrical panel in Los Angeles"

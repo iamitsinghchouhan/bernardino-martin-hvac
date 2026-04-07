@@ -55,7 +55,7 @@ export default function HvacBurbank() {
         title="HVAC Services in Burbank, CA"
         description="Cooling and heating service for Burbank homes facing Valley heat, older ductwork, and high summer demand."
         videoSrc="/videos/city-burbank.mp4"
-        posterSrc="/images/cities/burbank-city.webp"
+        posterSrc="/images/cities/burbank-city.png"
         imageSrc="/images/services/hvac-burbank-hero.webp"
         imageAlt="HVAC technician working on a residential rooftop system in Burbank California"
       />

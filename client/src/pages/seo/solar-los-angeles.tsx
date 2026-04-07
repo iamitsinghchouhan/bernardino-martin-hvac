@@ -41,7 +41,7 @@ export default function SolarLosAngeles() {
         badge="Los Angeles Solar"
         title="Solar Panel Installation in Los Angeles, CA"
         description="Custom solar systems for Los Angeles homeowners looking to reduce electric bills and build long-term energy independence."
-        videoSrc="/videos/svc-solar-la.mp4"
+        videoSrc="/videos/solar-la.mp4"
         posterSrc="/images/services/solar-hero.webp"
         imageSrc="/images/services/solar-hero.webp"
         imageAlt="Solar technicians installing rooftop solar panels on a Los Angeles home"
