@@ -41,6 +41,8 @@ export default function IrrigationLosAngeles() {
         badge="Los Angeles Irrigation"
         title="Smart Irrigation Systems in Los Angeles, CA"
         description="Water-saving, app-controlled irrigation systems built for Los Angeles landscapes, dry seasons, and year-round property care."
+        videoSrc="/videos/svc-irrigation-la.mp4"
+        posterSrc="/images/services/irrigation-hero.png"
         imageSrc="/images/services/irrigation-hero.png"
         imageAlt="Smart irrigation system watering a Los Angeles lawn with app control"
       />

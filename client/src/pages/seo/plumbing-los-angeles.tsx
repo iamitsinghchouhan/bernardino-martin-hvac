@@ -41,6 +41,8 @@ export default function PlumbingLosAngeles() {
         badge="Los Angeles Plumbing"
         title="Plumbing Services in Los Angeles, CA"
         description="Residential plumbing repair and upgrades for Los Angeles homes dealing with aging pipes, hard water, leaks, and efficiency concerns."
+        videoSrc="/videos/svc-plumbing-la.mp4"
+        posterSrc="/images/services/plumbing-hero.webp"
         imageSrc="/images/services/plumbing-hero.webp"
         imageAlt="Professional plumber working under a kitchen sink in a Los Angeles home"
       />

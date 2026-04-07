@@ -54,6 +54,8 @@ export default function HvacPasadena() {
         badge="Pasadena HVAC"
         title="HVAC Services in Pasadena, CA"
         description="Reliable HVAC service for Pasadena's historic homes, modern upgrades, and high-demand inland summer conditions."
+        videoSrc="/videos/city-pasadena.mp4"
+        posterSrc="/images/cities/pasadena-city.webp"
         imageSrc="/images/services/hvac-pasadena-hero.webp"
         imageAlt="HVAC technician retrofitting a heating system in a historic Pasadena Craftsman home"
       />

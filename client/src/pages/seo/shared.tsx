@@ -76,16 +76,33 @@ export function SeoHero({
   description,
   imageSrc,
   imageAlt,
+  videoSrc,
+  posterSrc,
 }: {
   badge: string;
   title: string;
   description: string;
   imageSrc?: string;
   imageAlt?: string;
+  videoSrc?: string;
+  posterSrc?: string;
 }) {
   return (
-    <section className="relative overflow-hidden py-20 text-white">
-      {imageSrc ? (
+    <section className="relative overflow-hidden py-20 text-white min-h-[480px] flex items-center">
+      {videoSrc ? (
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          poster={posterSrc || imageSrc}
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ pointerEvents: "none" }}
+        >
+          <source src={videoSrc} type="video/mp4" />
+        </video>
+      ) : imageSrc ? (
         <img
           src={imageSrc}
           alt={imageAlt ?? title}
@@ -95,7 +112,7 @@ export function SeoHero({
           className="absolute inset-0 h-full w-full object-cover"
         />
       ) : null}
-      <div className={imageSrc ? "absolute inset-0 bg-blue-900/75" : "absolute inset-0 bg-gradient-to-br from-primary via-blue-700 to-blue-900"} />
+      <div className="absolute inset-0 bg-blue-950/60" />
       <div className="container relative z-10 mx-auto max-w-4xl px-4 text-center">
         <div>
           <div className="inline-flex items-center rounded-full border border-white/25 bg-white/10 px-4 py-1.5 text-sm font-semibold uppercase tracking-[0.2em]">
@@ -140,25 +157,44 @@ export function CityHero({
   description,
   imageSrc,
   imageAlt,
+  videoSrc,
+  posterSrc,
 }: {
   city: string;
   badge: string;
   title: string;
   description: string;
-  imageSrc: string;
-  imageAlt: string;
+  imageSrc?: string;
+  imageAlt?: string;
+  videoSrc?: string;
+  posterSrc?: string;
 }) {
   return (
-    <section className="relative overflow-hidden py-20 text-white">
-      <img
-        src={imageSrc}
-        alt={imageAlt}
-        loading="eager"
-        fetchPriority="high"
-        decoding="async"
-        className="absolute inset-0 h-full w-full object-cover"
-      />
-      <div className="absolute inset-0 bg-blue-900/75" />
+    <section className="relative overflow-hidden py-20 text-white min-h-[480px] flex items-center">
+      {videoSrc ? (
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          poster={posterSrc || imageSrc}
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ pointerEvents: "none" }}
+        >
+          <source src={videoSrc} type="video/mp4" />
+        </video>
+      ) : imageSrc ? (
+        <img
+          src={imageSrc}
+          alt={imageAlt ?? title}
+          loading="eager"
+          fetchPriority="high"
+          decoding="async"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+      ) : null}
+      <div className="absolute inset-0 bg-blue-950/60" />
       <div className="container relative z-10 mx-auto max-w-4xl px-4 text-center">
         <div>
           <CityBreadcrumb city={city} />

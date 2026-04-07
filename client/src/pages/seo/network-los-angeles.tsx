@@ -41,6 +41,8 @@ export default function NetworkLosAngeles() {
         badge="Los Angeles Network"
         title="Network & Smart Home Installation in Los Angeles, CA"
         description="Professional cabling, WiFi planning, and smart home setup for Los Angeles homes and businesses that need reliable connectivity."
+        videoSrc="/videos/svc-network-la.mp4"
+        posterSrc="/images/services/network-hero.png"
         imageSrc="/images/services/network-hero.png"
         imageAlt="Network technician installing structured cabling in a Los Angeles home office"
       />

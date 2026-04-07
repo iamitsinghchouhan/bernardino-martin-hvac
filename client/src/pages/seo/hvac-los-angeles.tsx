@@ -45,6 +45,8 @@ export default function HvacLosAngeles() {
         badge="Los Angeles HVAC"
         title="HVAC Services in Los Angeles, CA"
         description="Reliable heating and cooling repair, replacement, and maintenance for Los Angeles homes, apartments, and small businesses."
+        videoSrc="/videos/svc-hvac-la.mp4"
+        posterSrc="/images/services/hvac-hero.webp"
         imageSrc="/images/services/hvac-hero.webp"
         imageAlt="Professional HVAC technician servicing an air conditioning system in Los Angeles"
       />
