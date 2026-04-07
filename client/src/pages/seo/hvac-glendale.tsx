@@ -56,7 +56,7 @@ export default function HvacGlendale() {
         description="Repair, installation, and maintenance for Glendale homes dealing with foothill conditions, older systems, and demanding summer heat."
         videoSrc="/videos/city-glendale.mp4"
         posterSrc="/images/cities/glendale-city.png"
-        imageSrc="/images/services/hvac-glendale-hero.webp"
+        imageSrc="/images/cities/glendale-city.png"
         imageAlt="HVAC technician servicing an AC unit at a hillside home in Glendale California"
       />
 

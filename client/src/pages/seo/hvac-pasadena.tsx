@@ -56,7 +56,7 @@ export default function HvacPasadena() {
         description="Reliable HVAC service for Pasadena's historic homes, modern upgrades, and high-demand inland summer conditions."
         videoSrc="/videos/city-pasadena.mp4"
         posterSrc="/images/cities/pasadena-city.png"
-        imageSrc="/images/services/hvac-pasadena-hero.webp"
+        imageSrc="/images/cities/pasadena-city.png"
         imageAlt="HVAC technician retrofitting a heating system in a historic Pasadena Craftsman home"
       />
 

@@ -42,8 +42,8 @@ export default function LandscapingLosAngeles() {
         title="Landscaping Services in Los Angeles, CA"
         description="Thoughtful outdoor design and installation for Los Angeles homes that need beauty, durability, and water-wise planning."
         videoSrc="/videos/landscaping-la.mp4"
-        posterSrc="/images/services/landscaping-hero.webp"
-        imageSrc="/images/services/landscaping-hero.webp"
+        posterSrc="/images/services/landscaping-hero.png"
+        imageSrc="/images/services/landscaping-hero.png"
         imageAlt="Professional landscaper working in a drought-tolerant Los Angeles front yard"
       />
 
@@ -71,17 +71,17 @@ export default function LandscapingLosAngeles() {
       <SeoImageGrid
         images={[
           {
-            src: "/images/services/landscaping-hero.webp",
+            src: "/images/services/landscaping-hero.png",
             alt: "Landscaping design Los Angeles",
             caption: "Landscape Design",
           },
           {
-            src: "/images/services/landscaping-sod.webp",
+            src: "/images/services/landscaping-sod.png",
             alt: "Sod installation Los Angeles",
             caption: "Sod Installation",
           },
           {
-            src: "/images/services/landscaping-design.webp",
+            src: "/images/services/landscaping-design.png",
             alt: "Drought tolerant landscape Los Angeles",
             caption: "Drought-Tolerant Landscapes",
           },
