@@ -1,0 +1,338 @@
+Here's the complete prompt for the Replit agent:
+
+You are working on the BERNARDINO MARTIN HVAC website — a React TypeScript Vite monorepo.
+Frontend is in client/src/. SEO pages are in client/src/pages/seo/.
+
+DO NOT break any existing code. DO NOT remove any existing pages or features.
+DO NOT install new packages. ONLY update the SEO pages listed below.
+
+CONTEXT:
+Each SEO page currently has a hero section with either a solid blue gradient background
+or a static image background. The goal is to replace these hero backgrounds with
+autoplaying looping muted background videos, while keeping all hero text and buttons
+fully visible and readable. The video plays behind a semi-transparent overlay.
+The overlay must be dark enough to keep text readable but light enough that the
+video is clearly visible behind it. Use overlay opacity bg-blue-950/60 for all pages.
+
+IMPORTANT VIDEO REQUIREMENTS:
+- All videos must be: autoPlay muted loop playsInline
+- Add preload="auto" on all hero videos
+- Never add controls to hero videos
+- Videos are purely decorative backgrounds — pointer-events: none on the video element
+- The video element must be position absolute, inset-0, w-full h-full, object-cover
+- Overlay div must be position absolute, inset-0, bg-blue-950/60 (60% opacity dark blue)
+- All hero text and buttons sit in a relative z-10 div above the overlay
+- The overall hero section must have position relative and overflow-hidden
+
+VIDEO FILE LOCATIONS:
+All videos are saved in /public/videos/ and served from /videos/ URL path.
+The dist/public/videos/ folder already exists and contains existing videos.
+After Replit makes changes, the videos will be manually copied to the server.
+
+VIDEO FILENAMES TO USE (these will be provided by the client after generation):
+Service pages use these video filenames:
+- HVAC pages: /videos/svc-hvac-la.mp4
+- Solar page: /videos/svc-solar-la.mp4
+- Plumbing page: /videos/svc-plumbing-la.mp4
+- Electrical page: /videos/svc-electrical-la.mp4
+- Landscaping page: /videos/svc-landscaping-la.mp4
+- Irrigation page: /videos/svc-irrigation-la.mp4
+- Network page: /videos/svc-network-la.mp4
+
+City pages use these video filenames:
+- Burbank: /videos/city-burbank.mp4
+- Glendale: /videos/city-glendale.mp4
+- Pasadena: /videos/city-pasadena.mp4
+
+POSTER IMAGES (shown before video loads — use existing images):
+- HVAC pages poster: /images/services/hvac-hero.webp
+- Solar poster: /images/services/solar-hero.webp
+- Plumbing poster: /images/services/plumbing-hero.webp
+- Electrical poster: /images/services/electrical-hero.webp
+- Landscaping poster: /images/services/landscaping-hero.webp
+- Irrigation poster: /images/services/irrigation-hero.webp
+- Network poster: /images/services/network-hero.webp
+- Burbank poster: /images/cities/burbank-city.webp
+- Glendale poster: /images/cities/glendale-city.webp
+- Pasadena poster: /images/cities/pasadena-city.webp
+
+If any poster image file does not exist yet, use /images/hero-home.webp as fallback.
+
+---
+
+HERO SECTION PATTERN TO USE ON ALL PAGES:
+
+Replace every existing hero section with this exact pattern.
+Keep all existing hero content (badge, h1, paragraph, buttons) completely unchanged.
+Only change the background — replace solid gradient or static image with video background.
+
+PATTERN:
+
+<section className="relative text-white py-24 overflow-hidden min-h-[480px] flex items-center">
+  {/* Background video */}
+  <video
+    autoPlay
+    muted
+    loop
+    playsInline
+    preload="auto"
+    poster="/images/services/[service]-hero.webp"
+    className="absolute inset-0 w-full h-full object-cover"
+    style={{ pointerEvents: "none" }}
+  >
+    <source src="/videos/[video-filename].mp4" type="video/mp4" />
+  </video>
+
+  {/* Dark overlay — dark enough for text readability, light enough to see video */}
+  <div className="absolute inset-0 bg-blue-950/60" />
+
+  {/* Hero content — sits above video and overlay */}
+  <div className="container mx-auto px-4 max-w-4xl text-center relative z-10">
+    [ALL EXISTING HERO CONTENT GOES HERE UNCHANGED]
+    [badge, h1, description paragraph, CTA buttons — all unchanged]
+  </div>
+</section>
+
+---
+
+IMPORTANT TEXT VISIBILITY RULES:
+- The badge above h1 must have: className that includes bg-white/15 border-white/30 text-white
+- The h1 must have: className that includes text-white font-bold
+- All paragraph text must have: className that includes text-white/90 or text-blue-100
+- CTA buttons keep their existing styling unchanged
+- If any text appears hard to read, add a text-shadow using inline style:
+  style={{ textShadow: "0 2px 8px rgba(0,0,0,0.5)" }} on the h1 and paragraphs
+
+---
+
+UPDATE 1 — client/src/pages/seo/hvac-los-angeles.tsx
+
+Find the existing hero section (it has a blue gradient background or static image).
+Replace it with the video hero pattern using:
+  video src: /videos/svc-hvac-la.mp4
+  poster: /images/services/hvac-hero.webp (fallback: /images/hero-home.webp)
+  overlay: bg-blue-950/60
+
+Keep ALL existing content inside hero unchanged:
+  - Badge text: "Los Angeles HVAC Experts"
+  - H1: "HVAC Services in Los Angeles, CA"
+  - Description paragraph
+  - Two buttons: Call (818) 400-0227 and Book Online
+
+Below the hero, keep the city links section. Update the city cards to also show
+a subtle video thumbnail feel by adding a hover scale effect on the city images
+if not already present.
+
+---
+
+UPDATE 2 — client/src/pages/seo/solar-los-angeles.tsx
+
+Replace hero with video hero pattern using:
+  video src: /videos/svc-solar-la.mp4
+  poster: /images/services/solar-hero.webp (fallback: /images/hero-home.webp)
+  overlay: bg-blue-950/60
+
+Keep ALL existing hero content unchanged.
+
+---
+
+UPDATE 3 — client/src/pages/seo/plumbing-los-angeles.tsx
+
+Replace hero with video hero pattern using:
+  video src: /videos/svc-plumbing-la.mp4
+  poster: /images/services/plumbing-hero.webp (fallback: /images/hero-home.webp)
+  overlay: bg-blue-950/60
+
+Keep ALL existing hero content unchanged.
+
+---
+
+UPDATE 4 — client/src/pages/seo/electrical-los-angeles.tsx
+
+Replace hero with video hero pattern using:
+  video src: /videos/svc-electrical-la.mp4
+  poster: /images/services/electrical-hero.webp (fallback: /images/hero-home.webp)
+  overlay: bg-blue-950/60
+
+Keep ALL existing hero content unchanged.
+
+---
+
+UPDATE 5 — client/src/pages/seo/landscaping-los-angeles.tsx
+
+Replace hero with video hero pattern using:
+  video src: /videos/svc-landscaping-la.mp4
+  poster: /images/services/landscaping-hero.webp (fallback: /images/hero-home.webp)
+  overlay: bg-blue-950/60
+
+Keep ALL existing hero content unchanged.
+
+---
+
+UPDATE 6 — client/src/pages/seo/irrigation-los-angeles.tsx
+
+Replace hero with video hero pattern using:
+  video src: /videos/svc-irrigation-la.mp4
+  poster: /images/services/irrigation-hero.webp (fallback: /images/hero-home.webp)
+  overlay: bg-blue-950/60
+
+Keep ALL existing hero content unchanged.
+
+---
+
+UPDATE 7 — client/src/pages/seo/network-los-angeles.tsx
+
+Replace hero with video hero pattern using:
+  video src: /videos/svc-network-la.mp4
+  poster: /images/services/network-hero.webp (fallback: /images/hero-home.webp)
+  overlay: bg-blue-950/60
+
+Keep ALL existing hero content unchanged.
+
+---
+
+UPDATE 8 — client/src/pages/seo/hvac-burbank.tsx
+
+Replace hero with video hero pattern using:
+  video src: /videos/city-burbank.mp4
+  poster: /images/cities/burbank-city.webp (fallback: /images/hero-home.webp)
+  overlay: bg-blue-950/60
+
+The Burbank video should show city landscape transitioning to HVAC work.
+Keep ALL existing hero content unchanged:
+  - Breadcrumb: "Los Angeles > Burbank"
+  - H1: "HVAC Services in Burbank, CA"
+  - Description paragraph
+  - Call and Book buttons
+
+---
+
+UPDATE 9 — client/src/pages/seo/hvac-glendale.tsx
+
+Replace hero with video hero pattern using:
+  video src: /videos/city-glendale.mp4
+  poster: /images/cities/glendale-city.webp (fallback: /images/hero-home.webp)
+  overlay: bg-blue-950/60
+
+Keep ALL existing hero content unchanged:
+  - Breadcrumb: "Los Angeles > Glendale"
+  - H1: "HVAC Services in Glendale, CA"
+  - Description paragraph
+  - Call and Book buttons
+
+---
+
+UPDATE 10 — client/src/pages/seo/hvac-pasadena.tsx
+
+Replace hero with video hero pattern using:
+  video src: /videos/city-pasadena.mp4
+  poster: /images/cities/pasadena-city.webp (fallback: /images/hero-home.webp)
+  overlay: bg-blue-950/60
+
+Keep ALL existing hero content unchanged:
+  - Breadcrumb: "Los Angeles > Pasadena"
+  - H1: "HVAC Services in Pasadena, CA"
+  - Description paragraph
+  - Call and Book buttons
+
+---
+
+FINAL STEPS AFTER ALL CHANGES:
+
+1. Run npm run build
+2. Fix any TypeScript errors before finishing
+3. Verify all 10 pages build without errors
+4. Do NOT change any routes in App.tsx
+5. Do NOT remove any existing sections from any page
+6. Do NOT change any content outside the hero section
+7. Do NOT add any new npm packages
+8. Confirm each hero section has exactly:
+   - One <video> element with autoPlay muted loop playsInline preload="auto"
+   - One overlay div with bg-blue-950/60
+   - One content div with relative z-10
+   - All original hero text and buttons preserved
+
+Now here are the video generation prompts for all 10 videos — use these in Sora, Runway ML, or Kling AI:
+
+SERVICE PAGE VIDEOS — 15 seconds each, cinematic, no text
+File: svc-hvac-la.mp4
+Prompt: Cinematic 15-second video. Opens with aerial shot of Los Angeles suburban 
+neighborhood with palm trees on a sunny day, camera slowly descends to a professional 
+HVAC technician in a clean navy blue uniform inspecting an outdoor AC condenser unit 
+beside a modern home. Technician checks gauges, tightens components. Bright sunny 
+Los Angeles weather. Ultra-realistic commercial footage, smooth camera movement, 
+no text, no watermarks.
+
+File: svc-solar-la.mp4
+Prompt: Cinematic 15-second video. Opens with wide shot of bright Los Angeles blue 
+sky and sunshine, camera pans down to residential rooftop where two solar technicians 
+in uniforms are installing shiny black solar panels. Close-up of panels reflecting 
+sunlight. Palm trees visible in background. Ultra-realistic commercial footage, 
+smooth camera movement, no text, no watermarks.
+
+File: svc-plumbing-la.mp4
+Prompt: Cinematic 15-second video. Opens with exterior of a clean modern Los Angeles 
+home, camera moves inside to a professional plumber in uniform working under a kitchen 
+sink. Close-up of hands using professional tools on copper pipes. Clean modern kitchen 
+environment. Warm indoor lighting. Ultra-realistic commercial footage, smooth camera 
+movement, no text, no watermarks.
+
+File: svc-electrical-la.mp4
+Prompt: Cinematic 15-second video. Opens with exterior of a Los Angeles suburban home, 
+camera moves to utility room where a licensed electrician in safety glasses is 
+professionally organizing circuit breakers in a residential electrical panel. 
+Close-up of neat organized wiring and hands working carefully with tools. 
+Ultra-realistic commercial footage, smooth camera movement, no text, no watermarks.
+
+File: svc-landscaping-la.mp4
+Prompt: Cinematic 15-second video. Opens with aerial view of a beautifully landscaped 
+Los Angeles neighborhood, camera descends to a professional landscaper kneeling in a 
+residential front yard installing drought-tolerant plants and fresh sod. Modern 
+California home visible in background. Bright sunny day. Ultra-realistic commercial 
+footage, smooth camera movement, no text, no watermarks.
+
+File: svc-irrigation-la.mp4
+Prompt: Cinematic 15-second video. Opens with a lush green Los Angeles residential 
+lawn with automatic sprinklers activating, water arcing gracefully over green grass. 
+Camera pans to a technician in uniform adjusting a smart irrigation controller, 
+then shows a homeowner controlling the system from a smartphone. Bright sunny 
+California day. Ultra-realistic commercial footage, smooth camera movement, 
+no text, no watermarks.
+
+File: svc-network-la.mp4
+Prompt: Cinematic 15-second video. Opens with exterior of a modern Los Angeles home, 
+camera moves inside to a network technician in a clean uniform connecting ethernet 
+cables to a wall-mounted patch panel. Close-up of cables plugging in and router 
+lights blinking. Clean modern home environment. Ultra-realistic commercial footage, 
+smooth camera movement, no text, no watermarks.
+
+CITY PAGE VIDEOS — 15 seconds each, start with city landscape then transition to service work
+File: city-burbank.mp4
+Prompt: Cinematic 15-second video. First 6 seconds: Beautiful aerial view of Burbank 
+California with suburban neighborhoods, palm trees, and the San Fernando Valley 
+stretching into the distance on a sunny day. Last 9 seconds: Camera transitions 
+smoothly to a professional HVAC technician in uniform servicing an AC unit on the 
+rooftop of a Burbank home with the city visible in background. 
+Ultra-realistic commercial footage, smooth camera transitions, no text, no watermarks.
+
+File: city-glendale.mp4
+Prompt: Cinematic 15-second video. First 6 seconds: Stunning aerial view of Glendale 
+California showing the Verdugo Mountains in the background, mix of urban and 
+residential areas, palm-lined streets on a clear sunny day. Last 9 seconds: 
+Camera transitions to a professional HVAC technician servicing an air conditioning 
+unit at a hillside Glendale home with mountain views visible. 
+Ultra-realistic commercial footage, smooth camera transitions, no text, no watermarks.
+
+File: city-pasadena.mp4
+Prompt: Cinematic 15-second video. First 6 seconds: Beautiful view of Pasadena 
+California with historic Craftsman bungalow homes, tree-lined streets, and the 
+San Gabriel Mountains visible in the background on a warm sunny day. Last 9 seconds: 
+Camera transitions to a professional HVAC technician carefully retrofitting a 
+heating system inside a beautiful historic Pasadena home interior. 
+Ultra-realistic commercial footage, smooth camera transitions, no text, no watermarks.
+
+After generating all 10 videos:
+Save them with exact filenames and run on your VPS:
+bashcp ./public/videos/svc-*.mp4 ./dist/public/videos/
+cp ./public/videos/city-*.mp4 ./dist/public/videos/
+pm2 restart all
