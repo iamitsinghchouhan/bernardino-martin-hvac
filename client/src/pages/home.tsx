@@ -1,5 +1,6 @@
 import { Layout } from "@/components/layout";
 import { SEO } from "@/components/seo";
+import { ReviewSlider } from "@/components/ReviewSlider";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { EasterBunny, EasterEggs } from "@/components/easter-animation";
@@ -321,6 +322,106 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="py-20 bg-white border-t border-slate-100">
+        <div className="container mx-auto px-4">
+          <div className="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
+            <div className="relative overflow-hidden rounded-[2rem] shadow-2xl shadow-slate-900/10">
+              <img
+                src="/images/landscape-feature.jpg"
+                alt="Premium landscaping design for a Los Angeles outdoor living space"
+                loading="lazy"
+                decoding="async"
+                className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+                width={1536}
+                height={1024}
+              />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-slate-900/20 via-transparent to-transparent" />
+            </div>
+
+            <div className="max-w-2xl space-y-6">
+              <Badge className="bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-50 px-4 py-1.5 text-sm font-bold">
+                Premium Outdoor Living
+              </Badge>
+              <h2 className="text-3xl md:text-5xl font-heading font-bold tracking-tight text-slate-900">
+                Transform Your Outdoor Space in Los Angeles
+              </h2>
+              <div className="space-y-4 text-base md:text-lg leading-8 text-slate-600">
+                <p>
+                  In Los Angeles and surrounding cities, we transform spaces beyond traditional landscaping. We create gardens full of life, energy, and harmony, inspired by feng shui, to bring you peace, tranquility, and balance. We are creative in every detail. Not only do we offer a fair price, but we make it accessible to everyone.
+                </p>
+                <p>
+                  In outdoor landscaping, we transform your spaces with professional design: sod installation, planting, irrigation systems, in St. Augustine grass or artificial turf. We also provide fertilization services, sprinkler inspections, and hydroseeding.
+                </p>
+                <p>
+                  Additionally, we incorporate outdoor lighting, both low and high voltage, with Malibu lights, perfect for highlighting the grand tree and palms. We offer solar options, low-voltage Malibu, or high-voltage setups, adapting to your needs and creating a spectacular atmosphere. And if you have a corner or unused space, we can turn it into a small garden bed or planter, adding beauty and functionality to your home.
+                </p>
+              </div>
+
+              <div className="pt-2">
+                <Button
+                  size="lg"
+                  className="h-14 rounded-full bg-slate-900 px-8 text-base font-bold text-white shadow-lg shadow-slate-900/15 transition-all hover:-translate-y-0.5 hover:bg-primary hover:shadow-primary/20"
+                  asChild
+                >
+                  <Link href="/quote">Get a Free Estimate</Link>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20 bg-slate-50 border-t border-slate-200">
+        <div className="container mx-auto px-4">
+          <div className="grid items-center gap-12 lg:grid-cols-[0.95fr_1.05fr]">
+            <div className="max-w-2xl space-y-6">
+              <Badge className="bg-sky-50 text-sky-700 border-sky-200 hover:bg-sky-50 px-4 py-1.5 text-sm font-bold">
+                Comfort Optimization
+              </Badge>
+              <h2 className="text-3xl md:text-5xl font-heading font-bold tracking-tight text-slate-900">
+                Why Does Your Home Feel Colder at Night?
+              </h2>
+              <div className="space-y-4 text-base md:text-lg leading-8 text-slate-600">
+                <p>
+                  Chill at night? Ever noticed your home feels colder after sunset? Temperature drops, insulation issues, and HVAC inefficiencies can all affect your comfort.
+                </p>
+                <p>
+                  Are you ready for an optimization?
+                </p>
+                <p>
+                  We provide professional HVAC optimization services to keep your home comfortable day and night, improve energy efficiency, and reduce your energy bills.
+                </p>
+              </div>
+
+              <div className="pt-2">
+                <Button
+                  size="lg"
+                  className="h-14 rounded-full bg-primary px-8 text-base font-bold text-white shadow-lg shadow-primary/20 transition-all hover:-translate-y-0.5 hover:bg-primary/90"
+                  asChild
+                >
+                  <Link href="/booking">Schedule Optimization</Link>
+                </Button>
+              </div>
+            </div>
+
+            <div className="relative overflow-hidden rounded-[2rem] shadow-2xl shadow-slate-900/10">
+              <img
+                src="/images/hvac-comfort.jpg"
+                alt="Family sleeping comfortably at night with optimized home HVAC comfort"
+                loading="lazy"
+                decoding="async"
+                className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+                width={1536}
+                height={1024}
+              />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-l from-slate-900/25 via-transparent to-transparent" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <ReviewSlider />
+
       {/* Premium Moen Smart Valve Feature */}
       <section className="py-20 bg-slate-900 text-white relative overflow-hidden">
         <div className="absolute top-0 right-0 -mr-48 -mt-48 w-96 h-96 bg-primary rounded-full blur-3xl opacity-20"></div>
@@ -523,63 +624,6 @@ export default function Home() {
                 </Button>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials / Trust Reinforcement */}
-      <section className="py-20 bg-slate-50 border-t border-slate-200 relative overflow-hidden">
-        <DecorativeEgg className="left-[6%] bottom-16 hidden lg:block" colorClass="from-emerald-200 to-green-200" />
-        <div className="container mx-auto px-4">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <Badge className="bg-secondary/10 text-secondary border-secondary/20 hover:bg-secondary/20 px-4 py-1.5 mb-4 text-sm font-bold">Customer Reviews</Badge>
-            <h2 className="text-3xl md:text-4xl font-heading font-bold text-slate-900 mb-4">
-              What Our Customers Say
-            </h2>
-            <p className="text-lg text-slate-600">
-              Real feedback from homeowners and businesses across Los Angeles who trust us with their comfort.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {[
-              {
-                name: "Maria G.",
-                location: "Glendale, CA",
-                service: "AC Installation",
-                review: "Bernardino and his team were incredible. They installed a brand new AC system in one day and the pricing was very fair. Our house has never been more comfortable. Highly recommend!",
-                rating: 5,
-              },
-              {
-                name: "James T.",
-                location: "Burbank, CA",
-                service: "Solar Panel Installation",
-                review: "We wanted to go solar and got quotes from several companies. Bernardino Martin was the most transparent and affordable. The installation was clean, professional, and our electric bill dropped significantly.",
-                rating: 5,
-              },
-              {
-                name: "Patricia L.",
-                location: "San Fernando Valley",
-                service: "Emergency Heating Repair",
-                review: "Our heater broke on a cold night and they came out the same evening. Fixed the problem quickly and didn't overcharge us. This is a company that actually cares about their customers.",
-                rating: 5,
-              },
-            ].map((t, i) => (
-              <Card key={i} className="bg-white border-slate-100 shadow-md hover:shadow-lg transition-shadow" data-testid={`card-testimonial-${i}`}>
-                <CardContent className="p-6 space-y-4">
-                  <div className="flex gap-0.5">
-                    {Array.from({ length: t.rating }).map((_, s) => (
-                      <Star key={s} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                    ))}
-                  </div>
-                  <p className="text-slate-700 leading-relaxed text-sm">"{t.review}"</p>
-                  <div className="border-t pt-4">
-                    <div className="font-bold text-slate-900">{t.name}</div>
-                    <div className="text-xs text-slate-500">{t.service} &bull; {t.location}</div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
           </div>
         </div>
       </section>
