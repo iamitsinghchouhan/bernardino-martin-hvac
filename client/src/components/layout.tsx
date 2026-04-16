@@ -3,7 +3,6 @@ import { Phone, Menu, Calendar, MessageCircle, ShieldCheck, AlertCircle, Instagr
 import { useState, useEffect, lazy, Suspense } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { EasterBanner, EasterEggs, EasterStyles } from "@/components/easter-animation";
 import { COMPANY_PHONE, COMPANY_NAME, COMPANY_FULL, getWhatsAppLink } from "@/lib/constants";
 import { trackEvent } from "@/hooks/use-analytics";
 const ChatWidget = lazy(() => import("@/components/chat-widget").then(m => ({ default: m.ChatWidget })));
@@ -115,8 +114,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
       Skip to main content
     </a>
     <div className="flex flex-col min-h-screen font-sans">
-      <EasterStyles />
-      <EasterBanner />
       {/* Emergency Banner */}
       <div className="bg-red-600 text-white py-2.5 text-xs md:text-sm font-bold flex justify-center items-center gap-2 px-4 text-center" role="alert">
         <AlertCircle className="h-4 w-4 animate-pulse shrink-0" aria-hidden="true" />
@@ -143,7 +140,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
           isScrolled ? "bg-white/95 backdrop-blur-md shadow-sm border-gray-100" : "bg-white border-transparent"
         }`}
       >
-        <EasterEggs container="nav" />
         <div className="container mx-auto px-4 h-20 flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group" aria-label="BERNARDINO MARTIN Heating Air Conditioning Solar - Home">

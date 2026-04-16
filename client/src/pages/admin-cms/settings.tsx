@@ -30,10 +30,6 @@ function helperFor(key: string) {
       return "Enter the WhatsApp number without symbols if possible.";
     case "tagline":
       return "This is the short line shown near your business name.";
-    case "easter_promo_code":
-      return "This is the code customers type in to get the Easter offer.";
-    case "easter_promo_discount":
-      return "Example: 15% OFF or Free Tune-Up.";
     default:
       return "Update this information carefully, then save your changes.";
   }
@@ -80,7 +76,6 @@ export default function AdminCMSSettings() {
       contact: ["phone", "email", "address", "whatsapp"],
       social: ["facebook", "instagram", "youtube"],
       tagline: ["tagline"],
-      easter: ["easter_promo_active", "easter_promo_code", "easter_promo_discount"],
     }),
     [],
   );
@@ -175,14 +170,6 @@ export default function AdminCMSSettings() {
             <h2 className="text-2xl font-semibold text-gray-800 mb-6">Business Tagline</h2>
             {sections.tagline.map(renderField)}
           </div>
-
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8 mb-6">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-6">Easter Promotion</h2>
-            <div className="grid gap-4 md:grid-cols-2">
-              {sections.easter.map(renderField)}
-            </div>
-          </div>
-
           <button
             type="button"
             onClick={() => saveMutation.mutate()}
