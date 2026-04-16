@@ -14,6 +14,7 @@ import { apiRequest } from "@/lib/queryClient";
 import { CheckCircle, Loader2 } from "lucide-react";
 import { validateEmail } from "@/lib/email-validation";
 import { useLocation } from "wouter";
+import { trackEvent } from "@/hooks/use-analytics";
 
 export default function Booking() {
   const [date, setDate] = useState<Date | undefined>(new Date());
@@ -28,6 +29,10 @@ export default function Booking() {
   const { toast } = useToast();
   const [location] = useLocation();
   const preselectedServiceId = new URLSearchParams(window.location.search).get("service");
+
+  useEffect(() => {
+    trackEvent("booking_started");
+  }, []);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -48,6 +53,8 @@ export default function Booking() {
       return res.json();
     },
     onSuccess: () => {
+      const serviceLabel = SERVICES.find((item) => item.id === selectedService)?.title || selectedService;
+      trackEvent("booking_completed", serviceLabel);
       setSubmitted(true);
       toast({
         title: "Appointment Requested!",

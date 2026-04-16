@@ -1,7 +1,7 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { useLocation } from "wouter";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Trash2 } from "lucide-react";
+import { Trash2, Building2, Star, Search, Image as ImageIcon, FileText } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -642,6 +642,62 @@ export default function AdminDashboard() {
           </Button>
         </div>
       </header>
+
+      <section className="border-b border-slate-200 bg-white">
+        <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
+          <h2 className="text-3xl font-bold text-slate-900">Website Management Tools</h2>
+          <p className="mt-3 text-lg text-slate-600">
+            Click any button below to manage your website content
+          </p>
+
+          <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-5">
+            {[
+              {
+                label: "Business Info",
+                href: "/admin/cms/settings",
+                icon: Building2,
+                className: "bg-blue-600 hover:bg-blue-700 text-white",
+              },
+              {
+                label: "Reviews",
+                href: "/admin/cms/reviews",
+                icon: Star,
+                className: "bg-yellow-500 hover:bg-yellow-600 text-white",
+              },
+              {
+                label: "SEO Settings",
+                href: "/admin/cms/seo",
+                icon: Search,
+                className: "bg-green-600 hover:bg-green-700 text-white",
+              },
+              {
+                label: "Media Library",
+                href: "/admin/cms/media",
+                icon: ImageIcon,
+                className: "bg-violet-600 hover:bg-violet-700 text-white",
+              },
+              {
+                label: "Custom Pages",
+                href: "/admin/cms/pages",
+                icon: FileText,
+                className: "bg-orange-500 hover:bg-orange-600 text-white",
+              },
+            ].map((item) => {
+              const Icon = item.icon;
+              return (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  className={`min-h-[64px] rounded-xl px-5 py-4 text-lg font-bold transition-colors inline-flex items-center gap-3 ${item.className}`}
+                >
+                  <Icon className="h-7 w-7 shrink-0" />
+                  <span>{item.label}</span>
+                </a>
+              );
+            })}
+          </div>
+        </div>
+      </section>
 
       <nav className="border-b border-blue-800 bg-blue-800 text-white">
         <div className="mx-auto flex max-w-7xl gap-2 overflow-x-auto px-4 sm:px-6">

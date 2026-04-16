@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { EasterBanner, EasterEggs, EasterStyles } from "@/components/easter-animation";
 import { COMPANY_PHONE, COMPANY_NAME, COMPANY_FULL, getWhatsAppLink } from "@/lib/constants";
+import { trackEvent } from "@/hooks/use-analytics";
 const ChatWidget = lazy(() => import("@/components/chat-widget").then(m => ({ default: m.ChatWidget })));
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -42,6 +43,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
       if (!response.ok) throw new Error("Failed to submit request");
 
+      trackEvent("quote_requested", requestServiceType || "General Service Request");
       setRequestStatus("success");
       setRequestName("");
       setRequestEmail("");
@@ -118,7 +120,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       {/* Emergency Banner */}
       <div className="bg-red-600 text-white py-2.5 text-xs md:text-sm font-bold flex justify-center items-center gap-2 px-4 text-center" role="alert">
         <AlertCircle className="h-4 w-4 animate-pulse shrink-0" aria-hidden="true" />
-        <span>24/7 EMERGENCY SERVICE AVAILABLE IN LOS ANGELES - <a href={`tel:${COMPANY_PHONE.replace(/\D/g, '')}`} className="underline hover:text-red-100 transition-colors">{COMPANY_PHONE}</a></span>
+        <span>24/7 EMERGENCY SERVICE AVAILABLE IN LOS ANGELES - <a href={`tel:${COMPANY_PHONE.replace(/\D/g, '')}`} onClick={() => trackEvent("phone_click")} className="underline hover:text-red-100 transition-colors">{COMPANY_PHONE}</a></span>
       </div>
 
       {/* Top Bar - Trust & Quick Contact */}
@@ -205,7 +207,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
           {/* Desktop CTAs */}
           <div className="hidden lg:flex items-center gap-3">
-            <a href={`tel:${COMPANY_PHONE.replace(/\D/g, '')}`} className="flex flex-col items-end mr-2 group">
+            <a href={`tel:${COMPANY_PHONE.replace(/\D/g, '')}`} onClick={() => trackEvent("phone_click")} className="flex flex-col items-end mr-2 group">
               <span className="text-[10px] text-slate-500 font-semibold uppercase tracking-wider">24/7 Service</span>
               <span className="text-lg font-bold font-heading text-slate-900 group-hover:text-primary transition-colors">{COMPANY_PHONE}</span>
             </a>
@@ -220,7 +222,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
             </Button>
 
             <Button size="icon" className="bg-secondary hover:bg-secondary/90 shadow-lg shadow-secondary/20" asChild>
-              <a href={getWhatsAppLink("Hi, I have a question about your HVAC/Solar services.")} target="_blank" rel="noopener noreferrer" title="Chat on WhatsApp">
+              <a href={getWhatsAppLink("Hi, I have a question about your HVAC/Solar services.")} onClick={() => trackEvent("whatsapp_click")} target="_blank" rel="noopener noreferrer" title="Chat on WhatsApp">
                 <MessageCircle className="h-5 w-5" />
               </a>
             </Button>
@@ -228,12 +230,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
           {/* Mobile Menu */}
           <div className="flex items-center gap-2 lg:hidden">
-             <a href={getWhatsAppLink("Hi, I have a question about your HVAC/Solar services.")} target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+             <a href={getWhatsAppLink("Hi, I have a question about your HVAC/Solar services.")} onClick={() => trackEvent("whatsapp_click")} target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
                <Button size="icon" className="rounded-full bg-secondary hover:bg-secondary/90 text-white shadow-sm border-0" aria-hidden="true" tabIndex={-1}>
                  <MessageCircle className="h-5 w-5" aria-hidden="true" />
                </Button>
              </a>
-             <a href={`tel:${COMPANY_PHONE.replace(/\D/g, '')}`} aria-label={`Call us at ${COMPANY_PHONE}`}>
+             <a href={`tel:${COMPANY_PHONE.replace(/\D/g, '')}`} onClick={() => trackEvent("phone_click")} aria-label={`Call us at ${COMPANY_PHONE}`}>
                <Button size="icon" variant="outline" className="rounded-full border-primary/20 text-primary hover:bg-primary/10" aria-hidden="true" tabIndex={-1}>
                  <Phone className="h-5 w-5" aria-hidden="true" />
                </Button>
@@ -285,13 +287,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
                       <Link href="/booking">Book Appointment</Link>
                     </Button>
                     <Button size="lg" className="w-full bg-secondary hover:bg-secondary/90 text-white border-0" asChild>
-                      <a href={getWhatsAppLink("Hi, I'd like to book an appointment.")} target="_blank" rel="noopener noreferrer">
+                      <a href={getWhatsAppLink("Hi, I'd like to book an appointment.")} onClick={() => trackEvent("whatsapp_click")} target="_blank" rel="noopener noreferrer">
                         <MessageCircle className="mr-2 h-4 w-4" />
                         WhatsApp Chat
                       </a>
                     </Button>
                     <Button size="lg" variant="secondary" className="w-full bg-slate-900 text-white hover:bg-slate-800" asChild>
-                      <a href={`tel:${COMPANY_PHONE.replace(/\D/g, '')}`}>
+                      <a href={`tel:${COMPANY_PHONE.replace(/\D/g, '')}`} onClick={() => trackEvent("phone_click")}>
                         <Phone className="mr-2 h-4 w-4" />
                         Call {COMPANY_PHONE}
                       </a>
@@ -327,7 +329,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </main>
 
       <div className="fixed bottom-6 right-[5.75rem] z-50">
-        <a href="tel:+18184000227" className="inline-flex items-center gap-2 rounded-full bg-red-600 px-4 py-3 text-sm text-white font-bold shadow-lg transition hover:bg-red-700 sm:px-5 sm:text-base">
+        <a href="tel:+18184000227" onClick={() => trackEvent("phone_click")} className="inline-flex items-center gap-2 rounded-full bg-red-600 px-4 py-3 text-sm text-white font-bold shadow-lg transition hover:bg-red-700 sm:px-5 sm:text-base">
           <Phone className="h-4 w-4" />
           Call Now
         </a>
@@ -394,7 +396,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
               <ul className="space-y-3 text-sm">
                 <li className="flex items-start gap-3">
                   <Phone className="h-5 w-5 text-secondary shrink-0" />
-                  <a href={`tel:${COMPANY_PHONE.replace(/\D/g, '')}`} className="hover:text-white transition-colors text-lg font-bold">{COMPANY_PHONE}</a>
+                  <a href={`tel:${COMPANY_PHONE.replace(/\D/g, '')}`} onClick={() => trackEvent("phone_click")} className="hover:text-white transition-colors text-lg font-bold">{COMPANY_PHONE}</a>
                 </li>
                 <li className="flex items-center gap-2">
                    <div className="w-2 h-2 rounded-full bg-secondary"></div>
@@ -409,7 +411,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                   <Link href="/booking">Book Appointment</Link>
                 </Button>
                 <Button className="w-full bg-secondary hover:bg-secondary/90 text-white border-0" asChild>
-                   <a href={getWhatsAppLink("Hi, I have a question about your services.")} target="_blank" rel="noopener noreferrer">
+                   <a href={getWhatsAppLink("Hi, I have a question about your services.")} onClick={() => trackEvent("whatsapp_click")} target="_blank" rel="noopener noreferrer">
                      <MessageCircle className="mr-2 h-4 w-4" />
                      Chat on WhatsApp
                    </a>

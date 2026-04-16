@@ -13,6 +13,7 @@ import { apiRequest } from "@/lib/queryClient";
 import { CheckCircle, Loader2, Shield, Clock, Phone } from "lucide-react";
 import { validateEmail } from "@/lib/email-validation";
 import { Badge } from "@/components/ui/badge";
+import { trackEvent } from "@/hooks/use-analytics";
 
 export default function Quote() {
   const [serviceType, setServiceType] = useState("");
@@ -33,6 +34,7 @@ export default function Quote() {
       return res.json();
     },
     onSuccess: () => {
+      trackEvent("quote_requested", serviceType);
       setSubmitted(true);
       toast({
         title: "Quote Request Submitted!",

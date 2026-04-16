@@ -9,6 +9,8 @@ import * as invoicesCtrl from "./controllers/invoices";
 import * as quotesCtrl from "./controllers/quotes";
 import * as remindersCtrl from "./controllers/reminders";
 import * as healthCtrl from "./controllers/health";
+import * as cmsCtrl from "./controllers/cms";
+import * as analyticsCtrl from "./controllers/analytics";
 import { performBackup } from "./backup";
 import { startReminderEngine } from "./reminder-engine";
 import { startBackupSchedule } from "./backup";
@@ -37,6 +39,29 @@ export async function registerRoutes(
   app.get("/api/admin/reminders", requireAdmin, adminCtrl.getReminders);
   app.get("/api/admin/quotes", requireAdmin, adminCtrl.getQuotes);
 
+  app.get("/api/admin/cms/settings", requireAdmin, cmsCtrl.getSettings);
+  app.put("/api/admin/cms/settings/:key", requireAdmin, cmsCtrl.updateSetting);
+
+  app.get("/api/admin/cms/reviews", requireAdmin, cmsCtrl.getReviews);
+  app.post("/api/admin/cms/reviews", requireAdmin, cmsCtrl.createReview);
+  app.put("/api/admin/cms/reviews/:id", requireAdmin, cmsCtrl.updateReview);
+  app.delete("/api/admin/cms/reviews/:id", requireAdmin, cmsCtrl.deleteReview);
+
+  app.get("/api/admin/cms/seo", requireAdmin, cmsCtrl.getSeoPages);
+  app.post("/api/admin/cms/seo", requireAdmin, cmsCtrl.createSeoPage);
+  app.put("/api/admin/cms/seo/:id", requireAdmin, cmsCtrl.updateSeoPage);
+
+  app.get("/api/admin/cms/media", requireAdmin, cmsCtrl.getMedia);
+  app.post("/api/admin/cms/media/upload", requireAdmin, cmsCtrl.uploadMedia);
+  app.delete("/api/admin/cms/media/:id", requireAdmin, cmsCtrl.deleteMedia);
+
+  app.get("/api/admin/cms/pages", requireAdmin, cmsCtrl.getCmsPages);
+  app.post("/api/admin/cms/pages", requireAdmin, cmsCtrl.createCmsPage);
+  app.put("/api/admin/cms/pages/:id", requireAdmin, cmsCtrl.updateCmsPage);
+  app.delete("/api/admin/cms/pages/:id", requireAdmin, cmsCtrl.deleteCmsPage);
+
+  app.get("/api/admin/cms/overview", requireAdmin, cmsCtrl.getOverview);
+
   app.post("/api/admin/backup", requireAdmin, async (_req, res) => {
     const result = await performBackup();
     if (result.success) {
@@ -51,10 +76,24 @@ export async function registerRoutes(
   app.post("/api/bookings", formLimiter, bookingsCtrl.createBooking);
   app.get("/api/bookings", bookingsCtrl.getBookings);
   app.post("/api/contact", formLimiter, contactsCtrl.createContact);
+  app.post("/api/analytics/track", analyticsCtrl.trackPageView);
+  app.post("/api/analytics/event", analyticsCtrl.trackAnalyticsEvent);
   app.get("/api/invoices/lookup", invoicesCtrl.lookupInvoice);
   app.post("/api/invoices/:invoiceNumber/pay", paymentLimiter, invoicesCtrl.payInvoice);
   app.get("/api/reminders", remindersCtrl.getRemindersByEmail);
   app.get("/api/reminders/pending", remindersCtrl.getPendingReminders);
+  app.get("/api/cms/reviews", cmsCtrl.getPublicReviews);
+  app.get("/api/cms/pages/:slug", cmsCtrl.getPublicPageBySlug);
+
+  app.get("/api/admin/analytics/overview", requireAdmin, analyticsCtrl.getAnalyticsOverview);
+  app.get("/api/admin/analytics/pages", requireAdmin, analyticsCtrl.getAnalyticsPages);
+  app.get("/api/admin/analytics/devices", requireAdmin, analyticsCtrl.getAnalyticsDevices);
+  app.get("/api/admin/analytics/referrers", requireAdmin, analyticsCtrl.getAnalyticsReferrers);
+  app.get("/api/admin/analytics/chart", requireAdmin, analyticsCtrl.getAnalyticsChart);
+  app.get("/api/admin/analytics/events", requireAdmin, analyticsCtrl.getAnalyticsEvents);
+  app.get("/api/admin/analytics/bookings-by-service", requireAdmin, analyticsCtrl.getBookingsByService);
+  app.get("/api/admin/analytics/revenue", requireAdmin, analyticsCtrl.getRevenueAnalytics);
+  app.get("/api/admin/analytics/realtime", requireAdmin, analyticsCtrl.getRealtimeAnalytics);
 
   startReminderEngine();
   startBackupSchedule();

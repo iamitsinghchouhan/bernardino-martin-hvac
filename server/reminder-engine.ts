@@ -1,6 +1,7 @@
 import { storage } from "./storage";
 import type { Booking } from "@shared/schema";
 import { logger } from "./logger";
+import { aggregateDailyAnalytics } from "./controllers/analytics";
 
 export async function scheduleRemindersForBooking(booking: Booking) {
   const appointmentDate = new Date(booking.preferredDate);
@@ -89,15 +90,30 @@ export async function processReminders() {
 }
 
 let reminderInterval: ReturnType<typeof setInterval> | null = null;
+let analyticsAggregationInterval: ReturnType<typeof setInterval> | null = null;
 
 export function startReminderEngine() {
   reminderInterval = setInterval(processReminders, 60 * 1000);
   logger.info("Reminder engine started (checks every 60 seconds)");
+
+  analyticsAggregationInterval = setInterval(() => {
+    void aggregateDailyAnalytics().catch((err) => {
+      logger.error({ err }, "Daily analytics aggregation failed");
+    });
+  }, 24 * 60 * 60 * 1000);
+
+  void aggregateDailyAnalytics().catch((err) => {
+    logger.error({ err }, "Initial daily analytics aggregation failed");
+  });
 }
 
 export function stopReminderEngine() {
   if (reminderInterval) {
     clearInterval(reminderInterval);
     reminderInterval = null;
+  }
+  if (analyticsAggregationInterval) {
+    clearInterval(analyticsAggregationInterval);
+    analyticsAggregationInterval = null;
   }
 }

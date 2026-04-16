@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bernardino Martin Admin Help Guide</title>
+    <style>
+      :root {
+        --blue: #1e40af;
+        --blue-dark: #17338d;
+        --green: #166534;
+        --green-soft: #dcfce7;
+        --gray-900: #111827;
+        --gray-700: #374151;
+        --gray-600: #4b5563;
+        --gray-200: #e5e7eb;
+        --gray-100: #f3f4f6;
+        --white: #ffffff;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: #eef2ff;
+        color: var(--gray-900);
+        line-height: 1.55;
+      }
+
+      .page {
+        max-width: 920px;
+        margin: 24px auto;
+        background: var(--white);
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: 0 18px 60px rgba(15, 23, 42, 0.12);
+      }
+
+      .hero {
+        background: linear-gradient(135deg, var(--blue), #2563eb);
+        color: var(--white);
+        padding: 36px 40px 30px;
+      }
+
+      .hero h1 {
+        margin: 0 0 8px;
+        font-size: 34px;
+        line-height: 1.15;
+      }
+
+      .hero p {
+        margin: 0;
+        font-size: 18px;
+        opacity: 0.96;
+      }
+
+      .content {
+        padding: 32px 40px 40px;
+      }
+
+      .callout {
+        background: var(--green-soft);
+        color: var(--green);
+        border: 2px solid #86efac;
+        border-radius: 18px;
+        padding: 18px 20px;
+        margin-bottom: 26px;
+        font-size: 18px;
+        font-weight: 700;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+      }
+
+      .card {
+        background: var(--gray-100);
+        border: 1px solid var(--gray-200);
+        border-radius: 20px;
+        padding: 20px 22px;
+      }
+
+      .card h2 {
+        margin: 0 0 12px;
+        color: var(--blue);
+        font-size: 24px;
+      }
+
+      .card p,
+      .card li {
+        font-size: 17px;
+        color: var(--gray-700);
+      }
+
+      .card ul,
+      .card ol {
+        margin: 0;
+        padding-left: 22px;
+      }
+
+      .card li + li {
+        margin-top: 8px;
+      }
+
+      .full {
+        grid-column: 1 / -1;
+      }
+
+      .footer {
+        margin-top: 24px;
+        padding-top: 18px;
+        border-top: 2px solid var(--gray-200);
+        font-size: 15px;
+        color: var(--gray-600);
+      }
+
+      .path {
+        display: inline-block;
+        margin-top: 8px;
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.14);
+        font-size: 16px;
+        font-weight: 700;
+      }
+
+      @media (max-width: 760px) {
+        .page {
+          margin: 0;
+          border-radius: 0;
+        }
+
+        .hero,
+        .content {
+          padding-left: 20px;
+          padding-right: 20px;
+        }
+
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media print {
+        body {
+          background: #fff;
+        }
+
+        .page {
+          box-shadow: none;
+          margin: 0;
+          max-width: none;
+          border-radius: 0;
+        }
+
+        .hero {
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+
+        .card,
+        .callout {
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <div class="hero">
+        <h1>Bernardino Martin Website Admin Guide</h1>
+        <p>Simple instructions for updating the website, reviews, images, and Google settings.</p>
+        <div class="path">Login at: /admin/login</div>
+      </div>
+
+      <div class="content">
+        <div class="callout">
+          Tip: There are 2 admin areas. Use <strong>/admin</strong> for appointments and invoices.
+          Use <strong>/admin/cms</strong> for website content, reviews, images, and SEO.
+        </div>
+
+        <div class="grid">
+          <section class="card">
+            <h2>1. Sign In</h2>
+            <ol>
+              <li>Open the admin login page.</li>
+              <li>Enter the admin password.</li>
+              <li>Click <strong>Sign In</strong>.</li>
+              <li>Choose either the regular admin or the CMS control panel.</li>
+            </ol>
+          </section>
+
+          <section class="card">
+            <h2>2. Business Info</h2>
+            <p>Open <strong>Business Info</strong> to update:</p>
+            <ul>
+              <li>Phone number</li>
+              <li>Email address</li>
+              <li>Business address</li>
+              <li>WhatsApp number</li>
+              <li>Facebook, Instagram, YouTube</li>
+              <li>Business tagline</li>
+              <li>Easter promotion details</li>
+            </ul>
+          </section>
+
+          <section class="card">
+            <h2>3. Reviews</h2>
+            <p>Use <strong>Reviews</strong> to manage customer feedback on the homepage.</p>
+            <ul>
+              <li>Click <strong>Add New Review</strong></li>
+              <li>Fill in the customer name, city, service, stars, and review text</li>
+              <li>Leave <strong>Show on Website</strong> turned on</li>
+              <li>Click <strong>Save Review</strong></li>
+            </ul>
+          </section>
+
+          <section class="card">
+            <h2>4. Media Library</h2>
+            <p>Use <strong>Media Library</strong> to upload images for the website.</p>
+            <ul>
+              <li>Click the upload box</li>
+              <li>Select a JPG, PNG, or WebP image</li>
+              <li>After upload, click <strong>Copy URL</strong></li>
+              <li>Paste that image URL into a custom page or content area</li>
+            </ul>
+          </section>
+
+          <section class="card">
+            <h2>5. SEO Settings</h2>
+            <p>Use <strong>SEO Settings</strong> to control how pages appear in Google.</p>
+            <ul>
+              <li>Update the page title</li>
+              <li>Update the Google search title</li>
+              <li>Update the Google description</li>
+              <li>Turn Google visibility on or off</li>
+            </ul>
+          </section>
+
+          <section class="card">
+            <h2>6. Custom Pages</h2>
+            <p>Create new pages for services and cities to help more customers find the business online.</p>
+            <ul>
+              <li>Click <strong>Create New Page</strong></li>
+              <li>Enter the page URL slug</li>
+              <li>Add the page title, heading, and content</li>
+              <li>Add a hero image URL</li>
+              <li>Turn on <strong>Published</strong></li>
+              <li>Click <strong>Save Page</strong></li>
+            </ul>
+          </section>
+
+          <section class="card full">
+            <h2>Quick Example</h2>
+            <p>
+              To create a page for AC repair in Burbank:
+            </p>
+            <ol>
+              <li>Open <strong>Custom Pages</strong></li>
+              <li>Set the slug to <strong>ac-repair-burbank</strong></li>
+              <li>Write the title and page content</li>
+              <li>Add an image from the Media Library</li>
+              <li>Turn on <strong>Published</strong></li>
+              <li>Save the page</li>
+            </ol>
+            <p>
+              The page will then be available at:
+              <strong> bernardinomartinhvac.com/ac-repair-burbank</strong>
+            </p>
+          </section>
+
+          <section class="card full">
+            <h2>If Something Does Not Show</h2>
+            <ul>
+              <li>Make sure you clicked <strong>Save</strong></li>
+              <li>Check that the page is marked <strong>Published</strong></li>
+              <li>Check that the review is marked <strong>Show on Website</strong></li>
+              <li>Make sure the image uploaded correctly</li>
+              <li>Make sure the image URL is correct</li>
+            </ul>
+          </section>
+        </div>
+
+        <div class="footer">
+          This guide is designed for simple day-to-day use. If you want, a second version can be made with screenshots for each button and page.
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

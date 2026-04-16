@@ -11,6 +11,7 @@ import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { validateEmail } from "@/lib/email-validation";
+import { trackEvent } from "@/hooks/use-analytics";
 
 export default function Contact() {
   const [name, setName] = useState("");
@@ -27,6 +28,7 @@ export default function Contact() {
       return res.json();
     },
     onSuccess: () => {
+      trackEvent("contact_submitted");
       setSubmitted(true);
       toast({
         title: "Message Sent!",
