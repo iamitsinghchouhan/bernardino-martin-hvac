@@ -3,6 +3,28 @@ import { useLocation } from "wouter";
 import { apiRequest } from "@/lib/queryClient";
 import { SEO } from "@/components/seo";
 
+function getLoginErrorMessage(error: unknown): string {
+  const fallback = "Unable to sign in right now. Please try again.";
+  if (!(error instanceof Error)) return fallback;
+
+  const [, rawPayload] = error.message.split(": ", 2);
+  if (!rawPayload) return fallback;
+
+  try {
+    const parsed = JSON.parse(rawPayload) as { message?: string; errorCode?: string };
+    if (parsed.errorCode === "RATE_LIMITED") {
+      return "Too many login attempts. Please wait 15 minutes and try again.";
+    }
+    if (typeof parsed.message === "string" && parsed.message.trim()) {
+      return parsed.message;
+    }
+  } catch {
+    return rawPayload.trim() || fallback;
+  }
+
+  return fallback;
+}
+
 export default function AdminLogin() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -16,8 +38,8 @@ export default function AdminLogin() {
     try {
       await apiRequest("POST", "/api/admin/login", { password });
       navigate("/admin");
-    } catch {
-      setError("Invalid password. Please try again.");
+    } catch (err) {
+      setError(getLoginErrorMessage(err));
     } finally {
       setLoading(false);
     }

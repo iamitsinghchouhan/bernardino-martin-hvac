@@ -5,10 +5,18 @@ import { AppError } from "../utils/errors";
 
 export async function login(req: Request, res: Response, next: NextFunction) {
   try {
-    const { password } = req.body;
-    if (!password || password !== process.env.ADMIN_PASSWORD) {
+    const submittedPassword =
+      typeof req.body?.password === "string" ? req.body.password.trim() : "";
+    const configuredPassword = (process.env.ADMIN_PASSWORD ?? "").trim();
+
+    if (!configuredPassword) {
+      throw AppError.internal("ADMIN_PASSWORD is not configured on the server");
+    }
+
+    if (!submittedPassword || submittedPassword !== configuredPassword) {
       throw AppError.unauthorized("Invalid password");
     }
+
     const session = req.session as unknown as { isAdmin?: boolean };
     session.isAdmin = true;
     res.json({ success: true });
