@@ -1,11 +1,26 @@
 import type { Request, Response, NextFunction } from "express";
-import { AppError } from "../utils/errors";
+import { logger } from "../logger";
 
-export function requireAdmin(req: Request, _res: Response, next: NextFunction) {
-  const session = req.session as unknown as { isAdmin?: boolean };
-  console.log("requireAdmin check, session ID:", req.session.id, "isAdmin:", session.isAdmin);
-  if (!session.isAdmin) {
-    throw AppError.unauthorized();
+export function requireAdmin(req: Request, res: Response, next: NextFunction) {
+  logger.debug(
+    {
+      sessionId: req.sessionID,
+      isAdmin: req.session?.isAdmin ?? false,
+      path: req.path,
+    },
+    "requireAdmin check",
+  );
+
+  if (!req.session?.isAdmin) {
+    logger.warn(
+      {
+        sessionId: req.sessionID,
+        path: req.path,
+      },
+      "Unauthorized admin access attempt",
+    );
+    return res.status(401).json({ error: "Unauthorized - admin login required" });
   }
+
   next();
 }

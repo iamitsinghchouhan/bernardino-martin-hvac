@@ -265,6 +265,6 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   const port = Number(process.env.PORT || 3000);
 
   httpServer.listen(port, "0.0.0.0", () => {
-    logger.info(`🚀 Server running on port ${port}`);
+    logger.info(`Server running on port ${port}`);
   });
 })();
