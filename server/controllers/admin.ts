@@ -20,14 +20,7 @@ export async function login(req: Request, res: Response, next: NextFunction) {
     const session = req.session as unknown as { isAdmin?: boolean };
     session.isAdmin = true;
     console.log("Login successful, session ID:", req.session.id);
-    req.session.save((err) => {
-      if (err) {
-        console.error("Session save error:", err);
-        next(err);
-      } else {
-        res.json({ success: true });
-      }
-    });
+    res.json({ success: true });
   } catch (err) {
     next(err);
   }
