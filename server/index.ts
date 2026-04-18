@@ -156,7 +156,7 @@ app.use(
     saveUninitialized: false,
     proxy: isProduction,
     cookie: {
-      secure: isProduction,
+      secure: isProduction && process.env.LOCALHOST !== "true",
       httpOnly: true,
       sameSite: "lax",
       maxAge: 86_400_000,
