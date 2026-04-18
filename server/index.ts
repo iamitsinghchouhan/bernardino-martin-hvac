@@ -1,7 +1,8 @@
 import "dotenv/config";
 import express, { Request, Response, NextFunction } from "express";
 import session from "express-session";
-import connectPgSimple from "connect-pg-simple";
+// @ts-ignore - connect-pg-simple export handling
+const connectPgSimple = require("connect-pg-simple");
 import helmet from "helmet";
 import compression from "compression";
 import path from "path";
