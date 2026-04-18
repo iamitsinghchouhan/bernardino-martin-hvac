@@ -13,8 +13,8 @@ if (!/[?&]sslmode=/.test(connectionString)) {
 }
 
 const poolConfig: PoolConfig = {
-  connectionString,
-  ssl: { rejectUnauthorized: false },
+  connectionString: process.env.DATABASE_URL,
+  ssl: false,
   connectionTimeoutMillis: 10000,
   idleTimeoutMillis: 30000,
 };

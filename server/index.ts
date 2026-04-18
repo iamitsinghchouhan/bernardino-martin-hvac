@@ -31,8 +31,6 @@ if (!process.env.DATABASE_URL) {
 const app = express();
 const httpServer = createServer(app);
 
-app.set('trust proxy', 1);
-
 /* ================================
    Security
 ================================ */
