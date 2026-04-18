@@ -1,12 +1,10 @@
 import "dotenv/config";
 import express, { Request, Response, NextFunction } from "express";
 import session from "express-session";
-// @ts-ignore - connect-pg-simple export handling
-const connectPgSimple = require("connect-pg-simple");
+import ConnectPgSimple from "connect-pg-simple";
 import helmet from "helmet";
 import compression from "compression";
 import path from "path";
-import crypto from "crypto";
 import { createServer } from "http";
 
 import { registerRoutes } from "./routes";
@@ -109,7 +107,7 @@ app.use(sanitizeInput);
    Session Configuration
 ================================ */
 
-const PgStore = connectPgSimple(session);
+const PgStore = ConnectPgSimple(session);
 
 const sessionSecret =
   process.env.SESSION_SECRET || crypto.randomBytes(32).toString("hex");
@@ -117,8 +115,31 @@ const sessionSecret =
 const sessionStore = new PgStore({
   pool,
   tableName: "session",
-  createTableIfMissing: true,
+  // Remove createTableIfMissing to avoid table.sql file lookup
 });
+
+// Ensure session table exists
+async function initializeSessionTable() {
+  try {
+    const client = await pool.connect();
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS "session" (
+        "sid" varchar NOT NULL COLLATE "default",
+        "sess" json NOT NULL,
+        "expire" timestamp(6) NOT NULL,
+        PRIMARY KEY ("sid")
+      );
+      CREATE INDEX IF NOT EXISTS "IDX_session_expire" on "session" ("expire");
+    `);
+    client.release();
+    console.log("✅ Session table initialized");
+  } catch (err) {
+    console.error("❌ Failed to initialize session table:", err);
+  }
+}
+
+// Initialize session table before starting server
+initializeSessionTable();
 
 app.use(
   session({
