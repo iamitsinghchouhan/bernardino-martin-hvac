@@ -44,7 +44,11 @@ export async function logout(req: Request, res: Response, next: NextFunction) {
   }
 }
 
-export async function getMe(req: Request, res: Response) {\n  const isAdmin = (req.session as any)?.isAdmin ?? false;\n  console.log(\"getMe called, session ID:\", req.session.id, \"isAdmin:\", isAdmin);\n  res.json({ isAdmin });\n}
+export async function getMe(req: Request, res: Response) {
+  const isAdmin = (req.session as any)?.isAdmin ?? false;
+  console.log("getMe called, session ID:", req.session.id, "isAdmin:", isAdmin);
+  res.json({ isAdmin });
+}
 
 export async function getStats(_req: Request, res: Response, next: NextFunction) {
   try {
