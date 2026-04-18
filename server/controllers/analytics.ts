@@ -237,11 +237,11 @@ export async function getAnalyticsPages(_req: Request, res: Response, next: Next
       .orderBy(desc(viewsCount))
       .limit(10);
 
-    const totalViews = rows.reduce((sum, row) => sum + row.views, 0) || 1;
+    const totalViews = rows.reduce((sum, row) => sum + Number(row.views ?? 0), 0) || 1;
     res.json(rows.map((row) => ({
       page: row.page,
-      views: row.views,
-      percentage: Number(((row.views / totalViews) * 100).toFixed(1)),
+      views: Number(row.views ?? 0),
+      percentage: Number(((Number(row.views ?? 0) / totalViews) * 100).toFixed(1)),
     })));
   } catch (err) {
     next(err);
@@ -258,7 +258,7 @@ export async function getAnalyticsDevices(_req: Request, res: Response, next: Ne
       .from(pageViews)
       .groupBy(pageViews.deviceType);
 
-    const total = rows.reduce((sum, row) => sum + row.count, 0) || 1;
+    const total = rows.reduce((sum, row) => sum + Number(row.count ?? 0), 0) || 1;
     const values = {
       mobile: 0,
       tablet: 0,
@@ -268,7 +268,7 @@ export async function getAnalyticsDevices(_req: Request, res: Response, next: Ne
     for (const row of rows) {
       const key = (row.deviceType || "desktop") as keyof typeof values;
       if (key in values) {
-        values[key] = Number(((row.count / total) * 100).toFixed(1));
+        values[key] = Number(((Number(row.count ?? 0) / total) * 100).toFixed(1));
       }
     }
 
@@ -289,12 +289,12 @@ export async function getAnalyticsReferrers(_req: Request, res: Response, next: 
       .from(pageViews)
       .groupBy(pageViews.referrer);
 
-    const total = rows.reduce((sum, row) => sum + row.visitors, 0) || 1;
+    const total = rows.reduce((sum, row) => sum + Number(row.visitors ?? 0), 0) || 1;
     res.json(rows.map((row) => ({
       source: row.source || "Direct",
-      visitors: row.visitors,
-      percentage: Number(((row.visitors / total) * 100).toFixed(1)),
-    })).sort((a, b) => b.visitors - a.visitors));
+      visitors: Number(row.visitors ?? 0),
+      percentage: Number(((Number(row.visitors ?? 0) / total) * 100).toFixed(1)),
+    })).sort((a, b) => Number(b.visitors ?? 0) - Number(a.visitors ?? 0)));
   } catch (err) {
     next(err);
   }
