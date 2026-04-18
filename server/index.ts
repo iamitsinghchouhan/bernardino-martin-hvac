@@ -152,11 +152,11 @@ app.use(
   session({
     store: sessionStore,
     secret: sessionSecret || "fallback-dev-secret-change-in-production",
-    resave: false,
-    saveUninitialized: false,
+    resave: true,
+    saveUninitialized: true,
     proxy: isProduction,
     cookie: {
-      secure: isProduction && process.env.LOCALHOST !== "true",
+      secure: false,
       httpOnly: true,
       sameSite: "lax",
       maxAge: 86_400_000,

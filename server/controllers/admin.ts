@@ -17,18 +17,19 @@ export async function login(req: Request, res: Response, next: NextFunction) {
       throw AppError.unauthorized("Invalid password");
     }
 
-    const session = req.session as unknown as { isAdmin?: boolean };
-    session.isAdmin = true;
-    console.log("Login successful, session ID:", req.session.id);
-    
-    // Explicitly save session before responding
-    req.session.save((err) => {
+    // Regenerate session ID to prevent fixation attacks
+    req.session.regenerate((err) => {
       if (err) {
-        console.error("Session save error:", err);
-        next(err);
-      } else {
-        res.json({ success: true });
+        console.error("Session regenerate error:", err);
+        return next(err);
       }
+
+      // Set admin flag on regenerated session
+      (req.session as any).isAdmin = true;
+      console.log("Login successful, session ID:", req.session.id, "isAdmin:", (req.session as any).isAdmin);
+
+      // Send response - session middleware will handle Set-Cookie header
+      res.json({ success: true });
     });
   } catch (err) {
     next(err);
@@ -45,11 +46,7 @@ export async function logout(req: Request, res: Response, next: NextFunction) {
   }
 }
 
-export async function getMe(req: Request, res: Response) {
-  const session = req.session as unknown as { isAdmin?: boolean };
-  console.log("getMe called, session ID:", req.session.id, "isAdmin:", session.isAdmin);
-  res.json({ isAdmin: !!session.isAdmin });
-}
+export async function getMe(req: Request, res: Response) {\n  const isAdmin = (req.session as any)?.isAdmin ?? false;\n  console.log(\"getMe called, session ID:\", req.session.id, \"isAdmin:\", isAdmin);\n  res.json({ isAdmin });\n}
 
 export async function getStats(_req: Request, res: Response, next: NextFunction) {
   try {
