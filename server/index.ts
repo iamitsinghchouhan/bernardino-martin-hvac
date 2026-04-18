@@ -154,15 +154,37 @@ app.use(
     secret: sessionSecret || "fallback-dev-secret-change-in-production",
     resave: true,
     saveUninitialized: true,
+    name: "connect.sid",
     proxy: isProduction,
     cookie: {
       secure: false,
       httpOnly: true,
       sameSite: "lax",
       maxAge: 86_400_000,
+      path: "/",
     },
   })
 );
+
+// Debug middleware to log session state
+app.use((req: Request, res: Response, next: NextFunction) => {
+  const originalJson = res.json.bind(res);
+  
+  res.json = function(data: any) {
+    // Log session before response is sent
+    console.log("📤 Response:", {
+      path: req.path,
+      method: req.method,
+      sessionId: req.sessionID,
+      sessionExists: !!req.session,
+      isAdmin: (req.session as any)?.isAdmin,
+    });
+    
+    return originalJson(data);
+  };
+  
+  next();
+});
 
 /* ================================
    Health Check

@@ -17,18 +17,16 @@ export async function login(req: Request, res: Response, next: NextFunction) {
       throw AppError.unauthorized("Invalid password");
     }
 
-    // Regenerate session ID to prevent fixation attacks
-    req.session.regenerate((err) => {
+    // Set the admin flag and let the middleware save it
+    (req.session as any).isAdmin = true;
+    console.log("Login successful, session ID:", req.session.id, "isAdmin: true");
+    
+    // Save session and send response
+    req.session.save((err) => {
       if (err) {
-        console.error("Session regenerate error:", err);
+        console.error("Session save error:", err);
         return next(err);
       }
-
-      // Set admin flag on regenerated session
-      (req.session as any).isAdmin = true;
-      console.log("Login successful, session ID:", req.session.id, "isAdmin:", (req.session as any).isAdmin);
-
-      // Send response - session middleware will handle Set-Cookie header
       res.json({ success: true });
     });
   } catch (err) {
