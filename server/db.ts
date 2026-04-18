@@ -6,15 +6,9 @@ if (!process.env.DATABASE_URL) {
   throw new Error("DATABASE_URL must be set. Did you forget to provision a database?");
 }
 
-let connectionString = process.env.DATABASE_URL;
-if (!/[?&]sslmode=/.test(connectionString)) {
-  const separator = connectionString.includes("?") ? "&" : "?";
-  connectionString += `${separator}sslmode=no-verify`;
-}
-
 const poolConfig: PoolConfig = {
-  connectionString,
-  ssl: { rejectUnauthorized: false },
+  connectionString: process.env.DATABASE_URL,
+  ssl: false,
   connectionTimeoutMillis: 10000,
   idleTimeoutMillis: 30000,
 };

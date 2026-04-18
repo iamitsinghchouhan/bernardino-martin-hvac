@@ -1,7 +1,7 @@
 import "dotenv/config";
 import express, { Request, Response, NextFunction } from "express";
 import session from "express-session";
-import connectPgSimple from "connect-pg-simple";
+// import connectPgSimple from "connect-pg-simple";
 import helmet from "helmet";
 import compression from "compression";
 import path from "path";
@@ -113,14 +113,14 @@ app.use(sanitizeInput);
 const PgStore = connectPgSimple(session);
 
 const sessionSecret =
-  process.env.SESSION_SECRET || crypto.randomBytes(32).toString("hex");
+// const PgStore = connectPgSimple(session);
 
 app.use(
   session({
-    store: new PgStore({
-      pool,
-      createTableIfMissing: true,
-    }),
+    // store: new PgStore({
+    //   pool,
+    //   createTableIfMissing: true,
+    // }),
     secret: sessionSecret,
     resave: false,
     saveUninitialized: false,
