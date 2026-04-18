@@ -9,11 +9,11 @@ if (!process.env.DATABASE_URL) {
 let connectionString = process.env.DATABASE_URL;
 if (!/[?&]sslmode=/.test(connectionString)) {
   const separator = connectionString.includes("?") ? "&" : "?";
-  connectionString += `${separator}sslmode=no-verify`;
+  connectionString += `${separator}sslmode=disable`;
 }
 
 const poolConfig: PoolConfig = {
-  connectionString: process.env.DATABASE_URL,
+  connectionString,
   ssl: false,
   connectionTimeoutMillis: 10000,
   idleTimeoutMillis: 30000,

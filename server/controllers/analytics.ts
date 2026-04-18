@@ -73,13 +73,13 @@ async function periodCounts(start: Date, end: Date) {
   }).from(invoices).where(and(eq(invoices.status, "paid"), gte(invoices.paidAt, start), lt(invoices.paidAt, end)));
 
   return {
-    visitors: pageStats?.visitors ?? 0,
-    pageViews: pageStats?.pageViews ?? 0,
-    bookings: bookingStats?.count ?? 0,
-    contacts: contactStats?.count ?? 0,
-    quotes: quoteStats?.count ?? 0,
-    phoneCalls: phoneStats?.count ?? 0,
-    whatsappClicks: whatsappStats?.count ?? 0,
+    visitors: Number(pageStats?.visitors ?? 0),
+    pageViews: Number(pageStats?.pageViews ?? 0),
+    bookings: Number(bookingStats?.count ?? 0),
+    contacts: Number(contactStats?.count ?? 0),
+    quotes: Number(quoteStats?.count ?? 0),
+    phoneCalls: Number(phoneStats?.count ?? 0),
+    whatsappClicks: Number(whatsappStats?.count ?? 0),
     revenue: Number(revenueStats?.total ?? 0),
   };
 }
@@ -99,12 +99,12 @@ async function getAllTimeStats() {
   }).from(invoices).where(eq(invoices.status, "paid"));
 
   return {
-    totalVisitors: pageStats?.totalVisitors ?? 0,
-    totalPageViews: pageStats?.totalPageViews ?? 0,
-    totalBookings: bookingStats?.totalBookings ?? 0,
+    totalVisitors: Number(pageStats?.totalVisitors ?? 0),
+    totalPageViews: Number(pageStats?.totalPageViews ?? 0),
+    totalBookings: Number(bookingStats?.totalBookings ?? 0),
     totalRevenue: Number(revenueStats?.totalRevenue ?? 0),
-    totalContacts: contactStats?.totalContacts ?? 0,
-    totalQuotes: quoteStats?.totalQuotes ?? 0,
+    totalContacts: Number(contactStats?.totalContacts ?? 0),
+    totalQuotes: Number(quoteStats?.totalQuotes ?? 0),
   };
 }
 
