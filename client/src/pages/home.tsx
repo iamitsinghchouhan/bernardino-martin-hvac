@@ -112,16 +112,6 @@ export default function Home() {
             </p>
             
             <div className="relative">
-              <div className="pointer-events-none absolute -inset-x-6 -inset-y-5 rounded-[2rem] bg-[radial-gradient(circle_at_top_left,_rgba(250,204,21,0.20),_transparent_36%),radial-gradient(circle_at_bottom_right,_rgba(244,114,182,0.18),_transparent_34%),radial-gradient(circle_at_center,_rgba(96,165,250,0.14),_transparent_46%)] blur-2xl" />
-              <div className="relative mb-5 inline-flex flex-wrap items-center gap-3 rounded-full border border-white/20 bg-white/12 px-4 py-2 text-sm font-semibold text-white shadow-lg backdrop-blur-md">
-                <span className="inline-flex items-center gap-2 rounded-full bg-amber-300/90 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.2em] text-amber-950">
-                  Easter25
-                </span>
-                <span>15% off qualifying services this weekend</span>
-                <Link href="/booking?promo=EASTER25" className="pointer-events-auto text-emerald-200 underline underline-offset-4 hover:text-white">
-                  Book with offer
-                </Link>
-              </div>
               <div className="relative flex flex-col sm:flex-row gap-4">
                 <Button size="lg" className="h-14 px-8 text-lg font-bold bg-primary hover:bg-primary/90 shadow-xl shadow-primary/20" asChild data-testid="button-hero-call">
                   <a href={`tel:${COMPANY_PHONE.replace(/\D/g, '')}`}>
@@ -136,7 +126,7 @@ export default function Home() {
                   </a>
                 </Button>
                 <Button size="lg" variant="outline" className="h-14 px-8 text-lg font-bold border-white/30 text-white hover:bg-white/10 backdrop-blur-sm" asChild data-testid="button-hero-book">
-                  <Link href="/booking?promo=EASTER25">
+                  <Link href="/booking">
                     <Calendar className="mr-2 h-5 w-5" aria-hidden="true" />
                     Book Online
                   </Link>
@@ -149,9 +139,9 @@ export default function Home() {
       </section>
 
       {/* Promos Section */}
-      <section className="py-12 bg-slate-50 border-b border-slate-200">
+      <section className="py-20 bg-slate-50 border-b border-slate-200 mt-12">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 -mt-24 relative z-20">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 relative z-10">
             {PROMOS.map((promo, i) => (
               <Card key={i} className={`border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden group cursor-pointer ${promo.code === "EASTER25" ? "bg-gradient-to-br from-amber-50 via-pink-50 to-emerald-50 ring-1 ring-amber-200/70" : "bg-white"}`} data-testid={`card-promo-${i}`}>
                 <Link href={promo.code === "EASTER25" ? "/booking?promo=EASTER25" : "/booking"}>
