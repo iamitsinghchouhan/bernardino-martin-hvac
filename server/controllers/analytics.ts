@@ -503,14 +503,14 @@ export async function aggregateDailyAnalytics() {
 
   const payload = insertDailyStatSchema.parse({
     date: targetKey,
-    totalVisitors: pageStats.visitors,
-    uniqueVisitors: uniqueVisitorStats?.uniqueVisitors ?? 0,
-    totalPageViews: pageStats.pageViews,
-    bookingsCreated: pageStats.bookings,
-    contactsCreated: pageStats.contacts,
-    quotesCreated: pageStats.quotes,
-    invoicesPaid: paidInvoicesStats?.invoicesPaid ?? 0,
-    revenueCollected: pageStats.revenue,
+    totalVisitors: Number(pageStats.visitors ?? 0),
+    uniqueVisitors: Number(uniqueVisitorStats?.uniqueVisitors ?? 0),
+    totalPageViews: Number(pageStats.pageViews ?? 0),
+    bookingsCreated: Number(pageStats.bookings ?? 0),
+    contactsCreated: Number(pageStats.contacts ?? 0),
+    quotesCreated: Number(pageStats.quotes ?? 0),
+    invoicesPaid: Number(paidInvoicesStats?.invoicesPaid ?? 0),
+    revenueCollected: Number(pageStats.revenue ?? 0),
   });
 
   const [existing] = await db.select().from(dailyStats).where(eq(dailyStats.date, targetKey));
