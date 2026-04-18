@@ -19,6 +19,7 @@ export async function login(req: Request, res: Response, next: NextFunction) {
 
     const session = req.session as unknown as { isAdmin?: boolean };
     session.isAdmin = true;
+    console.log("Login successful, session ID:", req.session.id);
     res.json({ success: true });
   } catch (err) {
     next(err);
@@ -37,6 +38,7 @@ export async function logout(req: Request, res: Response, next: NextFunction) {
 
 export async function getMe(req: Request, res: Response) {
   const session = req.session as unknown as { isAdmin?: boolean };
+  console.log("getMe called, session ID:", req.session.id, "isAdmin:", session.isAdmin);
   res.json({ isAdmin: !!session.isAdmin });
 }
 
