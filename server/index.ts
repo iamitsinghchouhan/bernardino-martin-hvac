@@ -113,8 +113,11 @@ app.use(sanitizeInput);
 
 const PgStore = ConnectPgSimple(session);
 
-const sessionSecret =
-  process.env.SESSION_SECRET || crypto.randomBytes(32).toString("hex");
+const sessionSecret = process.env.SESSION_SECRET?.trim();
+
+if (isProduction && !sessionSecret) {
+  throw new Error("SESSION_SECRET must be set in production");
+}
 
 const sessionStore = new PgStore({
   pool,
@@ -148,14 +151,15 @@ initializeSessionTable();
 app.use(
   session({
     store: sessionStore,
-    secret: sessionSecret,
+    secret: sessionSecret || "fallback-dev-secret-change-in-production",
     resave: false,
     saveUninitialized: false,
+    proxy: isProduction,
     cookie: {
       secure: isProduction,
       httpOnly: true,
       sameSite: "lax",
-      maxAge: 24 * 60 * 60 * 1000,
+      maxAge: 86_400_000,
     },
   })
 );
