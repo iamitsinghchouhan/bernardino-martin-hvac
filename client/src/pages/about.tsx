@@ -250,7 +250,7 @@ export default function About() {
       {/* ── Section 2: Company Story ── */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4 max-w-6xl">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <div className="max-w-3xl mx-auto text-center">
             <div className="space-y-5">
               <span className="text-secondary text-sm font-semibold uppercase tracking-widest">Our Story</span>
               <h2 className="text-3xl font-bold text-primary font-heading">Who We Are</h2>
@@ -262,15 +262,6 @@ export default function About() {
                 reliable, honest, and professional service at a fair price.
               </p>
             </div>
-            <div className="rounded-2xl overflow-hidden shadow-xl">
-              <img
-                src="/images/happy-family-tech.webp"
-                alt="Happy family with BERNARDINO MARTIN technician"
-                loading="lazy"
-                decoding="async"
-                className="w-full h-full object-cover"
-              />
-            </div>
           </div>
         </div>
       </section>
@@ -278,17 +269,8 @@ export default function About() {
       {/* ── Section 3: Meet the Owner ── */}
       <section className="py-16 bg-accent">
         <div className="container mx-auto px-4 max-w-6xl">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <div className="rounded-2xl overflow-hidden shadow-xl order-2 md:order-1">
-              <img
-                src="/images/technician.webp"
-                alt="Bernardino Martin, founder and lead technician"
-                loading="lazy"
-                decoding="async"
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="space-y-5 order-1 md:order-2">
+          <div className="max-w-3xl mx-auto text-center">
+            <div className="space-y-5">
               <span className="text-secondary text-sm font-semibold uppercase tracking-widest">The Founder</span>
               <h2 className="text-3xl font-bold text-primary font-heading">Meet Bernardino Martin</h2>
               <p className="text-slate-600 leading-relaxed text-base">
