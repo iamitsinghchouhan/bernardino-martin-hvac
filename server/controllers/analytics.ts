@@ -342,7 +342,7 @@ export async function getAnalyticsChart(req: Request, res: Response, next: NextF
       if (!sessionMap.has(key)) sessionMap.set(key, new Set());
       sessionMap.get(key)!.add(row.sessionId);
     }
-    for (const [key, sessions] of sessionMap.entries()) {
+    for (const [key, sessions] of Array.from(sessionMap.entries())) {
       const item = dateMap.get(key);
       if (item) item.visitors = sessions.size;
     }

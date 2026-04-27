@@ -1,0 +1,45 @@
+{
+  "id": 2,
+  "city": "San Fernando Valley",
+  "slug": "hvac-san-fernando-valley",
+  "region": "Greater Valley",
+  "population": "~1.8 million",
+  "zipCodes": [
+    "91401",
+    "91406",
+    "91335",
+    "91343"
+  ],
+  "description": "The San Fernando Valley covers a huge range of homes, apartments, offices, and retail properties, and the area is known for long hot summers that push cooling systems hard. Bernardino Martin supports Valley customers with fast repairs, efficient replacements, and maintenance plans that help equipment stay reliable through heavy seasonal demand and day-to-day high-temperature swings.",
+  "climate": "Very warm valley summers, sunny days, and cool winter evenings",
+  "commonServices": [
+    "AC Repair & Diagnostics",
+    "AC Installation",
+    "HVAC Maintenance",
+    "Heating System Services"
+  ],
+  "serviceAreas": [
+    "East Valley",
+    "Central Valley",
+    "West Valley",
+    "Lake Balboa"
+  ],
+  "responseTime": "20-35 minutes",
+  "videoFile": "city-san-fernando-valley.mp4",
+  "imageFile": "san-fernando-valley-hero.png",
+  "metaDescription": "Trusted HVAC services in San Fernando Valley - AC repair, replacement, heating and maintenance for Valley homes. Call (818) 400-0227 today.",
+  "metaKeywords": "HVAC San Fernando Valley, AC repair San Fernando Valley, Valley heating service, Valley HVAC contractor",
+  "localPhone": "(818) 400-0227",
+  "nearestCities": [
+    "Van Nuys",
+    "North Hollywood",
+    "Reseda",
+    "Northridge"
+  ],
+  "notableLandmarks": [
+    "Sepulveda Basin",
+    "Sherman Oaks Galleria",
+    "Valley Performing Arts Center"
+  ],
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+}

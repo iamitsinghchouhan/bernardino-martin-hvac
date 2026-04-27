@@ -1,0 +1,44 @@
+{
+  "id": 8,
+  "city": "Northridge",
+  "slug": "hvac-northridge",
+  "region": "North Central Valley",
+  "population": "~70,000",
+  "zipCodes": [
+    "91324",
+    "91325",
+    "91330"
+  ],
+  "description": "Northridge has a mix of family homes, student-adjacent rentals, and established neighborhoods where HVAC performance matters through long hot summers. Bernardino Martin helps Northridge customers solve cooling issues, maintain airflow, and plan equipment upgrades that support dependable comfort without overspending on guesswork or short-term fixes.",
+  "climate": "Hot valley conditions with extended summer use and dry winter air",
+  "commonServices": [
+    "AC Repair & Diagnostics",
+    "HVAC Maintenance",
+    "AC Installation",
+    "Duct Cleaning & Installation"
+  ],
+  "serviceAreas": [
+    "CSUN area",
+    "Porter Ranch edge",
+    "Reseda Boulevard corridor",
+    "Devonshire area"
+  ],
+  "responseTime": "20-35 minutes",
+  "videoFile": "city-northridge.mp4",
+  "imageFile": "northridge-hero.png",
+  "metaDescription": "Northridge HVAC experts for AC repair, maintenance, installation and ductwork improvements. Fast local response. Call (818) 400-0227.",
+  "metaKeywords": "HVAC Northridge, AC repair Northridge, HVAC maintenance Northridge, ductwork Northridge",
+  "localPhone": "(818) 400-0227",
+  "nearestCities": [
+    "Chatsworth",
+    "Reseda",
+    "Van Nuys",
+    "Canoga Park"
+  ],
+  "notableLandmarks": [
+    "California State University Northridge",
+    "Northridge Fashion Center",
+    "Porter Ranch-adjacent neighborhoods"
+  ],
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+}

@@ -311,12 +311,12 @@ export default function AdminCMSAnalytics() {
   const topDevice = useMemo(() => {
     const devices = devicesQuery.data;
     if (!devices) return "mobile phone";
-    const pairs = [
+    const pairs: Array<[string, number]> = [
       ["mobile phone", devices.mobile],
       ["tablet", devices.tablet],
       ["computer", devices.desktop],
-    ] as const;
-    return pairs.sort((a, b) => b[1] - a[1])[0][0];
+    ];
+    return [...pairs].sort((a, b) => b[1] - a[1])[0][0];
   }, [devicesQuery.data]);
 
   function setStep(index: number, checked: boolean) {

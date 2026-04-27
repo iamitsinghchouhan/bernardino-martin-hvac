@@ -1,0 +1,43 @@
+{
+  "id": 16,
+  "city": "Tarzana",
+  "slug": "hvac-tarzana",
+  "region": "South West Valley",
+  "population": "~38,000",
+  "zipCodes": [
+    "91356",
+    "91357"
+  ],
+  "description": "Tarzana properties often rely on strong HVAC performance to stay comfortable through extended summer heat and wide afternoon temperature swings. Bernardino Martin helps Tarzana customers with cooling diagnostics, maintenance, and system upgrades that support better air distribution, cleaner operation, and dependable comfort for homes of different sizes and layouts.",
+  "climate": "Hot west-valley weather with dry summer afternoons and cool nights",
+  "commonServices": [
+    "AC Repair & Diagnostics",
+    "HVAC Maintenance",
+    "AC Installation",
+    "Heating System Services"
+  ],
+  "serviceAreas": [
+    "South of Ventura",
+    "Tarzana Village",
+    "Corbin corridor",
+    "Hillside pockets"
+  ],
+  "responseTime": "20-35 minutes",
+  "videoFile": "city-tarzana.mp4",
+  "imageFile": "tarzana-hero.png",
+  "metaDescription": "Tarzana HVAC service for AC repair, installation, heating and seasonal maintenance from Bernardino Martin. Call (818) 400-0227.",
+  "metaKeywords": "HVAC Tarzana, AC repair Tarzana, heating Tarzana, HVAC maintenance Tarzana",
+  "localPhone": "(818) 400-0227",
+  "nearestCities": [
+    "Encino",
+    "Woodland Hills",
+    "Reseda",
+    "Calabasas"
+  ],
+  "notableLandmarks": [
+    "Ventura Boulevard",
+    "Tarzana Recreation Center",
+    "Corbin Canyon edge"
+  ],
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+}

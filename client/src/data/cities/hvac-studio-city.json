@@ -1,0 +1,43 @@
+{
+  "id": 14,
+  "city": "Studio City",
+  "slug": "hvac-studio-city",
+  "region": "South East Valley",
+  "population": "~45,000",
+  "zipCodes": [
+    "91604",
+    "91614"
+  ],
+  "description": "Studio City properties range from compact homes to hillside residences, and many depend on HVAC systems that need to stay effective without adding noise or uneven airflow. Bernardino Martin provides Studio City with cooling repairs, maintenance, and replacement guidance that supports comfort through warm afternoons, seasonal dust, and the demands of varied home layouts.",
+  "climate": "Warm inland weather with sunny afternoons and cooler canyon evenings",
+  "commonServices": [
+    "AC Repair & Diagnostics",
+    "Ductless Mini-Split Systems",
+    "HVAC Maintenance",
+    "Heating System Services"
+  ],
+  "serviceAreas": [
+    "Colfax Meadows",
+    "Silver Triangle",
+    "Fryman Canyon area",
+    "Ventura corridor"
+  ],
+  "responseTime": "15-30 minutes",
+  "videoFile": "city-studio-city.mp4",
+  "imageFile": "studio-city-hero.png",
+  "metaDescription": "Studio City HVAC services for AC repair, maintenance, mini-splits and heating support from Bernardino Martin. Call (818) 400-0227.",
+  "metaKeywords": "HVAC Studio City, AC repair Studio City, mini split Studio City, heating Studio City",
+  "localPhone": "(818) 400-0227",
+  "nearestCities": [
+    "North Hollywood",
+    "Sherman Oaks",
+    "Hollywood",
+    "Encino"
+  ],
+  "notableLandmarks": [
+    "Ventura Boulevard",
+    "Fryman Canyon",
+    "CBS Studio Center area"
+  ],
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+}

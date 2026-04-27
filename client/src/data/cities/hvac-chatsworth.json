@@ -1,0 +1,43 @@
+{
+  "id": 7,
+  "city": "Chatsworth",
+  "slug": "hvac-chatsworth",
+  "region": "Northwest San Fernando Valley",
+  "population": "~40,000",
+  "zipCodes": [
+    "91311",
+    "91313"
+  ],
+  "description": "Chatsworth homes often deal with strong sun exposure, warm summer afternoons, and larger lot layouts that can make airflow balancing more important. Bernardino Martin provides HVAC service in Chatsworth for families who want reliable cooling, better duct performance, and heating systems that stay dependable through both hot valley days and cooler seasonal nights.",
+  "climate": "Very warm northwest valley weather with dry air and sun exposure",
+  "commonServices": [
+    "AC Installation",
+    "AC Repair & Diagnostics",
+    "Duct Cleaning & Installation",
+    "Heating System Services"
+  ],
+  "serviceAreas": [
+    "Old Chatsworth",
+    "Indian Springs",
+    "Stoney Point area",
+    "Chatsworth Lake Manor"
+  ],
+  "responseTime": "25-40 minutes",
+  "videoFile": "city-chatsworth.mp4",
+  "imageFile": "chatsworth-hero.png",
+  "metaDescription": "Chatsworth HVAC services for AC repair, installation, duct upgrades and heating support. Reliable valley comfort from a licensed contractor. (818) 400-0227.",
+  "metaKeywords": "HVAC Chatsworth, AC repair Chatsworth, heating Chatsworth, duct installation Chatsworth",
+  "localPhone": "(818) 400-0227",
+  "nearestCities": [
+    "Northridge",
+    "Canoga Park",
+    "West Hills",
+    "Woodland Hills"
+  ],
+  "notableLandmarks": [
+    "Stoney Point Park",
+    "Chatsworth Reservoir area",
+    "Santa Susana Pass"
+  ],
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+}

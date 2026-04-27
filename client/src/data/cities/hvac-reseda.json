@@ -1,0 +1,43 @@
+{
+  "id": 9,
+  "city": "Reseda",
+  "slug": "hvac-reseda",
+  "region": "Central West Valley",
+  "population": "~75,000",
+  "zipCodes": [
+    "91335",
+    "91337"
+  ],
+  "description": "Reseda homes often need practical HVAC solutions for aging systems, uneven airflow, and everyday valley heat that pushes equipment throughout the season. Bernardino Martin serves Reseda with repair, maintenance, and duct-focused improvements that help homeowners restore comfort, reduce strain on older units, and make cooling performance more consistent room to room.",
+  "climate": "Warm west-valley summers with dry afternoons and cool overnight dips",
+  "commonServices": [
+    "AC Repair & Diagnostics",
+    "HVAC Maintenance",
+    "Duct Cleaning & Installation",
+    "Heating System Services"
+  ],
+  "serviceAreas": [
+    "South Reseda",
+    "Sherman Way corridor",
+    "Reseda Ranch",
+    "Lindley Avenue area"
+  ],
+  "responseTime": "20-35 minutes",
+  "videoFile": "city-reseda.mp4",
+  "imageFile": "reseda-hero.png",
+  "metaDescription": "Reseda HVAC service for AC repair, maintenance, heating and duct upgrades. Trusted local comfort solutions. Call (818) 400-0227.",
+  "metaKeywords": "HVAC Reseda, AC repair Reseda, heating service Reseda, duct cleaning Reseda",
+  "localPhone": "(818) 400-0227",
+  "nearestCities": [
+    "Van Nuys",
+    "Northridge",
+    "Canoga Park",
+    "Tarzana"
+  ],
+  "notableLandmarks": [
+    "Reseda Park",
+    "Los Angeles River edge",
+    "West Valley neighborhoods"
+  ],
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+}

@@ -1,0 +1,45 @@
+{
+  "id": 4,
+  "city": "Hollywood",
+  "slug": "hvac-hollywood",
+  "region": "Central Los Angeles",
+  "population": "~70,000",
+  "zipCodes": [
+    "90028",
+    "90038",
+    "90046",
+    "90068"
+  ],
+  "description": "Hollywood includes classic apartment buildings, compact homes, and busy mixed-use properties that often need HVAC solutions tailored to tight footprints and varied building ages. Bernardino Martin provides air conditioning repair, heating support, and maintenance for Hollywood customers who need dependable comfort, cleaner airflow, and practical system guidance in a dense urban setting.",
+  "climate": "Warm urban summers, mild winters, and strong afternoon heat pockets",
+  "commonServices": [
+    "AC Repair & Diagnostics",
+    "HVAC Maintenance",
+    "Ductless Mini-Split Systems",
+    "Heating System Services"
+  ],
+  "serviceAreas": [
+    "Hollywood Hills",
+    "Thai Town",
+    "East Hollywood",
+    "Franklin Village"
+  ],
+  "responseTime": "20-35 minutes",
+  "videoFile": "city-hollywood.mp4",
+  "imageFile": "hollywood-hero.png",
+  "metaDescription": "Professional HVAC services in Hollywood - AC repair, ductless installation, heating and maintenance for homes and mixed-use spaces. (818) 400-0227.",
+  "metaKeywords": "HVAC Hollywood, AC repair Hollywood, ductless Hollywood, heating service Hollywood",
+  "localPhone": "(818) 400-0227",
+  "nearestCities": [
+    "Glendale",
+    "Santa Monica",
+    "North Hollywood",
+    "Studio City"
+  ],
+  "notableLandmarks": [
+    "Hollywood Bowl",
+    "Hollywood Walk of Fame",
+    "Griffith Park edge"
+  ],
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+}

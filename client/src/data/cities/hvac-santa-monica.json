@@ -1,0 +1,45 @@
+{
+  "id": 3,
+  "city": "Santa Monica",
+  "slug": "hvac-santa-monica",
+  "region": "Westside",
+  "population": "~90,000",
+  "zipCodes": [
+    "90401",
+    "90402",
+    "90403",
+    "90405"
+  ],
+  "description": "Santa Monica properties benefit from ocean air, but coastal moisture, salt exposure, and older beach-adjacent construction can create their own HVAC challenges. Bernardino Martin helps Santa Monica homeowners and property managers keep cooling, ventilation, and ductless systems working efficiently while protecting indoor comfort in homes that need clean airflow and dependable performance near the coast.",
+  "climate": "Mild coastal temperatures with marine air and occasional humidity",
+  "commonServices": [
+    "HVAC Maintenance",
+    "Ductless Mini-Split Systems",
+    "AC Installation",
+    "Duct Cleaning & Installation"
+  ],
+  "serviceAreas": [
+    "Ocean Park",
+    "Mid-City",
+    "North of Montana",
+    "Sunset Park"
+  ],
+  "responseTime": "25-40 minutes",
+  "videoFile": "city-santa-monica.mp4",
+  "imageFile": "santa-monica-hero.png",
+  "metaDescription": "HVAC services in Santa Monica - coastal AC repair, installation, ductless systems and maintenance from a licensed local team. (818) 400-0227.",
+  "metaKeywords": "HVAC Santa Monica, AC repair Santa Monica, ductless Santa Monica, heating Santa Monica",
+  "localPhone": "(818) 400-0227",
+  "nearestCities": [
+    "Hollywood",
+    "Sherman Oaks",
+    "Studio City",
+    "Encino"
+  ],
+  "notableLandmarks": [
+    "Santa Monica Pier",
+    "Montana Avenue",
+    "Palisades Park"
+  ],
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+}

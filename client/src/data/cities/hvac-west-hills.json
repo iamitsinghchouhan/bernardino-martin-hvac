@@ -1,0 +1,44 @@
+{
+  "id": 17,
+  "city": "West Hills",
+  "slug": "hvac-west-hills",
+  "region": "Far West Valley",
+  "population": "~40,000",
+  "zipCodes": [
+    "91304",
+    "91307",
+    "91308"
+  ],
+  "description": "West Hills homes face long, hot summer stretches and often need HVAC systems that can cool efficiently without falling behind during peak demand. Bernardino Martin serves West Hills with repairs, maintenance, and installation support that improves comfort, airflow, and equipment reliability for households looking for steady performance across the far west Valley.",
+  "climate": "Hot far-west valley summers with dry afternoons and mild winters",
+  "commonServices": [
+    "AC Repair & Diagnostics",
+    "AC Installation",
+    "HVAC Maintenance",
+    "Duct Cleaning & Installation"
+  ],
+  "serviceAreas": [
+    "Castle Peak area",
+    "Shadow Ranch",
+    "Valley Circle corridor",
+    "Medical Center district"
+  ],
+  "responseTime": "25-40 minutes",
+  "videoFile": "city-west-hills.mp4",
+  "imageFile": "west-hills-hero.png",
+  "metaDescription": "West Hills HVAC services for AC repair, installation, maintenance and ductwork improvements. Fast local support. Call (818) 400-0227.",
+  "metaKeywords": "HVAC West Hills, AC repair West Hills, AC installation West Hills, ductwork West Hills",
+  "localPhone": "(818) 400-0227",
+  "nearestCities": [
+    "Canoga Park",
+    "Woodland Hills",
+    "Chatsworth",
+    "Calabasas"
+  ],
+  "notableLandmarks": [
+    "West Hills Hospital area",
+    "Upper Las Virgenes edge",
+    "Shadow Ranch Park"
+  ],
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+}

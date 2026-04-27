@@ -20,13 +20,21 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { apiRequest } from "@/lib/queryClient";
 
-type MenuItem = {
-  label: string;
-  href?: string;
-  icon?: typeof LayoutDashboard;
-  divider?: string;
-  onClick?: () => void;
-};
+type MenuItem =
+  | {
+      label: string;
+      href?: string;
+      icon?: typeof LayoutDashboard;
+      onClick?: () => void;
+      divider?: never;
+    }
+  | {
+      divider: string;
+      label?: never;
+      href?: never;
+      icon?: never;
+      onClick?: never;
+    };
 
 const baseItemClass =
   "flex w-full items-center gap-4 rounded-2xl px-5 py-4 text-left text-lg font-semibold text-white transition-colors hover:bg-blue-700";

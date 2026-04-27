@@ -37,6 +37,22 @@ const IrrigationLosAngeles = lazy(() => import("@/pages/seo/irrigation-los-angel
 const NetworkLosAngeles = lazy(() => import("@/pages/seo/network-los-angeles"));
 const HvacBurbank = lazy(() => import("@/pages/seo/hvac-burbank"));
 const HvacGlendale = lazy(() => import("@/pages/seo/hvac-glendale"));
+const HvacSanFernandoValley = lazy(() => import("@/pages/seo/hvac-san-fernando-valley"));
+const HvacSantaMonica = lazy(() => import("@/pages/seo/hvac-santa-monica"));
+const HvacHollywood = lazy(() => import("@/pages/seo/hvac-hollywood"));
+const HvacNorthHollywood = lazy(() => import("@/pages/seo/hvac-north-hollywood"));
+const HvacVanNuys = lazy(() => import("@/pages/seo/hvac-van-nuys"));
+const HvacChatsworth = lazy(() => import("@/pages/seo/hvac-chatsworth"));
+const HvacNorthridge = lazy(() => import("@/pages/seo/hvac-northridge"));
+const HvacReseda = lazy(() => import("@/pages/seo/hvac-reseda"));
+const HvacCanogaPark = lazy(() => import("@/pages/seo/hvac-canoga-park"));
+const HvacWoodlandHills = lazy(() => import("@/pages/seo/hvac-woodland-hills"));
+const HvacCalabasas = lazy(() => import("@/pages/seo/hvac-calabasas"));
+const HvacShermanOaks = lazy(() => import("@/pages/seo/hvac-sherman-oaks"));
+const HvacStudioCity = lazy(() => import("@/pages/seo/hvac-studio-city"));
+const HvacEncino = lazy(() => import("@/pages/seo/hvac-encino"));
+const HvacTarzana = lazy(() => import("@/pages/seo/hvac-tarzana"));
+const HvacWestHills = lazy(() => import("@/pages/seo/hvac-west-hills"));
 const HvacPasadena = lazy(() => import("@/pages/seo/hvac-pasadena"));
 const AirConditioningServiceLosAngeles = lazy(() => import("@/pages/seo/air-conditioning-service-los-angeles"));
 const AcRepairLosAngeles = lazy(() => import("@/pages/seo/ac-repair-los-angeles"));
@@ -106,6 +122,22 @@ function Router() {
         <Route path="/network-installation-los-angeles" component={NetworkLosAngeles} />
         <Route path="/hvac-burbank" component={HvacBurbank} />
         <Route path="/hvac-glendale" component={HvacGlendale} />
+        <Route path="/hvac-san-fernando-valley" component={HvacSanFernandoValley} />
+        <Route path="/hvac-santa-monica" component={HvacSantaMonica} />
+        <Route path="/hvac-hollywood" component={HvacHollywood} />
+        <Route path="/hvac-north-hollywood" component={HvacNorthHollywood} />
+        <Route path="/hvac-van-nuys" component={HvacVanNuys} />
+        <Route path="/hvac-chatsworth" component={HvacChatsworth} />
+        <Route path="/hvac-northridge" component={HvacNorthridge} />
+        <Route path="/hvac-reseda" component={HvacReseda} />
+        <Route path="/hvac-canoga-park" component={HvacCanogaPark} />
+        <Route path="/hvac-woodland-hills" component={HvacWoodlandHills} />
+        <Route path="/hvac-calabasas" component={HvacCalabasas} />
+        <Route path="/hvac-sherman-oaks" component={HvacShermanOaks} />
+        <Route path="/hvac-studio-city" component={HvacStudioCity} />
+        <Route path="/hvac-encino" component={HvacEncino} />
+        <Route path="/hvac-tarzana" component={HvacTarzana} />
+        <Route path="/hvac-west-hills" component={HvacWestHills} />
         <Route path="/hvac-pasadena" component={HvacPasadena} />
         <Route path="/air-conditioning-service-los-angeles" component={AirConditioningServiceLosAngeles} />
         <Route path="/ac-repair-los-angeles" component={AcRepairLosAngeles} />

@@ -1,0 +1,43 @@
+{
+  "id": 10,
+  "city": "Canoga Park",
+  "slug": "hvac-canoga-park",
+  "region": "West San Fernando Valley",
+  "population": "~65,000",
+  "zipCodes": [
+    "91303",
+    "91304"
+  ],
+  "description": "Canoga Park includes established residential streets, apartment communities, and busy commercial pockets where HVAC systems need to keep up with strong west-valley heat. Bernardino Martin helps Canoga Park customers with fast cooling repairs, preventative maintenance, and replacement planning that improves day-to-day comfort while supporting cleaner and more efficient system performance.",
+  "climate": "Hot west-valley summers with long sun exposure and dry air",
+  "commonServices": [
+    "AC Repair & Diagnostics",
+    "AC Installation",
+    "HVAC Maintenance",
+    "Ductless Mini-Split Systems"
+  ],
+  "serviceAreas": [
+    "Warner-adjacent neighborhoods",
+    "Owensmouth area",
+    "Sherman Way West",
+    "Roscoe corridor"
+  ],
+  "responseTime": "20-35 minutes",
+  "videoFile": "city-canoga-park.mp4",
+  "imageFile": "canoga-park-hero.png",
+  "metaDescription": "Canoga Park HVAC services for AC repair, new installations, mini-splits and maintenance. Licensed local contractor. Call (818) 400-0227.",
+  "metaKeywords": "HVAC Canoga Park, AC repair Canoga Park, mini split Canoga Park, HVAC installation Canoga Park",
+  "localPhone": "(818) 400-0227",
+  "nearestCities": [
+    "Reseda",
+    "Woodland Hills",
+    "West Hills",
+    "Chatsworth"
+  ],
+  "notableLandmarks": [
+    "Westfield Topanga area",
+    "Warner Center nearby",
+    "Lanark Park"
+  ],
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+}

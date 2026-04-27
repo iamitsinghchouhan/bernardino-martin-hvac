@@ -1,0 +1,43 @@
+{
+  "id": 12,
+  "city": "Calabasas",
+  "slug": "hvac-calabasas",
+  "region": "West Valley Foothills",
+  "population": "~24,000",
+  "zipCodes": [
+    "91302",
+    "91372"
+  ],
+  "description": "Calabasas homes often feature larger layouts, hillside exposure, and higher expectations for quiet, efficient HVAC performance. Bernardino Martin serves Calabasas with air conditioning, heating, and maintenance work tailored to properties that need strong comfort control, balanced airflow, and dependable equipment operation during long, warm foothill afternoons.",
+  "climate": "Warm foothill summers with dry afternoons and cooler evenings",
+  "commonServices": [
+    "AC Installation",
+    "HVAC Maintenance",
+    "Ductless Mini-Split Systems",
+    "Heating System Services"
+  ],
+  "serviceAreas": [
+    "The Oaks",
+    "Calabasas Highlands",
+    "Mulholland corridor",
+    "Old Town Calabasas"
+  ],
+  "responseTime": "25-40 minutes",
+  "videoFile": "city-calabasas.mp4",
+  "imageFile": "calabasas-hero.png",
+  "metaDescription": "Calabasas HVAC services for premium AC installation, maintenance, heating and ductless comfort upgrades. Call (818) 400-0227.",
+  "metaKeywords": "HVAC Calabasas, AC installation Calabasas, heating Calabasas, ductless Calabasas",
+  "localPhone": "(818) 400-0227",
+  "nearestCities": [
+    "Woodland Hills",
+    "Tarzana",
+    "West Hills",
+    "Encino"
+  ],
+  "notableLandmarks": [
+    "The Commons at Calabasas",
+    "Calabasas Lake",
+    "Malibu Canyon gateway"
+  ],
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+}

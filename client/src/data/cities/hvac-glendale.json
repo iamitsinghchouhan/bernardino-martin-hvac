@@ -1,0 +1,45 @@
+{
+  "id": 1,
+  "city": "Glendale",
+  "slug": "hvac-glendale",
+  "region": "Foothill Gateway",
+  "population": "~200,000",
+  "zipCodes": [
+    "91201",
+    "91202",
+    "91203",
+    "91204"
+  ],
+  "description": "Glendale blends dense residential neighborhoods, hillside streets, and busy mixed-use corridors, so HVAC systems here often deal with both heat exposure and older duct layouts. Bernardino Martin helps Glendale homeowners with cooling repairs, heating service, and tune-ups that improve comfort during long summer afternoons, Santa Ana wind events, and seasonal indoor air quality swings.",
+  "climate": "Warm inland summers with dry wind events and mild winters",
+  "commonServices": [
+    "AC Repair & Diagnostics",
+    "HVAC Maintenance",
+    "Duct Cleaning & Installation",
+    "Heating System Services"
+  ],
+  "serviceAreas": [
+    "Downtown Glendale",
+    "Adams Hill",
+    "Sparr Heights",
+    "Glenoaks Canyon"
+  ],
+  "responseTime": "15-30 minutes",
+  "videoFile": "city-glendale.mp4",
+  "imageFile": "glendale-hero.png",
+  "metaDescription": "Professional HVAC services in Glendale - AC repair, installation, heating and maintenance from a licensed local contractor. Call (818) 400-0227.",
+  "metaKeywords": "HVAC Glendale, AC repair Glendale, heating service Glendale, air conditioning Glendale",
+  "localPhone": "(818) 400-0227",
+  "nearestCities": [
+    "Hollywood",
+    "North Hollywood",
+    "Studio City",
+    "San Fernando Valley"
+  ],
+  "notableLandmarks": [
+    "Glendale Galleria",
+    "Brand Park",
+    "Forest Lawn Memorial Park"
+  ],
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+}

@@ -1,0 +1,21 @@
+export type CityData = {
+  id: number;
+  city: string;
+  slug: string;
+  region: string;
+  population: string;
+  zipCodes: string[];
+  description: string;
+  climate: string;
+  commonServices: string[];
+  serviceAreas: string[];
+  responseTime: string;
+  videoFile: string;
+  imageFile: string;
+  metaDescription: string;
+  metaKeywords: string;
+  localPhone: string;
+  nearestCities: string[];
+  notableLandmarks: string[];
+  googleMyBusinessUrl: string;
+};

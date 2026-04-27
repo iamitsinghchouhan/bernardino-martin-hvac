@@ -1,0 +1,43 @@
+{
+  "id": 11,
+  "city": "Woodland Hills",
+  "slug": "hvac-woodland-hills",
+  "region": "West Valley",
+  "population": "~80,000",
+  "zipCodes": [
+    "91364",
+    "91367"
+  ],
+  "description": "Woodland Hills is known for high summer temperatures, larger homes, and neighborhoods where HVAC equipment needs to handle heavy cooling demand without sacrificing efficiency. Bernardino Martin provides Woodland Hills customers with repairs, tune-ups, and installation support designed for stronger airflow, better zoning, and comfort that holds up through the hottest stretches of the season.",
+  "climate": "Very hot inland summers with strong sun exposure and mild winters",
+  "commonServices": [
+    "AC Installation",
+    "AC Repair & Diagnostics",
+    "HVAC Maintenance",
+    "Ductless Mini-Split Systems"
+  ],
+  "serviceAreas": [
+    "Walnut Acres",
+    "Carlton Terrace",
+    "Warner Center",
+    "South of Ventura"
+  ],
+  "responseTime": "20-35 minutes",
+  "videoFile": "city-woodland-hills.mp4",
+  "imageFile": "woodland-hills-hero.png",
+  "metaDescription": "Woodland Hills HVAC experts for AC installation, repair, maintenance and mini-splits. Built for hot west-valley homes. (818) 400-0227.",
+  "metaKeywords": "HVAC Woodland Hills, AC repair Woodland Hills, AC installation Woodland Hills, mini split Woodland Hills",
+  "localPhone": "(818) 400-0227",
+  "nearestCities": [
+    "Canoga Park",
+    "Tarzana",
+    "Calabasas",
+    "West Hills"
+  ],
+  "notableLandmarks": [
+    "Warner Center",
+    "Topanga Village",
+    "Mulholland-adjacent neighborhoods"
+  ],
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+}

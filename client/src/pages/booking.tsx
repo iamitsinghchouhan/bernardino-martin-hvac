@@ -29,6 +29,7 @@ export default function Booking() {
   const { toast } = useToast();
   const [location] = useLocation();
   const preselectedServiceId = new URLSearchParams(window.location.search).get("service");
+  const preselectedCity = new URLSearchParams(window.location.search).get("city");
 
   useEffect(() => {
     trackEvent("booking_started");
@@ -37,11 +38,19 @@ export default function Booking() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const serviceFromQuery = params.get("service");
-    if (!serviceFromQuery) return;
+    const cityFromQuery = params.get("city");
 
-    const matchedService = SERVICES.find((service) => service.id === serviceFromQuery);
-    if (matchedService) {
-      setSelectedService(matchedService.id);
+    if (serviceFromQuery) {
+      const matchedService = SERVICES.find((service) => service.id === serviceFromQuery);
+      if (matchedService) {
+        setSelectedService(matchedService.id);
+      }
+    }
+
+    if (cityFromQuery) {
+      setNotes((currentNotes) =>
+        currentNotes || `Service area requested: ${cityFromQuery}`,
+      );
     }
   }, [location]);
 
@@ -147,13 +156,24 @@ export default function Booking() {
               <CardDescription>Select your service and preferred availability.</CardDescription>
             </CardHeader>
             <CardContent>
-              {preselectedServiceId && preselectedService?.id === preselectedServiceId && (
+              {(preselectedServiceId && preselectedService?.id === preselectedServiceId) || preselectedCity ? (
                 <div className="mb-6 rounded-2xl border border-blue-200 bg-blue-50 px-4 py-4 text-blue-900">
-                  <p className="text-sm font-semibold md:text-base">
-                    You selected: {preselectedService.title} - fill in your details below to confirm your booking.
-                  </p>
+                  {preselectedServiceId && preselectedService?.id === preselectedServiceId ? (
+                    <p className="text-sm font-semibold md:text-base">
+                      You selected: {preselectedService.title} - fill in your details below to confirm your booking.
+                    </p>
+                  ) : (
+                    <p className="text-sm font-semibold md:text-base">
+                      Service area selected - fill in your details below and we will route your booking correctly.
+                    </p>
+                  )}
+                  {preselectedCity ? (
+                    <p className="mt-2 text-xs font-medium uppercase tracking-[0.16em] text-blue-700 md:text-sm">
+                      Service area: {preselectedCity}
+                    </p>
+                  ) : null}
                 </div>
-              )}
+              ) : null}
 
               <form onSubmit={handleSubmit}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

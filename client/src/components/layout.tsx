@@ -375,15 +375,24 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
             <div>
               <h3 className="text-white font-bold mb-4 font-heading">Service Areas</h3>
-              <ul className="space-y-2 text-sm">
-                <li><Link href="/service-areas" className="hover:text-secondary transition-colors">Los Angeles</Link></li>
-                <li><Link href="/service-areas" className="hover:text-secondary transition-colors">Santa Monica</Link></li>
-                <li><Link href="/service-areas" className="hover:text-secondary transition-colors">Pasadena</Link></li>
-                <li><Link href="/service-areas" className="hover:text-secondary transition-colors">Beverly Hills</Link></li>
-                <li><Link href="/service-areas" className="hover:text-secondary transition-colors">All Locations</Link></li>
-                <li><a href="/hvac-burbank" className="hover:text-secondary transition-colors">HVAC Burbank</a></li>
-                <li><a href="/hvac-glendale" className="hover:text-secondary transition-colors">HVAC Glendale</a></li>
-                <li><a href="/hvac-pasadena" className="hover:text-secondary transition-colors">HVAC Pasadena</a></li>
+              <ul className="columns-2 space-y-2 text-sm">
+                <li><a href="/hvac-glendale" className="hover:text-secondary transition-colors">Glendale</a></li>
+                <li><a href="/hvac-san-fernando-valley" className="hover:text-secondary transition-colors">San Fernando Valley</a></li>
+                <li><a href="/hvac-santa-monica" className="hover:text-secondary transition-colors">Santa Monica</a></li>
+                <li><a href="/hvac-hollywood" className="hover:text-secondary transition-colors">Hollywood</a></li>
+                <li><a href="/hvac-north-hollywood" className="hover:text-secondary transition-colors">North Hollywood</a></li>
+                <li><a href="/hvac-van-nuys" className="hover:text-secondary transition-colors">Van Nuys</a></li>
+                <li><a href="/hvac-chatsworth" className="hover:text-secondary transition-colors">Chatsworth</a></li>
+                <li><a href="/hvac-northridge" className="hover:text-secondary transition-colors">Northridge</a></li>
+                <li><a href="/hvac-reseda" className="hover:text-secondary transition-colors">Reseda</a></li>
+                <li><a href="/hvac-canoga-park" className="hover:text-secondary transition-colors">Canoga Park</a></li>
+                <li><a href="/hvac-woodland-hills" className="hover:text-secondary transition-colors">Woodland Hills</a></li>
+                <li><a href="/hvac-calabasas" className="hover:text-secondary transition-colors">Calabasas</a></li>
+                <li><a href="/hvac-sherman-oaks" className="hover:text-secondary transition-colors">Sherman Oaks</a></li>
+                <li><a href="/hvac-studio-city" className="hover:text-secondary transition-colors">Studio City</a></li>
+                <li><a href="/hvac-encino" className="hover:text-secondary transition-colors">Encino</a></li>
+                <li><a href="/hvac-tarzana" className="hover:text-secondary transition-colors">Tarzana</a></li>
+                <li><a href="/hvac-west-hills" className="hover:text-secondary transition-colors">West Hills</a></li>
               </ul>
             </div>
 

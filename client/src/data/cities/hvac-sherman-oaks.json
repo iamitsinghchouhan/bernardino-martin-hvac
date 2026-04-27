@@ -1,0 +1,45 @@
+{
+  "id": 13,
+  "city": "Sherman Oaks",
+  "slug": "hvac-sherman-oaks",
+  "region": "South Valley",
+  "population": "~70,000",
+  "zipCodes": [
+    "91403",
+    "91411",
+    "91413",
+    "91423"
+  ],
+  "description": "Sherman Oaks combines hillside homes, busy residential streets, and Ventura Boulevard-adjacent properties where HVAC systems need to balance comfort, efficiency, and quiet operation. Bernardino Martin helps Sherman Oaks customers with repairs, maintenance, and upgrades that address uneven temperatures, aging systems, and the strong cooling demand common across the south Valley.",
+  "climate": "Hot south-valley afternoons with sunny conditions and mild winters",
+  "commonServices": [
+    "AC Repair & Diagnostics",
+    "HVAC Maintenance",
+    "AC Installation",
+    "Ductless Mini-Split Systems"
+  ],
+  "serviceAreas": [
+    "South of Ventura",
+    "Chandler Estates",
+    "Longridge area",
+    "Mid-Sherman Oaks"
+  ],
+  "responseTime": "15-30 minutes",
+  "videoFile": "city-sherman-oaks.mp4",
+  "imageFile": "sherman-oaks-hero.png",
+  "metaDescription": "Sherman Oaks HVAC service for AC repair, installations, tune-ups and ductless upgrades from a licensed local team. (818) 400-0227.",
+  "metaKeywords": "HVAC Sherman Oaks, AC repair Sherman Oaks, mini split Sherman Oaks, HVAC maintenance Sherman Oaks",
+  "localPhone": "(818) 400-0227",
+  "nearestCities": [
+    "Studio City",
+    "Van Nuys",
+    "Encino",
+    "Hollywood"
+  ],
+  "notableLandmarks": [
+    "Ventura Boulevard",
+    "Sherman Oaks Galleria",
+    "Mulholland access neighborhoods"
+  ],
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+}

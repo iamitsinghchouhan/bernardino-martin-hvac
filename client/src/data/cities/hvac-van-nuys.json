@@ -1,0 +1,45 @@
+{
+  "id": 6,
+  "city": "Van Nuys",
+  "slug": "hvac-van-nuys",
+  "region": "Central San Fernando Valley",
+  "population": "~100,000",
+  "zipCodes": [
+    "91401",
+    "91405",
+    "91406",
+    "91411"
+  ],
+  "description": "Van Nuys homeowners often rely on their cooling systems for long stretches of high heat, and older properties in the area can struggle with airflow, duct condition, and aging equipment. Bernardino Martin serves Van Nuys with repair, maintenance, and replacement work focused on restoring comfort quickly and improving how efficiently the home handles daily valley heat.",
+  "climate": "Hot and dry valley climate with long summer cooling demand",
+  "commonServices": [
+    "AC Repair & Diagnostics",
+    "HVAC Maintenance",
+    "Heating System Services",
+    "Duct Cleaning & Installation"
+  ],
+  "serviceAreas": [
+    "Lake Balboa edge",
+    "Mid-Valley",
+    "Sherman Way corridor",
+    "Victory Boulevard area"
+  ],
+  "responseTime": "15-30 minutes",
+  "videoFile": "city-van-nuys.mp4",
+  "imageFile": "van-nuys-hero.png",
+  "metaDescription": "Expert HVAC service in Van Nuys - AC repair, maintenance, ductwork and heating support for Valley homes. Call Bernardino Martin at (818) 400-0227.",
+  "metaKeywords": "HVAC Van Nuys, AC repair Van Nuys, heating service Van Nuys, ductwork Van Nuys",
+  "localPhone": "(818) 400-0227",
+  "nearestCities": [
+    "North Hollywood",
+    "Sherman Oaks",
+    "Encino",
+    "Reseda"
+  ],
+  "notableLandmarks": [
+    "Van Nuys Civic Center",
+    "Sepulveda Basin nearby",
+    "Van Nuys Airport area"
+  ],
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+}

@@ -1,0 +1,45 @@
+{
+  "id": 5,
+  "city": "North Hollywood",
+  "slug": "hvac-north-hollywood",
+  "region": "East San Fernando Valley",
+  "population": "~160,000",
+  "zipCodes": [
+    "91601",
+    "91602",
+    "91605",
+    "91606"
+  ],
+  "description": "North Hollywood mixes established neighborhoods, studio-adjacent properties, and multi-unit housing where HVAC systems often run hard through the summer. Bernardino Martin helps North Hollywood customers with quick diagnostics, mini-split upgrades, and seasonal tune-ups that support better comfort, quieter performance, and more dependable cooling across varied building types.",
+  "climate": "Hot valley summers with long cooling seasons and cool winter nights",
+  "commonServices": [
+    "AC Repair & Diagnostics",
+    "Ductless Mini-Split Systems",
+    "HVAC Maintenance",
+    "AC Installation"
+  ],
+  "serviceAreas": [
+    "NoHo Arts District",
+    "Toluca Terrace",
+    "Valley Glen edge",
+    "Lankershim corridor"
+  ],
+  "responseTime": "15-30 minutes",
+  "videoFile": "city-north-hollywood.mp4",
+  "imageFile": "north-hollywood-hero.png",
+  "metaDescription": "North Hollywood HVAC services for AC repair, ductless systems, maintenance and installations. Licensed local team. Call (818) 400-0227.",
+  "metaKeywords": "HVAC North Hollywood, AC repair North Hollywood, ductless North Hollywood, HVAC maintenance North Hollywood",
+  "localPhone": "(818) 400-0227",
+  "nearestCities": [
+    "Hollywood",
+    "Studio City",
+    "Van Nuys",
+    "Sherman Oaks"
+  ],
+  "notableLandmarks": [
+    "NoHo Arts District",
+    "Universal-adjacent neighborhoods",
+    "Chandler Bikeway"
+  ],
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+}
