@@ -12,6 +12,7 @@ import { pool } from "./db";
 import { logger } from "./logger";
 import { sanitizeInput } from "./middleware/sanitize";
 import { errorHandler } from "./middleware/error-handler";
+import { validateEnvironmentVariables, validateDatabaseConnection } from "./config/validation";
 
 const isProduction = process.env.NODE_ENV === "production";
 
@@ -19,9 +20,10 @@ const isProduction = process.env.NODE_ENV === "production";
    Environment Validation
 ================================ */
 
-if (!process.env.DATABASE_URL) {
-  throw new Error("DATABASE_URL must be set in environment variables");
-}
+// FIRST: Validate environment variables
+validateEnvironmentVariables();
+
+console.log('✓ Starting application...');
 
 /* ================================
    Express Setup
@@ -286,7 +288,16 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 
   const port = Number(process.env.PORT || 3000);
 
-  httpServer.listen(port, "0.0.0.0", () => {
-    logger.info(`Server running on port ${port}`);
+  // Test database connection BEFORE starting server
+  validateDatabaseConnection(pool).then(() => {
+    logger.info('✓ Database connection active');
+    logger.info('✓ Admin panel features: Delete, Email, Invoices');
+    
+    httpServer.listen(port, "0.0.0.0", () => {
+      logger.info(`Server running on port ${port}`);
+    });
+  }).catch((error) => {
+    console.error('Database validation failed:', error);
+    process.exit(1);
   });
 })();

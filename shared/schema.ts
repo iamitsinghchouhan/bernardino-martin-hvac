@@ -33,6 +33,10 @@ export const bookings = pgTable("bookings", {
   notes: text("notes"),
   status: text("status").notNull().default("pending"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
+  // Soft delete columns
+  deletedAt: timestamp("deleted_at"),
+  deletionReason: text("deletion_reason"),
+  deletedBy: text("deleted_by"),
 });
 
 export const contactMessages = pgTable("contact_messages", {
@@ -42,19 +46,48 @@ export const contactMessages = pgTable("contact_messages", {
   email: text("email").notNull(),
   message: text("message").notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
+  // Reply tracking columns
+  repliedAt: timestamp("replied_at"),
+  replyMessage: text("reply_message"),
+  repliedBy: text("replied_by"),
+  isResolved: boolean("is_resolved").default(false),
+  resolvedAt: timestamp("resolved_at"),
 });
 
 export const invoices = pgTable("invoices", {
   id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
   invoiceNumber: text("invoice_number").notNull().unique(),
-  customerEmail: text("customer_email").notNull(),
+  bookingId: integer("booking_id"),
+  customerId: integer("customer_id"),
   customerName: text("customer_name").notNull(),
-  serviceTitle: text("service_title").notNull(),
-  amount: integer("amount").notNull(),
-  status: text("status").notNull().default("unpaid"),
+  customerEmail: text("customer_email").notNull(),
+  customerPhone: text("customer_phone"),
+  customerAddress: text("customer_address"),
+  serviceType: text("service_type"),
+  description: text("description"),
+  subtotal: integer("subtotal"),
+  taxAmount: integer("tax_amount"),
+  taxRate: integer("tax_rate"),
+  totalAmount: integer("total_amount").notNull(),
+  paymentInstructions: text("payment_instructions"),
+  warrantyInfo: text("warranty_info"),
+  notes: text("notes"),
   dueDate: text("due_date"),
-  paidAt: timestamp("paid_at"),
+  sentDate: timestamp("sent_date"),
+  paidDate: timestamp("paid_date"),
+  status: text("status").notNull().default("DRAFT"),
+  pdfUrl: text("pdf_url"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const invoiceLineItems = pgTable("invoice_line_items", {
+  id: serial("id").primaryKey(),
+  invoiceId: integer("invoice_id").notNull(),
+  description: text("description").notNull(),
+  quantity: integer("quantity").notNull().default(1),
+  unitPrice: integer("unit_price").notNull(),
+  lineTotal: integer("line_total").notNull(),
 });
 
 export const reminders = pgTable("reminders", {
@@ -184,13 +217,21 @@ export const insertContactMessageSchema = z.object({
 });
 
 export const insertInvoiceSchema = z.object({
-  invoiceNumber: z.string().trim().min(1).max(50),
-  customerEmail: strictEmail,
-  customerName: z.string().trim().min(1).max(200),
-  serviceTitle: z.string().trim().min(1).max(200),
-  amount: z.number().int().positive(),
-  status: z.string().trim().max(50).optional(),
-  dueDate: z.string().trim().max(50).optional().nullable(),
+  clientName: z.string().trim().min(1).max(200),
+  clientEmail: strictEmail,
+  clientPhone: z.string().trim().max(30).optional().nullable(),
+  serviceType: z.string().trim().min(1).max(200),
+  description: z.string().trim().max(2000).optional().nullable(),
+  lineItems: z.array(z.object({
+    description: z.string().trim().min(1).max(500),
+    quantity: z.number().int().positive(),
+    unitPrice: z.number().int().nonnegative(),
+  })).optional(),
+  taxPercent: z.number().int().min(0).max(100).optional().default(0),
+  dueDate: z.string().trim().min(1).max(50),
+  paymentInstructions: z.string().trim().max(2000).optional().nullable(),
+  warrantyInfo: z.string().trim().max(1000).optional().nullable(),
+  notes: z.string().trim().max(2000).optional().nullable(),
 });
 
 export type Booking = typeof bookings.$inferSelect;
@@ -320,6 +361,10 @@ export const quotes = pgTable("quotes", {
   address: text("address"),
   status: text("status").notNull().default("new"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
+  // Soft delete columns
+  deletedAt: timestamp("deleted_at"),
+  deletionReason: text("deletion_reason"),
+  deletedBy: text("deleted_by"),
 });
 
 export const insertQuoteSchema = z.object({

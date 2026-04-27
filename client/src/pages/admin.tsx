@@ -1,7 +1,7 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { useLocation } from "wouter";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Trash2, Building2, Star, Search, Image as ImageIcon, FileText } from "lucide-react";
+import { Trash2, Building2, Star, Search, Image as ImageIcon, FileText, Send, Mail } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -202,12 +202,12 @@ function AppointmentsTab() {
   });
 
   const deleteBooking = useMutation({
-    mutationFn: async (id: number) => {
-      await apiRequest("DELETE", `/api/admin/bookings/${id}`);
+    mutationFn: async ({ id, reason }: { id: number; reason: string }) => {
+      await apiRequest("DELETE", `/api/admin/bookings/${id}/soft`, {}, { reason });
     },
     onSuccess: () => {
       toast({
-        title: "Booking deleted successfully",
+        title: "Appointment deleted (soft delete)",
       });
       queryClient.invalidateQueries({ queryKey: ["/api/admin/bookings"] });
       queryClient.invalidateQueries({ queryKey: ["/api/admin/reminders"] });
@@ -215,7 +215,7 @@ function AppointmentsTab() {
     },
     onError: () => {
       toast({
-        title: "Failed to delete booking",
+        title: "Failed to delete appointment",
         variant: "destructive",
       });
     },
@@ -267,11 +267,11 @@ function AppointmentsTab() {
 
                   <DeleteConfirmButton
                     testId={`button-delete-booking-${booking.id}`}
-                    title="Delete booking?"
-                    description="Are you sure you want to delete this booking? This cannot be undone."
-                    confirmLabel={deleteBooking.isPending ? "Deleting..." : "Delete Booking"}
+                    title="Delete appointment?"
+                    description="This will soft-delete the appointment with a reason. The data will be retained but hidden from the main list."
+                    confirmLabel={deleteBooking.isPending ? "Deleting..." : "Delete Appointment"}
                     disabled={deleteBooking.isPending}
-                    onConfirm={() => deleteBooking.mutate(booking.id)}
+                    onConfirm={() => deleteBooking.mutate({ id: booking.id, reason: "Deleted by admin" })}
                   />
                 </div>
               </div>
@@ -324,12 +324,26 @@ function InvoicesTab() {
   });
 
   const markPaid = useMutation({
-    mutationFn: async (invoiceNumber: string) => {
-      await apiRequest("POST", `/api/invoices/${invoiceNumber}/pay`, {});
+    mutationFn: async (id: number) => {
+      await apiRequest("PATCH", `/api/admin/invoices/${id}/mark-paid`, {});
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/invoices"] });
       queryClient.invalidateQueries({ queryKey: ["/api/admin/stats"] });
+      toast({ title: "Invoice marked as paid" });
+    },
+  });
+
+  const sendInvoice = useMutation({
+    mutationFn: async (id: number) => {
+      await apiRequest("POST", `/api/admin/invoices/${id}/send`, {});
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/invoices"] });
+      toast({ title: "Invoice sent to customer" });
+    },
+    onError: () => {
+      toast({ title: "Failed to send invoice", variant: "destructive" });
     },
   });
 
@@ -433,12 +447,22 @@ function InvoicesTab() {
                 </div>
 
                 <div className="flex flex-col gap-3 sm:flex-row">
+                  {invoice.status !== "paid" && invoice.status !== "SENT" ? (
+                    <Button
+                      data-testid={`button-send-invoice-${invoice.id}`}
+                      variant="outline"
+                      className="border-blue-200 text-blue-700 hover:bg-blue-50 hover:text-blue-800"
+                      onClick={() => sendInvoice.mutate(invoice.id)}
+                    >
+                      Send Invoice
+                    </Button>
+                  ) : null}
                   {invoice.status !== "paid" ? (
                     <Button
                       data-testid={`button-mark-paid-${invoice.id}`}
                       variant="outline"
                       className="border-emerald-200 text-emerald-700 hover:bg-emerald-50 hover:text-emerald-800"
-                      onClick={() => markPaid.mutate(invoice.invoiceNumber)}
+                      onClick={() => markPaid.mutate(invoice.id)}
                     >
                       Mark Paid
                     </Button>
@@ -463,8 +487,25 @@ function InvoicesTab() {
 }
 
 function ContactsTab() {
+  const queryClient = useQueryClient();
+  const { toast } = useToast();
   const { data: messages, isLoading } = useQuery<ContactMessage[]>({
     queryKey: ["/api/admin/contacts"],
+  });
+  const [replyingTo, setReplyingTo] = useState<number | null>(null);
+
+  const replyToContact = useMutation({
+    mutationFn: async ({ id, replyMessage }: { id: number; replyMessage: string }) => {
+      await apiRequest("POST", `/api/admin/contacts/${id}/reply`, {}, { replyMessage });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/contacts"] });
+      toast({ title: "Email sent successfully" });
+      setReplyingTo(null);
+    },
+    onError: () => {
+      toast({ title: "Failed to send email", variant: "destructive" });
+    },
   });
 
   if (isLoading) return <LoadingSpinner />;
@@ -489,6 +530,54 @@ function ContactsTab() {
                 <span>{message.email}</span>
                 {message.phone ? <span>{message.phone}</span> : null}
               </div>
+
+              {message.isResolved ? (
+                <div className="mt-4 rounded-lg bg-emerald-50 p-3 text-sm">
+                  <p className="font-medium text-emerald-700">✓ Replied on {formatDate(message.repliedAt)}</p>
+                  {message.replyMessage && (
+                    <p className="mt-2 text-emerald-600">{message.replyMessage.substring(0, 100)}...</p>
+                  )}
+                </div>
+              ) : (
+                <div className="mt-4">
+                  <Button
+                    variant="outline"
+                    className="border-blue-200 text-blue-700 hover:bg-blue-50"
+                    onClick={() => setReplyingTo(message.id)}
+                  >
+                    Reply via Email
+                  </Button>
+                </div>
+              )}
+
+              {replyingTo === message.id && (
+                <div className="mt-4 rounded-lg border border-blue-200 bg-blue-50 p-4">
+                  <p className="mb-2 text-sm font-medium text-blue-700">Send reply to {message.email}:</p>
+                  <textarea
+                    className="w-full rounded border border-blue-200 p-2 text-sm"
+                    rows={4}
+                    placeholder="Type your reply message..."
+                    id={`reply-${message.id}`}
+                  />
+                  <div className="mt-2 flex gap-2">
+                    <Button
+                      size="sm"
+                      onClick={async () => {
+                        const msg = (document.getElementById(`reply-${message.id}`) as HTMLTextAreaElement)?.value;
+                        if (msg) {
+                          replyToContact.mutate({ id: message.id, replyMessage: msg });
+                        }
+                      }}
+                      disabled={replyToContact.isPending}
+                    >
+                      {replyToContact.isPending ? "Sending..." : "Send"}
+                    </Button>
+                    <Button size="sm" variant="outline" onClick={() => setReplyingTo(null)}>
+                      Cancel
+                    </Button>
+                  </div>
+                </div>
+              )}
             </SectionCard>
           ))}
         </div>
@@ -537,8 +626,29 @@ function RemindersTab() {
 }
 
 function QuotesTab() {
+  const queryClient = useQueryClient();
+  const { toast } = useToast();
   const { data: quoteList, isLoading } = useQuery<Quote[]>({
     queryKey: ["/api/admin/quotes"],
+  });
+
+  const deleteQuote = useMutation({
+    mutationFn: async ({ id, reason }: { id: number; reason: string }) => {
+      await apiRequest("DELETE", `/api/admin/quotes/${id}`, {}, { reason });
+    },
+    onSuccess: () => {
+      toast({
+        title: "Quote deleted (soft delete)",
+      });
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/quotes"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/stats"] });
+    },
+    onError: () => {
+      toast({
+        title: "Failed to delete quote",
+        variant: "destructive",
+      });
+    },
   });
 
   if (isLoading) return <LoadingSpinner />;
@@ -574,6 +684,17 @@ function QuotesTab() {
                 <span>{quote.phone}</span>
                 {quote.address ? <span>{quote.address}</span> : null}
                 <span>{formatDateTime(quote.createdAt)}</span>
+              </div>
+
+              <div className="mt-4 flex gap-3">
+                <DeleteConfirmButton
+                  testId={`button-delete-quote-${quote.id}`}
+                  title="Delete quote?"
+                  description="This will soft-delete the quote request with a reason."
+                  confirmLabel={deleteQuote.isPending ? "Deleting..." : "Delete Quote"}
+                  disabled={deleteQuote.isPending}
+                  onConfirm={() => deleteQuote.mutate({ id: quote.id, reason: "Deleted by admin" })}
+                />
               </div>
             </SectionCard>
           ))}
