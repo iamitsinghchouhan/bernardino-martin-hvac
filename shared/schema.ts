@@ -1,7 +1,7 @@
 import { sql } from "drizzle-orm";
-import { pgTable, text, varchar, timestamp, integer, boolean, serial, decimal } from "drizzle-orm/pg-core";
-import { json } from "stream/consumers";
+import { pgTable, text, varchar, timestamp, integer, boolean, serial, decimal, json } from "drizzle-orm/pg-core";
 import { z } from "zod";
+
 
 const BLOCKED_DOMAINS = [
   "mailinator.com", "guerrillamail.com", "tempmail.com", "throwaway.email",
