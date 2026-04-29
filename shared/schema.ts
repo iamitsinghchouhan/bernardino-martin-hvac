@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { pgTable, text, varchar, timestamp, integer, boolean, serial } from "drizzle-orm/pg-core";
+import { pgTable, text, varchar, timestamp, integer, boolean, serial, decimal } from "drizzle-orm/pg-core";
 import { z } from "zod";
 
 const BLOCKED_DOMAINS = [
@@ -32,11 +32,10 @@ export const bookings = pgTable("bookings", {
   preferredDate: text("preferred_date").notNull(),
   notes: text("notes"),
   status: text("status").notNull().default("pending"),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-  // Soft delete columns
   deletedAt: timestamp("deleted_at"),
   deletionReason: text("deletion_reason"),
   deletedBy: text("deleted_by"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
 export const contactMessages = pgTable("contact_messages", {
@@ -45,49 +44,35 @@ export const contactMessages = pgTable("contact_messages", {
   phone: text("phone"),
   email: text("email").notNull(),
   message: text("message").notNull(),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-  // Reply tracking columns
   repliedAt: timestamp("replied_at"),
   replyMessage: text("reply_message"),
   repliedBy: text("replied_by"),
-  isResolved: boolean("is_resolved").default(false),
+  isResolved: boolean("is_resolved"),
   resolvedAt: timestamp("resolved_at"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
 export const invoices = pgTable("invoices", {
   id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
   invoiceNumber: text("invoice_number").notNull().unique(),
-  bookingId: integer("booking_id"),
-  customerId: integer("customer_id"),
-  customerName: text("customer_name").notNull(),
   customerEmail: text("customer_email").notNull(),
-  customerPhone: text("customer_phone"),
-  customerAddress: text("customer_address"),
-  serviceType: text("service_type"),
-  description: text("description"),
-  subtotal: integer("subtotal"),
-  taxAmount: integer("tax_amount"),
-  taxRate: integer("tax_rate"),
-  totalAmount: integer("total_amount").notNull(),
-  paymentInstructions: text("payment_instructions"),
-  warrantyInfo: text("warranty_info"),
-  notes: text("notes"),
+  customerName: text("customer_name").notNull(),
+  clientEmail: text("client_email"),
+  clientName: text("client_name"),
+  serviceTitle: text("service_title").notNull(),
+  amount: integer("amount").notNull(),
+  status: text("status").notNull().default("unpaid"),
   dueDate: text("due_date"),
-  sentDate: timestamp("sent_date"),
-  paidDate: timestamp("paid_date"),
-  status: text("status").notNull().default("DRAFT"),
-  pdfUrl: text("pdf_url"),
+  paidAt: timestamp("paid_at"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
-  updatedAt: timestamp("updated_at").defaultNow(),
 });
 
 export const invoiceLineItems = pgTable("invoice_line_items", {
   id: serial("id").primaryKey(),
-  invoiceId: integer("invoice_id").notNull(),
-  description: text("description").notNull(),
-  quantity: integer("quantity").notNull().default(1),
-  unitPrice: integer("unit_price").notNull(),
-  lineTotal: integer("line_total").notNull(),
+  invoiceId: integer("invoice_id"),
+  description: text("description"),
+  quantity: decimal("quantity", { precision: 10, scale: 2 }),
+  unitPrice: decimal("unit_price", { precision: 10, scale: 2 }),
 });
 
 export const reminders = pgTable("reminders", {
@@ -217,21 +202,13 @@ export const insertContactMessageSchema = z.object({
 });
 
 export const insertInvoiceSchema = z.object({
-  clientName: z.string().trim().min(1).max(200),
-  clientEmail: strictEmail,
-  clientPhone: z.string().trim().max(30).optional().nullable(),
-  serviceType: z.string().trim().min(1).max(200),
-  description: z.string().trim().max(2000).optional().nullable(),
-  lineItems: z.array(z.object({
-    description: z.string().trim().min(1).max(500),
-    quantity: z.number().int().positive(),
-    unitPrice: z.number().int().nonnegative(),
-  })).optional(),
-  taxPercent: z.number().int().min(0).max(100).optional().default(0),
-  dueDate: z.string().trim().min(1).max(50),
-  paymentInstructions: z.string().trim().max(2000).optional().nullable(),
-  warrantyInfo: z.string().trim().max(1000).optional().nullable(),
-  notes: z.string().trim().max(2000).optional().nullable(),
+  invoiceNumber: z.string().trim().min(1).max(50),
+  customerEmail: strictEmail,
+  customerName: z.string().trim().min(1).max(200),
+  serviceTitle: z.string().trim().min(1).max(200),
+  amount: z.number().int().positive(),
+  status: z.string().trim().max(50).optional(),
+  dueDate: z.string().trim().max(50).optional().nullable(),
 });
 
 export type Booking = typeof bookings.$inferSelect;
@@ -360,11 +337,10 @@ export const quotes = pgTable("quotes", {
   email: text("email").notNull(),
   address: text("address"),
   status: text("status").notNull().default("new"),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-  // Soft delete columns
   deletedAt: timestamp("deleted_at"),
   deletionReason: text("deletion_reason"),
   deletedBy: text("deleted_by"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
 export const insertQuoteSchema = z.object({
@@ -379,3 +355,71 @@ export const insertQuoteSchema = z.object({
 });
 export type Quote = typeof quotes.$inferSelect;
 export type InsertQuote = z.infer<typeof insertQuoteSchema>;
+
+export const insertInvoiceLineItemSchema = z.object({
+  description: z.string().trim().min(1).max(500),
+  quantity: z.union([z.string(), z.number()])
+    .transform((value) => String(value).trim())
+    .refine((value) => Number.isFinite(Number(value)) && Number(value) > 0, {
+      message: "Quantity must be greater than 0",
+    }),
+  unitPrice: z.union([z.string(), z.number()])
+    .transform((value) => String(value).trim())
+    .refine((value) => Number.isFinite(Number(value)) && Number(value) >= 0, {
+      message: "Unit price must be 0 or greater",
+    }),
+});
+
+export const createAdminInvoiceSchema = z.object({
+  invoiceNumber: z.string().trim().min(1).max(50).optional(),
+  customerEmail: strictEmail.optional(),
+  customerName: z.string().trim().min(1).max(200).optional(),
+  clientEmail: strictEmail.optional(),
+  clientName: z.string().trim().min(1).max(200).optional(),
+  serviceTitle: z.string().trim().max(200).optional().nullable(),
+  amount: z.union([z.number(), z.string()]).optional(),
+  status: z.string().trim().max(50).optional(),
+  dueDate: z.string().trim().max(50).optional().nullable(),
+  lineItems: z.array(insertInvoiceLineItemSchema).optional().default([]),
+}).superRefine((value, ctx) => {
+  if (!value.customerName && !value.clientName) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      path: ["clientName"],
+      message: "Client name is required",
+    });
+  }
+
+  if (!value.customerEmail && !value.clientEmail) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      path: ["clientEmail"],
+      message: "Client email is required",
+    });
+  }
+
+  if ((!value.lineItems || value.lineItems.length === 0) && (value.amount === undefined || value.amount === null || value.amount === "")) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      path: ["amount"],
+      message: "Amount or at least one line item is required",
+    });
+  }
+});
+
+export const contactReplySchema = z.object({
+  replyMessage: z.string().trim().min(1).max(5000),
+  repliedBy: z.string().trim().max(200).optional().nullable(),
+  isResolved: z.boolean().optional().default(true),
+});
+
+export const softDeleteSchema = z.object({
+  reason: z.string().trim().max(500).optional().nullable(),
+  deletedBy: z.string().trim().max(200).optional().nullable(),
+});
+
+export type InvoiceLineItem = typeof invoiceLineItems.$inferSelect;
+export type InsertInvoiceLineItem = z.infer<typeof insertInvoiceLineItemSchema>;
+export type CreateAdminInvoice = z.infer<typeof createAdminInvoiceSchema>;
+export type ContactReplyInput = z.infer<typeof contactReplySchema>;
+export type SoftDeleteInput = z.infer<typeof softDeleteSchema>;

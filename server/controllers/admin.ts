@@ -1,12 +1,43 @@
 import type { Request, Response, NextFunction } from "express";
 import { storage } from "../storage";
-import { insertInvoiceSchema } from "@shared/schema";
+import { contactReplySchema, createAdminInvoiceSchema, softDeleteSchema } from "@shared/schema";
 import { AppError } from "../utils/errors";
 import { sendReplyEmail } from "../services/email";
-import { sendInvoiceEmail as sendInvoiceEmailFunc, markInvoiceAsSent, markInvoiceAsPaid } from "../services/invoice";
-import { db } from "../db";
-import { bookings, quotes, contactMessages, invoices } from "../../shared/schema";
-import { eq } from "drizzle-orm";
+
+function parseIdParam(rawId: string | string[] | undefined, label: string) {
+  const value = Array.isArray(rawId) ? rawId[0] : rawId;
+  const id = parseInt(value ?? "", 10);
+  if (Number.isNaN(id)) {
+    throw AppError.validation(`Invalid ${label} id`);
+  }
+  return id;
+}
+
+function generateInvoiceNumber() {
+  const now = new Date();
+  const stamp = now
+    .toISOString()
+    .replace(/[-:TZ.]/g, "")
+    .slice(0, 14);
+  return `INV-${stamp}`;
+}
+
+function normalizeDecimal(value: string | number) {
+  return Number(value).toFixed(2);
+}
+
+function amountToCents(value: string | number) {
+  if (typeof value === "number") {
+    return Number.isInteger(value) ? value : Math.round(value * 100);
+  }
+
+  const parsed = Number(value);
+  if (!Number.isFinite(parsed)) {
+    throw AppError.validation("Invalid amount");
+  }
+
+  return Math.round(parsed * 100);
+}
 
 export async function login(req: Request, res: Response, next: NextFunction) {
   try {
@@ -75,11 +106,7 @@ export async function getBookings(_req: Request, res: Response, next: NextFuncti
 
 export async function updateBookingStatus(req: Request, res: Response, next: NextFunction) {
   try {
-    const idParam = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
-    const id = parseInt(idParam, 10);
-    if (Number.isNaN(id)) {
-      throw AppError.validation("Invalid booking id");
-    }
+    const id = parseIdParam(req.params.id, "booking");
 
     const { status } = req.body;
     if (!status || !["pending", "confirmed", "completed", "cancelled"].includes(status)) {
@@ -99,26 +126,22 @@ export async function updateBookingStatus(req: Request, res: Response, next: Nex
 
 export async function deleteBooking(req: Request, res: Response, next: NextFunction) {
   try {
-    const idParam = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
-    const id = parseInt(idParam, 10);
-    if (Number.isNaN(id)) {
-      return res.status(400).json({
-        success: false,
-        message: "Invalid booking ID",
-        errorCode: "INVALID_ID",
-      });
+    const id = parseIdParam(req.params.id, "booking");
+    const deletion = softDeleteSchema.parse(req.body ?? {});
+
+    const booking = await storage.softDeleteBooking(id, {
+      reason: deletion.reason,
+      deletedBy: deletion.deletedBy ?? "admin",
+    });
+    if (!booking) {
+      throw AppError.notFound("Booking not found");
     }
 
-    const deleted = await storage.deleteBooking(id);
-    if (!deleted) {
-      return res.status(404).json({
-        success: false,
-        message: "Booking not found",
-        errorCode: "NOT_FOUND",
-      });
-    }
-
-    return res.json({ success: true, message: "Booking deleted" });
+    return res.json({
+      success: true,
+      message: "Booking deleted",
+      booking,
+    });
   } catch (err) {
     next(err);
   }
@@ -135,27 +158,42 @@ export async function getInvoices(_req: Request, res: Response, next: NextFuncti
 
 export async function createInvoice(req: Request, res: Response, next: NextFunction) {
   try {
-    const data = insertInvoiceSchema.parse(req.body);
-    
-    // Use the invoice service to create invoice with line items
-    const { createInvoice } = await import("../services/invoice");
-    const adminName = (req.session as any)?.adminName || "admin";
-    
-    const invoice = await createInvoice({
-      clientName: data.clientName,
-      clientEmail: data.clientEmail,
-      clientPhone: data.clientPhone || undefined,
-      serviceType: data.serviceType,
-      description: data.description || "",
-      lineItems: data.lineItems || [],
-      taxPercent: data.taxPercent,
-      dueDate: data.dueDate,
-      paymentInstructions: data.paymentInstructions || undefined,
-      warrantyInfo: data.warrantyInfo || undefined,
-      notes: data.notes || undefined,
-      createdBy: adminName,
+    const data = createAdminInvoiceSchema.parse(req.body);
+    const lineItems = data.lineItems ?? [];
+    const customerName = data.customerName ?? data.clientName!;
+    const customerEmail = data.customerEmail ?? data.clientEmail!;
+    const serviceTitle =
+      data.serviceTitle?.trim() ||
+      lineItems.map((item) => item.description).filter(Boolean).join(", ") ||
+      "General Service";
+
+    const calculatedAmount =
+      lineItems.length > 0
+        ? Math.round(
+            lineItems.reduce(
+              (total, item) => total + Number(item.quantity) * Number(item.unitPrice),
+              0,
+            ) * 100,
+          )
+        : amountToCents(data.amount!);
+
+    const invoice = await storage.createInvoiceWithLineItems({
+      invoiceNumber: data.invoiceNumber ?? generateInvoiceNumber(),
+      customerEmail,
+      customerName,
+      clientEmail: data.clientEmail ?? customerEmail,
+      clientName: data.clientName ?? customerName,
+      serviceTitle,
+      amount: calculatedAmount,
+      status: data.status?.trim() || "draft",
+      dueDate: data.dueDate ?? null,
+      lineItems: lineItems.map((item) => ({
+        description: item.description,
+        quantity: normalizeDecimal(item.quantity),
+        unitPrice: normalizeDecimal(item.unitPrice),
+      })),
     });
-    
+
     res.status(201).json(invoice);
   } catch (err) {
     next(err);
@@ -164,23 +202,11 @@ export async function createInvoice(req: Request, res: Response, next: NextFunct
 
 export async function deleteInvoice(req: Request, res: Response, next: NextFunction) {
   try {
-    const idParam = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
-    const id = parseInt(idParam, 10);
-    if (Number.isNaN(id)) {
-      return res.status(400).json({
-        success: false,
-        message: "Invalid invoice ID",
-        errorCode: "INVALID_ID",
-      });
-    }
+    const id = parseIdParam(req.params.id, "invoice");
 
     const deleted = await storage.deleteInvoice(id);
     if (!deleted) {
-      return res.status(404).json({
-        success: false,
-        message: "Invoice not found",
-        errorCode: "NOT_FOUND",
-      });
+      throw AppError.notFound("Invoice not found");
     }
 
     return res.json({ success: true, message: "Invoice deleted" });
@@ -193,6 +219,29 @@ export async function getContacts(_req: Request, res: Response, next: NextFuncti
   try {
     const messages = await storage.getContactMessages();
     res.json(messages);
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function replyToContact(req: Request, res: Response, next: NextFunction) {
+  try {
+    const id = parseIdParam(req.params.id, "contact");
+    const payload = contactReplySchema.parse(req.body ?? {});
+    const contact = await storage.getContactMessageById(id);
+    if (!contact) {
+      throw AppError.notFound("Contact message not found");
+    }
+
+    await sendReplyEmail(contact.email, contact.name, payload.replyMessage);
+
+    const updated = await storage.replyToContactMessage(id, {
+      replyMessage: payload.replyMessage,
+      repliedBy: payload.repliedBy ?? "admin",
+      isResolved: payload.isResolved,
+    });
+
+    res.json({ success: true, contact: updated });
   } catch (err) {
     next(err);
   }
@@ -216,228 +265,21 @@ export async function getQuotes(_req: Request, res: Response, next: NextFunction
   }
 }
 
-// Soft delete booking with reason
-export async function softDeleteBooking(req: Request, res: Response, next: NextFunction) {
+export async function deleteQuote(req: Request, res: Response, next: NextFunction) {
   try {
-    const idParam = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
-    const id = parseInt(idParam, 10);
-    if (Number.isNaN(id)) {
-      return res.status(400).json({
-        success: false,
-        message: "Invalid booking ID",
-        errorCode: "INVALID_ID",
-      });
+    const id = parseIdParam(req.params.id, "quote");
+    const deletion = softDeleteSchema.parse(req.body ?? {});
+    const quote = await storage.softDeleteQuote(id, {
+      reason: deletion.reason,
+      deletedBy: deletion.deletedBy ?? "admin",
+    });
+
+    if (!quote) {
+      throw AppError.notFound("Quote not found");
     }
 
-    const { reason } = req.body;
-    if (!reason) {
-      return res.status(400).json({
-        success: false,
-        message: "Deletion reason is required",
-        errorCode: "MISSING_REASON",
-      });
-    }
-
-    const adminName = (req.session as any)?.adminName || "admin";
-
-    await db
-      .update(bookings)
-      .set({
-        deletedAt: new Date(),
-        deletionReason: reason,
-        deletedBy: adminName,
-      })
-      .where(eq(bookings.id, id));
-
-    console.log(`✓ Booking ${id} soft-deleted by ${adminName} (reason: ${reason})`);
-    return res.json({ success: true, message: "Appointment deleted" });
+    res.json({ success: true, quote });
   } catch (err) {
     next(err);
-  }
-}
-
-// Soft delete quote with reason
-export async function softDeleteQuote(req: Request, res: Response, next: NextFunction) {
-  try {
-    const idParam = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
-    const id = parseInt(idParam, 10);
-    if (Number.isNaN(id)) {
-      return res.status(400).json({
-        success: false,
-        message: "Invalid quote ID",
-        errorCode: "INVALID_ID",
-      });
-    }
-
-    const { reason } = req.body;
-    if (!reason) {
-      return res.status(400).json({
-        success: false,
-        message: "Deletion reason is required",
-        errorCode: "MISSING_REASON",
-      });
-    }
-
-    const adminName = (req.session as any)?.adminName || "admin";
-
-    await db
-      .update(quotes)
-      .set({
-        deletedAt: new Date(),
-        deletionReason: reason,
-        deletedBy: adminName,
-      })
-      .where(eq(quotes.id, id));
-
-    console.log(`✓ Quote ${id} soft-deleted by ${adminName} (reason: ${reason})`);
-    return res.json({ success: true, message: "Quote deleted" });
-  } catch (err) {
-    next(err);
-  }
-}
-
-// Reply to contact message and send email
-export async function replyToContact(req: Request, res: Response, next: NextFunction) {
-  try {
-    const idParam = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
-    const id = parseInt(idParam, 10);
-    if (Number.isNaN(id)) {
-      return res.status(400).json({
-        success: false,
-        message: "Invalid contact ID",
-        errorCode: "INVALID_ID",
-      });
-    }
-
-    const { replyMessage } = req.body;
-    if (!replyMessage) {
-      return res.status(400).json({
-        success: false,
-        message: "Reply message is required",
-        errorCode: "MISSING_MESSAGE",
-      });
-    }
-
-    const adminName = (req.session as any)?.adminName || "admin";
-
-    // Get contact message
-    const [contact] = await db
-      .select()
-      .from(contactMessages)
-      .where(eq(contactMessages.id, id));
-
-    if (!contact) {
-      return res.status(404).json({
-        success: false,
-        message: "Contact message not found",
-        errorCode: "NOT_FOUND",
-      });
-    }
-
-    // Send email
-    await sendReplyEmail(contact.email, contact.name, replyMessage);
-
-    // Update contact message
-    await db
-      .update(contactMessages)
-      .set({
-        repliedAt: new Date(),
-        replyMessage,
-        repliedBy: adminName,
-        isResolved: true,
-        resolvedAt: new Date(),
-      })
-      .where(eq(contactMessages.id, id));
-
-    console.log(`✓ Reply sent to contact ${id} by ${adminName}`);
-    return res.json({ success: true, message: "Email sent" });
-  } catch (err: any) {
-    console.error("❌ Failed to send reply email:", err.message);
-    return res.status(500).json({
-      success: false,
-      message: "Failed to send email",
-      error: err.message,
-    });
-  }
-}
-
-// Send invoice email
-export async function sendInvoice(req: Request, res: Response, next: NextFunction) {
-  try {
-    const idParam = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
-    const id = parseInt(idParam, 10);
-    if (Number.isNaN(id)) {
-      return res.status(400).json({
-        success: false,
-        message: "Invalid invoice ID",
-        errorCode: "INVALID_ID",
-      });
-    }
-
-    const [invoice] = await db
-      .select()
-      .from(invoices)
-      .where(eq(invoices.id, id));
-
-    if (!invoice) {
-      return res.status(404).json({
-        success: false,
-        message: "Invoice not found",
-        errorCode: "NOT_FOUND",
-      });
-    }
-
-    // Send email
-    await sendInvoiceEmailFunc(
-      invoice.customerEmail,
-      invoice.customerName,
-      invoice.invoiceNumber,
-      {
-        totalAmount: invoice.totalAmount,
-        dueDate: invoice.dueDate || "",
-        description: invoice.description || "",
-        serviceType: invoice.serviceType || "",
-      }
-    );
-
-    // Mark as sent
-    await markInvoiceAsSent(id);
-
-    console.log(`✓ Invoice ${invoice.invoiceNumber} sent to ${invoice.customerEmail}`);
-    return res.json({ success: true, message: "Invoice email sent" });
-  } catch (err: any) {
-    console.error("❌ Failed to send invoice:", err.message);
-    return res.status(500).json({
-      success: false,
-      message: "Failed to send invoice",
-      error: err.message,
-    });
-  }
-}
-
-// Mark invoice as paid
-export async function markInvoicePaid(req: Request, res: Response, next: NextFunction) {
-  try {
-    const idParam = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
-    const id = parseInt(idParam, 10);
-    if (Number.isNaN(id)) {
-      return res.status(400).json({
-        success: false,
-        message: "Invalid invoice ID",
-        errorCode: "INVALID_ID",
-      });
-    }
-
-    await markInvoiceAsPaid(id);
-
-    console.log(`✓ Invoice ${id} marked as paid`);
-    return res.json({ success: true, message: "Invoice marked as paid" });
-  } catch (err: any) {
-    console.error("❌ Failed to mark invoice as paid:", err.message);
-    return res.status(500).json({
-      success: false,
-      message: "Failed to update invoice",
-      error: err.message,
-    });
   }
 }

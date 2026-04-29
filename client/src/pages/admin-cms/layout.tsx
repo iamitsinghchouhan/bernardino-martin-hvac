@@ -11,6 +11,7 @@ import {
   LogOut,
   Mail,
   Menu,
+  MessageSquareQuote,
   Search,
   Star,
 } from "lucide-react";
@@ -71,10 +72,11 @@ export function AdminCMSLayout({
     { label: "SEO Settings", href: "/admin/cms/seo", icon: Search },
     { label: "Media Library", href: "/admin/cms/media", icon: ImageIcon },
     { label: "Custom Pages", href: "/admin/cms/pages", icon: FileText },
-    { divider: "BOOKINGS & INVOICES" },
-    { label: "Appointments", href: "/admin", icon: CalendarDays },
-    { label: "Invoices", href: "/admin", icon: CreditCard },
-    { label: "Contacts", href: "/admin", icon: Mail },
+    { divider: "OPERATIONS" },
+    { label: "Bookings", href: "/admin/cms/bookings", icon: CalendarDays },
+    { label: "Quotes", href: "/admin/cms/quotes", icon: MessageSquareQuote },
+    { label: "Contacts", href: "/admin/cms/contacts", icon: Mail },
+    { label: "Invoices", href: "/admin/cms/invoices", icon: CreditCard },
     { divider: "SYSTEM" },
     { label: "Logout", icon: LogOut, onClick: handleLogout },
   ];
@@ -99,7 +101,11 @@ export function AdminCMSLayout({
               }
 
               const Icon = item.icon!;
-              const isActive = item.href ? location === item.href : false;
+              const isActive = item.href
+                ? item.href === "/admin/cms"
+                  ? location === item.href
+                  : location === item.href || location.startsWith(`${item.href}/`)
+                : false;
 
               const isAnalytics = item.href === "/admin/cms/analytics";
               return (

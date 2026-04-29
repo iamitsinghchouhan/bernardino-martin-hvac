@@ -36,19 +36,10 @@ export async function registerRoutes(
   app.post("/api/admin/invoices", requireAdmin, adminCtrl.createInvoice);
   app.delete("/api/admin/invoices/:id", requireAdmin, adminCtrl.deleteInvoice);
   app.get("/api/admin/contacts", requireAdmin, adminCtrl.getContacts);
+  app.post("/api/admin/contacts/:id/reply", requireAdmin, adminCtrl.replyToContact);
   app.get("/api/admin/reminders", requireAdmin, adminCtrl.getReminders);
   app.get("/api/admin/quotes", requireAdmin, adminCtrl.getQuotes);
-  app.delete("/api/admin/quotes/:id", requireAdmin, adminCtrl.softDeleteQuote);
-
-  // Soft delete endpoints
-  app.delete("/api/admin/bookings/:id/soft", requireAdmin, adminCtrl.softDeleteBooking);
-
-  // Email reply to contact
-  app.post("/api/admin/contacts/:id/reply", requireAdmin, adminCtrl.replyToContact);
-
-  // Invoice email and payment
-  app.post("/api/admin/invoices/:id/send", requireAdmin, adminCtrl.sendInvoice);
-  app.patch("/api/admin/invoices/:id/mark-paid", requireAdmin, adminCtrl.markInvoicePaid);
+  app.delete("/api/admin/quotes/:id", requireAdmin, adminCtrl.deleteQuote);
 
   app.get("/api/admin/cms/settings", requireAdmin, cmsCtrl.getSettings);
   app.put("/api/admin/cms/settings/:key", requireAdmin, cmsCtrl.updateSetting);

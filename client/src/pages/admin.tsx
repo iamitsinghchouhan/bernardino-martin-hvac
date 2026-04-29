@@ -202,12 +202,12 @@ function AppointmentsTab() {
   });
 
   const deleteBooking = useMutation({
-    mutationFn: async ({ id, reason }: { id: number; reason: string }) => {
-      await apiRequest("DELETE", `/api/admin/bookings/${id}/soft`, {}, { reason });
+    mutationFn: async (id: number) => {
+      await apiRequest("DELETE", `/api/admin/bookings/${id}`);
     },
     onSuccess: () => {
       toast({
-        title: "Appointment deleted (soft delete)",
+        title: "Booking deleted successfully",
       });
       queryClient.invalidateQueries({ queryKey: ["/api/admin/bookings"] });
       queryClient.invalidateQueries({ queryKey: ["/api/admin/reminders"] });
@@ -215,7 +215,7 @@ function AppointmentsTab() {
     },
     onError: () => {
       toast({
-        title: "Failed to delete appointment",
+        title: "Failed to delete booking",
         variant: "destructive",
       });
     },
@@ -267,11 +267,11 @@ function AppointmentsTab() {
 
                   <DeleteConfirmButton
                     testId={`button-delete-booking-${booking.id}`}
-                    title="Delete appointment?"
-                    description="This will soft-delete the appointment with a reason. The data will be retained but hidden from the main list."
-                    confirmLabel={deleteBooking.isPending ? "Deleting..." : "Delete Appointment"}
+                    title="Delete booking?"
+                    description="Are you sure you want to delete this booking? This cannot be undone."
+                    confirmLabel={deleteBooking.isPending ? "Deleting..." : "Delete Booking"}
                     disabled={deleteBooking.isPending}
-                    onConfirm={() => deleteBooking.mutate({ id: booking.id, reason: "Deleted by admin" })}
+                    onConfirm={() => deleteBooking.mutate(booking.id)}
                   />
                 </div>
               </div>
@@ -324,26 +324,19 @@ function InvoicesTab() {
   });
 
   const markPaid = useMutation({
-    mutationFn: async (id: number) => {
-      await apiRequest("PATCH", `/api/admin/invoices/${id}/mark-paid`, {});
+    mutationFn: async (invoiceNumber: string) => {
+      await apiRequest("POST", `/api/invoices/${invoiceNumber}/pay`, {});
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/invoices"] });
       queryClient.invalidateQueries({ queryKey: ["/api/admin/stats"] });
-      toast({ title: "Invoice marked as paid" });
     },
   });
 
   const sendInvoice = useMutation({
-    mutationFn: async (id: number) => {
-      await apiRequest("POST", `/api/admin/invoices/${id}/send`, {});
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/invoices"] });
-      toast({ title: "Invoice sent to customer" });
-    },
-    onError: () => {
-      toast({ title: "Failed to send invoice", variant: "destructive" });
+    mutationFn: async (_id: number) => {
+      // Placeholder - email feature requires nodemailer installation
+      throw new Error("Email feature requires nodemailer installation on server");
     },
   });
 
@@ -462,7 +455,7 @@ function InvoicesTab() {
                       data-testid={`button-mark-paid-${invoice.id}`}
                       variant="outline"
                       className="border-emerald-200 text-emerald-700 hover:bg-emerald-50 hover:text-emerald-800"
-                      onClick={() => markPaid.mutate(invoice.id)}
+                      onClick={() => markPaid.mutate(invoice.invoiceNumber)}
                     >
                       Mark Paid
                     </Button>
@@ -496,7 +489,7 @@ function ContactsTab() {
 
   const replyToContact = useMutation({
     mutationFn: async ({ id, replyMessage }: { id: number; replyMessage: string }) => {
-      await apiRequest("POST", `/api/admin/contacts/${id}/reply`, {}, { replyMessage });
+      await apiRequest("POST", `/api/admin/contacts/${id}/reply`, { replyMessage });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/contacts"] });
@@ -634,7 +627,7 @@ function QuotesTab() {
 
   const deleteQuote = useMutation({
     mutationFn: async ({ id, reason }: { id: number; reason: string }) => {
-      await apiRequest("DELETE", `/api/admin/quotes/${id}`, {}, { reason });
+      await apiRequest("DELETE", `/api/admin/quotes/${id}`, { reason });
     },
     onSuccess: () => {
       toast({

@@ -94,6 +94,18 @@ function Router() {
         <Route path="/admin/cms">
           {() => <ProtectedRoute component={AdminCMSDashboard} />}
         </Route>
+        <Route path="/admin/cms/bookings">
+          {() => <ProtectedRoute component={AdminCMSDashboard} />}
+        </Route>
+        <Route path="/admin/cms/quotes">
+          {() => <ProtectedRoute component={AdminCMSDashboard} />}
+        </Route>
+        <Route path="/admin/cms/contacts">
+          {() => <ProtectedRoute component={AdminCMSDashboard} />}
+        </Route>
+        <Route path="/admin/cms/invoices">
+          {() => <ProtectedRoute component={AdminCMSDashboard} />}
+        </Route>
         <Route path="/admin/cms/analytics">
           {() => <ProtectedRoute component={AdminCMSAnalytics} />}
         </Route>
