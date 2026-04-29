@@ -1,6 +1,7 @@
 import CityPageHero from "@/components/city-pages/CityPageHero";
 import CityServices from "@/components/city-pages/CityServices";
 import InternalCityLinks from "@/components/city-pages/InternalCityLinks";
+import ServiceSlider from "@/components/ServiceSlider";
 import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/layout";
 import { SEO } from "@/components/seo";
@@ -129,6 +130,8 @@ export default function CityPageTemplate({ cityData }: CityPageTemplateProps) {
       </section>
 
       <CityServices cityData={cityData} />
+
+      <ServiceSlider />
 
       <section className="bg-gradient-to-r from-primary to-blue-900 py-16 text-white">
         <div className="container mx-auto px-4">
