@@ -1,5 +1,6 @@
 import { sql } from "drizzle-orm";
 import { pgTable, text, varchar, timestamp, integer, boolean, serial, decimal } from "drizzle-orm/pg-core";
+import { json } from "stream/consumers";
 import { z } from "zod";
 
 const BLOCKED_DOMAINS = [
@@ -423,3 +424,9 @@ export type InsertInvoiceLineItem = z.infer<typeof insertInvoiceLineItemSchema>;
 export type CreateAdminInvoice = z.infer<typeof createAdminInvoiceSchema>;
 export type ContactReplyInput = z.infer<typeof contactReplySchema>;
 export type SoftDeleteInput = z.infer<typeof softDeleteSchema>;
+
+export const sessions = pgTable("session", {
+  sid: text("sid").primaryKey(),
+  sess: json("sess").notNull(),
+  expire: timestamp("expire").notNull(),
+});
