@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 import { Layout } from "@/components/layout";
 import { SEO } from "@/components/seo";
 import { SERVICES, SERVICE_CATEGORIES, getWhatsAppLink } from "@/lib/constants";
@@ -44,34 +44,29 @@ const HASH_TO_CATEGORY: Record<string, ServiceCategory> = {
 
 const HEATING_SPECIALTIES = [
   {
-    label: "Gas Furnace Repair",
-    desc: "All gas furnace makes and models",
-    image: "/images/services/heating-gas-furnace.png",
-    alt: "Gas furnace repair technician Los Angeles",
+    title: 'Gas Furnace Repair',
+    description: 'All gas furnace makes and models',
+    icon: '🔥',
   },
   {
-    label: "Electric Furnace Repair",
-    desc: "Fast diagnostics and repair",
-    image: "/images/services/heating-electric-furnace.png",
-    alt: "Electric furnace repair Los Angeles",
+    title: 'Electric Furnace Repair',
+    description: 'Fast diagnostics and repair',
+    icon: '⚡',
   },
   {
-    label: "Floor Furnace Services",
-    desc: "Installation, repair and cleaning",
-    image: "/images/services/heating-floor-furnace.png",
-    alt: "Floor furnace service Los Angeles",
+    title: 'Floor Furnace Services',
+    description: 'Installation, repair and cleaning',
+    icon: '🏠',
   },
   {
-    label: "Wall Furnace Services",
-    desc: "Safe and efficient wall units",
-    image: "/images/services/heating-wall-furnace.png",
-    alt: "Wall furnace service Los Angeles",
+    title: 'Wall Furnace Services',
+    description: 'Safe and efficient wall units',
+    icon: '🌡️',
   },
   {
-    label: "Furnace Replacement",
-    desc: "Energy-efficient upgrades",
-    image: "/images/services/heating-furnace-replacement.png",
-    alt: "Furnace replacement installation Los Angeles",
+    title: 'Furnace Replacement',
+    description: 'Energy-efficient upgrades',
+    icon: '🔧',
   },
 ];
 
@@ -242,6 +237,21 @@ export default function Services() {
   const [location] = useLocation();
   const [activeCategory, setActiveCategory] = useState<ServiceCategory>("HVAC & Heating");
   const [selectedService, setSelectedService] = useState<Service | null>(null);
+  const [currentServiceIndex, setCurrentServiceIndex] = useState(0);
+  const autoplayTimerRef = useRef<NodeJS.Timeout>();
+
+  // Auto-scroll services hero every 10 seconds
+  useEffect(() => {
+    autoplayTimerRef.current = setInterval(() => {
+      setCurrentServiceIndex((prev) => (prev + 1) % SERVICES.length);
+    }, 10000);
+
+    return () => {
+      if (autoplayTimerRef.current) {
+        clearInterval(autoplayTimerRef.current);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     const syncCategoryFromHash = () => {
@@ -258,6 +268,7 @@ export default function Services() {
   }, [location]);
 
   const filteredServices = SERVICES.filter((service) => service.category === activeCategory);
+  const currentService = SERVICES[currentServiceIndex];
 
   return (
     <Layout>
@@ -266,60 +277,52 @@ export default function Services() {
         description="HVAC, plumbing, electrical, solar, landscaping, irrigation and network services in Los Angeles. Licensed technicians, same-day service and free estimates. Call (818) 400-0227."
       />
 
-      <section className="relative overflow-hidden bg-gradient-to-br from-primary via-blue-700 to-blue-900 py-16 text-white">
-        <div
-          className="absolute inset-0 opacity-10"
-          style={{
-            backgroundImage: "url('/images/hero-home.webp')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(61,181,74,0.15),_transparent)]" />
-        <div className="container relative z-10 mx-auto max-w-3xl px-4 text-center">
-          <span className="mb-4 inline-block rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-white/90">
-            Los Angeles Home Services
-          </span>
-          <h1 className="mb-4 text-4xl font-heading font-bold text-white md:text-5xl">
-            Los Angeles HVAC Experts
-          </h1>
-          <p className="mb-8 text-lg text-blue-100">
-            24/7 service • All brands • Licensed &amp; insured
-          </p>
+      {/* Auto-scrolling Hero Section */}
+      <section className="relative h-[500px] bg-gradient-to-r from-blue-600 to-blue-800 overflow-hidden text-white">
+        {/* Auto-scrolling video background */}
+        <video
+          key={currentService.videoFile}
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover opacity-30"
+        >
+          <source src={`/videos/${currentService.videoFile}`} type="video/mp4" />
+        </video>
 
-          <div className="mb-8 flex flex-wrap justify-center gap-4">
-            {[
-              { value: "15+", label: "Years Experience" },
-              { value: "5,000+", label: "Happy Customers" },
-              { value: "Same-Day", label: "Service Available" },
-            ].map(({ value, label }) => (
-              <div
-                key={label}
-                className="rounded-xl border border-white/20 bg-white/10 px-5 py-3 text-center"
-              >
-                <div className="text-xl font-bold text-white">{value}</div>
-                <div className="text-xs text-blue-200">{label}</div>
-              </div>
-            ))}
-          </div>
+        {/* Gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/90 to-blue-800/90" />
 
-          <div className="flex flex-col justify-center gap-3 sm:flex-row">
-            <Button
-              size="lg"
-              className="bg-secondary px-8 font-bold text-white hover:bg-secondary/90"
-              asChild
+        {/* Content */}
+        <div className="relative h-full flex items-center justify-center px-4">
+          <div className="text-center text-white max-w-2xl">
+            <p className="text-lg opacity-90 mb-2">Now Showing</p>
+            <h1 className="text-5xl md:text-6xl font-bold mb-6 font-heading">
+              {currentService.name}
+            </h1>
+            <p className="text-xl md:text-2xl mb-8 opacity-90">
+              {currentService.description}
+            </p>
+            <a
+              href="/booking"
+              className="inline-block bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded-lg font-bold text-lg transition"
             >
-              <Link href="/booking?service=hvac-repair">Book AC Repair</Link>
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-white/30 px-8 font-bold text-white hover:bg-white/10"
-              asChild
-            >
-              <Link href="/quote">Get Free Estimate</Link>
-            </Button>
+              Schedule Service
+            </a>
           </div>
+        </div>
+
+        {/* Service indicators */}
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
+          {SERVICES.map((_, i) => (
+            <div
+              key={i}
+              className={`h-1 w-6 rounded-full transition ${
+                i === currentServiceIndex ? 'bg-white' : 'bg-white/30'
+              }`}
+            />
+          ))}
         </div>
       </section>
 
@@ -328,22 +331,49 @@ export default function Services() {
           <p className="mb-3 text-center text-xs font-semibold uppercase tracking-widest text-slate-400">
             Trusted Brands We Service
           </p>
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
-            {BRANDS.map((brand) => (
-              <div
-                key={brand.name}
-                className="flex h-24 items-center justify-center rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition-transform hover:-translate-y-0.5 hover:shadow-md"
-              >
-                <img
-                  src={brand.image}
-                  alt={`${brand.name} logo`}
-                  className="h-12 w-full object-contain"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-            ))}
+          {/* Horizontal Auto-Scrolling Container */}
+          <div className="overflow-hidden">
+            <div
+              className="flex gap-8"
+              style={{
+                animation: 'scroll 30s linear infinite',
+                width: 'fit-content',
+              }}
+            >
+              {/* Show brands twice for seamless loop */}
+              {[...BRANDS, ...BRANDS].map((brand, i) => (
+                <div
+                  key={i}
+                  className="flex-shrink-0 w-48 h-24 bg-white rounded-2xl border border-slate-200 flex items-center justify-center hover:shadow-md transition-shadow"
+                >
+                  <img
+                    src={brand.image}
+                    alt={`${brand.name} logo`}
+                    className="h-12 w-full object-contain p-4"
+                    loading="lazy"
+                    decoding="async"
+                    onError={(e) => {
+                      // Fallback: show text if image fails
+                      e.currentTarget.style.display = 'none';
+                      e.currentTarget.parentElement!.textContent = brand.name;
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
+
+          {/* Add CSS animation */}
+          <style>{`
+            @keyframes scroll {
+              0% {
+                transform: translateX(0);
+              }
+              100% {
+                transform: translateX(-50%);
+              }
+            }
+          `}</style>
         </div>
       </section>
 
@@ -377,27 +407,23 @@ export default function Services() {
                 Expert furnace and heating system services across Los Angeles
               </p>
               <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-                {HEATING_SPECIALTIES.map(({ label, desc, image, alt }) => (
+                {HEATING_SPECIALTIES.map(({ title, description, icon }) => (
                   <div
-                    key={label}
-                    className="cursor-default overflow-hidden rounded-xl border border-slate-100 bg-white shadow-sm transition-all hover:border-primary/20 hover:shadow-md"
+                    key={title}
+                    className="cursor-default overflow-hidden rounded-xl border border-slate-100 bg-white shadow-sm transition-all hover:border-primary/20 hover:shadow-md p-6"
                   >
-                    <div className="aspect-video overflow-hidden">
-                      <img
-                        src={image}
-                        alt={alt}
-                        loading="lazy"
-                        decoding="async"
-                        className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
-                      />
-                    </div>
-                    <div className="p-4 text-center">
-                      <div className="mx-auto mb-2 flex h-8 w-8 items-center justify-center rounded-full bg-primary/10">
-                        <Flame className="h-4 w-4 text-primary" />
-                      </div>
-                      <p className="mb-1 text-sm font-bold leading-tight text-slate-900">{label}</p>
-                      <p className="text-xs leading-tight text-slate-500">{desc}</p>
-                    </div>
+                    {/* Icon */}
+                    <div className="text-4xl mb-4 text-center">{icon}</div>
+                    
+                    {/* Title */}
+                    <h3 className="text-lg font-bold text-slate-900 mb-2 text-center">
+                      {title}
+                    </h3>
+                    
+                    {/* Description */}
+                    <p className="text-sm text-slate-600 text-center">
+                      {description}
+                    </p>
                   </div>
                 ))}
               </div>
@@ -581,6 +607,178 @@ export default function Services() {
               </div>
             </div>
           )}
+        </div>
+      </section>
+
+      {/* Products & Brands Section */}
+      <section className="bg-gray-50 py-16 px-4">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-4xl font-bold text-gray-900 mb-4 text-center font-heading">
+            Products & Brands We Use
+          </h2>
+          <p className="text-lg text-gray-600 text-center mb-12">
+            Quality equipment from trusted manufacturers
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              {
+                category: 'Solar Inverters',
+                image: '/images/products/fronius-inverter.jpg',
+                description: 'Fronius Symo Series - High-efficiency grid-tied inverters',
+                specs: ['Efficiency: 98%+', 'Warranty: 10 years', 'WiFi Enabled'],
+              },
+              {
+                category: 'Battery Systems',
+                image: '/images/products/battery-based-inverter.jpg',
+                description: 'Battery-based inverters for energy storage integration',
+                specs: ['Backup Power', 'Off-Grid Capable', 'Smart Integration'],
+              },
+              {
+                category: 'Hybrid Systems',
+                image: '/images/products/hybrid-inverter.jpg',
+                description: 'Hybrid inverters combining solar, battery, and grid',
+                specs: ['Grid-Tie Ready', 'Battery Compatible', 'Expandable'],
+              },
+              {
+                category: 'Microinverters',
+                image: '/images/products/microinverters.jpg',
+                description: 'Panel-level optimization for maximum energy harvest',
+                specs: ['Panel-Level Control', 'Monitoring Included', 'Safe Design'],
+              },
+              {
+                category: 'Rapid Shutdown',
+                image: '/images/products/rapid-shutdown.jpg',
+                description: 'Fronius Rapid Shutdown Box for code compliance',
+                specs: ['Code Compliant', 'DC Optimization', 'Rapid Response'],
+              },
+            ].map((product, i) => (
+              <div key={i} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition">
+                {/* Product Image */}
+                <div className="h-48 bg-gray-200 overflow-hidden">
+                  <img
+                    src={product.image}
+                    alt={product.category}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                    decoding="async"
+                    onError={(e) => {
+                      e.currentTarget.parentElement!.innerHTML = `<div class="flex items-center justify-center h-full bg-gray-300 text-gray-600 font-semibold">${product.category}</div>`;
+                    }}
+                  />
+                </div>
+
+                {/* Product Info */}
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">
+                    {product.category}
+                  </h3>
+                  <p className="text-gray-600 mb-4 text-sm">
+                    {product.description}
+                  </p>
+
+                  {/* Specs */}
+                  <div className="space-y-1 mb-4">
+                    {product.specs.map((spec, j) => (
+                      <p key={j} className="text-sm text-gray-700">
+                        <span className="text-green-600">✓</span> {spec}
+                      </p>
+                    ))}
+                  </div>
+
+                  <a
+                    href="/booking"
+                    className="block w-full bg-blue-600 hover:bg-blue-700 text-white text-center py-2 rounded-lg font-semibold transition"
+                  >
+                    Learn More
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Thermostat Section */}
+      <section className="bg-white py-16 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            {/* Left: Image/Video */}
+            <div>
+              <img
+                src="/images/products/google-nest-thermostat.jpg"
+                alt="Google Nest Thermostat"
+                className="w-full rounded-lg shadow-lg"
+                loading="lazy"
+                decoding="async"
+                onError={(e) => {
+                  e.currentTarget.outerHTML = '<div class="bg-gray-300 h-96 flex items-center justify-center text-gray-600 rounded-lg shadow-lg font-semibold">Google Nest Thermostat Image</div>';
+                }}
+              />
+            </div>
+
+            {/* Right: Content */}
+            <div>
+              <h2 className="text-4xl font-bold text-gray-900 mb-6 font-heading">
+                Google Nest Thermostat
+              </h2>
+
+              <p className="text-lg text-gray-700 mb-6 leading-relaxed">
+                A smart thermostat that integrates seamlessly with Google Home, 
+                adapts to your schedule, and helps reduce energy usage.
+              </p>
+
+              {/* Key Features */}
+              <div className="space-y-4 mb-8">
+                <div className="flex gap-4">
+                  <span className="text-2xl">🌡️</span>
+                  <div>
+                    <h4 className="font-bold text-gray-900">Smart Learning</h4>
+                    <p className="text-gray-600 text-sm">Learns your schedule and adjusts temperature automatically</p>
+                  </div>
+                </div>
+
+                <div className="flex gap-4">
+                  <span className="text-2xl">📱</span>
+                  <div>
+                    <h4 className="font-bold text-gray-900">Remote Control</h4>
+                    <p className="text-gray-600 text-sm">Control temperature from anywhere via smartphone app</p>
+                  </div>
+                </div>
+
+                <div className="flex gap-4">
+                  <span className="text-2xl">🔊</span>
+                  <div>
+                    <h4 className="font-bold text-gray-900">Google Home Integration</h4>
+                    <p className="text-gray-600 text-sm">Works seamlessly with Google Home and other smart devices</p>
+                  </div>
+                </div>
+
+                <div className="flex gap-4">
+                  <span className="text-2xl">💰</span>
+                  <div>
+                    <h4 className="font-bold text-gray-900">Energy Savings</h4>
+                    <p className="text-gray-600 text-sm">Save up to 10% on heating and cooling bills</p>
+                  </div>
+                </div>
+
+                <div className="flex gap-4">
+                  <span className="text-2xl">🌿</span>
+                  <div>
+                    <h4 className="font-bold text-gray-900">Eco-Friendly</h4>
+                    <p className="text-gray-600 text-sm">Helps reduce your carbon footprint</p>
+                  </div>
+                </div>
+              </div>
+
+              <a
+                href="/booking?service=hvac"
+                className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-bold transition"
+              >
+                Schedule Thermostat Installation
+              </a>
+            </div>
+          </div>
         </div>
       </section>
 

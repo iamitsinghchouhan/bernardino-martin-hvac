@@ -3,7 +3,6 @@ import { SEO } from "@/components/seo";
 import { ReviewSlider } from "@/components/ReviewSlider";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { EasterBunny, EasterEggs } from "@/components/easter-animation";
 import { PROMOS, SERVICES, COMPANY_PHONE, COMPANY_NAME, COMPANY_FULL, getWhatsAppLink } from "@/lib/constants";
 import { ArrowRight, Check, Star, Clock, Calendar, MessageCircle, Phone, AlertTriangle, Droplets, Shield, Activity } from "lucide-react";
 import { Link } from "wouter";
@@ -96,11 +95,8 @@ export default function Home() {
               BERNARDINO MARTIN
             </h1>
             <p className="mb-6 text-2xl font-heading font-bold md:text-3xl lg:text-4xl">
-              <span className="relative inline-flex items-center pr-16 text-transparent bg-clip-text bg-gradient-to-r from-sky-300 to-emerald-400">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-300 to-emerald-400">
                 Heating &bull; Air Conditioning &bull; Solar
-                <span className="pointer-events-none absolute -right-1 top-1/2 hidden h-12 w-16 -translate-y-1/2 md:block">
-                  <EasterBunny className="block" />
-                </span>
               </span>
             </p>
             
@@ -135,7 +131,6 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <EasterEggs container="hero" />
       </section>
 
       {/* Promos Section */}
@@ -143,22 +138,22 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 relative z-10">
             {PROMOS.map((promo, i) => (
-              <Card key={i} className={`border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden group cursor-pointer ${promo.code === "EASTER25" ? "bg-gradient-to-br from-amber-50 via-pink-50 to-emerald-50 ring-1 ring-amber-200/70" : "bg-white"}`} data-testid={`card-promo-${i}`}>
-                <Link href={promo.code === "EASTER25" ? "/booking?promo=EASTER25" : "/booking"}>
-                  <div className={`h-2 ${promo.code === "EASTER25" ? "bg-gradient-to-r from-amber-400 via-pink-400 to-emerald-400" : "bg-gradient-to-r from-primary to-secondary"}`} />
+              <Card key={i} className={`border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden group cursor-pointer bg-white`} data-testid={`card-promo-${i}`}>
+                <Link href={`/booking${promo.code ? `?promo=${promo.code}` : ''}`}>
+                  <div className="h-2 bg-gradient-to-r from-primary to-secondary" />
                   <CardContent className="p-8 text-center flex flex-col items-center justify-center h-full min-h-[220px]">
-                    <Badge variant="secondary" className={`mb-4 px-3 py-1 text-sm font-bold ${promo.code === "EASTER25" ? "bg-white/80 text-amber-700 hover:bg-white border-amber-200" : "bg-primary/5 text-primary hover:bg-primary/10 border-primary/10"}`}>
+                    <Badge variant="secondary" className="mb-4 px-3 py-1 text-sm font-bold bg-primary/5 text-primary hover:bg-primary/10 border-primary/10">
                       {promo.title}
                     </Badge>
-                    <h3 className={`text-xl font-bold mb-3 transition-colors ${promo.code === "EASTER25" ? "text-slate-900 group-hover:text-amber-600" : "text-slate-900 group-hover:text-primary"}`}>
+                    <h3 className="text-xl font-bold mb-3 transition-colors text-slate-900 group-hover:text-primary">
                       {promo.sub || "Limited Time Offer"}
                     </h3>
                     <p className="text-slate-600 mb-6 font-medium">
                       {promo.description}
                     </p>
-                    <div className={`mt-auto pt-4 w-full flex justify-between items-center text-xs font-mono ${promo.code === "EASTER25" ? "border-t border-amber-200 text-amber-700" : "border-t border-slate-100 text-slate-500"}`}>
+                    <div className="mt-auto pt-4 w-full flex justify-between items-center text-xs font-mono border-t border-slate-100 text-slate-500">
                       <span>CODE: {promo.code}</span>
-                      <span className={`flex items-center font-bold ${promo.code === "EASTER25" ? "text-emerald-600" : "text-secondary"}`}>
+                      <span className="flex items-center font-bold text-secondary">
                         Claim Now <ArrowRight className="ml-1 h-3 w-3" />
                       </span>
                     </div>
