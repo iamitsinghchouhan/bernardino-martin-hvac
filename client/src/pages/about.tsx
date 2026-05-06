@@ -250,17 +250,41 @@ export default function About() {
       {/* ── Section 2: Company Story ── */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4 max-w-6xl">
-          <div className="max-w-3xl mx-auto text-center">
-            <div className="space-y-5">
-              <span className="text-secondary text-sm font-semibold uppercase tracking-widest">Our Story</span>
-              <h2 className="text-3xl font-bold text-primary font-heading">Who We Are</h2>
-              <p className="text-slate-600 leading-relaxed text-base">
-                BERNARDINO MARTIN is a family-owned home services company proudly serving the greater Los Angeles
-                area. We started with a passion for keeping homes comfortable, safe, and energy-efficient. Over the years
-                we have grown into a full-service contractor offering HVAC, solar, plumbing, electrical, landscaping,
-                irrigation, and smart technology services — all under one roof. We believe every homeowner deserves
-                reliable, honest, and professional service at a fair price.
-              </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+            {/* Image */}
+            <div className="order-2 md:order-1 rounded-lg overflow-hidden shadow-lg">
+              <img
+                src="/images/about/our-story.png"
+                alt="Our Story"
+                className="w-full h-96 object-cover"
+                loading="lazy"
+                onError={(e) => {
+                  // Fallback if image not found
+                  e.currentTarget.parentElement!.innerHTML = `
+                    <div class="w-full h-96 bg-gradient-to-br from-blue-100 to-blue-50 flex items-center justify-center">
+                      <div class="text-center">
+                        <p class="text-4xl mb-3">🏢</p>
+                        <p class="text-gray-600 font-semibold">Our Story</p>
+                      </div>
+                    </div>
+                  `;
+                }}
+              />
+            </div>
+
+            {/* Text */}
+            <div className="order-1 md:order-2">
+              <div className="space-y-5">
+                <span className="text-secondary text-sm font-semibold uppercase tracking-widest">Our Story</span>
+                <h2 className="text-3xl font-bold text-primary font-heading">Who We Are</h2>
+                <p className="text-slate-600 leading-relaxed text-base">
+                  BERNARDINO MARTIN is a family-owned home services company proudly serving the greater Los Angeles
+                  area. We started with a passion for keeping homes comfortable, safe, and energy-efficient. Over the years
+                  we have grown into a full-service contractor offering HVAC, solar, plumbing, electrical, landscaping,
+                  irrigation, and smart technology services — all under one roof. We believe every homeowner deserves
+                  reliable, honest, and professional service at a fair price.
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -269,21 +293,46 @@ export default function About() {
       {/* ── Section 3: Meet the Owner ── */}
       <section className="py-16 bg-accent">
         <div className="container mx-auto px-4 max-w-6xl">
-          <div className="max-w-3xl mx-auto text-center">
-            <div className="space-y-5">
-              <span className="text-secondary text-sm font-semibold uppercase tracking-widest">The Founder</span>
-              <h2 className="text-3xl font-bold text-primary font-heading">Meet Bernardino Martin</h2>
-              <p className="text-slate-600 leading-relaxed text-base">
-                Bernardino Martin is the founder and lead technician of the company. With decades of hands-on experience
-                in HVAC, solar installation, and home services across Los Angeles, Bernardino built this company on the
-                values of integrity, quality workmanship, and customer satisfaction. He personally oversees every project
-                to make sure it meets the highest standards. When you call BERNARDINO MARTIN, you are getting the
-                owner's commitment on every job.
-              </p>
-              <div className="flex flex-wrap gap-3 pt-2">
-                <TrustBadge label="Licensed & Insured" />
-                <TrustBadge label="Family Owned" />
-                <TrustBadge label="Serving LA Since Day One" />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+            {/* Image */}
+            <div className="rounded-lg overflow-hidden shadow-2xl">
+              <img
+                src="/images/about/bernardino-martin.png"
+                alt="Bernardino Martin - Founder"
+                className="w-full h-96 object-cover"
+                loading="lazy"
+                onError={(e) => {
+                  // Fallback if image not found
+                  e.currentTarget.parentElement!.innerHTML = `
+                    <div class="w-full h-96 bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center">
+                      <div class="text-center text-white">
+                        <p class="text-7xl mb-3">👨‍💼</p>
+                        <p class="text-xl font-semibold">Bernardino Martin</p>
+                        <p class="text-sm opacity-80">Founder & Owner</p>
+                      </div>
+                    </div>
+                  `;
+                }}
+              />
+            </div>
+
+            {/* Content */}
+            <div>
+              <div className="space-y-5">
+                <span className="text-secondary text-sm font-semibold uppercase tracking-widest">The Founder</span>
+                <h2 className="text-3xl font-bold text-primary font-heading">Meet Bernardino Martin</h2>
+                <p className="text-slate-600 leading-relaxed text-base">
+                  Bernardino Martin is the founder and lead technician of the company. With decades of hands-on experience
+                  in HVAC, solar installation, and home services across Los Angeles, Bernardino built this company on the
+                  values of integrity, quality workmanship, and customer satisfaction. He personally oversees every project
+                  to make sure it meets the highest standards. When you call BERNARDINO MARTIN, you are getting the
+                  owner's commitment on every job.
+                </p>
+                <div className="flex flex-wrap gap-3 pt-2">
+                  <TrustBadge label="Licensed & Insured" />
+                  <TrustBadge label="Family Owned" />
+                  <TrustBadge label="Serving LA Since Day One" />
+                </div>
               </div>
             </div>
           </div>

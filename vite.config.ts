@@ -33,9 +33,14 @@ export default defineConfig({
 
   root: path.resolve(rootDir, "client"),
 
+  publicDir: path.resolve(rootDir, "client/public"),
+
+  assetsInclude: ["**/*.mp4", "**/*.webm", "**/*.ogg", "**/*.jpg", "**/*.png", "**/*.svg", "**/*.gif"],
+
   build: {
     outDir: path.resolve(rootDir, "dist/public"),
     emptyOutDir: true,
+    copyPublicDir: true,
 
     rollupOptions: {
       output: {

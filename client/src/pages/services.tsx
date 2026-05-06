@@ -3,6 +3,7 @@ import { Layout } from "@/components/layout";
 import { SEO } from "@/components/seo";
 import { SERVICES, SERVICE_CATEGORIES, getWhatsAppLink } from "@/lib/constants";
 import type { Service, ServiceCategory } from "@/lib/constants";
+import { SERVICES as HERO_SERVICES } from "@/data/services";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Link, useLocation } from "wouter";
@@ -47,35 +48,35 @@ const HEATING_SPECIALTIES = [
     title: 'Gas Furnace Repair',
     description: 'All gas furnace makes and models',
     icon: '🔥',
-    image: '/images/services/gas-furnace.jpg',
+    image: '/images/services/heating-gas-furnace.png',
     fallbackText: 'Gas Furnace Repair',
   },
   {
     title: 'Electric Furnace Repair',
     description: 'Fast diagnostics and repair',
     icon: '⚡',
-    image: '/images/services/electric-furnace.jpg',
+    image: '/images/services/heating-electric-furnace.png',
     fallbackText: 'Electric Furnace Repair',
   },
   {
     title: 'Floor Furnace Services',
     description: 'Installation, repair and cleaning',
     icon: '🏠',
-    image: '/images/services/floor-furnace.jpg',
+    image: '/images/services/heating-floor-furnace.png',
     fallbackText: 'Floor Furnace Services',
   },
   {
     title: 'Wall Furnace Services',
     description: 'Safe and efficient wall units',
     icon: '🌡️',
-    image: '/images/services/wall-furnace.jpg',
+    image: '/images/services/heating-wall-furnace.png',
     fallbackText: 'Wall Furnace Services',
   },
   {
     title: 'Furnace Replacement',
     description: 'Energy-efficient upgrades',
     icon: '🔧',
-    image: '/images/services/furnace-replacement.jpg',
+    image: '/images/services/heating-furnace-replacement.png',
     fallbackText: 'Furnace Replacement',
   },
 ];
@@ -253,7 +254,7 @@ export default function Services() {
   // Auto-scroll services hero every 10 seconds
   useEffect(() => {
     autoplayTimerRef.current = setInterval(() => {
-      setCurrentServiceIndex((prev) => (prev + 1) % SERVICES.length);
+      setCurrentServiceIndex((prev) => (prev + 1) % HERO_SERVICES.length);
     }, 10000);
 
     return () => {
@@ -278,7 +279,7 @@ export default function Services() {
   }, [location]);
 
   const filteredServices = SERVICES.filter((service) => service.category === activeCategory);
-  const currentService = SERVICES[currentServiceIndex];
+  const currentService = HERO_SERVICES[currentServiceIndex];
 
   return (
     <Layout>
@@ -664,31 +665,31 @@ export default function Services() {
             {[
               {
                 category: 'Solar Inverters',
-                image: '/images/products/fronius-inverter.jpg',
+                image: '/images/products/fronius-inverter.png',
                 description: 'Fronius Symo Series - High-efficiency grid-tied inverters',
                 specs: ['Efficiency: 98%+', 'Warranty: 10 years', 'WiFi Enabled'],
               },
               {
                 category: 'Battery Systems',
-                image: '/images/products/battery-based-inverter.jpg',
+                image: '/images/products/battery-based-inverter.png',
                 description: 'Battery-based inverters for energy storage integration',
                 specs: ['Backup Power', 'Off-Grid Capable', 'Smart Integration'],
               },
               {
                 category: 'Hybrid Systems',
-                image: '/images/products/hybrid-inverter.jpg',
+                image: '/images/products/hybrid-inverter.png',
                 description: 'Hybrid inverters combining solar, battery, and grid',
                 specs: ['Grid-Tie Ready', 'Battery Compatible', 'Expandable'],
               },
               {
                 category: 'Microinverters',
-                image: '/images/products/microinverters.jpg',
+                image: '/images/products/microinverters.png',
                 description: 'Panel-level optimization for maximum energy harvest',
                 specs: ['Panel-Level Control', 'Monitoring Included', 'Safe Design'],
               },
               {
                 category: 'Rapid Shutdown',
-                image: '/images/products/rapid-shutdown.jpg',
+                image: '/images/products/rapid-shutdown.png',
                 description: 'Fronius Rapid Shutdown Box for code compliance',
                 specs: ['Code Compliant', 'DC Optimization', 'Rapid Response'],
               },
@@ -746,7 +747,7 @@ export default function Services() {
             {/* Left: Image/Video */}
             <div>
               <img
-                src="/images/products/google-nest-thermostat.jpg"
+                src="/images/products/google-nest-thermostat.png"
                 alt="Google Nest Thermostat"
                 className="w-full rounded-lg shadow-lg"
                 loading="lazy"
