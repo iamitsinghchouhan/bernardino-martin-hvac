@@ -47,26 +47,36 @@ const HEATING_SPECIALTIES = [
     title: 'Gas Furnace Repair',
     description: 'All gas furnace makes and models',
     icon: '🔥',
+    image: '/images/services/gas-furnace.jpg',
+    fallbackText: 'Gas Furnace Repair',
   },
   {
     title: 'Electric Furnace Repair',
     description: 'Fast diagnostics and repair',
     icon: '⚡',
+    image: '/images/services/electric-furnace.jpg',
+    fallbackText: 'Electric Furnace Repair',
   },
   {
     title: 'Floor Furnace Services',
     description: 'Installation, repair and cleaning',
     icon: '🏠',
+    image: '/images/services/floor-furnace.jpg',
+    fallbackText: 'Floor Furnace Services',
   },
   {
     title: 'Wall Furnace Services',
     description: 'Safe and efficient wall units',
     icon: '🌡️',
+    image: '/images/services/wall-furnace.jpg',
+    fallbackText: 'Wall Furnace Services',
   },
   {
     title: 'Furnace Replacement',
     description: 'Energy-efficient upgrades',
     icon: '🔧',
+    image: '/images/services/furnace-replacement.jpg',
+    fallbackText: 'Furnace Replacement',
   },
 ];
 
@@ -287,6 +297,14 @@ export default function Services() {
           muted
           playsInline
           className="absolute inset-0 w-full h-full object-cover opacity-30"
+          onError={(e) => {
+            console.error(`❌ Video failed to load: ${currentService.videoFile}`);
+            console.error(`Tried path: /videos/${currentService.videoFile}`);
+            console.log('Available videos: svc-hvac.mp4, svc-solar.mp4, svc-plumbing.mp4, svc-electrical.mp4, svc-landscaping.mp4, svc-irrigation.mp4, svc-network.mp4');
+          }}
+          onCanPlay={() => {
+            console.log(`✓ Video loaded successfully: ${currentService.videoFile}`);
+          }}
         >
           <source src={`/videos/${currentService.videoFile}`} type="video/mp4" />
         </video>
@@ -295,7 +313,7 @@ export default function Services() {
         <div className="absolute inset-0 bg-gradient-to-r from-blue-600/90 to-blue-800/90" />
 
         {/* Content */}
-        <div className="relative h-full flex items-center justify-center px-4">
+        <div className="relative h-full flex items-center justify-center px-4 z-10">
           <div className="text-center text-white max-w-2xl">
             <p className="text-lg opacity-90 mb-2">Now Showing</p>
             <h1 className="text-5xl md:text-6xl font-bold mb-6 font-heading">
@@ -314,7 +332,7 @@ export default function Services() {
         </div>
 
         {/* Service indicators */}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-10">
           {SERVICES.map((_, i) => (
             <div
               key={i}
@@ -406,24 +424,46 @@ export default function Services() {
               <p className="mb-5 text-sm text-slate-500">
                 Expert furnace and heating system services across Los Angeles
               </p>
-              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-                {HEATING_SPECIALTIES.map(({ title, description, icon }) => (
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+                {HEATING_SPECIALTIES.map(({ title, description, icon, image, fallbackText }) => (
                   <div
                     key={title}
-                    className="cursor-default overflow-hidden rounded-xl border border-slate-100 bg-white shadow-sm transition-all hover:border-primary/20 hover:shadow-md p-6"
+                    className="overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition h-full"
                   >
-                    {/* Icon */}
-                    <div className="text-4xl mb-4 text-center">{icon}</div>
-                    
-                    {/* Title */}
-                    <h3 className="text-lg font-bold text-slate-900 mb-2 text-center">
-                      {title}
-                    </h3>
-                    
-                    {/* Description */}
-                    <p className="text-sm text-slate-600 text-center">
-                      {description}
-                    </p>
+                    {/* Image Container */}
+                    <div className="h-40 bg-gray-200 overflow-hidden flex items-center justify-center">
+                      <img
+                        src={image}
+                        alt={title}
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          // If image fails, show colored background with icon
+                          const parent = e.currentTarget.parentElement;
+                          if (parent) {
+                            parent.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                            parent.innerHTML = `
+                              <div class="flex flex-col items-center justify-center w-full h-full text-white">
+                                <span style="font-size: 2.5rem; margin-bottom: 8px;">${icon}</span>
+                                <span style="font-size: 0.75rem; text-align: center; padding: 0 8px;">${fallbackText}</span>
+                              </div>
+                            `;
+                          }
+                        }}
+                      />
+                    </div>
+
+                    {/* Content */}
+                    <div className="p-6 bg-white">
+                      {/* Title */}
+                      <h3 className="text-lg font-bold text-gray-900 mb-2 text-center">
+                        {title}
+                      </h3>
+                      
+                      {/* Description */}
+                      <p className="text-sm text-gray-600 text-center">
+                        {description}
+                      </p>
+                    </div>
                   </div>
                 ))}
               </div>
