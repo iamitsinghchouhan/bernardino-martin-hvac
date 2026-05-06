@@ -53,16 +53,17 @@ export async function login(req: Request, res: Response, next: NextFunction) {
       throw AppError.unauthorized("Invalid password");
     }
 
-    // Set the admin flag and let the middleware save it
+    // Set the admin flag
     (req.session as any).isAdmin = true;
-    console.log("Login successful, session ID:", req.session.id, "isAdmin: true");
+    console.log("✓ Login successful - session ID:", req.sessionID, "isAdmin: true");
     
     // Save session and send response
     req.session.save((err) => {
       if (err) {
-        console.error("Session save error:", err);
+        console.error("❌ Session save error:", err);
         return next(err);
       }
+      console.log("✓ Session saved and will be sent to client");
       res.json({ success: true });
     });
   } catch (err) {

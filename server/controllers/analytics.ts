@@ -389,7 +389,7 @@ export async function getAnalyticsEvents(_req: Request, res: Response, next: Nex
 
     res.json(rows.map((row) => ({
       eventType: row.eventType,
-      count: row.count,
+      count: Number(row.count ?? 0),
       label: EVENT_LABELS[row.eventType] || row.eventType,
     })).sort((a, b) => b.count - a.count));
   } catch (err) {
@@ -409,11 +409,11 @@ export async function getBookingsByService(_req: Request, res: Response, next: N
       .groupBy(bookings.serviceTitle)
       .orderBy(desc(bookingCount));
 
-    const total = rows.reduce((sum, row) => sum + row.count, 0) || 1;
+    const total = rows.reduce((sum, row) => sum + Number(row.count ?? 0), 0) || 1;
     res.json(rows.map((row) => ({
       serviceTitle: row.serviceTitle,
-      count: row.count,
-      percentage: Number(((row.count / total) * 100).toFixed(1)),
+      count: Number(row.count ?? 0),
+      percentage: Number(((Number(row.count ?? 0) / total) * 100).toFixed(1)),
     })));
   } catch (err) {
     next(err);
@@ -479,8 +479,11 @@ export async function getRealtimeAnalytics(_req: Request, res: Response, next: N
       .orderBy(desc(activeCount));
 
     res.json({
-      activeVisitors: active?.activeVisitors ?? 0,
-      pagesBeingViewed: rows,
+      activeVisitors: Number(active?.activeVisitors ?? 0),
+      pagesBeingViewed: rows.map((row) => ({
+        page: row.page,
+        count: Number(row.count ?? 0),
+      })),
     });
   } catch (err) {
     next(err);

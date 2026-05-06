@@ -154,12 +154,12 @@ app.use(
   session({
     store: sessionStore,
     secret: sessionSecret || "fallback-dev-secret-change-in-production",
-    resave: true,
-    saveUninitialized: true,
+    resave: false,
+    saveUninitialized: false,
     name: "connect.sid",
     proxy: isProduction,
     cookie: {
-      secure: false,
+      secure: isProduction,
       httpOnly: true,
       sameSite: "lax",
       maxAge: 86_400_000,
