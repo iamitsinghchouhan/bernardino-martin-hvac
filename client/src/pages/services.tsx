@@ -289,7 +289,7 @@ export default function Services() {
       />
 
       {/* Auto-scrolling Hero Section */}
-      <section className="relative h-[500px] bg-gradient-to-r from-blue-600 to-blue-800 overflow-hidden text-white">
+      <section className="relative h-[500px] overflow-hidden text-white">
         {/* Auto-scrolling video background */}
         <video
           key={currentService.videoFile}
@@ -297,11 +297,11 @@ export default function Services() {
           loop
           muted
           playsInline
-          className="absolute inset-0 w-full h-full object-cover opacity-30"
+          className="absolute inset-0 w-full h-full object-cover"
           onError={(e) => {
             console.error(`❌ Video failed to load: ${currentService.videoFile}`);
             console.error(`Tried path: /videos/${currentService.videoFile}`);
-            console.log('Available videos: svc-hvac.mp4, svc-solar.mp4, svc-plumbing.mp4, svc-electrical.mp4, svc-landscaping.mp4, svc-irrigation.mp4, svc-network.mp4');
+            console.log('Available videos: hvac-service-la.mp4, solar-la.mp4, plumbing-la.mp4, electrical-la.mp4, landscaping-la.mp4, irrigation-la.mp4, network-la.mp4');
           }}
           onCanPlay={() => {
             console.log(`✓ Video loaded successfully: ${currentService.videoFile}`);
@@ -310,8 +310,8 @@ export default function Services() {
           <source src={`/videos/${currentService.videoFile}`} type="video/mp4" />
         </video>
 
-        {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/90 to-blue-800/90" />
+        {/* Dark overlay for text visibility */}
+        <div className="absolute inset-0 bg-black/40" />
 
         {/* Content */}
         <div className="relative h-full flex items-center justify-center px-4 z-10">
@@ -744,17 +744,17 @@ export default function Services() {
       <section className="bg-white py-16 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-            {/* Left: Image/Video */}
-            <div>
-              <img
-                src="/images/products/google-nest-thermostat.png"
-                alt="Google Nest Thermostat"
-                className="w-full rounded-lg shadow-lg"
-                loading="lazy"
-                decoding="async"
-                onError={(e) => {
-                  e.currentTarget.outerHTML = '<div class="bg-gray-300 h-96 flex items-center justify-center text-gray-600 rounded-lg shadow-lg font-semibold">Google Nest Thermostat Image</div>';
-                }}
+            {/* Left: Video */}
+            <div className="w-full rounded-2xl overflow-hidden shadow-lg bg-slate-900 aspect-video">
+              <video
+                src="/videos/google-nest-thermostat.mp4"
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                className="w-full h-full object-cover"
+                style={{ minHeight: '400px' }}
+                autoPlay
               />
             </div>
 
