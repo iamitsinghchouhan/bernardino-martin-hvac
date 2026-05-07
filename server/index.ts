@@ -168,25 +168,7 @@ app.use(
   })
 );
 
-// Debug middleware to log session state
-app.use((req: Request, res: Response, next: NextFunction) => {
-  const originalJson = res.json.bind(res);
-  
-  res.json = function(data: any) {
-    // Log session before response is sent
-    console.log("📤 Response:", {
-      path: req.path,
-      method: req.method,
-      sessionId: req.sessionID,
-      sessionExists: !!req.session,
-      isAdmin: (req.session as any)?.isAdmin,
-    });
-    
-    return originalJson(data);
-  };
-  
-  next();
-});
+
 
 /* ================================
    Health Check

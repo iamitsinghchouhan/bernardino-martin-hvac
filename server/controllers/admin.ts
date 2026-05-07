@@ -55,15 +55,12 @@ export async function login(req: Request, res: Response, next: NextFunction) {
 
     // Set the admin flag
     (req.session as any).isAdmin = true;
-    console.log("✓ Login successful - session ID:", req.sessionID, "isAdmin: true");
     
-    // Save session and send response
+    // Save session
     req.session.save((err) => {
       if (err) {
-        console.error("❌ Session save error:", err);
         return next(err);
       }
-      console.log("✓ Session saved and will be sent to client");
       res.json({ success: true });
     });
   } catch (err) {
