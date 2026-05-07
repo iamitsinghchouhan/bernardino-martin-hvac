@@ -73,14 +73,14 @@ async function periodCounts(start: Date, end: Date) {
   }).from(invoices).where(and(eq(invoices.status, "paid"), gte(invoices.paidAt, start), lt(invoices.paidAt, end)));
 
   return {
-    visitors: Number(pageStats?.visitors ?? 0),
-    pageViews: Number(pageStats?.pageViews ?? 0),
-    bookings: Number(bookingStats?.count ?? 0),
-    contacts: Number(contactStats?.count ?? 0),
-    quotes: Number(quoteStats?.count ?? 0),
-    phoneCalls: Number(phoneStats?.count ?? 0),
-    whatsappClicks: Number(whatsappStats?.count ?? 0),
-    revenue: Number(revenueStats?.total ?? 0),
+    visitors: pageStats?.visitors ?? 0,
+    pageViews: pageStats?.pageViews ?? 0,
+    bookings: bookingStats?.count ?? 0,
+    contacts: contactStats?.count ?? 0,
+    quotes: quoteStats?.count ?? 0,
+    phoneCalls: phoneStats?.count ?? 0,
+    whatsappClicks: whatsappStats?.count ?? 0,
+    revenue: revenueStats?.total ?? 0,
   };
 }
 
@@ -99,12 +99,12 @@ async function getAllTimeStats() {
   }).from(invoices).where(eq(invoices.status, "paid"));
 
   return {
-    totalVisitors: Number(pageStats?.totalVisitors ?? 0),
-    totalPageViews: Number(pageStats?.totalPageViews ?? 0),
-    totalBookings: Number(bookingStats?.totalBookings ?? 0),
-    totalRevenue: Number(revenueStats?.totalRevenue ?? 0),
-    totalContacts: Number(contactStats?.totalContacts ?? 0),
-    totalQuotes: Number(quoteStats?.totalQuotes ?? 0),
+    totalVisitors: pageStats?.totalVisitors ?? 0,
+    totalPageViews: pageStats?.totalPageViews ?? 0,
+    totalBookings: bookingStats?.totalBookings ?? 0,
+    totalRevenue: revenueStats?.totalRevenue ?? 0,
+    totalContacts: contactStats?.totalContacts ?? 0,
+    totalQuotes: quoteStats?.totalQuotes ?? 0,
   };
 }
 
@@ -389,7 +389,7 @@ export async function getAnalyticsEvents(_req: Request, res: Response, next: Nex
 
     res.json(rows.map((row) => ({
       eventType: row.eventType,
-      count: Number(row.count ?? 0),
+      count: row.count,
       label: EVENT_LABELS[row.eventType] || row.eventType,
     })).sort((a, b) => b.count - a.count));
   } catch (err) {
@@ -409,11 +409,11 @@ export async function getBookingsByService(_req: Request, res: Response, next: N
       .groupBy(bookings.serviceTitle)
       .orderBy(desc(bookingCount));
 
-    const total = rows.reduce((sum, row) => sum + Number(row.count ?? 0), 0) || 1;
+    const total = rows.reduce((sum, row) => sum + row.count, 0) || 1;
     res.json(rows.map((row) => ({
       serviceTitle: row.serviceTitle,
-      count: Number(row.count ?? 0),
-      percentage: Number(((Number(row.count ?? 0) / total) * 100).toFixed(1)),
+      count: row.count,
+      percentage: Number(((row.count / total) * 100).toFixed(1)),
     })));
   } catch (err) {
     next(err);
@@ -479,11 +479,8 @@ export async function getRealtimeAnalytics(_req: Request, res: Response, next: N
       .orderBy(desc(activeCount));
 
     res.json({
-      activeVisitors: Number(active?.activeVisitors ?? 0),
-      pagesBeingViewed: rows.map((row) => ({
-        page: row.page,
-        count: Number(row.count ?? 0),
-      })),
+      activeVisitors: active?.activeVisitors ?? 0,
+      pagesBeingViewed: rows,
     });
   } catch (err) {
     next(err);
@@ -506,14 +503,14 @@ export async function aggregateDailyAnalytics() {
 
   const payload = insertDailyStatSchema.parse({
     date: targetKey,
-    totalVisitors: Number(pageStats.visitors ?? 0),
-    uniqueVisitors: Number(uniqueVisitorStats?.uniqueVisitors ?? 0),
-    totalPageViews: Number(pageStats.pageViews ?? 0),
-    bookingsCreated: Number(pageStats.bookings ?? 0),
-    contactsCreated: Number(pageStats.contacts ?? 0),
-    quotesCreated: Number(pageStats.quotes ?? 0),
-    invoicesPaid: Number(paidInvoicesStats?.invoicesPaid ?? 0),
-    revenueCollected: Number(pageStats.revenue ?? 0),
+    totalVisitors: pageStats.visitors ?? 0,
+    uniqueVisitors: uniqueVisitorStats?.uniqueVisitors ?? 0,
+    totalPageViews: pageStats.pageViews ?? 0,
+    bookingsCreated: pageStats.bookings ?? 0,
+    contactsCreated: pageStats.contacts ?? 0,
+    quotesCreated: pageStats.quotes ?? 0,
+    invoicesPaid: paidInvoicesStats?.invoicesPaid ?? 0,
+    revenueCollected: pageStats.revenue ?? 0,
   });
 
   const [existing] = await db.select().from(dailyStats).where(eq(dailyStats.date, targetKey));
