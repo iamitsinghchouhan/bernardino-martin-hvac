@@ -219,30 +219,41 @@ export default function About() {
         description="BERNARDINO MARTIN — Licensed, bonded & insured HVAC and solar contractors serving Los Angeles. Learn why homeowners trust us for heating, cooling, solar & plumbing services."
       />
 
-      {/* ── Section 1: Hero (compact) ── */}
-      <section className="relative flex items-center justify-center overflow-hidden bg-primary py-14 md:py-16">
-        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(ellipse_at_top,_#3DB54A,_transparent)]" />
-        <div className="relative z-10 text-center px-4 max-w-2xl mx-auto">
-          <p className="text-secondary text-sm font-semibold uppercase tracking-widest mb-3">
-            Heating • Air Conditioning • Solar
-          </p>
-          <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-white mb-3 font-heading">
-            {COMPANY_NAME}
-          </h1>
-          <p className="text-white/70 text-base md:text-lg mb-8">
-            Los Angeles' trusted home services contractor since day one
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link href="/booking">
-              <Button size="lg" className="bg-secondary hover:bg-secondary/90 text-white font-bold px-7">
-                Book a Service
-              </Button>
-            </Link>
-            <Link href="/quote">
-              <Button size="lg" variant="outline" className="border-white/40 text-white hover:bg-white/10 font-bold px-7">
-                Get a Free Quote
-              </Button>
-            </Link>
+      {/* ── Section 1: Hero with Banner Image ── */}
+      <section className="relative overflow-hidden bg-primary min-h-[420px] md:min-h-[520px] flex items-end">
+        {/* Banner Image */}
+        <img
+          src="/images/about/about-banner.png"
+          alt="Bernardino Martin team with fleet vehicles and equipment in Los Angeles"
+          className="absolute inset-0 w-full h-full object-cover object-center"
+          loading="eager"
+        />
+        {/* Dark gradient overlay for text legibility */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10" />
+        {/* Content anchored to bottom */}
+        <div className="relative z-10 w-full px-4 pb-12 pt-20">
+          <div className="max-w-3xl mx-auto text-center">
+            <p className="text-secondary text-sm font-semibold uppercase tracking-widest mb-3">
+              Heating • Air Conditioning • Solar
+            </p>
+            <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-white mb-3 font-heading">
+              {COMPANY_NAME}
+            </h1>
+            <p className="text-white/80 text-base md:text-lg mb-8">
+              Los Angeles' trusted home services contractor since day one
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <Link href="/booking">
+                <Button size="lg" className="bg-secondary hover:bg-secondary/90 text-white font-bold px-7">
+                  Book a Service
+                </Button>
+              </Link>
+              <Link href="/quote">
+                <Button size="lg" variant="outline" className="border-white/40 text-white hover:bg-white/10 font-bold px-7">
+                  Get a Free Quote
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
       </section>

@@ -22,16 +22,16 @@ import {
 } from "lucide-react";
 
 const BRANDS = [
-  { name: "Carrier", image: "/images/brands/carrier.svg" },
-  { name: "Trane", image: "/images/brands/trane.svg" },
-  { name: "Lennox", image: "/images/brands/lennox.svg" },
-  { name: "Rheem", image: "/images/brands/rheem.svg" },
-  { name: "Goodman", image: "/images/brands/goodman.svg" },
-  { name: "York", image: "/images/brands/york.svg" },
-  { name: "Daikin", image: "/images/brands/daikin.svg" },
-  { name: "Mitsubishi", image: "/images/brands/mitsubishi.svg" },
-  { name: "LG", image: "/images/brands/lg.svg" },
-  { name: "Bosch", image: "/images/brands/bosch.svg" },
+  { name: "Carrier", color: "#004B87" },
+  { name: "Trane", color: "#E31837" },
+  { name: "Lennox", color: "#0057A8" },
+  { name: "Rheem", color: "#003087" },
+  { name: "Goodman", color: "#00529B" },
+  { name: "York", color: "#C41230" },
+  { name: "Daikin", color: "#005BAC" },
+  { name: "Mitsubishi", color: "#E60012" },
+  { name: "LG", color: "#A50034" },
+  { name: "Bosch", color: "#EA0016" },
 ] as const;
 
 const HASH_TO_CATEGORY: Record<string, ServiceCategory> = {
@@ -43,41 +43,107 @@ const HASH_TO_CATEGORY: Record<string, ServiceCategory> = {
   technology: "Technology",
 };
 
-const HEATING_SPECIALTIES = [
+type HeatingSpecialty = {
+  title: string;
+  description: string;
+  overview: string;
+  bullets: string[];
+  icon: string;
+  image: string;
+  serviceId: string;
+};
+
+type ProductItem = {
+  category: string;
+  image: string;
+  description: string;
+  specs: string[];
+  overview: string;
+};
+
+const HEATING_SPECIALTIES: HeatingSpecialty[] = [
   {
     title: 'Gas Furnace Repair',
     description: 'All gas furnace makes and models',
+    overview: 'Our certified technicians diagnose and repair all gas furnace brands quickly and reliably. We restore your heat fast with lasting repairs backed by our workmanship guarantee.',
+    bullets: ['All brands serviced', 'Same-day service available', 'Gas leak safety check', 'Igniter & burner repair', 'Full system inspection'],
     icon: '🔥',
     image: '/images/services/heating-gas-furnace.png',
-    fallbackText: 'Gas Furnace Repair',
+    serviceId: 'hvac-heating',
   },
   {
     title: 'Electric Furnace Repair',
     description: 'Fast diagnostics and repair',
+    overview: 'We use industry-leading diagnostic tools to quickly identify and fix electric furnace faults — from heating elements and sequencers to control boards and blower motors.',
+    bullets: ['Fast diagnostics', 'Heating element replacement', 'Control board repair', 'Blower motor service', 'Thermostat calibration'],
     icon: '⚡',
     image: '/images/services/heating-electric-furnace.png',
-    fallbackText: 'Electric Furnace Repair',
+    serviceId: 'hvac-heating',
   },
   {
     title: 'Floor Furnace Services',
     description: 'Installation, repair and cleaning',
+    overview: 'We service all floor furnace models — cleaning, repairing, and replacing units safely. Proper maintenance keeps your floor furnace running efficiently and safely all winter.',
+    bullets: ['Deep cleaning service', 'Burner replacement', 'Thermocouple service', 'Pilot light repair', 'Safety inspection'],
     icon: '🏠',
     image: '/images/services/heating-floor-furnace.png',
-    fallbackText: 'Floor Furnace Services',
+    serviceId: 'hvac-heating',
   },
   {
     title: 'Wall Furnace Services',
     description: 'Safe and efficient wall units',
+    overview: 'Our technicians install, repair, and maintain wall furnaces of all types. We ensure safe and efficient operation with thorough inspections and quality parts.',
+    bullets: ['New unit installation', 'Burner cleaning', 'Gas valve service', 'Thermostat hookup', 'Carbon monoxide check'],
     icon: '🌡️',
     image: '/images/services/heating-wall-furnace.png',
-    fallbackText: 'Wall Furnace Services',
+    serviceId: 'hvac-heating',
   },
   {
     title: 'Furnace Replacement',
     description: 'Energy-efficient upgrades',
+    overview: 'Upgrade to a modern, energy-efficient furnace and start saving on your heating bills immediately. We handle full removal of old equipment, installation, and system commissioning.',
+    bullets: ['Free in-home estimate', 'All major brands', 'Energy-efficient models', 'Old unit disposal', 'Manufacturer warranty honored'],
     icon: '🔧',
     image: '/images/services/heating-furnace-replacement.png',
-    fallbackText: 'Furnace Replacement',
+    serviceId: 'hvac-heating',
+  },
+];
+
+const PRODUCTS: ProductItem[] = [
+  {
+    category: 'Solar Inverters',
+    image: '/images/products/fronius-inverter.png',
+    description: 'Fronius Symo Series - High-efficiency grid-tied inverters',
+    overview: 'The Fronius Symo inverter delivers industry-leading efficiency and reliability for grid-tied solar systems. WiFi-enabled monitoring lets you track production from your phone.',
+    specs: ['Efficiency: 98%+', 'Warranty: 10 years', 'WiFi Enabled'],
+  },
+  {
+    category: 'Battery Systems',
+    image: '/images/products/battery-based-inverter.png',
+    description: 'Battery-based inverters for energy storage integration',
+    overview: 'Battery-based inverters allow your solar system to store excess energy and power your home during outages. Perfect for energy independence and backup power.',
+    specs: ['Backup Power', 'Off-Grid Capable', 'Smart Integration'],
+  },
+  {
+    category: 'Hybrid Systems',
+    image: '/images/products/hybrid-inverter.png',
+    description: 'Hybrid inverters combining solar, battery, and grid',
+    overview: 'Hybrid inverters give you the best of all worlds — grid-tied solar with battery backup capability. Expand your system easily as your energy needs grow.',
+    specs: ['Grid-Tie Ready', 'Battery Compatible', 'Expandable'],
+  },
+  {
+    category: 'Microinverters',
+    image: '/images/products/microinverters.png',
+    description: 'Panel-level optimization for maximum energy harvest',
+    overview: 'Microinverters maximize output from every individual solar panel, so shading or dirt on one panel doesn\'t reduce your whole system\'s production.',
+    specs: ['Panel-Level Control', 'Monitoring Included', 'Safe DC Design'],
+  },
+  {
+    category: 'Rapid Shutdown',
+    image: '/images/products/rapid-shutdown.png',
+    description: 'Fronius Rapid Shutdown Box for code compliance',
+    overview: 'The Fronius Rapid Shutdown Box ensures your solar system meets NEC code requirements for rapid shutdown, providing critical safety for first responders.',
+    specs: ['Code Compliant', 'DC Optimization', 'Rapid Response'],
   },
 ];
 
@@ -179,6 +245,7 @@ function ServiceModal({
           <button
             type="button"
             onClick={onClose}
+            aria-label="Close"
             className="absolute right-3 top-3 rounded-full bg-black/40 p-1.5 text-white transition-colors hover:bg-black/60"
           >
             <X className="h-4 w-4" />
@@ -244,12 +311,144 @@ function ServiceModal({
   );
 }
 
+function HeatingSpecialtyModal({
+  item,
+  open,
+  onClose,
+}: {
+  item: HeatingSpecialty | null;
+  open: boolean;
+  onClose: () => void;
+}) {
+  if (!item) return null;
+  return (
+    <Dialog open={open} onOpenChange={onClose}>
+      <DialogContent className="max-h-[90vh] max-w-2xl overflow-y-auto p-0">
+        <div className="relative aspect-video w-full overflow-hidden rounded-t-lg bg-gradient-to-br from-slate-700 to-slate-900">
+          <img
+            src={item.image}
+            alt={item.title}
+            className="h-full w-full object-cover"
+            onError={(e) => {
+              e.currentTarget.style.display = 'none';
+            }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Close"
+            className="absolute right-3 top-3 rounded-full bg-black/40 p-1.5 text-white transition-colors hover:bg-black/60"
+          >
+            <X className="h-4 w-4" />
+          </button>
+          <div className="absolute bottom-4 left-4">
+            <span className="text-3xl">{item.icon}</span>
+          </div>
+        </div>
+        <div className="p-6">
+          <DialogHeader>
+            <DialogTitle className="mb-1 text-2xl font-bold text-slate-900">{item.title}</DialogTitle>
+          </DialogHeader>
+          <p className="mb-5 mt-2 text-sm leading-relaxed text-slate-600">{item.overview}</p>
+          <ul className="mb-6 space-y-2">
+            {item.bullets.map((b) => (
+              <li key={b} className="flex items-start gap-2 text-sm text-slate-700">
+                <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                <span>{b}</span>
+              </li>
+            ))}
+          </ul>
+          <div className="flex flex-col gap-3 border-t border-slate-100 pt-4 sm:flex-row">
+            <Button className="flex-1 bg-primary font-semibold hover:bg-primary/90" asChild>
+              <Link href={`/booking?service=${item.serviceId}`} onClick={onClose}>
+                Book This Service
+              </Link>
+            </Button>
+            <Button variant="outline" className="flex-1 border-secondary/30 text-secondary hover:bg-secondary/5" asChild>
+              <Link href="/quote" onClick={onClose}>
+                Get a Free Quote
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+function ProductModal({
+  product,
+  open,
+  onClose,
+}: {
+  product: ProductItem | null;
+  open: boolean;
+  onClose: () => void;
+}) {
+  if (!product) return null;
+  return (
+    <Dialog open={open} onOpenChange={onClose}>
+      <DialogContent className="max-h-[90vh] max-w-2xl overflow-y-auto p-0">
+        <div className="relative aspect-video w-full overflow-hidden rounded-t-lg bg-gradient-to-br from-slate-100 to-slate-200">
+          <img
+            src={product.image}
+            alt={product.category}
+            className="h-full w-full object-cover"
+            onError={(e) => {
+              e.currentTarget.style.display = 'none';
+            }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Close"
+            className="absolute right-3 top-3 rounded-full bg-black/40 p-1.5 text-white transition-colors hover:bg-black/60"
+          >
+            <X className="h-4 w-4" />
+          </button>
+        </div>
+        <div className="p-6">
+          <DialogHeader>
+            <DialogTitle className="mb-1 text-2xl font-bold text-slate-900">{product.category}</DialogTitle>
+          </DialogHeader>
+          <p className="mb-2 mt-2 text-sm font-medium text-slate-500">{product.description}</p>
+          <p className="mb-5 text-sm leading-relaxed text-slate-600">{product.overview}</p>
+          <ul className="mb-6 space-y-2">
+            {product.specs.map((spec) => (
+              <li key={spec} className="flex items-start gap-2 text-sm text-slate-700">
+                <Check className="mt-0.5 h-4 w-4 shrink-0 text-green-600" />
+                <span>{spec}</span>
+              </li>
+            ))}
+          </ul>
+          <div className="flex flex-col gap-3 border-t border-slate-100 pt-4 sm:flex-row">
+            <Button className="flex-1 bg-primary font-semibold hover:bg-primary/90" asChild>
+              <Link href="/booking" onClick={onClose}>
+                Book Installation
+              </Link>
+            </Button>
+            <Button variant="outline" className="flex-1 border-secondary/30 text-secondary hover:bg-secondary/5" asChild>
+              <Link href="/quote" onClick={onClose}>
+                Get a Free Quote
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
 export default function Services() {
   const [location] = useLocation();
   const [activeCategory, setActiveCategory] = useState<ServiceCategory>("HVAC & Heating");
   const [selectedService, setSelectedService] = useState<Service | null>(null);
+  const [selectedHeatingSpecialty, setSelectedHeatingSpecialty] = useState<HeatingSpecialty | null>(null);
+  const [selectedProduct, setSelectedProduct] = useState<ProductItem | null>(null);
   const [currentServiceIndex, setCurrentServiceIndex] = useState(0);
-  const autoplayTimerRef = useRef<NodeJS.Timeout>();
+  const autoplayTimerRef = useRef<NodeJS.Timeout | undefined>(undefined);
 
   // Auto-scroll services hero every 10 seconds
   useEffect(() => {
@@ -353,30 +552,23 @@ export default function Services() {
           {/* Horizontal Auto-Scrolling Container */}
           <div className="overflow-hidden">
             <div
-              className="flex gap-8"
+              className="flex gap-6"
               style={{
                 animation: 'scroll 30s linear infinite',
                 width: 'fit-content',
               }}
             >
-              {/* Show brands twice for seamless loop */}
               {[...BRANDS, ...BRANDS].map((brand, i) => (
                 <div
                   key={i}
-                  className="flex-shrink-0 w-48 h-24 bg-white rounded-2xl border border-slate-200 flex items-center justify-center hover:shadow-md transition-shadow"
+                  className="flex-shrink-0 w-44 h-20 bg-white rounded-2xl border border-slate-200 flex items-center justify-center hover:shadow-md transition-shadow px-4"
                 >
-                  <img
-                    src={brand.image}
-                    alt={`${brand.name} logo`}
-                    className="h-12 w-full object-contain p-4"
-                    loading="lazy"
-                    decoding="async"
-                    onError={(e) => {
-                      // Fallback: show text if image fails
-                      e.currentTarget.style.display = 'none';
-                      e.currentTarget.parentElement!.textContent = brand.name;
-                    }}
-                  />
+                  <span
+                    className="text-xl font-extrabold tracking-tight text-center leading-tight"
+                    style={{ color: brand.color }}
+                  >
+                    {brand.name}
+                  </span>
                 </div>
               ))}
             </div>
@@ -426,46 +618,37 @@ export default function Services() {
                 Expert furnace and heating system services across Los Angeles
               </p>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-                {HEATING_SPECIALTIES.map(({ title, description, icon, image, fallbackText }) => (
-                  <div
-                    key={title}
-                    className="overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition h-full"
+                {HEATING_SPECIALTIES.map((specialty) => (
+                  <button
+                    key={specialty.title}
+                    type="button"
+                    onClick={() => setSelectedHeatingSpecialty(specialty)}
+                    className="group overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition h-full text-left cursor-pointer"
                   >
                     {/* Image Container */}
-                    <div className="h-40 bg-gray-200 overflow-hidden flex items-center justify-center">
+                    <div className="h-40 bg-gradient-to-br from-slate-700 to-slate-900 overflow-hidden flex items-center justify-center relative">
                       <img
-                        src={image}
-                        alt={title}
-                        className="w-full h-full object-cover"
+                        src={specialty.image}
+                        alt={specialty.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                         onError={(e) => {
-                          // If image fails, show colored background with icon
-                          const parent = e.currentTarget.parentElement;
-                          if (parent) {
-                            parent.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
-                            parent.innerHTML = `
-                              <div class="flex flex-col items-center justify-center w-full h-full text-white">
-                                <span style="font-size: 2.5rem; margin-bottom: 8px;">${icon}</span>
-                                <span style="font-size: 0.75rem; text-align: center; padding: 0 8px;">${fallbackText}</span>
-                              </div>
-                            `;
-                          }
+                          e.currentTarget.style.display = 'none';
                         }}
                       />
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
+                      <div className="absolute bottom-2 right-2 text-2xl">{specialty.icon}</div>
                     </div>
-
                     {/* Content */}
-                    <div className="p-6 bg-white">
-                      {/* Title */}
-                      <h3 className="text-lg font-bold text-gray-900 mb-2 text-center">
-                        {title}
+                    <div className="p-4 bg-white">
+                      <h3 className="text-sm font-bold text-gray-900 mb-1 text-center group-hover:text-primary transition-colors">
+                        {specialty.title}
                       </h3>
-                      
-                      {/* Description */}
-                      <p className="text-sm text-gray-600 text-center">
-                        {description}
+                      <p className="text-xs text-gray-500 text-center">{specialty.description}</p>
+                      <p className="mt-2 text-center text-xs font-semibold text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+                        View Details →
                       </p>
                     </div>
-                  </div>
+                  </button>
                 ))}
               </div>
             </div>
@@ -662,80 +845,158 @@ export default function Services() {
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              {
-                category: 'Solar Inverters',
-                image: '/images/products/fronius-inverter.png',
-                description: 'Fronius Symo Series - High-efficiency grid-tied inverters',
-                specs: ['Efficiency: 98%+', 'Warranty: 10 years', 'WiFi Enabled'],
-              },
-              {
-                category: 'Battery Systems',
-                image: '/images/products/battery-based-inverter.png',
-                description: 'Battery-based inverters for energy storage integration',
-                specs: ['Backup Power', 'Off-Grid Capable', 'Smart Integration'],
-              },
-              {
-                category: 'Hybrid Systems',
-                image: '/images/products/hybrid-inverter.png',
-                description: 'Hybrid inverters combining solar, battery, and grid',
-                specs: ['Grid-Tie Ready', 'Battery Compatible', 'Expandable'],
-              },
-              {
-                category: 'Microinverters',
-                image: '/images/products/microinverters.png',
-                description: 'Panel-level optimization for maximum energy harvest',
-                specs: ['Panel-Level Control', 'Monitoring Included', 'Safe Design'],
-              },
-              {
-                category: 'Rapid Shutdown',
-                image: '/images/products/rapid-shutdown.png',
-                description: 'Fronius Rapid Shutdown Box for code compliance',
-                specs: ['Code Compliant', 'DC Optimization', 'Rapid Response'],
-              },
-            ].map((product, i) => (
-              <div key={i} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition">
+            {PRODUCTS.map((product, i) => (
+              <button
+                key={i}
+                type="button"
+                onClick={() => setSelectedProduct(product)}
+                className="group bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition transform hover:-translate-y-1 text-left cursor-pointer"
+              >
                 {/* Product Image */}
-                <div className="h-48 bg-gray-200 overflow-hidden">
+                <div className="h-48 bg-gradient-to-br from-slate-100 to-slate-200 overflow-hidden flex items-center justify-center relative">
                   <img
                     src={product.image}
                     alt={product.category}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     loading="lazy"
                     decoding="async"
                     onError={(e) => {
-                      e.currentTarget.parentElement!.innerHTML = `<div class="flex items-center justify-center h-full bg-gray-300 text-gray-600 font-semibold">${product.category}</div>`;
+                      e.currentTarget.style.display = 'none';
                     }}
                   />
+                  <div className="absolute bottom-2 right-2 bg-primary text-white text-xs font-bold px-2 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+                    View Details
+                  </div>
                 </div>
-
                 {/* Product Info */}
                 <div className="p-6">
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">
+                  <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-primary transition-colors">
                     {product.category}
                   </h3>
-                  <p className="text-gray-600 mb-4 text-sm">
-                    {product.description}
-                  </p>
-
-                  {/* Specs */}
+                  <p className="text-gray-600 mb-4 text-sm">{product.description}</p>
                   <div className="space-y-1 mb-4">
-                    {product.specs.map((spec, j) => (
-                      <p key={j} className="text-sm text-gray-700">
+                    {product.specs.map((spec) => (
+                      <p key={spec} className="text-sm text-gray-700">
                         <span className="text-green-600">✓</span> {spec}
                       </p>
                     ))}
                   </div>
+                  <div className="block w-full bg-blue-600 group-hover:bg-blue-700 text-white text-center py-2 rounded-lg font-semibold transition">
+                    View Details & Book
+                  </div>
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
 
-                  <a
-                    href="/booking"
-                    className="block w-full bg-blue-600 hover:bg-blue-700 text-white text-center py-2 rounded-lg font-semibold transition"
-                  >
-                    Learn More
+      {/* SOD Installation & Landscaping Materials Section */}
+      <section className="bg-gradient-to-r from-blue-900 to-blue-800 py-16 px-4 text-white">
+        <div className="max-w-6xl mx-auto text-center">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 font-heading">
+            SOD Installation & Landscaping Materials
+          </h2>
+          <p className="text-xl mb-8 opacity-90 max-w-3xl mx-auto">
+            Premium decorative woodchips, ground cover, recycled wood and more — quality materials delivered reliably across Los Angeles.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="/booking?service=landscaping" className="inline-block bg-green-500 hover:bg-green-600 text-white px-8 py-3 rounded-lg font-bold text-lg transition transform hover:scale-105">
+              Schedule Landscaping Service
+            </a>
+            <a href="/quote" className="inline-block bg-white hover:bg-gray-100 text-blue-900 px-8 py-3 rounded-lg font-bold text-lg transition">
+              Get a Free Quote
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* SOD Materials Showcase */}
+      <section className="bg-white py-16 px-4">
+        <div className="max-w-7xl mx-auto">
+          {/* Hero Image */}
+          <div className="mb-12 rounded-2xl overflow-hidden shadow-xl">
+            <img
+              src="/images/sod/sod-materials.png"
+              alt="Bernardino Martin landscaping materials - quality woodchips, ground cover and soil delivered to Los Angeles"
+              className="w-full h-72 md:h-96 object-cover"
+            />
+          </div>
+
+          <h2 className="text-3xl font-bold text-gray-900 mb-3 text-center font-heading">Premium Materials We Deliver</h2>
+          <p className="text-gray-600 text-center mb-12 max-w-2xl mx-auto">
+            High-quality landscaping materials for beautiful, lasting results. Delivered to your door across Los Angeles.
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              { name: 'Decorative Woodchips', size: '500 LBS', img: '/images/sod/sod-1.png', color: 'from-red-700 to-red-800', benefits: ['Vibrant color options', 'Natural wood appearance', 'Excellent moisture retention', 'Long-lasting finish'] },
+              { name: 'Ground Cover', size: '500 LBS', img: '/images/sod/sod-2.png', color: 'from-amber-700 to-amber-800', benefits: ['Suppresses weeds', 'Regulates soil temperature', 'Beautiful curb appeal', 'Professional finish'] },
+              { name: 'Recycled Wood', size: '500 LBS', img: '/images/sod/sod-3.png', color: 'from-amber-600 to-amber-700', benefits: ['Eco-friendly material', 'Budget-friendly option', 'Natural appearance', 'Sustainable choice'] },
+              { name: 'Bark Mulch', size: '500 LBS', img: '/images/sod/sod-4.png', color: 'from-stone-600 to-stone-700', benefits: ['Deep brown tones', 'Excellent water retention', 'Natural decomposition', 'Enriches soil'] },
+              { name: 'Compost & Soil Mix', img: '/images/sod/sod-5.png', color: 'from-amber-800 to-amber-900', benefits: ['50/50 organic mix', 'Nutrient-rich formula', 'Improves soil structure', 'Promotes healthy growth'] },
+              { name: 'Premium SOD Installation', img: '/images/sod/sod-6.png', color: 'from-green-600 to-green-700', benefits: ['San Augustine variety', 'RTF tall fescue option', 'Soil prep included', 'Watering guidance provided'] },
+            ].map((material, i) => (
+              <div key={i} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition transform hover:-translate-y-1">
+                <div className={`h-48 bg-gradient-to-br ${material.color} overflow-hidden relative`}>
+                  <img
+                    src={material.img}
+                    alt={material.name}
+                    className="w-full h-full object-cover"
+                    onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                  />
+                </div>
+                <div className="p-5">
+                  <h3 className="text-lg font-bold text-gray-900 mb-1">{material.name}</h3>
+                  {material.size && <p className="text-xs font-semibold text-green-600 mb-3">{material.size} Per Load</p>}
+                  <div className="space-y-1 mb-4">
+                    {material.benefits.map((b) => (
+                      <p key={b} className="text-sm text-gray-700"><span className="text-green-600">✓</span> {b}</p>
+                    ))}
+                  </div>
+                  <a href="/booking?service=landscaping" className="block w-full bg-blue-600 hover:bg-blue-700 text-white text-center py-2 rounded-lg font-semibold transition text-sm">
+                    Request Delivery
                   </a>
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* SOD Installation 7-Step Process */}
+      <section className="bg-gray-50 py-16 px-4">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-3xl font-bold text-gray-900 mb-3 text-center font-heading">Our Complete Installation Process</h2>
+          <p className="text-gray-600 text-center mb-12 max-w-2xl mx-auto">Seven professional steps to create the perfect lawn</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {[
+              { step: 1, title: 'Soil Selection & Preparation', desc: 'Quality soil selected from our farm, properly dried for optimal consistency and tested for use.', icon: '🌱', color: 'bg-blue-500' },
+              { step: 2, title: 'Rototilling & Organic Mix', desc: 'Professional rototiller and our premium 50/50 organic mix to enrich soil with nutrients and improve structure.', icon: '⚙️', color: 'bg-amber-500' },
+              { step: 3, title: 'Ground Leveling', desc: 'Precise leveling to ensure proper water drainage and a professional even surface for your lawn.', icon: '📐', color: 'bg-green-500' },
+              { step: 4, title: 'Smart Irrigation System', desc: 'Advanced irrigation with smart timers controllable via your smartphone for convenient water management.', icon: '💧', color: 'bg-cyan-500' },
+              { step: 5, title: 'Dripper System Installation', desc: 'Individual drip lines for targeted watering directly to plant roots for optimal growth and health.', icon: '🚿', color: 'bg-blue-400' },
+              { step: 6, title: 'Mulch & Decorative Cover', desc: 'Premium decorative bark mulch or colorful rocks to retain moisture and enhance curb appeal.', icon: '🌿', color: 'bg-amber-600' },
+              { step: 7, title: 'Final SOD Installation', desc: 'Premium sod installed on the perfectly prepared foundation for quick establishment and a lush green lawn.', icon: '🏡', color: 'bg-green-600' },
+            ].map((s) => (
+              <div key={s.step} className="flex gap-4 bg-white rounded-xl shadow-sm p-5 hover:shadow-md transition">
+                <div className={`${s.color} text-white rounded-xl w-12 h-12 flex-shrink-0 flex items-center justify-center font-bold text-lg`}>
+                  {s.step}
+                </div>
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-xl">{s.icon}</span>
+                    <h3 className="font-bold text-gray-900 text-sm">{s.title}</h3>
+                  </div>
+                  <p className="text-xs text-gray-600 leading-relaxed">{s.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="mt-10 text-center">
+            <a href="/booking?service=landscaping" className="inline-block bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg font-bold text-lg transition">
+              Schedule SOD Installation
+            </a>
           </div>
         </div>
       </section>
@@ -861,6 +1122,16 @@ export default function Services() {
         service={selectedService}
         open={!!selectedService}
         onClose={() => setSelectedService(null)}
+      />
+      <HeatingSpecialtyModal
+        item={selectedHeatingSpecialty}
+        open={!!selectedHeatingSpecialty}
+        onClose={() => setSelectedHeatingSpecialty(null)}
+      />
+      <ProductModal
+        product={selectedProduct}
+        open={!!selectedProduct}
+        onClose={() => setSelectedProduct(null)}
       />
     </Layout>
   );

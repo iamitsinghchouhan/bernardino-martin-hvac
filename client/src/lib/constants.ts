@@ -530,6 +530,27 @@ export const SERVICES: Service[] = [
     category: "Technology",
     categoryId: "technology",
   },
+  {
+    id: "tech-smart-network",
+    title: "Smart Network Solutions",
+    description: "Reliable structured network infrastructure for homes and businesses",
+    overview:
+      "We deliver complete Smart Network Solutions — from structured cabling and fiber internet to enterprise-grade routers and smart control panels. Whether you're outfitting a new home or upgrading a business, our technicians install clean, fast, and reliable network infrastructure that powers all your connected devices.",
+    bullets: [
+      "Structured network cabling (Cat6 & fiber)",
+      "Internet & fiber installation",
+      "Smart home connectivity setup",
+      "Router & control panel configuration",
+      "Whole-home WiFi coverage",
+      "Clean cable management & labeling",
+    ],
+    price: "Starting at $249",
+    duration: "3-6 hours",
+    image: "/images/services/smart-network-solutions.jpeg",
+    icon: Wifi,
+    category: "Technology",
+    categoryId: "technology",
+  },
 ];
 
 export const CITIES = [
