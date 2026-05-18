@@ -15,9 +15,16 @@ if (!/[?&]sslmode=/.test(connectionString)) {
 const poolConfig: PoolConfig = {
   connectionString,
   ssl: false,
+  max: 20,
   connectionTimeoutMillis: 10000,
-  idleTimeoutMillis: 30000,
+  idleTimeoutMillis: 20000,
 };
 
 export const pool = new Pool(poolConfig);
+
+// Prevent pool errors from crashing the process — log them instead
+pool.on("error", (err) => {
+  console.error("Unexpected PostgreSQL pool error:", err.message);
+});
+
 export const db = drizzle(pool, { schema });

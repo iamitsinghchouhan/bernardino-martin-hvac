@@ -47,30 +47,39 @@ export function validateEnvironmentVariables() {
   return true;
 }
 
+const DB_CONNECT_RETRIES = 5;
+const DB_CONNECT_DELAY_MS = 5000;
+
 export async function validateDatabaseConnection(pool: any) {
-  try {
-    // Test database connection with simple query
-    const client = await pool.connect();
-    await client.query('SELECT 1');
-    client.release();
-    console.log('✓ Database connection verified');
-    return true;
-  } catch (error: any) {
-    console.error('\n' + '='.repeat(60));
-    console.error('❌ FATAL ERROR: Cannot connect to database');
-    console.error('='.repeat(60));
-    console.error(`\nError: ${error.message}`);
-    console.error('\nPossible causes:');
-    console.error('1. DATABASE_URL is incorrect');
-    console.error('2. PostgreSQL is not running');
-    console.error('3. Database credentials are wrong');
-    console.error('4. Database server is unreachable');
-    console.error('\nFix:');
-    console.error('1. Verify DATABASE_URL: echo $DATABASE_URL');
-    console.error('2. Check PostgreSQL: sudo systemctl status postgresql');
-    console.error('3. Test connection: psql $DATABASE_URL -c "SELECT 1;"');
-    console.error('='.repeat(60) + '\n');
-    
-    process.exit(1);
+  for (let attempt = 1; attempt <= DB_CONNECT_RETRIES; attempt++) {
+    try {
+      const client = await pool.connect();
+      await client.query('SELECT 1');
+      client.release();
+      console.log('✓ Database connection verified');
+      return true;
+    } catch (error: any) {
+      if (attempt < DB_CONNECT_RETRIES) {
+        console.error(`⚠ Database connection attempt ${attempt}/${DB_CONNECT_RETRIES} failed: ${error.message}`);
+        console.error(`  Retrying in ${DB_CONNECT_DELAY_MS / 1000}s...`);
+        await new Promise((resolve) => setTimeout(resolve, DB_CONNECT_DELAY_MS));
+      } else {
+        console.error('\n' + '='.repeat(60));
+        console.error('❌ FATAL ERROR: Cannot connect to database after all retries');
+        console.error('='.repeat(60));
+        console.error(`\nError: ${error.message}`);
+        console.error('\nPossible causes:');
+        console.error('1. DATABASE_URL is incorrect');
+        console.error('2. PostgreSQL is not running');
+        console.error('3. Database credentials are wrong');
+        console.error('4. Database server is unreachable');
+        console.error('\nFix:');
+        console.error('1. Verify DATABASE_URL: echo $DATABASE_URL');
+        console.error('2. Check PostgreSQL: sudo systemctl status postgresql');
+        console.error('3. Test connection: psql $DATABASE_URL -c "SELECT 1;"');
+        console.error('='.repeat(60) + '\n');
+        process.exit(1);
+      }
+    }
   }
 }

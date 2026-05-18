@@ -11,7 +11,15 @@
       "Bash(cp \"c:/Users/nites/Downloads/Images/SOD \\(1\\).png\" \"c:/Users/nites/Downloads/ReplitExport-theamitchouhan/LA-Solar-HVAC/public/images/sod/sod-1.png\")",
       "Bash(cp \"c:/Users/nites/Downloads/Images/SOD \\(2\\).png\" \"c:/Users/nites/Downloads/ReplitExport-theamitchouhan/LA-Solar-HVAC/public/images/sod/sod-2.png\")",
       "Bash(cp \"c:/Users/nites/Downloads/Images/SOD \\(3\\).png\" \"c:/Users/nites/Downloads/ReplitExport-theamitchouhan/LA-Solar-HVAC/public/images/sod/sod-3.png\")",
-      "Bash(npx tsc *)"
+      "Bash(npx tsc *)",
+      "Bash(Get-ChildItem -Path \"c:\\\\Users\\\\nites\\\\Downloads\\\\ReplitExport-theamitchouhan\\\\LA-Solar-HVAC\" -Recurse -Depth 2)",
+      "Bash(Select-Object FullName, PSIsContainer)",
+      "Bash(Format-Table -AutoSize)",
+      "Bash(cp \"c:/Users/nites/Downloads/Images/About_Banner.png\" \"c:/Users/nites/Downloads/ReplitExport-theamitchouhan/LA-Solar-HVAC/client/public/images/about/about-banner.png\")",
+      "Bash(cp \"c:/Users/nites/Downloads/Images/SOD.png\" \"c:/Users/nites/Downloads/ReplitExport-theamitchouhan/LA-Solar-HVAC/client/public/images/sod/sod-materials.png\")",
+      "Bash(cp \"c:/Users/nites/Downloads/Images/SOD \\(1\\).png\" \"c:/Users/nites/Downloads/ReplitExport-theamitchouhan/LA-Solar-HVAC/client/public/images/sod/sod-1.png\")",
+      "Bash(cp \"c:/Users/nites/Downloads/Images/SOD \\(2\\).png\" \"c:/Users/nites/Downloads/ReplitExport-theamitchouhan/LA-Solar-HVAC/client/public/images/sod/sod-2.png\")",
+      "Bash(cp \"c:/Users/nites/Downloads/Images/SOD \\(3\\).png\" \"c:/Users/nites/Downloads/ReplitExport-theamitchouhan/LA-Solar-HVAC/client/public/images/sod/sod-3.png\")"
     ],
     "additionalDirectories": [
       "C:\\Users\\nites\\.claude\\projects\\c--Users-nites-Downloads-ReplitExport-theamitchouhan-LA-Solar-HVAC\\memory"

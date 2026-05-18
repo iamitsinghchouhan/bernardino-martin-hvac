@@ -1,7 +1,10 @@
-import { execSync } from "child_process";
+import { exec } from "child_process";
+import { promisify } from "util";
 import fs from "fs";
 import path from "path";
 import { logger } from "./logger";
+
+const execAsync = promisify(exec);
 
 const BACKUP_DIR = path.resolve("backups");
 const MAX_BACKUPS = 7;
@@ -35,9 +38,8 @@ export async function performBackup(): Promise<{ success: boolean; filename?: st
   const filepath = path.join(BACKUP_DIR, filename);
 
   try {
-    execSync(`pg_dump "${dbUrl}" | gzip > "${filepath}"`, {
+    await execAsync(`pg_dump "${dbUrl}" | gzip > "${filepath}"`, {
       timeout: 120000,
-      stdio: ["pipe", "pipe", "pipe"],
     });
 
     const stats = fs.statSync(filepath);

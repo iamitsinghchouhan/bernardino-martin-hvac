@@ -13,6 +13,8 @@ import { logger } from "./logger";
 import { sanitizeInput } from "./middleware/sanitize";
 import { errorHandler } from "./middleware/error-handler";
 import { validateEnvironmentVariables, validateDatabaseConnection } from "./config/validation";
+import { stopReminderEngine } from "./reminder-engine";
+import { stopBackupSchedule } from "./backup";
 
 const isProduction = process.env.NODE_ENV === "production";
 
@@ -147,8 +149,7 @@ async function initializeSessionTable() {
   }
 }
 
-// Initialize session table before starting server
-initializeSessionTable();
+// Initialize session table before starting server (awaited inside the boot IIFE below)
 
 app.use(
   session({
@@ -218,6 +219,9 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 ================================ */
 
 (async () => {
+  /* Ensure session table exists before any request can arrive */
+  await initializeSessionTable();
+
   /* Register API routes */
   await registerRoutes(httpServer, app);
 
@@ -274,7 +278,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   validateDatabaseConnection(pool).then(() => {
     logger.info('✓ Database connection active');
     logger.info('✓ Admin panel features: Delete, Email, Invoices');
-    
+
     httpServer.listen(port, "0.0.0.0", () => {
       logger.info(`Server running on port ${port}`);
     });
@@ -283,3 +287,38 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     process.exit(1);
   });
 })();
+
+/* ================================
+   Graceful Shutdown
+================================ */
+
+async function shutdown(signal: string) {
+  logger.info(`Received ${signal} — shutting down gracefully...`);
+  try {
+    stopReminderEngine();
+    stopBackupSchedule();
+    await pool.end();
+    logger.info("Graceful shutdown complete.");
+    process.exit(0);
+  } catch (err) {
+    logger.error({ err }, "Error during shutdown");
+    process.exit(1);
+  }
+}
+
+process.on("SIGTERM", () => shutdown("SIGTERM"));
+process.on("SIGINT",  () => shutdown("SIGINT"));
+
+/* ================================
+   Process Error Guards
+================================ */
+
+process.on("uncaughtException", (err) => {
+  logger.error({ err }, "Uncaught exception — server will continue");
+  // Log but do not exit; let the process keep running
+});
+
+process.on("unhandledRejection", (reason) => {
+  logger.error({ reason }, "Unhandled promise rejection");
+  // Log but do not exit; let the process keep running
+});
