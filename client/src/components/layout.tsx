@@ -7,6 +7,61 @@ import { COMPANY_PHONE, COMPANY_NAME, COMPANY_FULL, getWhatsAppLink } from "@/li
 import { trackEvent } from "@/hooks/use-analytics";
 const ChatWidget = lazy(() => import("@/components/chat-widget").then(m => ({ default: m.ChatWidget })));
 
+const FOOTER_SERVICE_PAGES = [
+  { href: "/hvac-los-angeles", label: "HVAC Los Angeles" },
+  { href: "/solar-installation-los-angeles", label: "Solar Installation LA" },
+  { href: "/plumbing-los-angeles", label: "Plumbing Los Angeles" },
+  { href: "/electrical-services-los-angeles", label: "Electrical Services LA" },
+  { href: "/landscaping-los-angeles", label: "Landscaping Los Angeles" },
+  { href: "/irrigation-los-angeles", label: "Irrigation Los Angeles" },
+  { href: "/network-installation-los-angeles", label: "Network Installation LA" },
+  { href: "/air-conditioning-service-los-angeles", label: "Air Conditioning Service LA" },
+  { href: "/ac-repair-los-angeles", label: "AC Repair Los Angeles" },
+  { href: "/mini-split-service-los-angeles", label: "Mini-Split Service LA" },
+  { href: "/furnace-service-los-angeles", label: "Furnace Service LA" },
+  { href: "/heat-pump-los-angeles", label: "Heat Pump Los Angeles" },
+  { href: "/solar-optimization-los-angeles", label: "Solar Optimization LA" },
+  { href: "/plumbing-service-los-angeles", label: "Plumbing Service LA" },
+  { href: "/landscaping-services-los-angeles", label: "Landscaping Services LA" },
+  { href: "/sod-installation-los-angeles", label: "Sod Installation LA" },
+  { href: "/planters-landscaping-los-angeles", label: "Planters & Landscaping LA" },
+  { href: "/network-repair-los-angeles", label: "Network Repair Los Angeles" },
+  { href: "/new-installation-los-angeles", label: "New Installation LA" },
+];
+
+const FOOTER_SERVICE_AREAS = [
+  { href: "/hvac-burbank", label: "Burbank" },
+  { href: "/hvac-glendale", label: "Glendale" },
+  { href: "/hvac-pasadena", label: "Pasadena" },
+  { href: "/hvac-san-fernando-valley", label: "San Fernando Valley" },
+  { href: "/hvac-santa-monica", label: "Santa Monica" },
+  { href: "/hvac-hollywood", label: "Hollywood" },
+  { href: "/hvac-north-hollywood", label: "North Hollywood" },
+  { href: "/hvac-van-nuys", label: "Van Nuys" },
+  { href: "/hvac-chatsworth", label: "Chatsworth" },
+  { href: "/hvac-northridge", label: "Northridge" },
+  { href: "/hvac-reseda", label: "Reseda" },
+  { href: "/hvac-canoga-park", label: "Canoga Park" },
+  { href: "/hvac-woodland-hills", label: "Woodland Hills" },
+  { href: "/hvac-calabasas", label: "Calabasas" },
+  { href: "/hvac-sherman-oaks", label: "Sherman Oaks" },
+  { href: "/hvac-studio-city", label: "Studio City" },
+  { href: "/hvac-encino", label: "Encino" },
+  { href: "/hvac-tarzana", label: "Tarzana" },
+  { href: "/hvac-west-hills", label: "West Hills" },
+  { href: "/hvac-redondo-beach", label: "Redondo Beach" },
+  { href: "/hvac-hermosa-beach", label: "Hermosa Beach" },
+  { href: "/hvac-playa-del-rey", label: "Playa del Rey" },
+  { href: "/hvac-inglewood", label: "Inglewood" },
+  { href: "/hvac-culver-city", label: "Culver City" },
+  { href: "/hvac-torrance", label: "Torrance" },
+  { href: "/hvac-malibu", label: "Malibu" },
+  { href: "/hvac-long-beach", label: "Long Beach" },
+  { href: "/hvac-gardena", label: "Gardena" },
+  { href: "/hvac-hawthorne", label: "Hawthorne" },
+  { href: "/hvac-manhattan-beach", label: "Manhattan Beach" },
+];
+
 export function Layout({ children }: { children: React.ReactNode }) {
   const [location] = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
@@ -415,6 +470,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 <Button className="w-full bg-primary hover:bg-primary/90" asChild>
                   <Link href="/booking">Book Appointment</Link>
                 </Button>
+                <Button className="w-full bg-slate-800 hover:bg-slate-700 text-white" asChild>
+                  <Link href="/quote">Get a Free Quote</Link>
+                </Button>
                 <Button className="w-full bg-secondary hover:bg-secondary/90 text-white border-0" asChild>
                    <a href={getWhatsAppLink("Hi, I have a question about your services.")} onClick={() => trackEvent("whatsapp_click")} target="_blank" rel="noopener noreferrer">
                      <MessageCircle className="mr-2 h-4 w-4" />
@@ -424,8 +482,29 @@ export function Layout({ children }: { children: React.ReactNode }) {
               </div>
             </div>
           </div>
-          <p className="text-xs text-slate-500 text-center mt-4">
-            Proudly serving Los Angeles, Burbank, Glendale, Pasadena, Santa Monica, and the entire San Fernando Valley.
+
+          <div className="border-t border-slate-800 pt-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div>
+              <h3 className="text-white font-bold mb-4 font-heading text-sm uppercase tracking-wider">Popular Service Pages</h3>
+              <ul className="columns-2 sm:columns-3 gap-4 space-y-1.5 text-xs text-slate-400">
+                {FOOTER_SERVICE_PAGES.map((page) => (
+                  <li key={page.href}><a href={page.href} className="hover:text-secondary transition-colors">{page.label}</a></li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-white font-bold mb-4 font-heading text-sm uppercase tracking-wider">All Service Areas We Cover</h3>
+              <ul className="columns-2 sm:columns-3 gap-4 space-y-1.5 text-xs text-slate-400">
+                {FOOTER_SERVICE_AREAS.map((area) => (
+                  <li key={area.href}><a href={area.href} className="hover:text-secondary transition-colors">{area.label}</a></li>
+                ))}
+                <li><Link href="/service-areas" className="font-semibold text-secondary hover:text-secondary/80 transition-colors">View All Areas →</Link></li>
+              </ul>
+            </div>
+          </div>
+
+          <p className="text-xs text-slate-500 text-center mt-8">
+            Proudly serving Los Angeles, Burbank, Glendale, Pasadena, Santa Monica, the San Fernando Valley, and the South Bay - including Redondo Beach, Hermosa Beach, Manhattan Beach, Torrance, and Long Beach.
           </p>
 
           <div className="pt-8 pb-20 border-t border-slate-800 mt-4 flex flex-col md:flex-row justify-between items-center gap-4">

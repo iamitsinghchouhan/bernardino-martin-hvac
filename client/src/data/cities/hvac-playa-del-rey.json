@@ -1,0 +1,42 @@
+{
+  "id": 20,
+  "city": "Playa del Rey",
+  "slug": "hvac-playa-del-rey",
+  "region": "Westside Coast",
+  "population": "~10,000",
+  "zipCodes": [
+    "90293"
+  ],
+  "description": "Playa del Rey sits between the bluffs and the Ballona Wetlands, so homes here face constant marine moisture along with the salt exposure typical of beach-adjacent neighborhoods. Bernardino Martin helps Playa del Rey homeowners keep cooling and heating equipment protected from coastal humidity while maintaining steady comfort in bluff-top homes and lower-lying properties closer to the wetlands.",
+  "climate": "Mild coastal climate with marine layer, ocean breeze, and salt air exposure",
+  "commonServices": [
+    "AC Repair & Diagnostics",
+    "HVAC Maintenance",
+    "Ductless Mini-Split Systems",
+    "AC Installation"
+  ],
+  "serviceAreas": [
+    "Playa del Rey Bluffs",
+    "Del Rey Lagoon area",
+    "Surfridge area",
+    "Ballona Wetlands border"
+  ],
+  "responseTime": "25-40 minutes",
+  "videoFile": "generic-area-hero.mp4",
+  "imageFile": "generic-area-hero.png",
+  "metaDescription": "HVAC services in Playa del Rey - AC repair, installation, heating and maintenance from a licensed local contractor. Call (818) 400-0227.",
+  "metaKeywords": "HVAC Playa del Rey, AC repair Playa del Rey, heating service Playa del Rey, air conditioning Playa del Rey",
+  "localPhone": "(818) 400-0227",
+  "nearestCities": [
+    "Culver City",
+    "Santa Monica",
+    "Manhattan Beach",
+    "Inglewood"
+  ],
+  "notableLandmarks": [
+    "Playa del Rey Beach",
+    "Ballona Wetlands Ecological Reserve",
+    "Del Rey Lagoon Park"
+  ],
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+}

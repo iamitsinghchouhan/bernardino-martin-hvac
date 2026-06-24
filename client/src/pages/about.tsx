@@ -121,6 +121,8 @@ export default function About() {
     "Santa Monica", "Hollywood", "North Hollywood", "Van Nuys", "Chatsworth",
     "Northridge", "Reseda", "Canoga Park", "Woodland Hills", "Calabasas",
     "Sherman Oaks", "Studio City", "Encino", "Tarzana", "West Hills",
+    "Redondo Beach", "Hermosa Beach", "Playa del Rey", "Inglewood", "Culver City",
+    "Torrance", "Malibu", "Long Beach", "Gardena", "Hawthorne", "Manhattan Beach",
   ];
 
   const services = [

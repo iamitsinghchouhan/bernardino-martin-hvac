@@ -1,0 +1,43 @@
+{
+  "id": 22,
+  "city": "Culver City",
+  "slug": "hvac-culver-city",
+  "region": "Westside",
+  "population": "~40,000",
+  "zipCodes": [
+    "90230",
+    "90232"
+  ],
+  "description": "Culver City blends established residential streets with a busy studio and media district around Sony Pictures, which means HVAC needs range from classic single-family homes to renovated lofts and live-work spaces. Bernardino Martin helps Culver City homeowners with cooling repairs, heating service, and tune-ups built around the city's mix of older housing stock and recent renovations.",
+  "climate": "Moderate Westside climate with coastal influence in the mornings and warmer inland afternoons",
+  "commonServices": [
+    "AC Repair & Diagnostics",
+    "HVAC Maintenance",
+    "Ductless Mini-Split Systems",
+    "Duct Cleaning & Installation"
+  ],
+  "serviceAreas": [
+    "Downtown Culver City",
+    "Carlson Park",
+    "Fox Hills",
+    "Culver West"
+  ],
+  "responseTime": "20-35 minutes",
+  "videoFile": "generic-area-hero.mp4",
+  "imageFile": "generic-area-hero.png",
+  "metaDescription": "HVAC services in Culver City - AC repair, installation, heating and maintenance from a licensed local contractor. Call (818) 400-0227.",
+  "metaKeywords": "HVAC Culver City, AC repair Culver City, heating service Culver City, air conditioning Culver City",
+  "localPhone": "(818) 400-0227",
+  "nearestCities": [
+    "Playa del Rey",
+    "Inglewood",
+    "Santa Monica",
+    "Hollywood"
+  ],
+  "notableLandmarks": [
+    "Sony Pictures Studios",
+    "Culver City Stairs",
+    "Helms Bakery District"
+  ],
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+}

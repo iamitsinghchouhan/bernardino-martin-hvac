@@ -1,0 +1,45 @@
+{
+  "id": 25,
+  "city": "Long Beach",
+  "slug": "hvac-long-beach",
+  "region": "Long Beach Harbor Area",
+  "population": "~466,000",
+  "zipCodes": [
+    "90802",
+    "90803",
+    "90804",
+    "90815"
+  ],
+  "description": "Long Beach is a large harbor city with a wide mix of housing, from historic bungalows near Belmont Shore to high-rise condos downtown and family homes further from the coast. Bernardino Martin helps Long Beach homeowners with cooling repairs, heating service, and maintenance that accounts for salt air near the harbor and the warmer conditions found in neighborhoods set back from the water.",
+  "climate": "Mild coastal-influenced climate with salt air near the harbor and warmer inland pockets",
+  "commonServices": [
+    "AC Repair & Diagnostics",
+    "HVAC Maintenance",
+    "AC Installation",
+    "Duct Cleaning & Installation"
+  ],
+  "serviceAreas": [
+    "Belmont Shore",
+    "Downtown Long Beach",
+    "Bixby Knolls",
+    "Naples"
+  ],
+  "responseTime": "25-45 minutes",
+  "videoFile": "generic-area-hero.mp4",
+  "imageFile": "generic-area-hero.png",
+  "metaDescription": "HVAC services in Long Beach - AC repair, installation, heating and maintenance from a licensed local contractor. Call (818) 400-0227.",
+  "metaKeywords": "HVAC Long Beach, AC repair Long Beach, heating service Long Beach, air conditioning Long Beach",
+  "localPhone": "(818) 400-0227",
+  "nearestCities": [
+    "Gardena",
+    "Torrance",
+    "Hawthorne",
+    "Inglewood"
+  ],
+  "notableLandmarks": [
+    "The Queen Mary",
+    "Aquarium of the Pacific",
+    "Long Beach Convention Center"
+  ],
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+}

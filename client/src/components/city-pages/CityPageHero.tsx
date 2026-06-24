@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import type { CityData } from "@/data/cities/types";
+import { buildVideoObjectSchema } from "@/lib/video-schema";
 import { Phone } from "lucide-react";
 import { Link } from "wouter";
 
@@ -9,9 +10,16 @@ type CityPageHeroProps = {
 
 export default function CityPageHero({ cityData }: CityPageHeroProps) {
   const phoneHref = `tel:${cityData.localPhone.replace(/\D/g, "")}`;
+  const videoSchema = buildVideoObjectSchema({
+    name: `${cityData.city} HVAC Service`,
+    description: cityData.metaDescription,
+    thumbnailUrl: `/images/cities/${cityData.imageFile}`,
+    contentUrl: `/videos/cities/${cityData.videoFile}`,
+  });
 
   return (
     <section className="relative isolate overflow-hidden text-white">
+      <script type="application/ld+json">{JSON.stringify(videoSchema)}</script>
       <div className="absolute inset-0">
         <img
           src={`/images/cities/${cityData.imageFile}`}
@@ -41,12 +49,12 @@ export default function CityPageHero({ cityData }: CityPageHeroProps) {
 
       <div className="container relative z-10 mx-auto px-4 py-20 md:py-28">
         <div className="mx-auto max-w-4xl text-center">
-          <span className="inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.22em] text-slate-100">
-            {cityData.city} HVAC Services
-          </span>
-          <h1 className="mt-6 text-4xl font-heading font-black tracking-tight text-white md:text-6xl">
-            Heating and Air Conditioning in {cityData.city}
+          <h1 className="inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.22em] text-slate-100">
+            {cityData.city} HVAC Service
           </h1>
+          <h2 className="mt-6 text-4xl font-heading font-black tracking-tight text-white md:text-6xl">
+            Heating and Air Conditioning in {cityData.city}
+          </h2>
           <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-slate-100 md:text-xl">
             Licensed local help for {cityData.city} homes and light commercial spaces, with {cityData.responseTime.toLowerCase()} response times and service built for {cityData.climate.toLowerCase()}.
           </p>

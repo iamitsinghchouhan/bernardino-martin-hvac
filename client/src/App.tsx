@@ -67,6 +67,18 @@ const PlantersLandscapingLosAngeles = lazy(() => import("@/pages/seo/planters-la
 const NetworkRepairLosAngeles = lazy(() => import("@/pages/seo/network-repair-los-angeles"));
 const NewInstallationLosAngeles = lazy(() => import("@/pages/seo/new-installation-los-angeles"));
 
+const HvacRedondoBeach = lazy(() => import("@/pages/seo/hvac-redondo-beach"));
+const HvacHermosaBeach = lazy(() => import("@/pages/seo/hvac-hermosa-beach"));
+const HvacPlayaDelRey = lazy(() => import("@/pages/seo/hvac-playa-del-rey"));
+const HvacInglewood = lazy(() => import("@/pages/seo/hvac-inglewood"));
+const HvacCulverCity = lazy(() => import("@/pages/seo/hvac-culver-city"));
+const HvacTorrance = lazy(() => import("@/pages/seo/hvac-torrance"));
+const HvacMalibu = lazy(() => import("@/pages/seo/hvac-malibu"));
+const HvacLongBeach = lazy(() => import("@/pages/seo/hvac-long-beach"));
+const HvacGardena = lazy(() => import("@/pages/seo/hvac-gardena"));
+const HvacHawthorne = lazy(() => import("@/pages/seo/hvac-hawthorne"));
+const HvacManhattanBeach = lazy(() => import("@/pages/seo/hvac-manhattan-beach"));
+
 function PageLoader() {
   return (
     <div className="min-h-screen flex items-center justify-center">
@@ -151,6 +163,17 @@ function Router() {
         <Route path="/hvac-tarzana" component={HvacTarzana} />
         <Route path="/hvac-west-hills" component={HvacWestHills} />
         <Route path="/hvac-pasadena" component={HvacPasadena} />
+        <Route path="/hvac-redondo-beach" component={HvacRedondoBeach} />
+        <Route path="/hvac-hermosa-beach" component={HvacHermosaBeach} />
+        <Route path="/hvac-playa-del-rey" component={HvacPlayaDelRey} />
+        <Route path="/hvac-inglewood" component={HvacInglewood} />
+        <Route path="/hvac-culver-city" component={HvacCulverCity} />
+        <Route path="/hvac-torrance" component={HvacTorrance} />
+        <Route path="/hvac-malibu" component={HvacMalibu} />
+        <Route path="/hvac-long-beach" component={HvacLongBeach} />
+        <Route path="/hvac-gardena" component={HvacGardena} />
+        <Route path="/hvac-hawthorne" component={HvacHawthorne} />
+        <Route path="/hvac-manhattan-beach" component={HvacManhattanBeach} />
         <Route path="/air-conditioning-service-los-angeles" component={AirConditioningServiceLosAngeles} />
         <Route path="/ac-repair-los-angeles" component={AcRepairLosAngeles} />
         <Route path="/mini-split-service-los-angeles" component={MiniSplitServiceLosAngeles} />

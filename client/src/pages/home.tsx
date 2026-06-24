@@ -1,5 +1,6 @@
 import { Layout } from "@/components/layout";
 import { SEO } from "@/components/seo";
+import { buildVideoObjectSchema } from "@/lib/video-schema";
 import { ReviewSlider } from "@/components/ReviewSlider";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -63,6 +64,16 @@ export default function Home() {
       
       {/* Hero Section - Video Background */}
       <section className="relative h-[650px] md:h-[700px] flex items-center overflow-hidden" data-testid="hero-section">
+        <script type="application/ld+json">
+          {JSON.stringify(
+            buildVideoObjectSchema({
+              name: "Bernardino Martin HVAC, Solar & Plumbing Services Showcase",
+              description: "A showcase of HVAC, solar, plumbing, electrical, landscaping, irrigation, and network installation work performed by Bernardino Martin in Los Angeles.",
+              thumbnailUrl: "/images/real-solar-install.webp",
+              contentUrl: HERO_VIDEOS[0],
+            }),
+          )}
+        </script>
         <div className="absolute inset-0 z-0">
           <video
             ref={videoRefs[0]}

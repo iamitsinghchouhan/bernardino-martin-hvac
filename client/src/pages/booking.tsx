@@ -140,7 +140,7 @@ export default function Booking() {
 
   return (
     <Layout>
-      <SEO title="Book Online" description="Schedule your HVAC, Solar, or Plumbing service online. Fast, easy, and secure booking." />
+      <SEO title="Book Online" description="Schedule your HVAC, Solar, or Plumbing service online. Fast, easy, and secure booking." canonical="/booking" />
       <div className="container mx-auto px-4 py-20">
         <h1 className="text-4xl font-heading font-bold mb-6 text-center" data-testid="text-booking-title">
           Book an Appointment

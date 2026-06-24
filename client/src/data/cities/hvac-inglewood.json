@@ -1,0 +1,45 @@
+{
+  "id": 21,
+  "city": "Inglewood",
+  "slug": "hvac-inglewood",
+  "region": "South Bay Gateway",
+  "population": "~107,000",
+  "zipCodes": [
+    "90301",
+    "90302",
+    "90303",
+    "90304"
+  ],
+  "description": "Inglewood is a fast-growing city with a mix of established residential neighborhoods and major commercial development near SoFi Stadium and the Intuit Dome. Bernardino Martin helps Inglewood homeowners and property managers with cooling and heating service for both older homes with aging ductwork and newer construction near the city's busiest corridors.",
+  "climate": "Moderate South Bay climate with coastal influence in the mornings and warmer inland afternoons",
+  "commonServices": [
+    "AC Repair & Diagnostics",
+    "HVAC Maintenance",
+    "Duct Cleaning & Installation",
+    "Heating System Services"
+  ],
+  "serviceAreas": [
+    "Downtown Inglewood",
+    "Morningside Park",
+    "Fairview Heights",
+    "Crenshaw-Imperial corridor"
+  ],
+  "responseTime": "20-35 minutes",
+  "videoFile": "generic-area-hero.mp4",
+  "imageFile": "generic-area-hero.png",
+  "metaDescription": "HVAC services in Inglewood - AC repair, installation, heating and maintenance from a licensed local contractor. Call (818) 400-0227.",
+  "metaKeywords": "HVAC Inglewood, AC repair Inglewood, heating service Inglewood, air conditioning Inglewood",
+  "localPhone": "(818) 400-0227",
+  "nearestCities": [
+    "Culver City",
+    "Gardena",
+    "Hawthorne",
+    "Playa del Rey"
+  ],
+  "notableLandmarks": [
+    "SoFi Stadium",
+    "Intuit Dome",
+    "The Forum"
+  ],
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+}

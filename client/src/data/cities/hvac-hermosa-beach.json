@@ -1,0 +1,42 @@
+{
+  "id": 19,
+  "city": "Hermosa Beach",
+  "slug": "hvac-hermosa-beach",
+  "region": "South Bay Coast",
+  "population": "~19,000",
+  "zipCodes": [
+    "90254"
+  ],
+  "description": "Hermosa Beach is a dense, walkable beach city where tight lot lines, narrow side yards, and close-set homes make ductless and compact HVAC solutions especially popular. Bernardino Martin helps Hermosa Beach homeowners fight salt-air corrosion near The Strand while keeping cooling and heating systems efficient in homes that range from older beach cottages to newer multi-story rebuilds.",
+  "climate": "Mild coastal climate with marine layer mornings, ocean breeze, and salt air exposure",
+  "commonServices": [
+    "AC Repair & Diagnostics",
+    "Ductless Mini-Split Systems",
+    "HVAC Maintenance",
+    "AC Installation"
+  ],
+  "serviceAreas": [
+    "The Strand",
+    "Downtown Hermosa",
+    "Hermosa Valley",
+    "Sand Section"
+  ],
+  "responseTime": "20-35 minutes",
+  "videoFile": "generic-area-hero.mp4",
+  "imageFile": "generic-area-hero.png",
+  "metaDescription": "HVAC services in Hermosa Beach - AC repair, installation, heating and maintenance from a licensed local contractor. Call (818) 400-0227.",
+  "metaKeywords": "HVAC Hermosa Beach, AC repair Hermosa Beach, heating service Hermosa Beach, air conditioning Hermosa Beach",
+  "localPhone": "(818) 400-0227",
+  "nearestCities": [
+    "Redondo Beach",
+    "Manhattan Beach",
+    "Torrance",
+    "Gardena"
+  ],
+  "notableLandmarks": [
+    "Hermosa Beach Pier",
+    "The Strand",
+    "Hermosa Beach Pier Plaza"
+  ],
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+}

@@ -1,0 +1,42 @@
+{
+  "id": 28,
+  "city": "Manhattan Beach",
+  "slug": "hvac-manhattan-beach",
+  "region": "South Bay Coast",
+  "population": "~35,000",
+  "zipCodes": [
+    "90266"
+  ],
+  "description": "Manhattan Beach combines high-end coastal homes with tight lot lines near The Strand, where salt air and ocean exposure put extra wear on outdoor HVAC equipment. Bernardino Martin helps Manhattan Beach homeowners protect their systems from coastal corrosion while keeping cooling and heating performance consistent across beachfront homes, hill section properties, and homes further from the water.",
+  "climate": "Mild coastal climate with marine layer mornings, ocean breeze, and salt air exposure",
+  "commonServices": [
+    "AC Repair & Diagnostics",
+    "Ductless Mini-Split Systems",
+    "HVAC Maintenance",
+    "AC Installation"
+  ],
+  "serviceAreas": [
+    "Downtown Manhattan Beach",
+    "The Strand",
+    "Manhattan Village",
+    "Hill Section"
+  ],
+  "responseTime": "20-35 minutes",
+  "videoFile": "generic-area-hero.mp4",
+  "imageFile": "generic-area-hero.png",
+  "metaDescription": "HVAC services in Manhattan Beach - AC repair, installation, heating and maintenance from a licensed local contractor. Call (818) 400-0227.",
+  "metaKeywords": "HVAC Manhattan Beach, AC repair Manhattan Beach, heating service Manhattan Beach, air conditioning Manhattan Beach",
+  "localPhone": "(818) 400-0227",
+  "nearestCities": [
+    "Hermosa Beach",
+    "Redondo Beach",
+    "Playa del Rey",
+    "Torrance"
+  ],
+  "notableLandmarks": [
+    "Manhattan Beach Pier",
+    "The Strand",
+    "Manhattan Village Mall"
+  ],
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+}

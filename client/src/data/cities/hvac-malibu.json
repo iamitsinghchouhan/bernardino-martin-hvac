@@ -1,0 +1,42 @@
+{
+  "id": 24,
+  "city": "Malibu",
+  "slug": "hvac-malibu",
+  "region": "Santa Monica Mountains Coast",
+  "population": "~10,000",
+  "zipCodes": [
+    "90265"
+  ],
+  "description": "Malibu properties face heavy coastal exposure, canyon temperature swings, and homes spread across long stretches of the Pacific Coast Highway, which makes HVAC service here different from denser city neighborhoods. Bernardino Martin helps Malibu homeowners protect equipment from salt air and marine moisture while keeping cooling and heating systems reliable in both beachfront homes and canyon properties further from the coast.",
+  "climate": "Mild coastal climate near the water with cooler canyon temperatures and salt air exposure",
+  "commonServices": [
+    "AC Repair & Diagnostics",
+    "HVAC Maintenance",
+    "Ductless Mini-Split Systems",
+    "Heating System Services"
+  ],
+  "serviceAreas": [
+    "Malibu Colony",
+    "Point Dume",
+    "Malibu West",
+    "Civic Center area"
+  ],
+  "responseTime": "25-45 minutes",
+  "videoFile": "generic-area-hero.mp4",
+  "imageFile": "generic-area-hero.png",
+  "metaDescription": "HVAC services in Malibu - AC repair, installation, heating and maintenance from a licensed local contractor. Call (818) 400-0227.",
+  "metaKeywords": "HVAC Malibu, AC repair Malibu, heating service Malibu, air conditioning Malibu",
+  "localPhone": "(818) 400-0227",
+  "nearestCities": [
+    "Santa Monica",
+    "Playa del Rey",
+    "West Hills",
+    "Woodland Hills"
+  ],
+  "notableLandmarks": [
+    "Malibu Pier",
+    "Zuma Beach",
+    "Pepperdine University"
+  ],
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+}

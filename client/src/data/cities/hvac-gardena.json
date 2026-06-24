@@ -1,0 +1,44 @@
+{
+  "id": 26,
+  "city": "Gardena",
+  "slug": "hvac-gardena",
+  "region": "South Bay",
+  "population": "~58,000",
+  "zipCodes": [
+    "90247",
+    "90248",
+    "90249"
+  ],
+  "description": "Gardena is a centrally located South Bay city with a steady mix of single-family homes and apartment buildings along its busy commercial corridors. Bernardino Martin helps Gardena homeowners and property managers with AC repair, heating service, and maintenance built for everyday reliability across a range of home ages and sizes.",
+  "climate": "Moderate South Bay climate with coastal influence in the mornings and warmer inland afternoons",
+  "commonServices": [
+    "AC Repair & Diagnostics",
+    "HVAC Maintenance",
+    "Duct Cleaning & Installation",
+    "Heating System Services"
+  ],
+  "serviceAreas": [
+    "Downtown Gardena",
+    "Gardena Willows area",
+    "Western Gardena",
+    "Rowley Park area"
+  ],
+  "responseTime": "20-35 minutes",
+  "videoFile": "generic-area-hero.mp4",
+  "imageFile": "generic-area-hero.png",
+  "metaDescription": "HVAC services in Gardena - AC repair, installation, heating and maintenance from a licensed local contractor. Call (818) 400-0227.",
+  "metaKeywords": "HVAC Gardena, AC repair Gardena, heating service Gardena, air conditioning Gardena",
+  "localPhone": "(818) 400-0227",
+  "nearestCities": [
+    "Torrance",
+    "Hawthorne",
+    "Inglewood",
+    "Redondo Beach"
+  ],
+  "notableLandmarks": [
+    "Gardena Willows Wetland Preserve",
+    "The Gardens Casino",
+    "Mas Fukai Park"
+  ],
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+}

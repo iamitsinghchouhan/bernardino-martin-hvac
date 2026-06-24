@@ -1,0 +1,42 @@
+{
+  "id": 27,
+  "city": "Hawthorne",
+  "slug": "hvac-hawthorne",
+  "region": "South Bay",
+  "population": "~88,000",
+  "zipCodes": [
+    "90250"
+  ],
+  "description": "Hawthorne is a busy South Bay city near the airport and major employers like SpaceX, with housing that ranges from older post-war homes to newer infill construction. Bernardino Martin helps Hawthorne homeowners with cooling repairs, heating service, and tune-ups that keep older systems reliable and help newer installations run efficiently.",
+  "climate": "Moderate South Bay climate with coastal influence in the mornings and warmer inland afternoons",
+  "commonServices": [
+    "AC Repair & Diagnostics",
+    "HVAC Maintenance",
+    "AC Installation",
+    "Heating System Services"
+  ],
+  "serviceAreas": [
+    "Holly Park",
+    "Hawthorne Plaza area",
+    "Eucalyptus Park area",
+    "Three Sixty South Bay area"
+  ],
+  "responseTime": "20-35 minutes",
+  "videoFile": "generic-area-hero.mp4",
+  "imageFile": "generic-area-hero.png",
+  "metaDescription": "HVAC services in Hawthorne - AC repair, installation, heating and maintenance from a licensed local contractor. Call (818) 400-0227.",
+  "metaKeywords": "HVAC Hawthorne, AC repair Hawthorne, heating service Hawthorne, air conditioning Hawthorne",
+  "localPhone": "(818) 400-0227",
+  "nearestCities": [
+    "Gardena",
+    "Inglewood",
+    "Torrance",
+    "Redondo Beach"
+  ],
+  "notableLandmarks": [
+    "SpaceX Headquarters",
+    "Hawthorne Municipal Airport",
+    "Holly Park"
+  ],
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+}

@@ -1,0 +1,43 @@
+{
+  "id": 18,
+  "city": "Redondo Beach",
+  "slug": "hvac-redondo-beach",
+  "region": "South Bay Coast",
+  "population": "~66,000",
+  "zipCodes": [
+    "90277",
+    "90278"
+  ],
+  "description": "Redondo Beach homes deal with year-round ocean air, salt exposure near King Harbor, and a mix of older beach-close construction and newer multi-level builds. Bernardino Martin helps Redondo Beach homeowners protect outdoor equipment from coastal corrosion while keeping cooling, heating, and airflow dialed in for marine-layer mornings and warmer inland-facing afternoons.",
+  "climate": "Mild coastal climate with marine layer mornings, ocean breeze, and salt air exposure",
+  "commonServices": [
+    "AC Repair & Diagnostics",
+    "HVAC Maintenance",
+    "AC Installation",
+    "Ductless Mini-Split Systems"
+  ],
+  "serviceAreas": [
+    "Riviera Village",
+    "South Redondo",
+    "North Redondo",
+    "King Harbor"
+  ],
+  "responseTime": "20-35 minutes",
+  "videoFile": "generic-area-hero.mp4",
+  "imageFile": "generic-area-hero.png",
+  "metaDescription": "HVAC services in Redondo Beach - AC repair, installation, heating and maintenance from a licensed local contractor. Call (818) 400-0227.",
+  "metaKeywords": "HVAC Redondo Beach, AC repair Redondo Beach, heating service Redondo Beach, air conditioning Redondo Beach",
+  "localPhone": "(818) 400-0227",
+  "nearestCities": [
+    "Hermosa Beach",
+    "Manhattan Beach",
+    "Torrance",
+    "Gardena"
+  ],
+  "notableLandmarks": [
+    "Redondo Beach Pier",
+    "Riviera Village",
+    "King Harbor Marina"
+  ],
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+}

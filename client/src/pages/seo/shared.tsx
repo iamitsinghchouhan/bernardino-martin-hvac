@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { COMPANY_PHONE } from "@/lib/constants";
+import { buildVideoObjectSchema } from "@/lib/video-schema";
 import {
   Check,
   Clock,
@@ -87,8 +88,20 @@ export function SeoHero({
   videoSrc?: string;
   posterSrc?: string;
 }) {
+  const videoSchema = videoSrc
+    ? buildVideoObjectSchema({
+        name: title,
+        description,
+        thumbnailUrl: posterSrc || imageSrc || "/opengraph.jpg",
+        contentUrl: videoSrc,
+      })
+    : null;
+
   return (
     <section className="relative overflow-hidden py-20 text-white min-h-[480px] flex items-center">
+      {videoSchema ? (
+        <script type="application/ld+json">{JSON.stringify(videoSchema)}</script>
+      ) : null}
       {imageSrc ? (
         <img
           src={imageSrc}
@@ -173,8 +186,20 @@ export function CityHero({
   videoSrc?: string;
   posterSrc?: string;
 }) {
+  const videoSchema = videoSrc
+    ? buildVideoObjectSchema({
+        name: title,
+        description,
+        thumbnailUrl: posterSrc || imageSrc || "/opengraph.jpg",
+        contentUrl: videoSrc,
+      })
+    : null;
+
   return (
     <section className="relative overflow-hidden py-20 text-white min-h-[480px] flex items-center">
+      {videoSchema ? (
+        <script type="application/ld+json">{JSON.stringify(videoSchema)}</script>
+      ) : null}
       {imageSrc ? (
         <img
           src={imageSrc}

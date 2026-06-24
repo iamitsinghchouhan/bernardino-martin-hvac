@@ -99,9 +99,10 @@ export default function Quote() {
 
   return (
     <Layout>
-      <SEO 
-        title="Get a Free Quote – HVAC, Solar & Plumbing Estimates in Los Angeles" 
-        description="Request a free, no-obligation quote for HVAC repair, solar installation, plumbing, and more. Serving all of Los Angeles. Fast response guaranteed." 
+      <SEO
+        title="Get a Free Quote – HVAC, Solar & Plumbing Estimates in Los Angeles"
+        description="Request a free, no-obligation quote for HVAC repair, solar installation, plumbing, and more. Serving all of Los Angeles. Fast response guaranteed."
+        canonical="/quote"
       />
 
       <div className="bg-slate-900 text-white py-16">

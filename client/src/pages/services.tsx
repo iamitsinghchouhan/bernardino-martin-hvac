@@ -4,6 +4,7 @@ import { SEO } from "@/components/seo";
 import { SERVICES, SERVICE_CATEGORIES, getWhatsAppLink } from "@/lib/constants";
 import type { Service, ServiceCategory } from "@/lib/constants";
 import { SERVICES as HERO_SERVICES } from "@/data/services";
+import { buildVideoObjectSchema } from "@/lib/video-schema";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Link, useLocation } from "wouter";
@@ -489,6 +490,16 @@ export default function Services() {
 
       {/* Auto-scrolling Hero Section */}
       <section className="relative h-[500px] overflow-hidden text-white">
+        <script type="application/ld+json">
+          {JSON.stringify(
+            buildVideoObjectSchema({
+              name: currentService.name,
+              description: currentService.description,
+              thumbnailUrl: "/opengraph.jpg",
+              contentUrl: `/videos/${currentService.videoFile}`,
+            }),
+          )}
+        </script>
         {/* Auto-scrolling video background */}
         <video
           key={currentService.videoFile}

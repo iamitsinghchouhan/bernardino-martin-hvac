@@ -16,6 +16,17 @@ import city14 from "./hvac-studio-city.json";
 import city15 from "./hvac-encino.json";
 import city16 from "./hvac-tarzana.json";
 import city17 from "./hvac-west-hills.json";
+import city18 from "./hvac-redondo-beach.json";
+import city19 from "./hvac-hermosa-beach.json";
+import city20 from "./hvac-playa-del-rey.json";
+import city21 from "./hvac-inglewood.json";
+import city22 from "./hvac-culver-city.json";
+import city23 from "./hvac-torrance.json";
+import city24 from "./hvac-malibu.json";
+import city25 from "./hvac-long-beach.json";
+import city26 from "./hvac-gardena.json";
+import city27 from "./hvac-hawthorne.json";
+import city28 from "./hvac-manhattan-beach.json";
 
 const allCities: CityData[] = [
   city1,
@@ -35,6 +46,17 @@ const allCities: CityData[] = [
   city15,
   city16,
   city17,
+  city18,
+  city19,
+  city20,
+  city21,
+  city22,
+  city23,
+  city24,
+  city25,
+  city26,
+  city27,
+  city28,
 ];
 
 export default allCities;

@@ -1,0 +1,45 @@
+{
+  "id": 23,
+  "city": "Torrance",
+  "slug": "hvac-torrance",
+  "region": "South Bay",
+  "population": "~147,000",
+  "zipCodes": [
+    "90501",
+    "90502",
+    "90503",
+    "90504"
+  ],
+  "description": "Torrance is one of the larger South Bay cities, with a wide range of housing from mid-century ranch homes to newer developments spread across a large footprint. Bernardino Martin helps Torrance homeowners with AC repair, heating service, and maintenance built around the city's varied building ages and the shift from cooler coastal mornings to warmer afternoons further inland.",
+  "climate": "Moderate South Bay climate with coastal influence in the mornings and warmer inland afternoons",
+  "commonServices": [
+    "AC Repair & Diagnostics",
+    "HVAC Maintenance",
+    "AC Installation",
+    "Duct Cleaning & Installation"
+  ],
+  "serviceAreas": [
+    "Old Torrance",
+    "South Torrance",
+    "West Torrance",
+    "Riviera"
+  ],
+  "responseTime": "20-35 minutes",
+  "videoFile": "generic-area-hero.mp4",
+  "imageFile": "generic-area-hero.png",
+  "metaDescription": "HVAC services in Torrance - AC repair, installation, heating and maintenance from a licensed local contractor. Call (818) 400-0227.",
+  "metaKeywords": "HVAC Torrance, AC repair Torrance, heating service Torrance, air conditioning Torrance",
+  "localPhone": "(818) 400-0227",
+  "nearestCities": [
+    "Redondo Beach",
+    "Hermosa Beach",
+    "Gardena",
+    "Hawthorne"
+  ],
+  "notableLandmarks": [
+    "Del Amo Fashion Center",
+    "Wilson Park",
+    "Torrance Beach"
+  ],
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+}
