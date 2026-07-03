@@ -114,8 +114,54 @@
     <style>
       body{margin:0;font-family:'Inter',system-ui,-apple-system,sans-serif}
       #root{min-height:100vh;display:flex;flex-direction:column}
+      /* ── Critical hero "app shell" ──────────────────────────────────────────────
+         Static HTML + self-contained CSS for the hero, so the LCP (hero image + headline)
+         paints as soon as the stylesheet loads — instead of waiting for React to download,
+         parse and mount (~2-4s on mobile). React's createRoot().render() replaces this whole
+         subtree on mount (fresh render, not hydration), and the real hero looks the same, so
+         the swap is seamless. aria-hidden keeps it out of the accessibility tree. */
+      /* Reserves the height of the emergency banner + top bar + header so the hero doesn't
+         jump down when React mounts the real chrome above it. */
+      .boot-topbar{height:38px;background:#dc2626;flex:none}
+      .boot-topbar2{height:112px;background:#020617;flex:none}
+      .boot-hero{position:relative;height:100vh;min-height:600px;width:100%;overflow:hidden;background:#020617;color:#fff;flex:none}
+      .boot-hero__img{position:absolute;inset:0;height:100%;width:100%;object-fit:cover}
+      .boot-hero__scrim{position:absolute;inset:0;background:linear-gradient(90deg,rgba(2,6,23,.9),rgba(2,6,23,.65) 45%,rgba(2,6,23,.25))}
+      .boot-hero__scrim2{position:absolute;inset:0;background:linear-gradient(0deg,rgba(2,6,23,.8),transparent 55%)}
+      .boot-hero__inner{position:relative;z-index:2;display:flex;height:100%;flex-direction:column;justify-content:center;max-width:1280px;margin:0 auto;padding:4rem 1rem 0;box-sizing:border-box}
+      .boot-hero__eyebrow{margin:0 0 1rem;display:flex;align-items:center;gap:.5rem;font-size:.75rem;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.6)}
+      .boot-hero__dot{height:.5rem;width:.5rem;border-radius:9999px;background:#3DB54A}
+      .boot-hero__h1{margin:0;font-family:'Outfit','Inter',sans-serif;font-weight:800;letter-spacing:-.02em;line-height:.95;text-transform:uppercase;font-size:2.25rem}
+      .boot-hero__h1 .g{color:#3DB54A;display:block;text-align:right}
+      .boot-hero__brand{margin:1.25rem 0 0;font-family:'Outfit','Inter',sans-serif;font-size:1.25rem;font-weight:900}
+      .boot-hero__sub{margin:.5rem 0 0;max-width:28rem;font-size:.875rem;line-height:1.6;color:rgba(255,255,255,.75)}
+      .boot-hero__cta{margin-top:1.5rem;display:flex;flex-wrap:wrap;gap:1rem}
+      .boot-hero__btn{display:inline-flex;align-items:center;justify-content:center;height:3.5rem;padding:0 2rem;border-radius:.5rem;font-weight:700;font-size:1rem;text-decoration:none}
+      .boot-hero__btn--solid{background:#fff;color:#020617}
+      .boot-hero__btn--outline{border:1px solid rgba(255,255,255,.3);color:#fff}
+      @media(min-width:640px){.boot-hero__h1{font-size:3rem}}
+      @media(min-width:768px){.boot-hero__h1{font-size:3.75rem}}
+      @media(min-width:1024px){.boot-hero__h1{font-size:4.5rem}}
     </style>
-    <div id="root"></div>
+    <div id="root">
+      <div class="boot-topbar" aria-hidden="true"></div>
+      <div class="boot-topbar2" aria-hidden="true"></div>
+      <section class="boot-hero" aria-hidden="true">
+        <img src="/images/hero-home.webp" alt="" fetchpriority="high" decoding="async" class="boot-hero__img" width="1280" height="720" />
+        <div class="boot-hero__scrim"></div>
+        <div class="boot-hero__scrim2"></div>
+        <div class="boot-hero__inner">
+          <p class="boot-hero__eyebrow"><span class="boot-hero__dot"></span>Los Angeles Home Services</p>
+          <h1 class="boot-hero__h1">Your Home<span class="g">Deserves The Best</span></h1>
+          <p class="boot-hero__brand">BERNARDINO MARTIN</p>
+          <p class="boot-hero__sub">From rooftop to foundation, we handle everything — real work, honest pricing, quality results across Los Angeles.</p>
+          <div class="boot-hero__cta">
+            <a href="tel:8184000227" class="boot-hero__btn boot-hero__btn--solid">Call Now</a>
+            <a href="/booking" class="boot-hero__btn boot-hero__btn--outline">Book Online</a>
+          </div>
+        </div>
+      </section>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

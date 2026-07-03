@@ -42,13 +42,14 @@ export default defineConfig({
     emptyOutDir: true,
     copyPublicDir: true,
 
-    modulePreload: {
-      resolveDependencies: (_filename, deps) =>
-        deps.filter((d) => !d.includes("vendor-charts") && !d.includes("vendor-maps")),
-    },
-
     rollupOptions: {
       output: {
+        // Only group the truly-shared core that nearly every route needs. Heavy, single-use
+        // libraries (recharts → admin analytics, leaflet → the map) are intentionally NOT
+        // force-grouped: doing so pulled their shared sub-deps (e.g. react-is) into a big named
+        // chunk that the homepage then had to load. Letting Vite split naturally keeps recharts
+        // (~106KB) and leaflet in their own lazy chunks and puts small shared utils in a tiny
+        // common chunk instead.
         manualChunks: {
           "vendor-react": ["react", "react-dom"],
 
@@ -62,12 +63,6 @@ export default defineConfig({
             "@radix-ui/react-popover",
             "@radix-ui/react-accordion",
           ],
-
-          "vendor-maps": ["leaflet", "react-leaflet"],
-
-          "vendor-charts": ["recharts"],
-
-          "vendor-forms": ["react-hook-form", "@hookform/resolvers"],
         },
       },
     },
