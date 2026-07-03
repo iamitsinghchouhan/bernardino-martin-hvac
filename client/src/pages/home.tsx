@@ -311,10 +311,10 @@ function VideoReelSection() {
       <div className="container mx-auto px-4">
         <div className="mb-6 flex items-baseline justify-between">
           <div>
-            <p className="mb-1 text-xs font-bold uppercase tracking-[0.3em] text-white/40">Our Work In Motion</p>
+            <p className="mb-1 text-xs font-bold uppercase tracking-[0.3em] text-white/65">Our Work In Motion</p>
             <h2 className="text-display text-2xl text-white md:text-3xl">Watch us in action</h2>
           </div>
-          <p className="hidden text-xs text-white/30 sm:block">Scroll to explore →</p>
+          <p className="hidden text-xs text-white/65 sm:block">Scroll to explore →</p>
         </div>
 
         <div className="no-scrollbar -mx-4 flex gap-4 overflow-x-auto px-4 pb-3">
@@ -531,19 +531,6 @@ export default function Home() {
     setHeroMuted(next);
   };
 
-  useEffect(() => {
-    let attempts = 0;
-    const tryInit = () => {
-      const GLightboxLib = (window as any).GLightbox;
-      if (GLightboxLib) {
-        GLightboxLib({ selector: ".glightbox" });
-        return;
-      }
-      attempts += 1;
-      if (attempts < 20) setTimeout(tryInit, 150);
-    };
-    tryInit();
-  }, []);
 
   const allCityLinks = [...allCities.map((c) => ({ city: c.city, slug: c.slug })), ...EXTRA_CITY_LINKS];
 
@@ -818,7 +805,7 @@ export default function Home() {
 
       {/* ══════════ BRAND LOGOS ══════════ */}
       <section className="group overflow-hidden border-b border-slate-100 bg-white py-14">
-        <p className="mb-8 text-center text-xs font-bold uppercase tracking-[0.3em] text-slate-400">Brands We Service</p>
+        <p className="mb-8 text-center text-xs font-bold uppercase tracking-[0.3em] text-slate-600">Brands We Service</p>
         <div className="animate-marquee flex w-max items-center gap-16 group-hover:[animation-play-state:paused]" style={{ animationDuration: "22s" }}>
           {[...BRAND_LOGOS, ...BRAND_LOGOS].map((brand, i) => (
             <img
@@ -856,7 +843,7 @@ export default function Home() {
               <div className="relative flex flex-col justify-center bg-slate-950 p-10 text-center text-white md:w-2/5">
                 <div className="text-xs font-bold uppercase tracking-[0.3em] text-white/50">Comfort Club</div>
                 <div className="mt-4 text-5xl font-black">
-                  $19<span className="text-xl font-medium text-white/40">/mo</span>
+                  $19<span className="text-xl font-medium text-white/65">/mo</span>
                 </div>
                 <p className="mb-8 mt-2 text-sm text-white/50">Billed annually at $228/year</p>
                 <Button className="w-full bg-white text-slate-950 hover:bg-white/90" asChild>

@@ -211,7 +211,7 @@ export function ReviewSlider() {
                       </div>
                       <div>
                         <p className="font-semibold text-slate-900">{review.name}</p>
-                        <p className="text-xs font-medium uppercase tracking-[0.18em] text-slate-400">
+                        <p className="text-xs font-medium uppercase tracking-[0.18em] text-slate-600">
                           {review.service}
                         </p>
                       </div>

@@ -207,7 +207,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </div>
 
       {/* Top Bar - Trust & Quick Contact */}
-      <div className="bg-slate-950 text-slate-400 py-2 text-xs font-bold uppercase tracking-wider">
+      <div className="bg-slate-950 text-slate-300 py-2 text-xs font-bold uppercase tracking-wider">
         <div className="container mx-auto px-4 flex justify-between items-center">
           <div className="flex items-center gap-2">
             <ShieldCheck className="h-4 w-4 text-secondary" aria-hidden="true" />
@@ -224,7 +224,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <header
         className={`sticky top-0 z-50 w-full transition-all duration-300 border-b ${
           isHomeHero
-            ? "bg-slate-950/40 border-transparent"
+            ? "bg-slate-950/80 border-transparent"
             : isScrolled
               ? "bg-white border-slate-200 shadow-sm"
               : "bg-white border-transparent"
@@ -236,7 +236,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
               <img src="/logo-bm.webp" alt="BERNARDINO MARTIN Heating Air Conditioning Solar logo" className="h-14 w-14 object-contain rounded-lg bg-white p-1 shadow-sm border border-gray-100 group-hover:scale-105 transition-transform duration-300" loading="eager" fetchPriority="high" width={128} height={128} />
               <div className="flex flex-col">
                 <span className={`font-heading font-black text-lg leading-none tracking-tight ${isHomeHero ? "text-white text-shadow-hero" : "text-slate-950"}`}>BERNARDINO MARTIN</span>
-                <span className={`text-[10px] font-bold tracking-[0.2em] uppercase ${isHomeHero ? "text-secondary text-shadow-hero" : "text-secondary"}`}>Heating &bull; Air Conditioning &bull; Solar</span>
+                <span className={`text-[10px] font-bold tracking-[0.2em] uppercase ${isHomeHero ? "text-white/90 text-shadow-hero" : "text-green-700"}`}>Heating &bull; Air Conditioning &bull; Solar</span>
               </div>
           </Link>
           {/* Desktop Nav */}
@@ -255,7 +255,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                     aria-current={location === item.href ? "page" : undefined}
                     className={`border-b-2 pb-1 text-sm font-bold transition-colors hover:text-primary ${
                       isHomeHero
-                        ? `text-shadow-hero ${isActive ? "border-white text-white" : "border-transparent text-white/85"}`
+                        ? `text-shadow-hero ${isActive ? "border-white text-white" : "border-transparent text-white"}`
                         : isActive ? "border-primary text-primary" : "border-transparent text-slate-700"
                     }`}
                   >
@@ -270,7 +270,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                     href={item.href}
                     className={`inline-flex items-center gap-1.5 border-b-2 pb-1 text-sm font-bold transition-colors hover:text-primary ${
                       isHomeHero
-                        ? `text-shadow-hero ${isActive ? "border-white text-white" : "border-transparent text-white/85"}`
+                        ? `text-shadow-hero ${isActive ? "border-white text-white" : "border-transparent text-white"}`
                         : isActive ? "border-primary text-primary" : "border-transparent text-slate-700"
                     }`}
                   >
@@ -283,7 +283,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                         <div className="grid grid-cols-7 gap-4">
                           {item.sections.map((section) => (
                             <div key={section.title}>
-                              <div className="text-[10px] font-black uppercase tracking-wider text-secondary mb-2">{section.title}</div>
+                              <div className="text-[10px] font-black uppercase tracking-wider text-green-700 mb-2">{section.title}</div>
                               <ul className="space-y-1">
                                 {section.links.map((link) => (
                                   <li key={link.href}>
@@ -325,7 +325,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           {/* Desktop CTAs */}
           <div className="hidden lg:flex items-center gap-3">
             <a href={`tel:${COMPANY_PHONE.replace(/\D/g, '')}`} onClick={() => trackEvent("phone_click")} className={`flex flex-col items-end mr-2 group ${isHomeHero ? "text-shadow-hero" : ""}`}>
-              <span className={`text-[10px] font-bold uppercase tracking-wider ${isHomeHero ? "text-white/70" : "text-slate-500"}`}>24/7 Service</span>
+              <span className={`text-[10px] font-bold uppercase tracking-wider ${isHomeHero ? "text-white/90" : "text-slate-600"}`}>24/7 Service</span>
               <span className={`text-lg font-black font-heading group-hover:text-primary transition-colors ${isHomeHero ? "text-white" : "text-slate-950"}`}>{COMPANY_PHONE}</span>
             </a>
 

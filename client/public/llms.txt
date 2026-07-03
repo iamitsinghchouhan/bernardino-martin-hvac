@@ -1,0 +1,45 @@
+# Bernardino Martin Home Services
+
+Bernardino Martin is a licensed, bonded, and insured home services contractor serving Los Angeles and the Greater San Fernando Valley. We provide HVAC, solar, plumbing, electrical, landscaping, and smart home services with 24/7 emergency availability.
+
+Contact: (818) 400-0227 | martinsolarstar@gmail.com
+
+## Services
+
+- [HVAC Repair & Installation](/services/hvac-repair)
+- [AC Installation](/services/hvac-install-ac)
+- [HVAC Maintenance](/services/hvac-maintenance)
+- [Gas Furnace](/services/heating-gas-furnace)
+- [Solar Installation](/services/solar-install)
+- [Solar Maintenance](/services/solar-maintenance)
+- [General Plumbing](/services/plumbing-general)
+- [Water Heater](/services/plumbing-water-heater)
+- [Electrical Panel Upgrade](/services/electrical-panel)
+- [EV Charger Installation](/services/electrical-ev-charger)
+- [Landscaping](/services/outdoor-landscaping)
+- [Sod Installation](/services/outdoor-sod)
+- [Smart Irrigation](/services/outdoor-irrigation)
+- [Network Cabling](/services/tech-network)
+- [Smart Home](/services/tech-smarthome)
+
+## Service Areas
+
+- [Los Angeles](/hvac-los-angeles)
+- [Burbank](/hvac-burbank)
+- [Glendale](/hvac-glendale)
+- [Pasadena](/hvac-pasadena)
+- [Santa Monica](/hvac-santa-monica)
+- [Van Nuys](/hvac-van-nuys)
+- [Northridge](/hvac-northridge)
+- [Woodland Hills](/hvac-woodland-hills)
+- [Encino](/hvac-encino)
+- [Sherman Oaks](/hvac-sherman-oaks)
+
+## Pages
+
+- [Home](/)
+- [Services](/services)
+- [About](/about)
+- [Book Online](/booking)
+- [Contact](/contact)
+- [Service Areas](/service-areas)
