@@ -1,0 +1,13 @@
+{
+  "name": "Bernardino Martin Home Services",
+  "short_name": "BM Services",
+  "description": "HVAC, Solar, Plumbing & Electrical Services in Los Angeles",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#ffffff",
+  "theme_color": "#1e293b",
+  "icons": [
+    { "src": "/favicon.webp", "sizes": "192x192", "type": "image/webp" },
+    { "src": "/favicon.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

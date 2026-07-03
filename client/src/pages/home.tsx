@@ -348,6 +348,7 @@ function VideoReelSection() {
           {activeVideo && (
             <video key={activeVideo} controls autoPlay playsInline className="w-full">
               <source src={activeVideo} type="video/mp4" />
+              <track kind="captions" src="/captions.vtt" srcLang="en" label="English" default />
             </video>
           )}
         </DialogContent>

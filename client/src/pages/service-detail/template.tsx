@@ -120,24 +120,47 @@ export function ServiceDetailTemplate({
   const seoTitle = `${serviceName} in Los Angeles, CA`;
   const seoDescription = `Professional ${serviceName} in Los Angeles. ${tagline}. Licensed & insured technicians. Same-day service available. Call (818) 400-0227.`;
 
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    name: serviceName,
-    provider: {
-      "@type": "LocalBusiness",
-      name: "BERNARDINO MARTIN",
-      telephone: "+18184000227",
-      address: {
-        "@type": "PostalAddress",
-        addressLocality: "Los Angeles",
-        addressRegion: "CA",
-        addressCountry: "US",
+  const SITE_URL = "https://bernardinomartinhvac.com";
+  const structuredData = [
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      name: serviceName,
+      provider: {
+        "@type": "LocalBusiness",
+        "@id": `${SITE_URL}/#business`,
+        name: "Bernardino Martin Home Services",
+        telephone: "+18184000227",
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "Los Angeles",
+          addressRegion: "CA",
+          addressCountry: "US",
+        },
       },
+      areaServed: { "@type": "City", name: "Los Angeles" },
+      description: seoDescription,
+      url: `${SITE_URL}/services/${slug}`,
     },
-    areaServed: { "@type": "City", name: "Los Angeles" },
-    description: seoDescription,
-  };
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+        { "@type": "ListItem", position: 2, name: "Services", item: `${SITE_URL}/services` },
+        { "@type": "ListItem", position: 3, name: serviceName, item: `${SITE_URL}/services/${slug}` },
+      ],
+    },
+    ...(faqs.length > 0 ? [{
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faqs.map((faq) => ({
+        "@type": "Question",
+        name: faq.question,
+        acceptedAnswer: { "@type": "Answer", text: faq.answer },
+      })),
+    }] : []),
+  ];
 
   function handleMuteToggle() {
     if (heroVideoRef.current) {
@@ -159,7 +182,6 @@ export function ServiceDetailTemplate({
       <section className="relative min-h-[70vh] flex items-end overflow-hidden bg-slate-900" aria-label={`${serviceName} hero`}>
         <video
           ref={heroVideoRef}
-          src={heroVideo}
           autoPlay
           loop
           muted={muted}
@@ -168,7 +190,10 @@ export function ServiceDetailTemplate({
           preload="metadata"
           className="absolute inset-0 w-full h-full object-cover"
           aria-label={`${serviceName} service video`}
-        />
+        >
+          <source src={heroVideo} type="video/mp4" />
+          <track kind="captions" src="/captions.vtt" srcLang="en" label="English" default />
+        </video>
         <div className="absolute inset-0 bg-slate-900/65" />
 
         <div className="relative z-10 w-full pb-16 pt-36 px-4">
@@ -344,7 +369,6 @@ export function ServiceDetailTemplate({
       <section className="bg-slate-900 overflow-hidden" aria-label="Service video showcase">
         <div className="relative max-h-[55vh] overflow-hidden">
           <video
-            src={heroVideo}
             autoPlay
             loop
             muted
@@ -354,7 +378,10 @@ export function ServiceDetailTemplate({
             className="w-full h-full object-cover"
             aria-label={`${serviceName} technicians at work`}
             style={{ minHeight: "320px", maxHeight: "55vh" }}
-          />
+          >
+            <source src={heroVideo} type="video/mp4" />
+            <track kind="captions" src="/captions.vtt" srcLang="en" label="English" default />
+          </video>
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent flex items-end">
             <p className="text-white/75 text-sm px-6 pb-6 max-w-xl">
               Watch our {serviceName.toLowerCase()} technicians delivering top-quality service across Los Angeles

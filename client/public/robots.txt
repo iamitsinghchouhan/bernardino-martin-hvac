@@ -1,5 +1,10 @@
 User-agent: *
 Disallow: /admin
-Disallow: /booking?*
+Disallow: /admin-cms
+Disallow: /api/
+Disallow: /dashboard
+Disallow: /login
+Allow: /booking
 Allow: /
+
 Sitemap: https://bernardinomartinhvac.com/sitemap.xml
