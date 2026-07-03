@@ -338,7 +338,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
               </Link>
             </Button>
 
-            <Button size="icon" className="bg-secondary hover:bg-secondary/90 shadow-lg shadow-secondary/20" asChild>
+            <Button size="icon" className="bg-green-700 hover:bg-green-800 shadow-lg shadow-green-700/20" asChild>
               <a href={getWhatsAppLink("Hi, I have a question about your HVAC/Solar services.")} onClick={() => trackEvent("whatsapp_click")} target="_blank" rel="noopener noreferrer" title="Chat on WhatsApp">
                 <MessageCircle className="h-5 w-5" />
               </a>
@@ -348,7 +348,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           {/* Mobile Menu */}
           <div className="flex items-center gap-2 lg:hidden">
              <a href={getWhatsAppLink("Hi, I have a question about your HVAC/Solar services.")} onClick={() => trackEvent("whatsapp_click")} target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
-               <Button size="icon" className="rounded-full bg-secondary hover:bg-secondary/90 text-white shadow-sm border-0" aria-hidden="true" tabIndex={-1}>
+               <Button size="icon" className="rounded-full bg-green-700 hover:bg-green-800 text-white shadow-sm border-0" aria-hidden="true" tabIndex={-1}>
                  <MessageCircle className="h-5 w-5" aria-hidden="true" />
                </Button>
              </a>
@@ -417,7 +417,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                     <Button size="lg" className="w-full bg-primary" asChild>
                       <Link href="/booking">Book Appointment</Link>
                     </Button>
-                    <Button size="lg" className="w-full bg-secondary hover:bg-secondary/90 text-white border-0" asChild>
+                    <Button size="lg" className="w-full bg-green-700 hover:bg-green-800 text-white border-0" asChild>
                       <a href={getWhatsAppLink("Hi, I'd like to book an appointment.")} onClick={() => trackEvent("whatsapp_click")} target="_blank" rel="noopener noreferrer">
                         <MessageCircle className="mr-2 h-4 w-4" />
                         WhatsApp Chat
@@ -562,7 +562,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 <Button className="w-full bg-slate-800 hover:bg-slate-700 text-white" asChild>
                   <Link href="/quote">Get a Free Quote</Link>
                 </Button>
-                <Button className="w-full bg-secondary hover:bg-secondary/90 text-white border-0" asChild>
+                <Button className="w-full bg-green-700 hover:bg-green-800 text-white border-0" asChild>
                    <a href={getWhatsAppLink("Hi, I have a question about your services.")} onClick={() => trackEvent("whatsapp_click")} target="_blank" rel="noopener noreferrer">
                      <MessageCircle className="mr-2 h-4 w-4" />
                      Chat on WhatsApp
@@ -592,12 +592,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
             </div>
           </div>
 
-          <p className="text-xs text-slate-500 text-center mt-8">
+          <p className="text-xs text-slate-400 text-center mt-8">
             Proudly serving Los Angeles, Burbank, Glendale, Pasadena, Santa Monica, the San Fernando Valley, and the South Bay - including Redondo Beach, Hermosa Beach, Manhattan Beach, Torrance, and Long Beach.
           </p>
 
           <div className="pt-8 pb-20 border-t border-slate-800 mt-4 flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-xs text-slate-500">&copy; {new Date().getFullYear()} {COMPANY_FULL}. All rights reserved.</p>
+            <p className="text-xs text-slate-400">&copy; {new Date().getFullYear()} {COMPANY_FULL}. All rights reserved.</p>
             <div className="flex items-center gap-4 text-slate-400">
               <a href="https://www.youtube.com/@bernardinomartinhvac" target="_blank" rel="noopener noreferrer" className="hover:text-secondary transition-colors" aria-label="YouTube" data-testid="link-youtube"><Youtube className="h-5 w-5" /></a>
               <a href="https://www.instagram.com/bernardinomartinsolar/" target="_blank" rel="noopener noreferrer" className="hover:text-secondary transition-colors" aria-label="Instagram" data-testid="link-instagram"><Instagram className="h-5 w-5" /></a>

@@ -418,6 +418,7 @@ function FeelGallery({ onImageClick }: { onImageClick: (index: number) => void }
 
   useEffect(() => {
     const handleScroll = () => {
+      if (window.innerWidth < 1024) return;
       const section = sectionRef.current;
       const track = trackRef.current;
       if (!section || !track) return;
@@ -1027,7 +1028,7 @@ export default function Home() {
             <div className="flex-1 text-center md:text-left">
               <h2 className="mb-2 text-2xl font-bold text-slate-900 md:text-3xl">Need Emergency Service?</h2>
               <p className="mb-1 text-slate-600">No heat? AC failure? Water leak? We offer same-day emergency service across Los Angeles — including nights and weekends.</p>
-              <p className="text-sm text-slate-500">Priority scheduling available for Comfort Club members at no extra charge.</p>
+              <p className="text-sm text-slate-600">Priority scheduling available for Comfort Club members at no extra charge.</p>
             </div>
             <div className="flex shrink-0 flex-col gap-3">
               <Button size="lg" className="h-12 bg-red-600 px-6 font-bold text-white shadow-lg shadow-red-500/20 hover:bg-red-700" asChild>
