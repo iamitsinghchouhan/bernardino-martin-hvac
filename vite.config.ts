@@ -42,6 +42,11 @@ export default defineConfig({
     emptyOutDir: true,
     copyPublicDir: true,
 
+    modulePreload: {
+      resolveDependencies: (_filename, deps) =>
+        deps.filter((d) => !d.includes("vendor-charts") && !d.includes("vendor-maps")),
+    },
+
     rollupOptions: {
       output: {
         manualChunks: {
