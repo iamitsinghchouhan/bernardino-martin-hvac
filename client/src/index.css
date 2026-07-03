@@ -1,6 +1,23 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+/* Self-hosted variable fonts — removes the 4-hop Google Fonts CDN chain (html→css→googleapis→gstatic)
+   that added ~2s to FCP/LCP on mobile. One woff2 per family covers all weights (variable font). */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/inter-latin.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Outfit';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/outfit-latin.woff2') format('woff2');
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -194,9 +211,11 @@
   text-transform: uppercase;
 }
 
-/* Sticky numbered room-list active/inactive states */
+/* Sticky numbered room-list active/inactive states.
+   Inactive uses 0.7 opacity navy (~6:1 on white) so it still passes WCAG 4.5:1 for the
+   18px semibold labels while staying visibly lighter than the active (solid navy) state. */
 .room-nav-item {
-  color: hsl(var(--foreground) / 0.5);
+  color: hsl(var(--foreground) / 0.7);
   transition: color 0.4s ease;
 }
 .room-nav-item.is-active {

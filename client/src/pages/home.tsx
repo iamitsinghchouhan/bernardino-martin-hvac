@@ -33,7 +33,6 @@ import {
 } from "lucide-react";
 import { ImageLightbox, type LightboxImage } from "@/components/image-lightbox";
 import { Link } from "wouter";
-import { motion } from "framer-motion";
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
 
 const ProjectGallery = lazy(() => import("@/components/project-gallery").then((m) => ({ default: m.ProjectGallery })));
@@ -232,6 +231,42 @@ function useInView<T extends HTMLElement>(threshold = 0.3) {
   return { ref, inView };
 }
 
+/* Mounts its children only once the placeholder scrolls near the viewport. Keeps heavy
+   below-the-fold widgets — the Leaflet map plus its 300KB+ of map tiles and the vendor-maps
+   chunk — out of the initial page load, so mobile users who never scroll there pay nothing. */
+function DeferUntilNearViewport({
+  children,
+  placeholder,
+  rootMargin = "400px",
+}: {
+  children: React.ReactNode;
+  placeholder: React.ReactNode;
+  rootMargin?: string;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || show) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShow(true);
+          io.disconnect();
+        }
+      },
+      { rootMargin },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [rootMargin, show]);
+  return (
+    <div ref={ref} className="h-full w-full">
+      {show ? children : placeholder}
+    </div>
+  );
+}
+
 function CountUpStat({ end, label }: { end: number; label: string }) {
   const spanRef = useRef<HTMLSpanElement>(null);
   const started = useRef(false);
@@ -330,7 +365,7 @@ function VideoReelSection() {
                 {!v.thumb.endsWith(".webp") && <source srcSet={toWebp(v.thumb)} type="image/webp" />}
                 <img
                   src={v.thumb}
-                  alt={v.label}
+                  alt=""
                   loading="lazy"
                   decoding="async"
                   className="h-full w-full object-cover opacity-75 transition-opacity duration-300 group-hover:opacity-50"
@@ -371,7 +406,7 @@ function toWebp(src: string) {
   return src.replace(/\.(png|jpg|jpeg)$/i, ".webp");
 }
 
-function RoomImageSlideshow({ images, headline, priority = false }: { images: string[]; headline: string; priority?: boolean }) {
+function RoomImageSlideshow({ images, headline }: { images: string[]; headline: string }) {
   const [idx, setIdx] = useState(0);
 
   useEffect(() => {
@@ -389,16 +424,15 @@ function RoomImageSlideshow({ images, headline, priority = false }: { images: st
       {images.map((src, i) => {
         if (!inWindow.has(i)) return null;
         const webpSrc = toWebp(src);
-        const isFirst = priority && i === 0;
         return (
           <picture key={src}>
             {!src.endsWith(".webp") && <source srcSet={webpSrc} type="image/webp" />}
             <img
               src={src}
               alt={headline}
-              loading={isFirst ? "eager" : "lazy"}
+              loading="lazy"
               decoding="async"
-              fetchPriority={isFirst ? "high" : "low"}
+              fetchPriority="low"
               className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${
                 i === idx ? "opacity-100" : "opacity-0"
               }`}
@@ -481,8 +515,10 @@ export default function Home() {
     setLightbox({ images, index });
   }
 
-  /* Hero overlay + text fade: out at 3s, back when video loops */
+  /* Hero overlay + text fade: out at 3s, back when video loops.
+     Mobile shows a static image (no video), so skip entirely and keep the hero text visible. */
   useEffect(() => {
+    if (window.innerWidth < 768) return;
     const video = heroVideoRef.current;
     if (!video) return;
 
@@ -544,15 +580,26 @@ export default function Home() {
 
       {/* ══════════ HERO — full-screen video background ══════════ */}
       <section className="relative h-screen min-h-[600px] w-full overflow-hidden bg-slate-950 text-white" data-testid="hero-section">
-        {/* Background video — no muted prop; controlled via ref */}
+        {/* Mobile: static hero image only. The video is the LCP killer on slow 4G, so we skip it below md.
+            This exact image is preloaded in index.html, so it paints almost immediately. */}
+        <img
+          src="/images/hero-home.webp"
+          alt=""
+          aria-hidden="true"
+          fetchPriority="high"
+          decoding="async"
+          className="absolute inset-0 h-full w-full object-cover md:hidden"
+        />
+        {/* Desktop: full-motion background video. preload="none" so the poster (preloaded) is the LCP
+            and the video streams in afterwards instead of blocking first paint. */}
         <video
           ref={heroVideoRef}
           autoPlay
           loop
           playsInline
-          preload="metadata"
+          preload="none"
           poster="/images/hero-home.webp"
-          className="absolute inset-0 h-full w-full object-cover"
+          className="absolute inset-0 hidden h-full w-full object-cover md:block"
           aria-hidden="true"
         >
           <source src="/videos/hero-home.mp4" type="video/mp4" />
@@ -575,41 +622,17 @@ export default function Home() {
           }`}
         >
           <div className="container mx-auto px-4 pt-16">
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="mb-4 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.3em] text-white/50"
-            >
+            <p className="mb-4 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.3em] text-white/60">
               <span className="h-2 w-2 rounded-full bg-secondary animate-pulse" />
               Los Angeles Home Services
-            </motion.p>
+            </p>
 
             <h1 className="text-display text-4xl leading-[0.95] sm:text-5xl md:text-6xl lg:text-7xl" data-testid="text-hero-title">
-              <motion.span
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="block"
-              >
-                YOUR HOME
-              </motion.span>
-              <motion.span
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-                className="block text-right text-secondary md:pl-24"
-              >
-                DESERVES THE BEST
-              </motion.span>
+              <span className="block">YOUR HOME</span>
+              <span className="block text-right text-secondary md:pl-24">DESERVES THE BEST</span>
             </h1>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.7 }}
-              className="mt-5 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between"
-            >
+            <div className="mt-5 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
               <div>
                 <p className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
                   <span className="font-heading text-xl font-black text-white">BERNARDINO MARTIN</span>
@@ -634,14 +657,9 @@ export default function Home() {
                   </Link>
                 </Button>
               </div>
-            </motion.div>
+            </div>
 
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.9 }}
-              className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2"
-            >
+            <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2">
               {[
                 { icon: ShieldCheck, label: "Licensed, Bonded & Insured" },
                 { icon: Clock, label: "Same-Day Service" },
@@ -652,7 +670,7 @@ export default function Home() {
                   {item.label}
                 </span>
               ))}
-            </motion.div>
+            </div>
           </div>
         </div>
 
@@ -661,7 +679,7 @@ export default function Home() {
           type="button"
           onClick={toggleHeroMute}
           aria-label={heroMuted ? "Unmute video" : "Mute video"}
-          className="absolute bottom-6 right-6 z-20 flex items-center gap-1.5 rounded-full bg-black/50 backdrop-blur-sm px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-black/70"
+          className="absolute bottom-6 right-6 z-20 hidden md:flex items-center gap-1.5 rounded-full bg-black/50 backdrop-blur-sm px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-black/70"
         >
           {heroMuted ? <VolumeX className="h-3.5 w-3.5" aria-hidden="true" /> : <Volume2 className="h-3.5 w-3.5" aria-hidden="true" />}
           {heroMuted ? "Sound Off" : "Sound On"}
@@ -757,7 +775,7 @@ export default function Home() {
                       aria-label={`View ${room.label} images fullscreen`}
                       onKeyDown={(e) => e.key === "Enter" && openLightbox(room.images.map((s) => ({ src: s, alt: room.headline })), 0)}
                     >
-                      <RoomImageSlideshow images={room.images} headline={room.headline} priority={i === 0} />
+                      <RoomImageSlideshow images={room.images} headline={room.headline} />
                       <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity z-10">
                         <span className="flex items-center gap-1 rounded-full bg-black/60 px-2.5 py-1 text-xs text-white font-medium">
                           <Maximize2 className="h-3 w-3" /> View
@@ -990,15 +1008,23 @@ export default function Home() {
 
           <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
             <div data-aos="fade-right" className="relative h-[400px] overflow-hidden rounded-2xl border border-white/10 md:h-[480px]">
-              <Suspense
-                fallback={
+              <DeferUntilNearViewport
+                placeholder={
                   <div className="flex h-full w-full items-center justify-center bg-white/5">
                     <div className="h-8 w-8 animate-spin rounded-full border-4 border-white/30 border-t-transparent" />
                   </div>
                 }
               >
-                <ServiceAreasMap />
-              </Suspense>
+                <Suspense
+                  fallback={
+                    <div className="flex h-full w-full items-center justify-center bg-white/5">
+                      <div className="h-8 w-8 animate-spin rounded-full border-4 border-white/30 border-t-transparent" />
+                    </div>
+                  }
+                >
+                  <ServiceAreasMap />
+                </Suspense>
+              </DeferUntilNearViewport>
             </div>
             <div data-aos="fade-left" className="max-h-[480px] overflow-y-auto rounded-2xl border border-white/10 bg-white/5 p-6">
               <div className="grid grid-cols-2 gap-3">
@@ -1056,7 +1082,7 @@ export default function Home() {
               <Link href="/booking">Book Online Now</Link>
             </Button>
             <Button size="lg" variant="outline" className="h-14 px-10 text-lg font-bold border-white/30 text-white hover:bg-white/10" asChild>
-              <a href={getWhatsAppLink("Hello! I'm interested in booking a service.")} target="_blank" rel="noopener noreferrer">
+              <a href={getWhatsAppLink("Hello! I'm interested in booking a service.")} target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp to book a service">
                 <MessageCircle className="mr-2 h-5 w-5" aria-hidden="true" />
                 Chat on WhatsApp
               </a>

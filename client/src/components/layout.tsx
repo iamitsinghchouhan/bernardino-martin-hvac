@@ -563,7 +563,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                   <Link href="/quote">Get a Free Quote</Link>
                 </Button>
                 <Button className="w-full bg-green-700 hover:bg-green-800 text-white border-0" asChild>
-                   <a href={getWhatsAppLink("Hi, I have a question about your services.")} onClick={() => trackEvent("whatsapp_click")} target="_blank" rel="noopener noreferrer">
+                   <a href={getWhatsAppLink("Hi, I have a question about your services.")} onClick={() => trackEvent("whatsapp_click")} target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp with a question">
                      <MessageCircle className="mr-2 h-4 w-4" />
                      Chat on WhatsApp
                    </a>

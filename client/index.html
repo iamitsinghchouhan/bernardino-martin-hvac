@@ -85,15 +85,28 @@
     <link rel="manifest" href="/manifest.json" />
     <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
     <link rel="dns-prefetch" href="https://basemaps.cartocdn.com" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preload" as="image" type="image/webp" href="/logo-bm.webp" fetchpriority="high" />
     <link rel="preload" as="image" type="image/webp" href="/images/hero-home.webp" fetchpriority="high" />
-    <link rel="preload" as="image" type="image/webp" href="/images/real-solar-install.webp" fetchpriority="low" />
-    <link rel="stylesheet" crossorigin href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap">
+    <!-- Self-hosted fonts preloaded so text paints without a Google Fonts CDN round-trip (was a 4-hop chain adding ~2s) -->
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-latin.woff2" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/outfit-latin.woff2" crossorigin />
 
-    <!-- Third-party CSS and JS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+    <!-- Minimal AOS animation CSS inlined (replaces a 26KB render-blocking CDN stylesheet).
+         Scoped to .aos-init (added by aos.js) so content stays visible if the script fails to load. -->
+    <style>
+      [data-aos].aos-init{opacity:0;transition-property:opacity,transform;transition-duration:.8s;transition-timing-function:ease}
+      [data-aos].aos-animate{opacity:1;transform:none}
+      [data-aos=fade-up].aos-init{transform:translateY(30px)}
+      [data-aos=fade-right].aos-init{transform:translateX(-30px)}
+      [data-aos=fade-left].aos-init{transform:translateX(30px)}
+      [data-aos=zoom-in].aos-init{transform:scale(.94)}
+      [data-aos-delay="100"].aos-animate{transition-delay:.1s}
+      [data-aos-delay="150"].aos-animate{transition-delay:.15s}
+      [data-aos-delay="200"].aos-animate{transition-delay:.2s}
+      [data-aos-delay="300"].aos-animate{transition-delay:.3s}
+      [data-aos-delay="400"].aos-animate{transition-delay:.4s}
+      [data-aos-delay="450"].aos-animate{transition-delay:.45s}
+    </style>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/countup.js/2.8.0/countUp.umd.js"></script>
   </head>

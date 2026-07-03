@@ -61,7 +61,6 @@ export default defineConfig({
             "@radix-ui/react-select",
             "@radix-ui/react-popover",
             "@radix-ui/react-accordion",
-            "framer-motion",
           ],
 
           "vendor-maps": ["leaflet", "react-leaflet"],
