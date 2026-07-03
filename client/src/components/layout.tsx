@@ -65,6 +65,9 @@ const FOOTER_SERVICE_AREAS = [
 export function Layout({ children }: { children: React.ReactNode }) {
   const [location] = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
+  // The home hero is a full-bleed video — float a transparent nav over it until the user scrolls.
+  // Every other page keeps the solid header (it has no video to float over).
+  const isHomeHero = location === "/" && !isScrolled;
 
   const [requestName, setRequestName] = useState("");
   const [requestEmail, setRequestEmail] = useState("");
@@ -122,24 +125,52 @@ export function Layout({ children }: { children: React.ReactNode }) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navItems = [
+  type NavChild = { href: string; label: string; desc: string };
+  type NavSection = { title: string; links: { href: string; label: string }[] };
+  type NavItem = { href: string; label: string; children?: NavChild[]; sections?: NavSection[] };
+
+  const navItems: NavItem[] = [
     { href: "/", label: "Home" },
     {
       href: "/services",
       label: "Services",
-      children: [
-        { href: "/services#hvac", label: "HVAC & Heating", desc: "Cooling, heating, ducts and thermostats" },
-        { href: "/services#solar", label: "Solar & Energy", desc: "Panels, maintenance and solar-powered systems" },
-        { href: "/services#plumbing", label: "Plumbing", desc: "General plumbing, jet cleanup and shutoff valves" },
-        { href: "/services#electrical", label: "Electrical", desc: "Panel upgrades and residential electrical work" },
-        { href: "/services#outdoor", label: "Outdoor & Property", desc: "Landscaping, sod, planting and irrigation" },
-        { href: "/services#technology", label: "Technology", desc: "Network wiring and smart home connectivity" },        { href: "/hvac-los-angeles", label: "HVAC Los Angeles", desc: "Local HVAC services" },
-        { href: "/solar-installation-los-angeles", label: "Solar Los Angeles", desc: "Local solar installations" },
-        { href: "/plumbing-los-angeles", label: "Plumbing Los Angeles", desc: "Local plumbing services" },
-        { href: "/electrical-services-los-angeles", label: "Electrical Los Angeles", desc: "Local electrical services" },
-        { href: "/landscaping-los-angeles", label: "Landscaping Los Angeles", desc: "Local landscaping services" },
-        { href: "/irrigation-los-angeles", label: "Irrigation Los Angeles", desc: "Local irrigation services" },
-        { href: "/network-installation-los-angeles", label: "Network Installation Los Angeles", desc: "Local network services" },      ],
+      sections: [
+        { title: "HVAC", links: [
+          { href: "/services/hvac-repair", label: "AC Repair & Diagnostics" },
+          { href: "/services/hvac-install-ac", label: "AC Installation" },
+          { href: "/services/hvac-maintenance", label: "Maintenance Tune-Up" },
+        ]},
+        { title: "Heating", links: [
+          { href: "/services/heating-gas-furnace", label: "Gas Furnace" },
+          { href: "/services/heating-electric-furnace", label: "Electric Furnace" },
+          { href: "/services/heating-furnace-replacement", label: "Furnace Replacement" },
+        ]},
+        { title: "Solar", links: [
+          { href: "/services/solar-install", label: "Solar Installation" },
+          { href: "/services/solar-maintenance", label: "Solar Maintenance" },
+          { href: "/services/solar-inverter", label: "Inverter Services" },
+        ]},
+        { title: "Plumbing", links: [
+          { href: "/services/plumbing-general", label: "General Plumbing" },
+          { href: "/services/plumbing-water-heater", label: "Water Heater" },
+          { href: "/services/plumbing-sewer", label: "Sewer Services" },
+        ]},
+        { title: "Electrical", links: [
+          { href: "/services/electrical-panel", label: "Panel Upgrade" },
+          { href: "/services/electrical-general", label: "General Electrical" },
+          { href: "/services/electrical-ev-charger", label: "EV Charger" },
+        ]},
+        { title: "Outdoor", links: [
+          { href: "/services/outdoor-landscaping", label: "Landscaping" },
+          { href: "/services/outdoor-sod", label: "Sod Installation" },
+          { href: "/services/outdoor-irrigation", label: "Smart Irrigation" },
+        ]},
+        { title: "Technology", links: [
+          { href: "/services/tech-network", label: "Network Cabling" },
+          { href: "/services/tech-smarthome", label: "Smart Home" },
+          { href: "/services/tech-nest", label: "Google Nest" },
+        ]},
+      ],
     },
     {
       href: "/booking",
@@ -170,29 +201,33 @@ export function Layout({ children }: { children: React.ReactNode }) {
     </a>
     <div className="flex flex-col min-h-screen font-sans">
       {/* Emergency Banner */}
-      <div className="bg-red-600 text-white py-2.5 text-xs md:text-sm font-bold flex justify-center items-center gap-2 px-4 text-center" role="alert">
+      <div className="bg-red-600 text-white py-2.5 text-xs font-bold uppercase tracking-wider flex justify-center items-center gap-2 px-4 text-center" role="alert">
         <AlertCircle className="h-4 w-4 animate-pulse shrink-0" aria-hidden="true" />
-        <span>24/7 EMERGENCY SERVICE AVAILABLE IN LOS ANGELES - <a href={`tel:${COMPANY_PHONE.replace(/\D/g, '')}`} onClick={() => trackEvent("phone_click")} className="underline hover:text-red-100 transition-colors">{COMPANY_PHONE}</a></span>
+        <span>24/7 Emergency Service Available in Los Angeles &mdash; <a href={`tel:${COMPANY_PHONE.replace(/\D/g, '')}`} onClick={() => trackEvent("phone_click")} className="underline hover:text-red-100 transition-colors">{COMPANY_PHONE}</a></span>
       </div>
 
       {/* Top Bar - Trust & Quick Contact */}
-      <div className="bg-slate-900 text-slate-300 py-2 text-xs md:text-sm font-medium">
+      <div className="bg-slate-950 text-slate-400 py-2 text-xs font-bold uppercase tracking-wider">
         <div className="container mx-auto px-4 flex justify-between items-center">
           <div className="flex items-center gap-2">
-            <ShieldCheck className="h-4 w-4 text-green-400" aria-hidden="true" />
-            <span>Licensed, Bonded & Insured</span>
+            <ShieldCheck className="h-4 w-4 text-secondary" aria-hidden="true" />
+            <span>Licensed, Bonded &amp; Insured</span>
           </div>
           <div className="hidden md:flex gap-4">
-            <span>Commercial & Residential</span>
+            <span>Commercial &amp; Residential</span>
             <span>Serving Greater Los Angeles</span>
           </div>
         </div>
       </div>
 
       {/* Sticky Header */}
-      <header 
-        className={`sticky top-0 z-50 relative w-full transition-all duration-300 border-b ${
-          isScrolled ? "bg-white/95 backdrop-blur-md shadow-sm border-gray-100" : "bg-white border-transparent"
+      <header
+        className={`sticky top-0 z-50 w-full transition-all duration-300 border-b ${
+          isHomeHero
+            ? "bg-slate-950/40 border-transparent"
+            : isScrolled
+              ? "bg-white border-slate-200 shadow-sm"
+              : "bg-white border-transparent"
         }`}
       >
         <div className="container mx-auto px-4 h-20 flex items-center justify-between">
@@ -200,8 +235,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
           <Link href="/" className="flex items-center gap-3 group" aria-label="BERNARDINO MARTIN Heating Air Conditioning Solar - Home">
               <img src="/logo-bm.webp" alt="BERNARDINO MARTIN Heating Air Conditioning Solar logo" className="h-14 w-14 object-contain rounded-lg bg-white p-1 shadow-sm border border-gray-100 group-hover:scale-105 transition-transform duration-300" loading="eager" fetchPriority="high" width={128} height={128} />
               <div className="flex flex-col">
-                <span className="font-heading font-bold text-lg leading-none text-primary tracking-tight">BERNARDINO MARTIN</span>
-                <span className="text-[10px] font-semibold text-secondary tracking-[0.2em] uppercase">Heating &bull; Air Conditioning &bull; Solar</span>
+                <span className={`font-heading font-black text-lg leading-none tracking-tight ${isHomeHero ? "text-white text-shadow-hero" : "text-slate-950"}`}>BERNARDINO MARTIN</span>
+                <span className={`text-[10px] font-bold tracking-[0.2em] uppercase ${isHomeHero ? "text-secondary text-shadow-hero" : "text-secondary"}`}>Heating &bull; Air Conditioning &bull; Solar</span>
               </div>
           </Link>
           {/* Desktop Nav */}
@@ -209,16 +244,19 @@ export function Layout({ children }: { children: React.ReactNode }) {
             {navItems.map((item) => {
               const isActive =
                 location === item.href ||
-                item.children?.some((child) => location === child.href || location === child.href.split("#")[0]);
+                item.children?.some((child) => location === child.href || location === child.href.split("#")[0]) ||
+                item.sections?.some((s) => s.links.some((l) => location === l.href));
 
-              if (!item.children) {
+              if (!item.children && !item.sections) {
                 return (
                   <Link
                     key={item.href}
                     href={item.href}
                     aria-current={location === item.href ? "page" : undefined}
-                    className={`text-sm font-medium transition-colors hover:text-primary ${
-                      isActive ? "text-primary font-semibold" : "text-slate-600"
+                    className={`border-b-2 pb-1 text-sm font-bold transition-colors hover:text-primary ${
+                      isHomeHero
+                        ? `text-shadow-hero ${isActive ? "border-white text-white" : "border-transparent text-white/85"}`
+                        : isActive ? "border-primary text-primary" : "border-transparent text-slate-700"
                     }`}
                   >
                     {item.label}
@@ -230,27 +268,55 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 <div key={item.label} className="group relative py-7">
                   <Link
                     href={item.href}
-                    className={`inline-flex items-center gap-1.5 text-sm font-medium transition-colors hover:text-primary ${
-                      isActive ? "text-primary font-semibold" : "text-slate-600"
+                    className={`inline-flex items-center gap-1.5 border-b-2 pb-1 text-sm font-bold transition-colors hover:text-primary ${
+                      isHomeHero
+                        ? `text-shadow-hero ${isActive ? "border-white text-white" : "border-transparent text-white/85"}`
+                        : isActive ? "border-primary text-primary" : "border-transparent text-slate-700"
                     }`}
                   >
                     {item.label}
                     <ChevronDown className="h-4 w-4 transition-transform duration-200 group-hover:rotate-180" />
                   </Link>
-                  <div className="pointer-events-none invisible absolute left-1/2 top-full z-50 w-[340px] -translate-x-1/2 translate-y-2 pt-4 opacity-0 transition-all duration-200 group-hover:pointer-events-auto group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
-                    <div className="rounded-2xl border border-slate-200 bg-white p-3 shadow-2xl">
-                      {item.children.map((child) => (
-                        <Link
-                          key={child.href}
-                          href={child.href}
-                          className="block rounded-xl px-4 py-3 transition-colors hover:bg-slate-50"
-                        >
-                          <div className="text-sm font-semibold text-slate-900">{child.label}</div>
-                          <div className="mt-1 text-xs leading-5 text-slate-500">{child.desc}</div>
-                        </Link>
-                      ))}
+                  {item.sections ? (
+                    <div className="pointer-events-none invisible absolute left-1/2 top-full z-50 w-[760px] -translate-x-1/2 translate-y-2 pt-4 opacity-0 transition-all duration-200 group-hover:pointer-events-auto group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
+                      <div className="rounded-xl border border-slate-900/10 bg-white p-5 shadow-xl">
+                        <div className="grid grid-cols-7 gap-4">
+                          {item.sections.map((section) => (
+                            <div key={section.title}>
+                              <div className="text-[10px] font-black uppercase tracking-wider text-secondary mb-2">{section.title}</div>
+                              <ul className="space-y-1">
+                                {section.links.map((link) => (
+                                  <li key={link.href}>
+                                    <Link href={link.href} className="block rounded px-2 py-1.5 text-xs font-semibold text-slate-700 transition-colors hover:bg-slate-50 hover:text-primary">
+                                      {link.label}
+                                    </Link>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          ))}
+                        </div>
+                        <div className="mt-4 border-t border-slate-100 pt-3">
+                          <Link href="/services" className="text-xs font-bold text-primary hover:underline">View all 39 services →</Link>
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                  ) : (
+                    <div className="pointer-events-none invisible absolute left-1/2 top-full z-50 w-[340px] -translate-x-1/2 translate-y-2 pt-4 opacity-0 transition-all duration-200 group-hover:pointer-events-auto group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
+                      <div className="rounded-xl border border-slate-900/10 bg-white p-3 shadow-xl">
+                        {item.children?.map((child) => (
+                          <Link
+                            key={child.href}
+                            href={child.href}
+                            className="block rounded-lg px-4 py-3 transition-colors hover:bg-slate-50"
+                          >
+                            <div className="text-sm font-bold text-slate-950">{child.label}</div>
+                            <div className="mt-1 text-xs leading-5 text-slate-500">{child.desc}</div>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
               );
             })}
@@ -258,11 +324,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
           {/* Desktop CTAs */}
           <div className="hidden lg:flex items-center gap-3">
-            <a href={`tel:${COMPANY_PHONE.replace(/\D/g, '')}`} onClick={() => trackEvent("phone_click")} className="flex flex-col items-end mr-2 group">
-              <span className="text-[10px] text-slate-500 font-semibold uppercase tracking-wider">24/7 Service</span>
-              <span className="text-lg font-bold font-heading text-slate-900 group-hover:text-primary transition-colors">{COMPANY_PHONE}</span>
+            <a href={`tel:${COMPANY_PHONE.replace(/\D/g, '')}`} onClick={() => trackEvent("phone_click")} className={`flex flex-col items-end mr-2 group ${isHomeHero ? "text-shadow-hero" : ""}`}>
+              <span className={`text-[10px] font-bold uppercase tracking-wider ${isHomeHero ? "text-white/70" : "text-slate-500"}`}>24/7 Service</span>
+              <span className={`text-lg font-black font-heading group-hover:text-primary transition-colors ${isHomeHero ? "text-white" : "text-slate-950"}`}>{COMPANY_PHONE}</span>
             </a>
-            
+
             <Button size="lg" className="bg-primary hover:bg-primary/90 shadow-lg shadow-primary/20" asChild>
               <Link href="/booking">
                 <div className="flex items-center gap-2">
@@ -287,13 +353,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
                </Button>
              </a>
              <a href={`tel:${COMPANY_PHONE.replace(/\D/g, '')}`} onClick={() => trackEvent("phone_click")} aria-label={`Call us at ${COMPANY_PHONE}`}>
-               <Button size="icon" variant="outline" className="rounded-full border-primary/20 text-primary hover:bg-primary/10" aria-hidden="true" tabIndex={-1}>
+               <Button size="icon" variant="outline" className={`rounded-full hover:bg-primary/10 ${isHomeHero ? "border-white/40 text-white" : "border-primary/20 text-primary"}`} aria-hidden="true" tabIndex={-1}>
                  <Phone className="h-5 w-5" aria-hidden="true" />
                </Button>
              </a>
              <Sheet>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="-mr-2" aria-label="Open navigation menu">
+                <Button variant="ghost" size="icon" className={`-mr-2 ${isHomeHero ? "text-white hover:bg-white/10 hover:text-white" : ""}`} aria-label="Open navigation menu">
                   <Menu className="h-6 w-6" aria-hidden="true" />
                 </Button>
               </SheetTrigger>
@@ -302,8 +368,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
                   <Link href="/" className="flex items-center gap-2 mb-6">
                       <img src="/logo-bm.webp" alt="BERNARDINO MARTIN Heating Air Conditioning Solar logo" className="h-12 w-12 object-contain rounded-lg bg-white p-1 shadow-sm border border-gray-100" loading="eager" fetchPriority="high" width={128} height={128} />
                       <div className="flex flex-col">
-                        <span className="font-heading font-bold text-lg text-primary">BERNARDINO MARTIN</span>
-                        <span className="text-[9px] font-semibold text-secondary tracking-[0.15em] uppercase">Heating &bull; Air Conditioning &bull; Solar</span>
+                        <span className="font-heading font-black text-lg text-slate-950">BERNARDINO MARTIN</span>
+                        <span className="text-[9px] font-bold text-secondary tracking-[0.15em] uppercase">Heating &bull; Air Conditioning &bull; Solar</span>
                       </div>
                   </Link>
                   {navItems.map((item) => (
@@ -311,13 +377,27 @@ export function Layout({ children }: { children: React.ReactNode }) {
                       <Link
                         href={item.href}
                         aria-current={location === item.href ? "page" : undefined}
-                        className={`block py-2 text-lg font-medium ${
-                          location === item.href ? "text-primary" : "text-slate-700"
+                        className={`block py-2 text-lg font-bold ${
+                          location === item.href ? "text-primary" : "text-slate-800"
                         }`}
                       >
                         {item.label}
                       </Link>
-                      {item.children ? (
+                      {item.sections ? (
+                        <div className="mt-2 space-y-3 pl-4">
+                          {item.sections.map((section) => (
+                            <div key={section.title}>
+                              <div className="text-[10px] font-black uppercase tracking-wider text-secondary mb-1">{section.title}</div>
+                              {section.links.map((link) => (
+                                <Link key={link.href} href={link.href} className="block rounded px-2 py-1.5 text-sm font-semibold text-slate-600 hover:text-primary">
+                                  {link.label}
+                                </Link>
+                              ))}
+                            </div>
+                          ))}
+                          <Link href="/services" className="block text-xs font-bold text-primary pt-1">View all 39 services →</Link>
+                        </div>
+                      ) : item.children ? (
                         <div className="mt-2 space-y-2 pl-4">
                           {item.children.map((child) => (
                             <Link
@@ -379,7 +459,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
         </section>
       </main>
 
-      <div className="fixed bottom-6 right-[5.75rem] z-50">
+      {/* Hidden at the very top of the page — every page already has its own prominent Call CTA there */}
+      <div
+        className={`fixed bottom-6 right-[5.75rem] z-50 transition-all duration-300 ${
+          isScrolled ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-4 opacity-0"
+        }`}
+      >
         <a href="tel:+18184000227" onClick={() => trackEvent("phone_click")} className="inline-flex items-center gap-2 rounded-full bg-red-600 px-4 py-3 text-sm text-white font-bold shadow-lg transition hover:bg-red-700 sm:px-5 sm:text-base">
           <Phone className="h-4 w-4" />
           Call Now
@@ -414,17 +499,21 @@ export function Layout({ children }: { children: React.ReactNode }) {
             </div>
             
             <div>
-              <h3 className="text-white font-bold mb-4 font-heading">Services</h3>
-              <ul className="space-y-2 text-sm">
-                <li><Link href="/services" className="hover:text-secondary transition-colors">AC Repair & Installation</Link></li>
-                <li><Link href="/services" className="hover:text-secondary transition-colors">Heating Services</Link></li>
-                <li><Link href="/services" className="hover:text-secondary transition-colors">Solar Panel Installation</Link></li>
-                <li><Link href="/services" className="hover:text-secondary transition-colors">Maintenance Tune-Ups</Link></li>
-                <li><Link href="/services" className="hover:text-secondary transition-colors">Plumbing & Pipe Work</Link></li>
-                <li><a href="/hvac-los-angeles" className="hover:text-secondary transition-colors">HVAC Los Angeles</a></li>
-                <li><a href="/solar-installation-los-angeles" className="hover:text-secondary transition-colors">Solar Installation LA</a></li>
-                <li><a href="/plumbing-los-angeles" className="hover:text-secondary transition-colors">Plumbing Los Angeles</a></li>
-                <li><a href="/electrical-services-los-angeles" className="hover:text-secondary transition-colors">Electrical Services LA</a></li>
+              <h3 className="text-white font-bold mb-4 font-heading">Our Services</h3>
+              <ul className="space-y-1.5 text-sm">
+                <li className="text-[10px] font-black text-secondary uppercase tracking-wider mb-0.5">HVAC</li>
+                <li><Link href="/services/hvac-repair" className="hover:text-secondary transition-colors">AC Repair & Diagnostics</Link></li>
+                <li><Link href="/services/hvac-install-ac" className="hover:text-secondary transition-colors">AC Installation</Link></li>
+                <li><Link href="/services/hvac-maintenance" className="hover:text-secondary transition-colors">Maintenance Tune-Up</Link></li>
+                <li className="text-[10px] font-black text-secondary uppercase tracking-wider pt-2 mb-0.5">Plumbing</li>
+                <li><Link href="/services/plumbing-general" className="hover:text-secondary transition-colors">General Plumbing</Link></li>
+                <li><Link href="/services/plumbing-water-heater" className="hover:text-secondary transition-colors">Water Heater</Link></li>
+                <li><Link href="/services/plumbing-sewer" className="hover:text-secondary transition-colors">Sewer Services</Link></li>
+                <li className="text-[10px] font-black text-secondary uppercase tracking-wider pt-2 mb-0.5">Solar & More</li>
+                <li><Link href="/services/solar-install" className="hover:text-secondary transition-colors">Solar Installation</Link></li>
+                <li><Link href="/services/electrical-panel" className="hover:text-secondary transition-colors">Electrical Panel</Link></li>
+                <li><Link href="/services/outdoor-landscaping" className="hover:text-secondary transition-colors">Landscaping</Link></li>
+                <li className="pt-2"><Link href="/services" className="font-bold text-secondary hover:text-secondary/80 transition-colors">View all 39 services →</Link></li>
               </ul>
             </div>
 

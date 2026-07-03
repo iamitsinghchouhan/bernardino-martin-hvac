@@ -4,7 +4,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { ProtectedRoute } from "@/components/protected-route";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { usePageTracking } from "@/hooks/use-analytics";
 import Home from "@/pages/home";
 
@@ -78,6 +78,48 @@ const HvacLongBeach = lazy(() => import("@/pages/seo/hvac-long-beach"));
 const HvacGardena = lazy(() => import("@/pages/seo/hvac-gardena"));
 const HvacHawthorne = lazy(() => import("@/pages/seo/hvac-hawthorne"));
 const HvacManhattanBeach = lazy(() => import("@/pages/seo/hvac-manhattan-beach"));
+
+// ── Service detail pages ──────────────────────────────────────────────────
+const SvcHvacRepair = lazy(() => import("@/pages/service-detail/hvac-repair"));
+const SvcHvacInstallAc = lazy(() => import("@/pages/service-detail/hvac-install-ac"));
+const SvcHvacMaintenance = lazy(() => import("@/pages/service-detail/hvac-maintenance"));
+const SvcHvacDuctless = lazy(() => import("@/pages/service-detail/hvac-ductless"));
+const SvcHvacAirFiltration = lazy(() => import("@/pages/service-detail/hvac-air-filtration"));
+const SvcHvacAtticHeat = lazy(() => import("@/pages/service-detail/hvac-attic-heat"));
+const SvcHvacDucts = lazy(() => import("@/pages/service-detail/hvac-ducts"));
+const SvcHeatingGasFurnace = lazy(() => import("@/pages/service-detail/heating-gas-furnace"));
+const SvcHeatingElectricFurnace = lazy(() => import("@/pages/service-detail/heating-electric-furnace"));
+const SvcHeatingFloorFurnace = lazy(() => import("@/pages/service-detail/heating-floor-furnace"));
+const SvcHeatingWallFurnace = lazy(() => import("@/pages/service-detail/heating-wall-furnace"));
+const SvcHeatingFurnaceReplacement = lazy(() => import("@/pages/service-detail/heating-furnace-replacement"));
+const SvcHvacThermostat = lazy(() => import("@/pages/service-detail/hvac-thermostat"));
+const SvcHeatingNestThermostat = lazy(() => import("@/pages/service-detail/heating-nest-thermostat"));
+const SvcSolarInstall = lazy(() => import("@/pages/service-detail/solar-install"));
+const SvcSolarMaintenance = lazy(() => import("@/pages/service-detail/solar-maintenance"));
+const SvcSolarInverter = lazy(() => import("@/pages/service-detail/solar-inverter"));
+const SvcSolarIrrigation = lazy(() => import("@/pages/service-detail/solar-irrigation"));
+const SvcPlumbingGeneral = lazy(() => import("@/pages/service-detail/plumbing-general"));
+const SvcPlumbingMainline = lazy(() => import("@/pages/service-detail/plumbing-mainline"));
+const SvcPlumbingGasLine = lazy(() => import("@/pages/service-detail/plumbing-gas-line"));
+const SvcPlumbingSewer = lazy(() => import("@/pages/service-detail/plumbing-sewer"));
+const SvcPlumbingWaterFilter = lazy(() => import("@/pages/service-detail/plumbing-water-filter"));
+const SvcPlumbingShutoff = lazy(() => import("@/pages/service-detail/plumbing-shutoff"));
+const SvcPlumbingJetCleanup = lazy(() => import("@/pages/service-detail/plumbing-jet-cleanup"));
+const SvcPlumbingToilet = lazy(() => import("@/pages/service-detail/plumbing-toilet"));
+const SvcPlumbingDisposal = lazy(() => import("@/pages/service-detail/plumbing-disposal"));
+const SvcPlumbingWaterHeater = lazy(() => import("@/pages/service-detail/plumbing-water-heater"));
+const SvcPlumbingSink = lazy(() => import("@/pages/service-detail/plumbing-sink"));
+const SvcElectricalPanel = lazy(() => import("@/pages/service-detail/electrical-panel"));
+const SvcElectricalGeneral = lazy(() => import("@/pages/service-detail/electrical-general"));
+const SvcElectricalEvCharger = lazy(() => import("@/pages/service-detail/electrical-ev-charger"));
+const SvcOutdoorLandscaping = lazy(() => import("@/pages/service-detail/outdoor-landscaping"));
+const SvcOutdoorSod = lazy(() => import("@/pages/service-detail/outdoor-sod"));
+const SvcOutdoorPlanting = lazy(() => import("@/pages/service-detail/outdoor-planting"));
+const SvcOutdoorIrrigation = lazy(() => import("@/pages/service-detail/outdoor-irrigation"));
+const SvcOutdoorHardscape = lazy(() => import("@/pages/service-detail/outdoor-hardscape"));
+const SvcTechNetwork = lazy(() => import("@/pages/service-detail/tech-network"));
+const SvcTechSmarthome = lazy(() => import("@/pages/service-detail/tech-smarthome"));
+const SvcTechNest = lazy(() => import("@/pages/service-detail/tech-nest"));
 
 function PageLoader() {
   return (
@@ -187,6 +229,48 @@ function Router() {
         <Route path="/network-repair-los-angeles" component={NetworkRepairLosAngeles} />
         <Route path="/new-installation-los-angeles" component={NewInstallationLosAngeles} />
 
+        {/* ── Service detail routes ─────────────────────────────────────── */}
+        <Route path="/services/hvac-repair" component={SvcHvacRepair} />
+        <Route path="/services/hvac-install-ac" component={SvcHvacInstallAc} />
+        <Route path="/services/hvac-maintenance" component={SvcHvacMaintenance} />
+        <Route path="/services/hvac-ductless" component={SvcHvacDuctless} />
+        <Route path="/services/hvac-air-filtration" component={SvcHvacAirFiltration} />
+        <Route path="/services/hvac-attic-heat" component={SvcHvacAtticHeat} />
+        <Route path="/services/hvac-ducts" component={SvcHvacDucts} />
+        <Route path="/services/heating-gas-furnace" component={SvcHeatingGasFurnace} />
+        <Route path="/services/heating-electric-furnace" component={SvcHeatingElectricFurnace} />
+        <Route path="/services/heating-floor-furnace" component={SvcHeatingFloorFurnace} />
+        <Route path="/services/heating-wall-furnace" component={SvcHeatingWallFurnace} />
+        <Route path="/services/heating-furnace-replacement" component={SvcHeatingFurnaceReplacement} />
+        <Route path="/services/hvac-thermostat" component={SvcHvacThermostat} />
+        <Route path="/services/heating-nest-thermostat" component={SvcHeatingNestThermostat} />
+        <Route path="/services/solar-install" component={SvcSolarInstall} />
+        <Route path="/services/solar-maintenance" component={SvcSolarMaintenance} />
+        <Route path="/services/solar-inverter" component={SvcSolarInverter} />
+        <Route path="/services/solar-irrigation" component={SvcSolarIrrigation} />
+        <Route path="/services/plumbing-general" component={SvcPlumbingGeneral} />
+        <Route path="/services/plumbing-mainline" component={SvcPlumbingMainline} />
+        <Route path="/services/plumbing-gas-line" component={SvcPlumbingGasLine} />
+        <Route path="/services/plumbing-sewer" component={SvcPlumbingSewer} />
+        <Route path="/services/plumbing-water-filter" component={SvcPlumbingWaterFilter} />
+        <Route path="/services/plumbing-shutoff" component={SvcPlumbingShutoff} />
+        <Route path="/services/plumbing-jet-cleanup" component={SvcPlumbingJetCleanup} />
+        <Route path="/services/plumbing-toilet" component={SvcPlumbingToilet} />
+        <Route path="/services/plumbing-disposal" component={SvcPlumbingDisposal} />
+        <Route path="/services/plumbing-water-heater" component={SvcPlumbingWaterHeater} />
+        <Route path="/services/plumbing-sink" component={SvcPlumbingSink} />
+        <Route path="/services/electrical-panel" component={SvcElectricalPanel} />
+        <Route path="/services/electrical-general" component={SvcElectricalGeneral} />
+        <Route path="/services/electrical-ev-charger" component={SvcElectricalEvCharger} />
+        <Route path="/services/outdoor-landscaping" component={SvcOutdoorLandscaping} />
+        <Route path="/services/outdoor-sod" component={SvcOutdoorSod} />
+        <Route path="/services/outdoor-planting" component={SvcOutdoorPlanting} />
+        <Route path="/services/outdoor-irrigation" component={SvcOutdoorIrrigation} />
+        <Route path="/services/outdoor-hardscape" component={SvcOutdoorHardscape} />
+        <Route path="/services/tech-network" component={SvcTechNetwork} />
+        <Route path="/services/tech-smarthome" component={SvcTechSmarthome} />
+        <Route path="/services/tech-nest" component={SvcTechNest} />
+
         <Route path="/:slug" component={DynamicPage} />
 
         <Route component={NotFound} />
@@ -196,6 +280,24 @@ function Router() {
 }
 
 function App() {
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    let attempts = 0;
+    const tryInit = () => {
+      const AOS = (window as any).AOS;
+      if (AOS) {
+        AOS.init({ duration: 800, once: true, offset: 100 });
+        return;
+      }
+      attempts += 1;
+      if (attempts < 20) {
+        setTimeout(tryInit, 100);
+      }
+    };
+    tryInit();
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>

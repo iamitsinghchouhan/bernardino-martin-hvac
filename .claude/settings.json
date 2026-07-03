@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx tsc *)",
+      "Bash(npx vite *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:5173/)",
+      "Bash(netstat -ano)",
+      "Bash(powershell -NoProfile -Command \"Get-Process -Id 40804 | Select-Object Id,ProcessName,Path\")",
+      "Bash(powershell -NoProfile -Command \"Stop-Process -Id 40804 -Force\")",
+      "Bash(curl -s -o /dev/null -w \"Port 5174 status: %{http_code}\\\\n\" http://localhost:5174/)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:5174/)",
+      "WebSearch"
+    ]
+  }
+}

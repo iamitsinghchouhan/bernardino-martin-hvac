@@ -1,700 +1,953 @@
 import { Layout } from "@/components/layout";
 import { SEO } from "@/components/seo";
-import { buildVideoObjectSchema } from "@/lib/video-schema";
 import { ReviewSlider } from "@/components/ReviewSlider";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { PROMOS, SERVICES, COMPANY_PHONE, COMPANY_NAME, COMPANY_FULL, getWhatsAppLink } from "@/lib/constants";
-import { ArrowRight, Check, Star, Clock, Calendar, MessageCircle, Phone, AlertTriangle, Droplets, Shield, Activity } from "lucide-react";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
+import {
+  PROMOS,
+  SERVICES,
+  SERVICE_CATEGORIES,
+  COMPANY_PHONE,
+  COMPANY_FULL,
+  getWhatsAppLink,
+} from "@/lib/constants";
+import { buildVideoObjectSchema } from "@/lib/video-schema";
+import allCities from "@/data/cities/all-cities";
+import { PROJECTS } from "@/data/projects";
+import {
+  ArrowRight,
+  Check,
+  Phone,
+  AlertTriangle,
+  MapPin,
+  Calendar,
+  MessageCircle,
+  ShieldCheck,
+  Clock,
+  Siren,
+  Play,
+  Volume2,
+  VolumeX,
+  Maximize2,
+} from "lucide-react";
+import { ImageLightbox, type LightboxImage } from "@/components/image-lightbox";
 import { Link } from "wouter";
-import { Badge } from "@/components/ui/badge";
-import { lazy, Suspense, useState, useEffect, useRef } from "react";
-const ProjectGallery = lazy(() => import("@/components/project-gallery").then(m => ({ default: m.ProjectGallery })));
+import { motion } from "framer-motion";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
 
-const HERO_VIDEOS = [
-  "/videos/hvac_repair_outdoor.mp4",
-  "/videos/solar_panel_install.mp4",
-  "/videos/plumbing_copper_pipes.mp4",
-  "/videos/svc-hvac.mp4",
-  "/videos/svc-solar.mp4",
-  "/videos/svc-plumbing.mp4",
-  "/videos/svc-electrical.mp4",
-  "/videos/svc-landscaping.mp4",
-  "/videos/svc-irrigation.mp4",
-  "/videos/svc-network.mp4",
+const ProjectGallery = lazy(() => import("@/components/project-gallery").then((m) => ({ default: m.ProjectGallery })));
+const ServiceAreasMap = lazy(() => import("@/components/service-areas-map").then((m) => ({ default: m.ServiceAreasMap })));
+
+const BRAND_LOGOS = [
+  "carrier", "trane", "lennox", "mitsubishi", "daikin", "goodman", "lg", "rheem", "york", "bosch",
 ];
 
-export default function Home() {
-  const [currentVideo, setCurrentVideo] = useState(0);
-  const [visibleLayer, setVisibleLayer] = useState<0 | 1>(0);
-  const videoRefs = [useRef<HTMLVideoElement>(null), useRef<HTMLVideoElement>(null)];
+const findService = (id: string) => {
+  const service = SERVICES.find((s) => s.id === id);
+  if (!service) throw new Error(`Unknown service id: ${id}`);
+  return service;
+};
+
+const EXTRA_CITY_LINKS = [
+  { city: "Burbank", slug: "hvac-burbank" },
+  { city: "Pasadena", slug: "hvac-pasadena" },
+];
+const TOTAL_CITY_PAGES = allCities.length + EXTRA_CITY_LINKS.length;
+
+/* ─── Walk Through The House — 5 rotating images per room ─── */
+const ROOMS = [
+  {
+    number: "01",
+    label: "Outside",
+    headline: "We start where your neighbors can see",
+    images: [
+      "/images/real-solar-install.webp",
+      "/images/hero-bm-solar-roof.png",
+      "/images/hero-bm-vehicles.png",
+      "/images/solar-techs-rooftop-1.jpg",
+      "/images/real-rooftop-hvac.webp",
+    ],
+    inset: "/images/solar-panel-cleaning.png",
+    services: [findService("solar-install"), findService("hvac-repair"), findService("outdoor-irrigation")],
+  },
+  {
+    number: "02",
+    label: "Living Room",
+    headline: "Heating and cooling for every room",
+    images: [
+      "/images/hvac-tech-minisplit.png",
+      "/images/hvac-tech-homeowner.png",
+      "/images/thermostat-nest-install.png",
+      "/images/real-diagnostics.webp",
+      "/images/hvac-tech-tablet.png",
+    ],
+    inset: "/images/hvac-tech-filter.png",
+    services: [findService("hvac-ductless"), findService("hvac-thermostat"), findService("hvac-maintenance")],
+  },
+  {
+    number: "03",
+    label: "Kitchen",
+    headline: "Modern plumbing, leak-proofed",
+    images: [
+      "/images/moen-smart-water-shutoff.webp",
+      "/images/real-piping.webp",
+      "/images/real-pipe-repair.webp",
+      "/images/svc-plumbing.webp",
+      "/images/real-trenching.webp",
+    ],
+    inset: "/images/real-piping.webp",
+    services: [findService("plumbing-shutoff"), findService("plumbing-general")],
+  },
+  {
+    number: "04",
+    label: "Bathroom",
+    headline: "Real pipe work, done right",
+    images: [
+      "/images/real-copper-welding.webp",
+      "/images/svc-plumbing.webp",
+      "/images/real-pipe-repair.webp",
+      "/images/moen-smart-water-shutoff.webp",
+      "/images/real-piping.webp",
+    ],
+    inset: "/images/real-copper-welding.webp",
+    services: [findService("plumbing-jet-cleanup"), findService("plumbing-general")],
+  },
+  {
+    number: "05",
+    label: "Utility Room",
+    headline: "Safe, licensed electrical work",
+    images: [
+      "/images/services/electrical-hero.png",
+      "/images/services/electrical-ev-charger.png",
+      "/images/svc-electrical.png",
+      "/images/real-rooftop-hvac.webp",
+      "/images/real-crane-lift.webp",
+    ],
+    inset: "/images/services/electrical-ev-charger.png",
+    services: [findService("electrical-panel"), findService("electrical-general")],
+  },
+  {
+    number: "06",
+    label: "Backyard",
+    headline: "Your outdoor space, transformed",
+    images: [
+      "/images/hero-bm-irrigation.png",
+      "/images/landscape-feature.jpg",
+      "/images/svc-landscaping.png",
+      "/images/svc-sod-installation.png",
+      "/images/svc-planting.png",
+    ],
+    inset: "/images/svc-planting.png",
+    services: [findService("outdoor-landscaping"), findService("outdoor-sod"), findService("outdoor-planting")],
+  },
+  {
+    number: "07",
+    label: "Smart Home",
+    headline: "The future of your home, wired right",
+    images: [
+      "/images/hero-bm-smart-home.png",
+      "/images/thermostat-nest-app.png",
+      "/images/services/network-smarthome.png",
+      "/images/services/network-panel.png",
+      "/images/services/network-wifi.png",
+    ],
+    inset: "/images/thermostat-nest-install.png",
+    services: [findService("tech-network"), findService("tech-smarthome"), findService("tech-smart-network")],
+  },
+];
+
+/* ─── Reel videos for compact video strip ─── */
+const REEL_VIDEOS = [
+  { src: "/videos/hvac-tech-inspecting.mp4", label: "HVAC Inspection", thumb: "/images/hvac-tech-tablet.png" },
+  { src: "/videos/hvac-repair-outdoor.mp4", label: "AC Repair", thumb: "/images/hvac-tech-gauges.png" },
+  { src: "/videos/hvac-family-comfort.mp4", label: "Home Comfort", thumb: "/images/hvac-tech-homeowner.png" },
+  { src: "/videos/hvac-tech-ac-outdoor.mp4", label: "AC Service", thumb: "/images/hero-bm-ac-units.png" },
+  { src: "/videos/hvac-tech-driveway.mp4", label: "Service Call", thumb: "/images/hero-bm-vehicles.png" },
+  { src: "/videos/solar-panel-install.mp4", label: "Solar Install", thumb: "/images/hero-bm-solar-roof.png" },
+  { src: "/videos/solar-la.mp4", label: "Solar LA", thumb: "/images/solar-panel-cleaning.png" },
+  { src: "/videos/plumbing-la.mp4", label: "Plumbing", thumb: "/images/real-piping.webp" },
+  { src: "/videos/landscaping-la.mp4", label: "Landscaping", thumb: "/images/svc-landscaping.png" },
+  { src: "/videos/irrigation-la.mp4", label: "Irrigation", thumb: "/images/hero-bm-irrigation.png" },
+  { src: "/videos/network-la.mp4", label: "Smart Home", thumb: "/images/hero-bm-smart-home.png" },
+  { src: "/videos/electrical-la.mp4", label: "Electrical", thumb: "/images/services/electrical-hero.png" },
+  { src: "/videos/reel-ultra-realistic.mp4", label: "Behind The Scenes", thumb: "/images/real-solar-install.webp" },
+];
+
+const FEEL_WORDS = ["comfortable", "efficient", "protected", "powered", "confident"];
+
+const FEEL_GALLERY_IMAGES = [
+  { src: "/images/hero-bm-vehicles.png", alt: "Bernardino Martin arriving at your home" },
+  { src: "/images/real-solar-install.webp", alt: "Real solar panel installation in Los Angeles" },
+  { src: "/images/hero-bm-ac-units.png", alt: "HVAC inspection by Bernardino Martin" },
+  { src: "/images/real-copper-welding.webp", alt: "Copper pipe welding work" },
+  { src: "/images/hero-bm-solar-roof.png", alt: "Solar panel installation on LA home" },
+  { src: "/images/services/electrical-hero.png", alt: "Licensed electrical panel work" },
+  { src: "/images/hero-bm-irrigation.png", alt: "Smart irrigation system in action" },
+  { src: "/images/real-ductwork.webp", alt: "Custom ductwork fabrication" },
+];
+
+/* ─── Active-room tracker for the sticky numbered list ─── */
+function useActiveSection(count: number) {
+  const refs = useRef<(HTMLDivElement | null)[]>([]);
+  const [active, setActive] = useState(0);
 
   useEffect(() => {
-    const activeVideo = videoRefs[visibleLayer].current;
-    const inactiveVideo = videoRefs[1 - visibleLayer].current;
-    if (!activeVideo || !inactiveVideo) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const idx = refs.current.findIndex((el) => el === entry.target);
+            if (idx !== -1) setActive(idx);
+          }
+        });
+      },
+      { rootMargin: "-45% 0px -45% 0px", threshold: 0 },
+    );
+    refs.current.slice(0, count).forEach((el) => el && observer.observe(el));
+    return () => observer.disconnect();
+  }, [count]);
 
-    const nextIndex = (currentVideo + 1) % HERO_VIDEOS.length;
+  return { refs, active };
+}
 
-    activeVideo.src = HERO_VIDEOS[currentVideo];
-    activeVideo.load();
-    activeVideo.play().catch(() => {});
+function useInView<T extends HTMLElement>(threshold = 0.3) {
+  const ref = useRef<T>(null);
+  const [inView, setInView] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true);
+          observer.disconnect();
+        }
+      },
+      { threshold },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [threshold]);
+  return { ref, inView };
+}
 
-    inactiveVideo.src = HERO_VIDEOS[nextIndex];
-    inactiveVideo.load();
+function CountUpStat({ end, label }: { end: number; label: string }) {
+  const spanRef = useRef<HTMLSpanElement>(null);
+  const started = useRef(false);
+  const { ref, inView } = useInView<HTMLDivElement>(0.4);
 
-    const handleEnded = () => {
-      inactiveVideo.currentTime = 0;
-      inactiveVideo.play().catch(() => {});
-      const nextLayer: 0 | 1 = visibleLayer === 0 ? 1 : 0;
-      setVisibleLayer(nextLayer);
-      setCurrentVideo(nextIndex);
+  useEffect(() => {
+    if (!inView || started.current) return;
+    started.current = true;
+    let attempts = 0;
+    const tryInit = () => {
+      const CountUp = (window as any).countUp?.CountUp;
+      if (CountUp && spanRef.current) {
+        new CountUp(spanRef.current, end, { duration: 1.6 }).start();
+        return;
+      }
+      attempts += 1;
+      if (attempts < 20) setTimeout(tryInit, 150);
+    };
+    tryInit();
+  }, [inView, end]);
+
+  return (
+    <div ref={ref} className="text-center">
+      <div className="text-display text-4xl md:text-5xl text-white">
+        <span ref={spanRef}>0</span>+
+      </div>
+      <div className="mt-2 text-xs uppercase tracking-[0.2em] text-white/50">{label}</div>
+    </div>
+  );
+}
+
+function ClickableImage({ src, alt, className, onClick }: { src: string; alt: string; className?: string; onClick?: () => void }) {
+  return (
+    <button type="button" onClick={onClick} className="group relative block h-full w-full cursor-zoom-in focus:outline-none" aria-label={`View ${alt} fullscreen`}>
+      <img src={src} alt={alt} loading="lazy" decoding="async" className={className ?? "h-full w-full object-cover"} />
+      {onClick && (
+        <div className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/20 transition-colors">
+          <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-white/90 rounded-full p-2 shadow-lg">
+            <Maximize2 className="h-4 w-4 text-slate-900" />
+          </div>
+        </div>
+      )}
+    </button>
+  );
+}
+
+/* ─── Full-bleed editorial statement break ─── */
+function StatementBreak({ dark, text }: { dark?: boolean; text: string }) {
+  return (
+    <section className={dark ? "bg-slate-950 py-28 text-white" : "border-y border-slate-100 bg-white py-28 text-slate-950"}>
+      <div className="container mx-auto px-4 text-center" data-aos="zoom-in">
+        <p className="text-display mx-auto max-w-4xl text-3xl md:text-5xl lg:text-6xl">{text}</p>
+      </div>
+    </section>
+  );
+}
+
+/* ─── Compact multi-video reel section (horizontal scroll strip) ─── */
+function VideoReelSection() {
+  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+
+  const reelSchema = buildVideoObjectSchema({
+    name: "Bernardino Martin HVAC, Solar & Plumbing Services Showcase",
+    description: "A showcase of HVAC, solar, plumbing, electrical, landscaping, irrigation, and network installation work performed by Bernardino Martin in Los Angeles.",
+    thumbnailUrl: "/images/real-solar-install.webp",
+    contentUrl: "/videos/hvac-repair-outdoor.mp4",
+  });
+
+  return (
+    <section className="bg-slate-950 py-12">
+      <script type="application/ld+json">{JSON.stringify(reelSchema)}</script>
+
+      <div className="container mx-auto px-4">
+        <div className="mb-6 flex items-baseline justify-between">
+          <div>
+            <p className="mb-1 text-xs font-bold uppercase tracking-[0.3em] text-white/40">Our Work In Motion</p>
+            <h2 className="text-display text-2xl text-white md:text-3xl">Watch us in action</h2>
+          </div>
+          <p className="hidden text-xs text-white/30 sm:block">Scroll to explore →</p>
+        </div>
+
+        <div className="no-scrollbar -mx-4 flex gap-4 overflow-x-auto px-4 pb-3">
+          {REEL_VIDEOS.map((v) => (
+            <button
+              key={v.src}
+              type="button"
+              onClick={() => setActiveVideo(v.src)}
+              className="group relative h-44 w-72 shrink-0 overflow-hidden rounded-xl bg-slate-800"
+              aria-label={`Play ${v.label} video`}
+            >
+              <img
+                src={v.thumb}
+                alt={v.label}
+                loading="lazy"
+                className="h-full w-full object-cover opacity-75 transition-opacity duration-300 group-hover:opacity-50"
+              />
+              <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
+                <div className="flex h-11 w-11 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm transition-transform duration-200 group-hover:scale-110">
+                  <Play className="h-5 w-5 fill-white text-white" aria-hidden="true" />
+                </div>
+                <span className="text-xs font-bold uppercase tracking-wider text-white drop-shadow">{v.label}</span>
+              </div>
+              <div className="absolute inset-0 rounded-xl ring-1 ring-white/10 transition-all group-hover:ring-secondary/50" />
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <Dialog open={!!activeVideo} onOpenChange={() => setActiveVideo(null)}>
+        <DialogContent className="max-w-4xl overflow-hidden border-none bg-black p-0">
+          <VisuallyHidden>
+            <DialogTitle>Service video</DialogTitle>
+          </VisuallyHidden>
+          {activeVideo && (
+            <video key={activeVideo} controls autoPlay playsInline className="w-full">
+              <source src={activeVideo} type="video/mp4" />
+            </video>
+          )}
+        </DialogContent>
+      </Dialog>
+    </section>
+  );
+}
+
+/* ─── Auto-rotating room image slideshow (3-second interval) ─── */
+function RoomImageSlideshow({ images, headline }: { images: string[]; headline: string }) {
+  const [idx, setIdx] = useState(0);
+
+  useEffect(() => {
+    const t = setInterval(() => setIdx((prev) => (prev + 1) % images.length), 3000);
+    return () => clearInterval(t);
+  }, [images.length]);
+
+  return (
+    <>
+      {images.map((src, i) => (
+        <img
+          key={src}
+          src={src}
+          alt={headline}
+          loading="lazy"
+          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${
+            i === idx ? "opacity-100" : "opacity-0"
+          }`}
+        />
+      ))}
+    </>
+  );
+}
+
+/* ─── Scroll-linked horizontal photo gallery with a changing "feel" word ─── */
+function FeelGallery({ onImageClick }: { onImageClick: (index: number) => void }) {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [wordIndex, setWordIndex] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const section = sectionRef.current;
+      const track = trackRef.current;
+      if (!section || !track) return;
+      const rect = section.getBoundingClientRect();
+      const total = rect.height - window.innerHeight;
+      if (total <= 0) return;
+      const progress = Math.min(Math.max(-rect.top / total, 0), 1);
+      const maxTranslate = Math.max(track.scrollWidth - window.innerWidth + 64, 0);
+      track.style.transform = `translateX(-${progress * maxTranslate}px)`;
+      setWordIndex(Math.min(FEEL_WORDS.length - 1, Math.floor(progress * FEEL_WORDS.length)));
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  return (
+    <>
+      {/* Desktop: scroll-linked pinned horizontal gallery */}
+      <section ref={sectionRef} className="relative hidden bg-white lg:block" style={{ height: "200vh" }}>
+        <div className="sticky top-0 flex h-screen flex-col items-center justify-center overflow-hidden">
+          <p className="mb-10 text-2xl text-slate-500">
+            Your home will feel <span className="text-display inline text-slate-950">{FEEL_WORDS[wordIndex]}</span>
+          </p>
+          <div ref={trackRef} className="flex w-max gap-6 px-8 will-change-transform">
+            {FEEL_GALLERY_IMAGES.map((img, i) => (
+              <div key={img.src} className={`h-64 w-80 shrink-0 overflow-hidden rounded-2xl shadow-xl ${i % 2 === 0 ? "-rotate-2" : "rotate-2"}`}>
+                <ClickableImage src={img.src} alt={img.alt} className="h-full w-full object-cover" onClick={() => onImageClick(i)} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Mobile: simple swipeable strip */}
+      <section className="bg-white py-16 lg:hidden">
+        <p className="mb-6 px-4 text-xl text-slate-500">
+          Your home will feel <span className="text-display inline text-slate-950">{FEEL_WORDS[2]}</span>
+        </p>
+        <div className="no-scrollbar flex gap-4 overflow-x-auto px-4 pb-2">
+          {FEEL_GALLERY_IMAGES.map((img, i) => (
+            <div key={img.src} className="h-48 w-64 shrink-0 overflow-hidden rounded-2xl shadow-lg">
+              <ClickableImage src={img.src} alt={img.alt} className="h-full w-full object-cover" onClick={() => onImageClick(i)} />
+            </div>
+          ))}
+        </div>
+      </section>
+    </>
+  );
+}
+
+export default function Home() {
+  const { refs: roomRefs, active: activeRoom } = useActiveSection(ROOMS.length);
+  const heroVideoRef = useRef<HTMLVideoElement>(null);
+  const [heroMuted, setHeroMuted] = useState(false);
+  const [textFaded, setTextFaded] = useState(false);
+  const [lightbox, setLightbox] = useState<{ images: LightboxImage[]; index: number } | null>(null);
+
+  function openLightbox(images: LightboxImage[], index: number) {
+    setLightbox({ images, index });
+  }
+
+  /* Hero overlay + text fade: out at 3s, back when video loops */
+  useEffect(() => {
+    const video = heroVideoRef.current;
+    if (!video) return;
+
+    // Try unmuted autoplay; fall back to muted if browser blocks it
+    video.muted = false;
+    const playAttempt = video.play();
+    if (playAttempt !== undefined) {
+      playAttempt.catch(() => {
+        video.muted = true;
+        setHeroMuted(true);
+        video.play().catch(() => {});
+      });
+    }
+
+    let fadeOutTimer: ReturnType<typeof setTimeout> | null = null;
+    let prevTime = 0;
+
+    const scheduleFadeOut = () => {
+      if (fadeOutTimer) clearTimeout(fadeOutTimer);
+      fadeOutTimer = setTimeout(() => setTextFaded(true), 3000);
     };
 
-    activeVideo.addEventListener("ended", handleEnded);
-    return () => activeVideo.removeEventListener("ended", handleEnded);
-  }, [currentVideo, visibleLayer]);
+    const handleTimeUpdate = () => {
+      const curr = video.currentTime;
+      // Detect loop: time jumped backward from near-end to near-zero
+      if (prevTime > 1 && curr < 0.5) {
+        setTextFaded(false);
+        scheduleFadeOut();
+      }
+      prevTime = curr;
+    };
+
+    scheduleFadeOut();
+    video.addEventListener("timeupdate", handleTimeUpdate);
+
+    return () => {
+      if (fadeOutTimer) clearTimeout(fadeOutTimer);
+      video.removeEventListener("timeupdate", handleTimeUpdate);
+    };
+  }, []);
+
+  const toggleHeroMute = () => {
+    const video = heroVideoRef.current;
+    if (!video) return;
+    const next = !heroMuted;
+    video.muted = next;
+    setHeroMuted(next);
+  };
+
+  useEffect(() => {
+    let attempts = 0;
+    const tryInit = () => {
+      const GLightboxLib = (window as any).GLightbox;
+      if (GLightboxLib) {
+        GLightboxLib({ selector: ".glightbox" });
+        return;
+      }
+      attempts += 1;
+      if (attempts < 20) setTimeout(tryInit, 150);
+    };
+    tryInit();
+  }, []);
+
+  const allCityLinks = [...allCities.map((c) => ({ city: c.city, slug: c.slug })), ...EXTRA_CITY_LINKS];
 
   return (
     <Layout>
-      <SEO 
-        title="Los Angeles HVAC, Solar & Plumbing Services" 
+      <SEO
+        title="Los Angeles HVAC, Solar & Plumbing Services"
         description={`${COMPANY_FULL} — Licensed & insured heating, air conditioning, solar panel installation & plumbing in Los Angeles. 24/7 emergency service. Call (818) 400-0227 for a free estimate.`}
       />
-      
-      {/* Hero Section - Video Background */}
-      <section className="relative h-[650px] md:h-[700px] flex items-center overflow-hidden" data-testid="hero-section">
-        <script type="application/ld+json">
-          {JSON.stringify(
-            buildVideoObjectSchema({
-              name: "Bernardino Martin HVAC, Solar & Plumbing Services Showcase",
-              description: "A showcase of HVAC, solar, plumbing, electrical, landscaping, irrigation, and network installation work performed by Bernardino Martin in Los Angeles.",
-              thumbnailUrl: "/images/real-solar-install.webp",
-              contentUrl: HERO_VIDEOS[0],
-            }),
-          )}
-        </script>
-        <div className="absolute inset-0 z-0">
-          <video
-            ref={videoRefs[0]}
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${visibleLayer === 0 ? "opacity-100" : "opacity-0"}`}
-            autoPlay
-            muted
-            playsInline
-            preload="auto"
-            poster="/images/real-solar-install.webp"
-          />
-          <video
-            ref={videoRefs[1]}
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${visibleLayer === 1 ? "opacity-100" : "opacity-0"}`}
-            autoPlay
-            muted
-            playsInline
-            preload="auto"
-            poster="/images/real-solar-install.webp"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-900/85 via-slate-900/60 to-slate-900/30" />
+
+      {/* ══════════ HERO — full-screen video background ══════════ */}
+      <section className="relative h-screen min-h-[600px] w-full overflow-hidden bg-slate-950 text-white" data-testid="hero-section">
+        {/* Background video — no muted prop; controlled via ref */}
+        <video
+          ref={heroVideoRef}
+          autoPlay
+          loop
+          playsInline
+          preload="metadata"
+          className="absolute inset-0 h-full w-full object-cover"
+          aria-hidden="true"
+        >
+          <source src="/videos/hero-home.mp4" type="video/mp4" />
+        </video>
+
+        {/* Gradient overlays + content — all fade together when video plays */}
+        <div
+          className={`absolute inset-0 transition-opacity duration-1000 ${
+            textFaded ? "opacity-0" : "opacity-100"
+          }`}
+        >
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/65 to-slate-950/25" />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-slate-950/40" />
         </div>
-        
-        <div className="container mx-auto px-4 relative z-10 text-white">
-          <div className="max-w-3xl animate-in slide-in-from-left-10 duration-700 fade-in">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm mb-4">
-              <span className="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
-              <span className="text-sm font-medium text-slate-100">Licensed &bull; Bonded &bull; Insured</span>
-            </div>
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-heading font-black leading-tight mb-2 tracking-tight" data-testid="text-hero-title">
-              BERNARDINO MARTIN
+
+        {/* Content — fades with overlay */}
+        <div
+          className={`relative z-10 flex h-full flex-col justify-center transition-opacity duration-1000 ${
+            textFaded ? "opacity-0" : "opacity-100"
+          }`}
+        >
+          <div className="container mx-auto px-4 pt-16">
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="mb-4 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.3em] text-white/50"
+            >
+              <span className="h-2 w-2 rounded-full bg-secondary animate-pulse" />
+              Los Angeles Home Services
+            </motion.p>
+
+            <h1 className="text-display text-4xl leading-[0.95] sm:text-5xl md:text-6xl lg:text-7xl" data-testid="text-hero-title">
+              <motion.span
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="block"
+              >
+                YOUR HOME
+              </motion.span>
+              <motion.span
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                className="block text-right text-secondary md:pl-24"
+              >
+                DESERVES THE BEST
+              </motion.span>
             </h1>
-            <p className="mb-6 text-2xl font-heading font-bold md:text-3xl lg:text-4xl">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-300 to-emerald-400">
-                Heating &bull; Air Conditioning &bull; Solar
-              </span>
-            </p>
-            
-            <p className="text-lg md:text-xl text-slate-200 mb-4 max-w-lg leading-relaxed drop-shadow-sm">
-              Serving Los Angeles & Surrounding Areas
-            </p>
-            <p className="text-base text-slate-300 mb-8 max-w-lg leading-relaxed">
-              Your trusted experts for residential & commercial HVAC, Solar, and Plumbing. Real work, honest pricing, and quality results.
-            </p>
-            
-            <div className="relative">
-              <div className="relative flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="h-14 px-8 text-lg font-bold bg-primary hover:bg-primary/90 shadow-xl shadow-primary/20" asChild data-testid="button-hero-call">
-                  <a href={`tel:${COMPANY_PHONE.replace(/\D/g, '')}`}>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.7 }}
+              className="mt-5 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between"
+            >
+              <div>
+                <p className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                  <span className="font-heading text-xl font-black text-white">BERNARDINO MARTIN</span>
+                  <span className="text-xs font-bold uppercase tracking-[0.2em] text-white/50">Heating &bull; Air Conditioning &bull; Solar</span>
+                </p>
+                <p className="mt-2 max-w-md text-sm leading-relaxed text-white/70">
+                  From rooftop to foundation, we handle everything — real work, honest pricing, quality results across Los Angeles.
+                </p>
+              </div>
+
+              <div className="flex flex-col gap-4 sm:flex-row">
+                <Button size="lg" className="hover-scale h-14 px-8 text-base font-bold bg-white text-slate-950 hover:bg-white/90" asChild data-testid="button-hero-call">
+                  <a href={`tel:${COMPANY_PHONE.replace(/\D/g, "")}`}>
                     <Phone className="mr-2 h-5 w-5" aria-hidden="true" />
                     Call Now
                   </a>
                 </Button>
-                <Button size="lg" className="h-14 px-8 text-lg font-bold bg-secondary hover:bg-secondary/90 text-white border-0 shadow-xl shadow-secondary/20" asChild data-testid="button-hero-whatsapp">
-                  <a href={getWhatsAppLink("Hello! I'm interested in booking a service.")} target="_blank" rel="noopener noreferrer">
-                    <MessageCircle className="mr-2 h-5 w-5" aria-hidden="true" />
-                    WhatsApp Chat
-                  </a>
-                </Button>
-                <Button size="lg" variant="outline" className="h-14 px-8 text-lg font-bold border-white/30 text-white hover:bg-white/10 backdrop-blur-sm" asChild data-testid="button-hero-book">
+                <Button size="lg" variant="outline" className="hover-scale h-14 px-8 text-base font-bold border-white/30 text-white hover:bg-white/10" asChild data-testid="button-hero-book">
                   <Link href="/booking">
                     <Calendar className="mr-2 h-5 w-5" aria-hidden="true" />
                     Book Online
                   </Link>
                 </Button>
               </div>
-            </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.9 }}
+              className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2"
+            >
+              {[
+                { icon: ShieldCheck, label: "Licensed, Bonded & Insured" },
+                { icon: Clock, label: "Same-Day Service" },
+                { icon: Siren, label: "24/7 Emergency Response" },
+              ].map((item) => (
+                <span key={item.label} className="flex items-center gap-2 text-sm font-semibold text-white/80">
+                  <item.icon className="h-4 w-4 text-secondary" aria-hidden="true" />
+                  {item.label}
+                </span>
+              ))}
+            </motion.div>
           </div>
         </div>
+
+        {/* Sound toggle button */}
+        <button
+          type="button"
+          onClick={toggleHeroMute}
+          aria-label={heroMuted ? "Unmute video" : "Mute video"}
+          className="absolute bottom-6 right-6 z-20 flex items-center gap-1.5 rounded-full bg-black/50 backdrop-blur-sm px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-black/70"
+        >
+          {heroMuted ? <VolumeX className="h-3.5 w-3.5" aria-hidden="true" /> : <Volume2 className="h-3.5 w-3.5" aria-hidden="true" />}
+          {heroMuted ? "Sound Off" : "Sound On"}
+        </button>
       </section>
 
-      {/* Promos Section */}
-      <section className="py-20 bg-slate-50 border-b border-slate-200 mt-12">
+      {/* ══════════ VIDEO REEL STRIP (compact) ══════════ */}
+      <VideoReelSection />
+
+      {/* ══════════ STATS TICKER ══════════ */}
+      <div className="w-full border-b border-slate-800 bg-slate-950 py-4">
+        <div className="container mx-auto grid grid-cols-1 gap-3 px-4 text-center sm:grid-cols-3 sm:text-left">
+          <p className="text-sm font-bold text-white/80">{SERVICES.length} services across {SERVICE_CATEGORIES.length} specialty categories</p>
+          <p className="text-sm font-bold text-white/80 sm:text-center">{TOTAL_CITY_PAGES} Los Angeles-area cities served</p>
+          <p className="text-sm font-bold text-white/80 sm:text-right">Licensed, bonded &amp; insured since day one</p>
+        </div>
+      </div>
+
+      {/* ══════════ CURRENT OFFERS ══════════ */}
+      <section className="border-b border-slate-100 bg-slate-50 py-8">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 relative z-10">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
             {PROMOS.map((promo, i) => (
-              <Card key={i} className={`border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden group cursor-pointer bg-white`} data-testid={`card-promo-${i}`}>
-                <Link href={`/booking${promo.code ? `?promo=${promo.code}` : ''}`}>
-                  <div className="h-2 bg-gradient-to-r from-primary to-secondary" />
-                  <CardContent className="p-8 text-center flex flex-col items-center justify-center h-full min-h-[220px]">
-                    <Badge variant="secondary" className="mb-4 px-3 py-1 text-sm font-bold bg-primary/5 text-primary hover:bg-primary/10 border-primary/10">
-                      {promo.title}
-                    </Badge>
-                    <h3 className="text-xl font-bold mb-3 transition-colors text-slate-900 group-hover:text-primary">
-                      {promo.sub || "Limited Time Offer"}
-                    </h3>
-                    <p className="text-slate-600 mb-6 font-medium">
-                      {promo.description}
-                    </p>
-                    <div className="mt-auto pt-4 w-full flex justify-between items-center text-xs font-mono border-t border-slate-100 text-slate-500">
-                      <span>CODE: {promo.code}</span>
-                      <span className="flex items-center font-bold text-secondary">
-                        Claim Now <ArrowRight className="ml-1 h-3 w-3" />
-                      </span>
-                    </div>
-                  </CardContent>
-                </Link>
-              </Card>
+              <Link
+                key={i}
+                href={`/booking${promo.code ? `?promo=${promo.code}` : ""}`}
+                data-aos="fade-up"
+                data-aos-delay={i * 100}
+                className="group flex items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-lg"
+              >
+                <div>
+                  <span className="mb-1 inline-block rounded-full bg-primary/5 px-2.5 py-0.5 text-xs font-bold text-primary">{promo.title}</span>
+                  <p className="text-sm font-semibold text-slate-800">{promo.sub || promo.description}</p>
+                </div>
+                <ArrowRight className="h-5 w-5 shrink-0 text-secondary transition-transform group-hover:translate-x-1" aria-hidden="true" />
+              </Link>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Signs You Need AC Repair */}
-      <section className="py-20 bg-white border-b border-slate-100">
+      {/* ══════════ STATEMENT BREAK 1 ══════════ */}
+      <StatementBreak dark text="Real work. Honest pricing. Quality results." />
+
+      {/* ══════════ SCROLL-LINKED "FEEL" GALLERY ══════════ */}
+      <FeelGallery onImageClick={(i) => openLightbox(FEEL_GALLERY_IMAGES, i)} />
+
+      {/* ══════════ MISSION STATEMENT ══════════ */}
+      <StatementBreak text="Bernardino Martin is a licensed Los Angeles contractor for HVAC, solar, plumbing, electrical, landscaping, and smart home services." />
+
+      {/* ══════════ WALK THROUGH THE HOUSE (auto-rotating images) ══════════ */}
+      <section className="bg-white py-24">
         <div className="container mx-auto px-4">
-          <div className="flex flex-col lg:flex-row gap-12 items-center">
-            <div className="w-full lg:w-1/2 space-y-6">
-              <Badge className="bg-red-50 text-red-600 border-red-200 hover:bg-red-50 px-3 py-1 mb-2">Warning Signs</Badge>
-              <h2 className="text-3xl md:text-4xl font-heading font-bold text-slate-900">
-                7 Signs You Need Immediate AC Repair
-              </h2>
-              <p className="text-lg text-slate-600">
-                Don't wait for a complete breakdown. If you notice any of these symptoms, your system needs professional attention immediately.
-              </p>
-              
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
-                {[
-                  "Warm air blowing from vents",
-                  "Poor airflow or weak circulation",
-                  "Frequent cycling on and off",
-                  "High indoor humidity",
-                  "Water leaks around the unit",
-                  "Bad odors (musty or burning)",
-                  "Unusual loud noises (grinding or squealing)"
-                ].map((sign, idx) => (
-                  <div key={idx} className="flex items-start gap-3 bg-slate-50 p-4 rounded-xl border border-slate-100">
-                    <div className="bg-red-100 p-1.5 rounded-full text-red-600 mt-0.5">
-                      <AlertTriangle className="h-4 w-4" aria-hidden="true" />
-                    </div>
-                    <span className="font-semibold text-slate-800">{sign}</span>
+          <div className="mb-16 max-w-3xl" data-aos="fade-up">
+            <p className="mb-4 text-xs font-bold uppercase tracking-[0.3em] text-primary">Walk Through The House</p>
+            <h2 className="text-display text-4xl md:text-6xl text-slate-950">Every room. One trusted team.</h2>
+          </div>
+
+          <div className="grid grid-cols-1 gap-12 lg:grid-cols-[280px_1fr]">
+            {/* Sticky numbered list — desktop only */}
+            <div className="hidden lg:block">
+              <div className="sticky top-32 space-y-5">
+                {ROOMS.map((room, i) => (
+                  <div key={room.number} className={`room-nav-item flex items-baseline gap-4 ${i === activeRoom ? "is-active" : ""}`}>
+                    <span className="text-display text-2xl">{room.number}</span>
+                    <span className="text-lg font-semibold">{room.label}</span>
                   </div>
                 ))}
               </div>
-              
-              <div className="pt-6">
-                <Button size="lg" className="bg-red-600 hover:bg-red-700 shadow-lg shadow-red-500/20 w-full sm:w-auto text-lg" asChild>
-                  <a href={`tel:${COMPANY_PHONE.replace(/\D/g, '')}`}>
-                    <Phone className="mr-2 h-5 w-5" aria-hidden="true" /> Schedule Emergency Repair
-                  </a>
-                </Button>
-              </div>
             </div>
-            
-            <div className="w-full lg:w-1/2 relative">
-               <div className="absolute -inset-4 bg-gradient-to-tr from-slate-200 to-slate-50 rounded-3xl transform -rotate-3 z-0"></div>
-               <div className="watermark relative z-10 aspect-square rounded-2xl overflow-hidden shadow-2xl border-8 border-white">
-                  <img src="/images/real-diagnostics.webp" alt="HVAC Technician diagnosing AC problem" className="w-full h-full object-cover" loading="lazy" decoding="async" width={1920} height={1080} />
-               </div>
-               
-               {/* Floating Stats */}
-               <div className="absolute bottom-8 -left-8 bg-white p-4 rounded-xl shadow-xl z-20 flex items-center gap-4 animate-in slide-in-from-bottom-10 border border-slate-100">
-                 <div className="bg-primary/10 p-3 rounded-full text-primary">
-                    <Activity className="h-8 w-8" aria-hidden="true" />
-                 </div>
-                 <div>
-                    <div className="font-black text-2xl text-slate-900">Same-Day</div>
-                    <div className="text-sm font-semibold text-slate-500 uppercase tracking-wider">Service Available</div>
-                 </div>
-               </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Services Section */}
-      <section className="py-20 bg-slate-50 relative overflow-hidden" id="services">
-        <DecorativeEgg className="left-[8%] top-20 hidden lg:block" colorClass="from-pink-200 to-pink-300" />
-        <DecorativeEgg className="right-[10%] bottom-16 hidden xl:block" colorClass="from-sky-200 to-sky-300" sizeClass="h-10 w-8" />
-        <div className="container mx-auto px-4">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-3xl md:text-5xl font-heading font-bold text-slate-900 mb-6">
-              Our Services
-            </h2>
-            <p className="text-lg text-slate-600">
-              From emergency repairs to energy-efficient solar installations and underground plumbing, our certified technicians handle it all.
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {SERVICES.slice(0, 6).map((service: typeof SERVICES[number]) => (
-              <Card key={service.id} className="group overflow-hidden border-slate-100 shadow-md hover:shadow-2xl transition-all duration-300 flex flex-col bg-white">
-                <div className="watermark aspect-[4/3] overflow-hidden relative">
-                  <div className="absolute inset-0 bg-slate-900/10 group-hover:bg-slate-900/0 transition-colors z-10" />
-                  <img 
-                    src={service.image} 
-                    alt={service.title} 
-                    className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
-                    loading="lazy"
-                    decoding="async"
-                    width={640}
-                    height={480}
-                  />
-                  <div className="absolute top-4 right-4 z-20 bg-white/90 backdrop-blur text-slate-900 text-xs font-bold px-3 py-1 rounded-full shadow-sm flex items-center gap-1">
-                    <Clock className="h-3 w-3" aria-hidden="true" /> {service.duration}
+            {/* Stacked room content with auto-rotating images */}
+            <div className="space-y-28">
+              {ROOMS.map((room, i) => (
+                <div
+                  key={room.number}
+                  ref={(el) => {
+                    roomRefs.current[i] = el;
+                  }}
+                  className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:items-center"
+                >
+                  <p className="text-display mb-2 text-sm text-primary lg:hidden">
+                    {room.number} — {room.label}
+                  </p>
+
+                  {/* Main image area with auto-rotating slideshow */}
+                  <div data-aos="fade-up" className="relative aspect-[4/3]">
+                    <div
+                      className="group relative h-full w-full overflow-hidden rounded-2xl cursor-zoom-in"
+                      onClick={() => openLightbox(room.images.map((s) => ({ src: s, alt: room.headline })), 0)}
+                      role="button"
+                      tabIndex={0}
+                      aria-label={`View ${room.label} images fullscreen`}
+                      onKeyDown={(e) => e.key === "Enter" && openLightbox(room.images.map((s) => ({ src: s, alt: room.headline })), 0)}
+                    >
+                      <RoomImageSlideshow images={room.images} headline={room.headline} />
+                      <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity z-10">
+                        <span className="flex items-center gap-1 rounded-full bg-black/60 px-2.5 py-1 text-xs text-white font-medium">
+                          <Maximize2 className="h-3 w-3" /> View
+                        </span>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => openLightbox([{ src: room.inset, alt: `${room.headline} — detail` }], 0)}
+                      className="group absolute -bottom-6 -right-6 hidden h-28 w-36 overflow-hidden rounded-xl border-4 border-white shadow-xl sm:block cursor-zoom-in"
+                      aria-label="View detail image fullscreen"
+                    >
+                      <img src={room.inset} alt={`${room.headline} detail`} loading="lazy" className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110" />
+                    </button>
+                  </div>
+
+                  <div data-aos="fade-up" data-aos-delay="100">
+                    <h3 className="text-2xl font-bold text-slate-950 md:text-3xl">{room.headline}</h3>
+                    <ul className="mt-5 space-y-3">
+                      {room.services.map((service) => (
+                        <li key={service.id} className="flex items-start gap-3">
+                          <Check className="mt-1 h-4 w-4 shrink-0 text-secondary" aria-hidden="true" />
+                          <div>
+                            <span className="font-semibold text-slate-900">{service.title}</span>
+                            <span className="block text-sm text-slate-500">{service.description}</span>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                    <Button className="mt-6 bg-slate-950 hover:bg-primary" asChild>
+                      <Link href={`/booking?service=${room.services[0].id}`}>
+                        Book {room.label} Service
+                        <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
+                      </Link>
+                    </Button>
                   </div>
                 </div>
-                
-                <CardContent className="p-6 flex-1">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="p-2 rounded-lg bg-primary/5 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
-                      <service.icon className="h-6 w-6" aria-hidden="true" />
-                    </div>
-                    <h3 className="text-xl font-bold text-slate-900 group-hover:text-primary transition-colors">
-                      {service.title}
-                    </h3>
-                  </div>
-                  <p className="text-slate-600 mb-4 line-clamp-3">
-                    {service.description}
-                  </p>
-                  <div className="flex items-center gap-2 text-sm font-semibold text-secondary mb-4 bg-secondary/5 w-fit px-3 py-1.5 rounded-md">
-                    <Check className="h-4 w-4" /> 
-                    <span>{service.price}</span>
-                  </div>
-                </CardContent>
-                
-                <CardFooter className="p-6 pt-0 mt-auto flex gap-3">
-                  <Button className="flex-1 bg-slate-900 group-hover:bg-primary transition-colors" asChild>
-                    <Link href={`/booking?service=${service.id}`}>Book Now</Link>
-                  </Button>
-                  <Button variant="outline" size="icon" className="border-secondary/20 text-secondary hover:bg-secondary/5" asChild>
-                    <a href={getWhatsAppLink(`Hi, I'm interested in your ${service.title} service.`)} target="_blank" rel="noopener noreferrer" aria-label={`Chat about ${service.title} on WhatsApp`}>
-                      <MessageCircle className="h-5 w-5" aria-hidden="true" />
-                    </a>
-                  </Button>
-                </CardFooter>
-              </Card>
-            ))}
-          </div>
-          
-          <div className="mt-16 text-center">
-             <Button variant="outline" size="lg" className="border-slate-300 text-slate-700 hover:text-primary hover:border-primary font-bold h-14 px-8" asChild>
-               <Link href="/services">View All {SERVICES.length} Services</Link>
-             </Button>
-             <div className="mt-6 flex flex-wrap justify-center gap-4 text-sm">
-               <a href="/hvac-los-angeles" className="text-primary hover:underline font-medium">HVAC Los Angeles</a>
-               <a href="/solar-installation-los-angeles" className="text-primary hover:underline font-medium">Solar Installation LA</a>
-               <a href="/plumbing-los-angeles" className="text-primary hover:underline font-medium">Plumbing LA</a>
-               <a href="/electrical-services-los-angeles" className="text-primary hover:underline font-medium">Electrical Services LA</a>
-               <a href="/landscaping-los-angeles" className="text-primary hover:underline font-medium">Landscaping LA</a>
-             </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20 bg-white border-t border-slate-100">
-        <div className="container mx-auto px-4">
-          <div className="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
-            <div className="relative overflow-hidden rounded-[2rem] shadow-2xl shadow-slate-900/10">
-              <img
-                src="/images/landscape-feature.jpg"
-                alt="Premium landscaping design for a Los Angeles outdoor living space"
-                loading="lazy"
-                decoding="async"
-                className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
-                width={1536}
-                height={1024}
-              />
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-slate-900/20 via-transparent to-transparent" />
-            </div>
-
-            <div className="max-w-2xl space-y-6">
-              <Badge className="bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-50 px-4 py-1.5 text-sm font-bold">
-                Premium Outdoor Living
-              </Badge>
-              <h2 className="text-3xl md:text-5xl font-heading font-bold tracking-tight text-slate-900">
-                Transform Your Outdoor Space in Los Angeles
-              </h2>
-              <div className="space-y-4 text-base md:text-lg leading-8 text-slate-600">
-                <p>
-                  In Los Angeles and surrounding cities, we transform spaces beyond traditional landscaping. We create gardens full of life, energy, and harmony, inspired by feng shui, to bring you peace, tranquility, and balance. We are creative in every detail. Not only do we offer a fair price, but we make it accessible to everyone.
-                </p>
-                <p>
-                  In outdoor landscaping, we transform your spaces with professional design: sod installation, planting, irrigation systems, in St. Augustine grass or artificial turf. We also provide fertilization services, sprinkler inspections, and hydroseeding.
-                </p>
-                <p>
-                  Additionally, we incorporate outdoor lighting, both low and high voltage, with Malibu lights, perfect for highlighting the grand tree and palms. We offer solar options, low-voltage Malibu, or high-voltage setups, adapting to your needs and creating a spectacular atmosphere. And if you have a corner or unused space, we can turn it into a small garden bed or planter, adding beauty and functionality to your home.
-                </p>
-              </div>
-
-              <div className="pt-2">
-                <Button
-                  size="lg"
-                  className="h-14 rounded-full bg-slate-900 px-8 text-base font-bold text-white shadow-lg shadow-slate-900/15 transition-all hover:-translate-y-0.5 hover:bg-primary hover:shadow-primary/20"
-                  asChild
-                >
-                  <Link href="/quote">Get a Free Estimate</Link>
-                </Button>
-              </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      <section className="py-20 bg-slate-50 border-t border-slate-200">
-        <div className="container mx-auto px-4">
-          <div className="grid items-center gap-12 lg:grid-cols-[0.95fr_1.05fr]">
-            <div className="max-w-2xl space-y-6">
-              <Badge className="bg-sky-50 text-sky-700 border-sky-200 hover:bg-sky-50 px-4 py-1.5 text-sm font-bold">
-                Comfort Optimization
-              </Badge>
-              <h2 className="text-3xl md:text-5xl font-heading font-bold tracking-tight text-slate-900">
-                Why Does Your Home Feel Colder at Night?
-              </h2>
-              <div className="space-y-4 text-base md:text-lg leading-8 text-slate-600">
-                <p>
-                  Chill at night? Ever noticed your home feels colder after sunset? Temperature drops, insulation issues, and HVAC inefficiencies can all affect your comfort.
-                </p>
-                <p>
-                  Are you ready for an optimization?
-                </p>
-                <p>
-                  We provide professional HVAC optimization services to keep your home comfortable day and night, improve energy efficiency, and reduce your energy bills.
-                </p>
-              </div>
-
-              <div className="pt-2">
-                <Button
-                  size="lg"
-                  className="h-14 rounded-full bg-primary px-8 text-base font-bold text-white shadow-lg shadow-primary/20 transition-all hover:-translate-y-0.5 hover:bg-primary/90"
-                  asChild
-                >
-                  <Link href="/booking">Schedule Optimization</Link>
-                </Button>
-              </div>
-            </div>
-
-            <div className="relative overflow-hidden rounded-[2rem] shadow-2xl shadow-slate-900/10">
-              <img
-                src="/images/hvac-comfort.jpg"
-                alt="Family sleeping comfortably at night with optimized home HVAC comfort"
-                loading="lazy"
-                decoding="async"
-                className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
-                width={1536}
-                height={1024}
-              />
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-l from-slate-900/25 via-transparent to-transparent" />
-            </div>
-          </div>
+      {/* ══════════ BRAND LOGOS ══════════ */}
+      <section className="group overflow-hidden border-b border-slate-100 bg-white py-14">
+        <p className="mb-8 text-center text-xs font-bold uppercase tracking-[0.3em] text-slate-400">Brands We Service</p>
+        <div className="animate-marquee flex w-max items-center gap-16 group-hover:[animation-play-state:paused]" style={{ animationDuration: "22s" }}>
+          {[...BRAND_LOGOS, ...BRAND_LOGOS].map((brand, i) => (
+            <img
+              key={`${brand}-${i}`}
+              src={`/images/brands/${brand}.svg`}
+              alt={`${brand} HVAC equipment brand`}
+              loading="lazy"
+              className="brand-logo h-7 w-auto shrink-0 md:h-8"
+            />
+          ))}
         </div>
       </section>
 
+      {/* ══════════ STATEMENT BREAK 2 ══════════ */}
+      <StatementBreak text="Licensed. Bonded. Insured." />
+
+      {/* ══════════ REVIEWS ══════════ */}
       <ReviewSlider />
 
-      {/* Premium Moen Smart Valve Feature */}
-      <section className="py-20 bg-slate-900 text-white relative overflow-hidden">
-        <div className="absolute top-0 right-0 -mr-48 -mt-48 w-96 h-96 bg-primary rounded-full blur-3xl opacity-20"></div>
-        <div className="absolute bottom-0 left-0 -ml-48 -mb-48 w-96 h-96 bg-primary rounded-full blur-3xl opacity-20"></div>
-        
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="bg-slate-800/50 border border-slate-700 rounded-3xl p-8 md:p-12 backdrop-blur-sm">
-            <div className="flex flex-col lg:flex-row items-center gap-12">
-              <div className="w-full lg:w-1/2 space-y-6">
-                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/20 border border-primary/40 text-sky-300 font-bold text-sm">
-                    <Droplets className="h-4 w-4" /> Smart Plumbing Solutions
-                 </div>
-                 <h2 className="text-3xl md:text-5xl font-heading font-bold text-white leading-tight">
-                   Protect Your Home with Moen Smart Water Shutoff
-                 </h2>
-                 <p className="text-lg text-slate-300 leading-relaxed">
-                   Catastrophic water damage is preventable. As authorized installers, we bring you the Moen Flo Smart Water Monitor and Shutoff. 
-                   It monitors your entire home's water system in real-time, detecting leaks as small as a drop per minute.
-                 </p>
-                 
-                 <ul className="space-y-4 pt-4">
-                    <li className="flex items-start gap-3">
-                      <div className="bg-primary/20 p-1.5 rounded-full text-primary mt-1">
-                         <Check className="h-4 w-4" />
-                      </div>
-                      <div>
-                        <span className="font-bold text-white block">Automatic Shutoff</span>
-                        <span className="text-slate-300 text-sm">Automatically turns off water if a major leak is detected.</span>
-                      </div>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <div className="bg-primary/20 p-1.5 rounded-full text-primary mt-1">
-                         <Check className="h-4 w-4" />
-                      </div>
-                      <div>
-                        <span className="font-bold text-white block">App Monitoring</span>
-                        <span className="text-slate-300 text-sm">Track water usage and get alerts directly on your phone.</span>
-                      </div>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <div className="bg-primary/20 p-1.5 rounded-full text-primary mt-1">
-                         <Check className="h-4 w-4" />
-                      </div>
-                      <div>
-                        <span className="font-bold text-white block">Insurance Discounts</span>
-                        <span className="text-slate-300 text-sm">Many homeowners insurance providers offer discounts for installing this device.</span>
-                      </div>
-                    </li>
-                 </ul>
-                 
-                 <div className="pt-6">
-                    <Button size="lg" className="bg-white text-slate-900 hover:bg-slate-100 font-bold px-8 h-14" asChild>
-                       <Link href="/booking?service=plumbing-underground">Request Installation Quote</Link>
-                    </Button>
-                 </div>
-              </div>
-              <div className="w-full lg:w-1/2">
-                 <div className="watermark relative w-full aspect-video rounded-2xl overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-slate-700 group">
-                    <img src="/images/moen-smart-water-shutoff.webp" alt="Moen Flo Smart Water Monitor and Shutoff — professional installation on copper pipe" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" decoding="async" width={1920} height={1080} />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent"></div>
-                    <div className="absolute bottom-6 left-6 right-6">
-                       <div className="bg-slate-900/80 backdrop-blur-md p-4 rounded-xl border border-slate-700 flex items-center justify-between">
-                          <span className="font-bold text-white">Moen Authorized Installer</span>
-                          <Shield className="h-6 w-6 text-sky-400" />
-                       </div>
-                    </div>
-                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Real Work Gallery Section */}
-      <Suspense fallback={<div className="py-24 bg-white" />}>
+      {/* ══════════ REAL WORK GALLERY ══════════ */}
+      <Suspense fallback={<div className="bg-white py-24" />}>
         <ProjectGallery />
       </Suspense>
 
-      {/* Premium Maintenance Plan */}
-      <section className="py-24 bg-slate-50 relative">
-         <div className="container mx-auto px-4">
-            <div className="text-center max-w-3xl mx-auto mb-16">
-              <Badge className="bg-primary/10 text-primary border-primary/20 hover:bg-primary/20 px-4 py-1.5 mb-4 text-sm font-bold">VIP Membership</Badge>
-              <h2 className="text-3xl md:text-5xl font-heading font-bold text-slate-900 mb-6">
-                Premium HVAC Maintenance Plan
-              </h2>
-              <p className="text-lg text-slate-600">
-                Join the BERNARDINO MARTIN Comfort Club and protect your investment. Regular maintenance extends system life, reduces energy bills, and prevents costly breakdowns.
-              </p>
-            </div>
-
-            <div className="max-w-4xl mx-auto">
-               <div className="bg-white rounded-3xl shadow-xl overflow-hidden flex flex-col md:flex-row border border-slate-100">
-                  <div className="md:w-2/5 bg-slate-900 text-white p-10 flex flex-col justify-center relative overflow-hidden">
-                     <div className="absolute top-0 left-0 w-full h-full opacity-10" style={{backgroundImage: "url('/images/real-ac-service.webp')", backgroundSize: "cover"}}></div>
-                     <div className="relative z-10 text-center">
-                        <div className="inline-block bg-primary/20 text-sky-300 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest mb-6">
-                           Comfort Club
-                        </div>
-                        <div className="text-5xl font-black mb-2">$19<span className="text-xl text-slate-400 font-medium">/mo</span></div>
-                        <p className="text-slate-300 text-sm mb-8">Billed annually at $228/year</p>
-                        
-                        <Button className="w-full bg-primary hover:bg-primary/90 text-white font-bold h-12 shadow-lg shadow-primary/20" asChild>
-                           <Link href="/booking?service=hvac-maintenance">Join the Club</Link>
-                        </Button>
-                     </div>
-                  </div>
-                  <div className="md:w-3/5 p-10 bg-white">
-                     <h3 className="text-2xl font-bold text-slate-900 mb-6 border-b pb-4">What's Included?</h3>
-                     <ul className="space-y-4">
-                        {[
-                           "Two comprehensive tune-ups per year (Spring AC, Fall Heating)",
-                           "Priority scheduling for emergency services",
-                           "15% discount on all repairs and parts",
-                           "No emergency service fees (after hours or weekends)",
-                           "Comprehensive safety inspections",
-                           "Extended lifespan of your equipment"
-                        ].map((feature, i) => (
-                           <li key={i} className="flex items-start gap-3">
-                              <div className="bg-secondary/10 p-1 rounded-full text-secondary shrink-0 mt-1">
-                                 <Check className="h-4 w-4" />
-                              </div>
-                              <span className="text-slate-700 font-medium">{feature}</span>
-                           </li>
-                        ))}
-                     </ul>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </section>
-
-      {/* Why Choose Us / Trust Section */}
-      <section className="py-20 bg-white border-t border-slate-200 relative overflow-hidden">
-        <DecorativeEgg className="right-[7%] top-24 hidden lg:block" colorClass="from-amber-200 to-yellow-200" sizeClass="h-12 w-9" />
+      {/* ══════════ PEACE OF MIND: MEMBERSHIP + FINANCING ══════════ */}
+      <section className="bg-slate-50 py-24">
         <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row items-center gap-12">
-            <div className="w-full md:w-1/2">
-               <div className="watermark relative">
-                 <div className="absolute -inset-4 bg-primary/10 rounded-3xl transform rotate-2"></div>
-                 <img 
-                   src="/images/technician.webp" 
-                   alt="BERNARDINO MARTIN Professional Technician" 
-                   className="rounded-2xl shadow-2xl w-full max-w-lg mx-auto relative z-10 border-4 border-white"
-                   loading="lazy"
-                   decoding="async"
-                   width={1920}
-                   height={1080}
-                 />
-                 <div className="absolute -bottom-6 -right-6 bg-white p-4 rounded-xl shadow-xl z-20 flex items-center gap-3">
-                    <div className="bg-secondary/10 p-2 rounded-full text-secondary">
-                      <Star className="h-6 w-6 fill-current" />
-                    </div>
-                    <div>
-                      <div className="font-bold text-slate-900">5-Star Rated</div>
-                      <div className="text-xs text-slate-500">Google & Yelp</div>
-                    </div>
-                 </div>
-               </div>
-            </div>
-            <div className="w-full md:w-1/2 space-y-6">
-              <div className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary font-bold text-sm mb-2">
-                Why Choose BERNARDINO MARTIN?
+          <div className="mx-auto mb-14 max-w-2xl text-center" data-aos="fade-up">
+            <p className="mb-4 text-xs font-bold uppercase tracking-[0.3em] text-primary">Peace of Mind</p>
+            <h2 className="text-display text-4xl md:text-6xl text-slate-950">Membership. Financing. Fair pricing.</h2>
+          </div>
+
+          <div className="mx-auto mb-12 max-w-4xl" data-aos="fade-up">
+            <div className="flex flex-col overflow-hidden rounded-3xl border border-slate-100 bg-white shadow-xl md:flex-row">
+              <div className="relative flex flex-col justify-center bg-slate-950 p-10 text-center text-white md:w-2/5">
+                <div className="text-xs font-bold uppercase tracking-[0.3em] text-white/50">Comfort Club</div>
+                <div className="mt-4 text-5xl font-black">
+                  $19<span className="text-xl font-medium text-white/40">/mo</span>
+                </div>
+                <p className="mb-8 mt-2 text-sm text-white/50">Billed annually at $228/year</p>
+                <Button className="w-full bg-white text-slate-950 hover:bg-white/90" asChild>
+                  <Link href="/booking?service=hvac-maintenance">Join the Club</Link>
+                </Button>
               </div>
-              <h2 className="text-3xl md:text-4xl font-heading font-bold text-slate-900">
-                Your Trusted Local Partners for a Comfortable Home
-              </h2>
-              <p className="text-lg text-slate-600">
-                We are a locally owned and operated business committed to honest pricing, quality workmanship, and treating your home with respect.
-              </p>
-              
-              <ul className="space-y-4">
-                {[
-                  "Licensed, Bonded & Insured",
-                  "Top-Rated on Google & Yelp",
-                  "Upfront Pricing - No Hidden Fees",
-                  "Same-Day Emergency Service",
-                  "Certified Solar, Plumbing & HVAC Technicians"
-                ].map((item, i) => (
-                  <li key={i} className="flex items-center gap-3 text-slate-800 font-medium">
-                    <div className="bg-secondary/10 text-secondary p-1 rounded-full">
-                      <Check className="h-4 w-4" />
+              <div className="bg-white p-10 md:w-3/5">
+                <h3 className="mb-6 border-b pb-4 text-2xl font-bold text-slate-900">What's Included?</h3>
+                <ul className="space-y-4">
+                  {[
+                    "Two comprehensive tune-ups per year (Spring AC, Fall Heating)",
+                    "Priority scheduling for emergency services",
+                    "15% discount on all repairs and parts",
+                    "No emergency service fees (after hours or weekends)",
+                    "Comprehensive safety inspections",
+                    "Extended lifespan of your equipment",
+                  ].map((feature) => (
+                    <li key={feature} className="flex items-start gap-3">
+                      <Check className="mt-1 h-4 w-4 shrink-0 text-secondary" aria-hidden="true" />
+                      <span className="font-medium text-slate-700">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div className="mx-auto max-w-5xl rounded-3xl bg-slate-950 p-10 text-white" data-aos="fade-up">
+            <div className="flex flex-col items-center gap-12 lg:flex-row">
+              <div className="w-full space-y-5 lg:w-1/2">
+                <p className="text-xs font-bold uppercase tracking-[0.3em] text-white/50">Flexible Payment Options</p>
+                <h3 className="text-2xl font-bold">Affordable comfort, your way</h3>
+                <p className="leading-relaxed text-white/60">
+                  Major upgrades and installations shouldn't break the bank. We offer flexible payment
+                  solutions so you can invest in your home's comfort without the stress.
+                </p>
+                <ul className="space-y-3 pt-2">
+                  {[
+                    { title: "Transparent Upfront Pricing", desc: "No hidden fees or surprise charges." },
+                    { title: "Flexible Payment Plans", desc: "Spread the cost of larger projects." },
+                    { title: "Free Estimates on Major Projects", desc: "Detailed written quotes before commitment." },
+                    { title: "Seasonal Promotions & Discounts", desc: "Save with our monthly specials." },
+                  ].map((item) => (
+                    <li key={item.title} className="flex items-start gap-3">
+                      <Check className="mt-1 h-4 w-4 shrink-0 text-secondary" aria-hidden="true" />
+                      <div>
+                        <span className="block font-bold text-white">{item.title}</span>
+                        <span className="text-sm text-white/50">{item.desc}</span>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+                <div className="flex flex-col gap-3 pt-2 sm:flex-row">
+                  <Button size="lg" className="bg-white text-slate-950 hover:bg-white/90" asChild>
+                    <Link href="/quote">Get a Free Quote</Link>
+                  </Button>
+                  <Button size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10" asChild>
+                    <a href={`tel:${COMPANY_PHONE.replace(/\D/g, "")}`}>
+                      <Phone className="mr-2 h-5 w-5" aria-hidden="true" /> Discuss Options
+                    </a>
+                  </Button>
+                </div>
+              </div>
+              <div className="w-full lg:w-1/2">
+                <div className="space-y-3 rounded-2xl border border-white/10 bg-white/5 p-6">
+                  {[
+                    { project: "Central AC Installation", range: "Starting from $3,500" },
+                    { project: "Solar Panel System", range: "Custom quote with rebates" },
+                    { project: "Complete HVAC Replacement", range: "Starting from $5,000" },
+                    { project: "Ductless Mini-Split System", range: "Starting from $2,500" },
+                  ].map((p) => (
+                    <div key={p.project} className="flex items-center justify-between rounded-lg border border-white/10 bg-white/5 p-3">
+                      <div>
+                        <div className="text-sm font-semibold text-white">{p.project}</div>
+                        <div className="text-xs text-white/50">{p.range}</div>
+                      </div>
                     </div>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-              
-              <div className="pt-4 flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="bg-primary hover:bg-primary/90 shadow-lg shadow-primary/20" asChild>
-                  <a href={`tel:${COMPANY_PHONE.replace(/\D/g, '')}`}>
-                    <Phone className="mr-2 h-5 w-5" /> Call {COMPANY_PHONE}
-                  </a>
-                </Button>
-                <Button size="lg" className="bg-secondary hover:bg-secondary/90 text-white border-0 shadow-lg shadow-secondary/20" asChild>
-                  <a href={getWhatsAppLink("Hi, I have a few questions about your services.")} target="_blank" rel="noopener noreferrer">
-                    <MessageCircle className="mr-2 h-5 w-5" />
-                    WhatsApp Chat
-                  </a>
-                </Button>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Educational / Advice Content */}
-      <section className="py-20 bg-white border-t border-slate-100">
+      {/* ══════════ EDUCATIONAL TIPS ══════════ */}
+      <section className="bg-white py-24">
         <div className="container mx-auto px-4">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <Badge className="bg-primary/10 text-primary border-primary/20 hover:bg-primary/20 px-4 py-1.5 mb-4 text-sm font-bold">Expert Tips</Badge>
-            <h2 className="text-3xl md:text-4xl font-heading font-bold text-slate-900 mb-4">
-              HVAC Tips & Energy Savings Guide
-            </h2>
-            <p className="text-lg text-slate-600">
-              Expert advice from our certified technicians to help you save money and keep your systems running efficiently.
-            </p>
+          <div className="mx-auto mb-14 max-w-2xl text-center" data-aos="fade-up">
+            <p className="mb-4 text-xs font-bold uppercase tracking-[0.3em] text-primary">Expert Tips</p>
+            <h2 className="text-display text-4xl md:text-6xl text-slate-950">HVAC tips & energy savings.</h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            <Card className="border-slate-100 shadow-md" data-testid="card-tips-0">
-              <CardContent className="p-6 space-y-4">
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="p-2 rounded-lg bg-primary/10 text-primary">
-                    <Shield className="h-5 w-5" />
-                  </div>
-                  <h3 className="text-lg font-bold text-slate-900">Maintenance Best Practices</h3>
-                </div>
-                <ul className="space-y-2.5">
-                  {["Change air filters every 1-3 months", "Schedule professional tune-ups twice a year", "Keep outdoor units clear of debris and vegetation", "Check thermostat batteries and calibration annually", "Inspect ductwork for leaks and seal gaps"].map((tip, j) => (
-                    <li key={j} className="flex items-start gap-2 text-sm text-slate-600">
-                      <Check className="h-4 w-4 text-secondary shrink-0 mt-0.5" />
+          <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 md:grid-cols-3">
+            {[
+              {
+                title: "Maintenance Best Practices",
+                tips: ["Change air filters every 1-3 months", "Schedule professional tune-ups twice a year", "Keep outdoor units clear of debris and vegetation", "Check thermostat batteries and calibration annually", "Inspect ductwork for leaks and seal gaps"],
+              },
+              {
+                title: "Energy Efficiency Tips",
+                tips: ["Install a programmable or smart thermostat", "Seal windows and doors to prevent air leaks", "Use ceiling fans to assist air circulation", "Consider upgrading to a high-efficiency HVAC system", "Add insulation to attic and crawl spaces"],
+              },
+              {
+                title: "When to Call a Professional",
+                tips: ["Unusual noises from your HVAC unit", "Inconsistent temperatures between rooms", "System cycling on and off frequently", "Spike in energy bills without usage changes", "Visible ice buildup on refrigerant lines"],
+              },
+            ].map((card, i) => (
+              <div key={card.title} data-aos="fade-up" data-aos-delay={i * 150} className="rounded-2xl border border-slate-100 p-6">
+                <h3 className="text-lg font-bold text-slate-900">{card.title}</h3>
+                <ul className="mt-4 space-y-2.5">
+                  {card.tips.map((tip) => (
+                    <li key={tip} className="flex items-start gap-2 text-sm text-slate-600">
+                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-secondary" aria-hidden="true" />
                       <span>{tip}</span>
                     </li>
                   ))}
                 </ul>
-              </CardContent>
-            </Card>
-            <Card className="border-slate-100 shadow-md" data-testid="card-tips-1">
-              <CardContent className="p-6 space-y-4">
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="p-2 rounded-lg bg-secondary/10 text-secondary">
-                    <Activity className="h-5 w-5" />
-                  </div>
-                  <h3 className="text-lg font-bold text-slate-900">Energy Efficiency Tips</h3>
-                </div>
-                <ul className="space-y-2.5">
-                  {["Install a programmable or smart thermostat", "Seal windows and doors to prevent air leaks", "Use ceiling fans to assist air circulation", "Consider upgrading to a high-efficiency HVAC system", "Add insulation to attic and crawl spaces"].map((tip, j) => (
-                    <li key={j} className="flex items-start gap-2 text-sm text-slate-600">
-                      <Check className="h-4 w-4 text-secondary shrink-0 mt-0.5" />
-                      <span>{tip}</span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
-            <Card className="border-slate-100 shadow-md" data-testid="card-tips-2">
-              <CardContent className="p-6 space-y-4">
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="p-2 rounded-lg bg-red-100 text-red-600">
-                    <AlertTriangle className="h-5 w-5" />
-                  </div>
-                  <h3 className="text-lg font-bold text-slate-900">When to Call a Professional</h3>
-                </div>
-                <ul className="space-y-2.5">
-                  {["Unusual noises from your HVAC unit", "Inconsistent temperatures between rooms", "System cycling on and off frequently", "Spike in energy bills without usage changes", "Visible ice buildup on refrigerant lines"].map((tip, j) => (
-                    <li key={j} className="flex items-start gap-2 text-sm text-slate-600">
-                      <Check className="h-4 w-4 text-secondary shrink-0 mt-0.5" />
-                      <span>{tip}</span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
+              </div>
+            ))}
           </div>
 
-          <div className="text-center mt-12">
+          <div className="mt-12 text-center">
             <Button variant="outline" className="border-primary text-primary hover:bg-primary/5 font-semibold" asChild>
               <Link href="/quote">Get a Free Expert Assessment</Link>
             </Button>
@@ -702,100 +955,68 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Financing / Payment Options */}
-      <section className="py-20 bg-slate-900 text-white border-t border-slate-800">
+      {/* ══════════ SERVICE AREAS ══════════ */}
+      <section className="bg-slate-950 py-24 text-white">
         <div className="container mx-auto px-4">
-          <div className="max-w-5xl mx-auto">
-            <div className="flex flex-col lg:flex-row items-center gap-12">
-              <div className="w-full lg:w-1/2 space-y-6">
-                <Badge className="bg-secondary/20 text-green-300 border-secondary/40">Flexible Payment Options</Badge>
-                <h2 className="text-3xl md:text-4xl font-heading font-bold text-white">
-                  Affordable Comfort, Your Way
-                </h2>
-                <p className="text-lg text-slate-300 leading-relaxed">
-                  Major upgrades and installations shouldn't break the bank. We offer flexible payment solutions so you can invest in your home's comfort without the stress.
-                </p>
+          <div className="mx-auto mb-12 max-w-2xl text-center" data-aos="fade-up">
+            <p className="mb-4 text-xs font-bold uppercase tracking-[0.3em] text-white/50">Where We Work</p>
+            <h2 className="text-display text-4xl md:text-6xl">Serving Greater Los Angeles.</h2>
+            <div className="mt-8 flex justify-center gap-12">
+              <CountUpStat end={SERVICES.length} label="Services" />
+              <CountUpStat end={SERVICE_CATEGORIES.length} label="Categories" />
+              <CountUpStat end={TOTAL_CITY_PAGES} label="Cities Served" />
+            </div>
+          </div>
 
-                <ul className="space-y-4 pt-2">
-                  {[
-                    { title: "Transparent Upfront Pricing", desc: "No hidden fees or surprise charges. Know the full cost before work begins." },
-                    { title: "Flexible Payment Plans", desc: "Spread the cost of larger projects into manageable monthly payments." },
-                    { title: "Free Estimates on Major Projects", desc: "Get a detailed written quote before making any commitment." },
-                    { title: "Seasonal Promotions & Discounts", desc: "Take advantage of our monthly specials to save on services." },
-                  ].map((item, i) => (
-                    <li key={i} className="flex items-start gap-3">
-                      <div className="bg-secondary/20 p-1.5 rounded-full text-secondary mt-0.5">
-                        <Check className="h-4 w-4" />
-                      </div>
-                      <div>
-                        <span className="font-bold text-white block">{item.title}</span>
-                        <span className="text-slate-300 text-sm">{item.desc}</span>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="pt-4 flex flex-col sm:flex-row gap-3">
-                  <Button size="lg" className="bg-secondary hover:bg-secondary/90 text-white font-bold shadow-lg shadow-secondary/20" asChild>
-                    <Link href="/quote">Get a Free Quote</Link>
-                  </Button>
-                  <Button size="lg" variant="outline" className="border-slate-600 text-slate-200 hover:bg-white/10" asChild>
-                    <a href={`tel:${COMPANY_PHONE.replace(/\D/g, '')}`}>
-                      <Phone className="mr-2 h-5 w-5" /> Discuss Options
-                    </a>
-                  </Button>
-                </div>
-              </div>
-
-              <div className="w-full lg:w-1/2">
-                <div className="bg-slate-800/50 border border-slate-700 rounded-2xl p-8 space-y-6">
-                  <h3 className="text-xl font-bold text-white text-center">Popular Upgrade Projects</h3>
-                  {[
-                    { project: "Central AC Installation", range: "Starting from $3,500", tag: "Most Popular" },
-                    { project: "Solar Panel System", range: "Custom quote with rebates", tag: "Best Value" },
-                    { project: "Complete HVAC Replacement", range: "Starting from $5,000", tag: "Long-Term Savings" },
-                    { project: "Ductless Mini-Split System", range: "Starting from $2,500", tag: "Energy Efficient" },
-                  ].map((p, i) => (
-                    <div key={i} className="flex items-center justify-between p-3 rounded-lg bg-slate-900/50 border border-slate-700">
-                      <div>
-                        <div className="font-semibold text-white text-sm">{p.project}</div>
-                        <div className="text-xs text-slate-300">{p.range}</div>
-                      </div>
-                      <Badge className="bg-primary/20 text-sky-300 border-primary/40 text-xs">{p.tag}</Badge>
-                    </div>
-                  ))}
-                </div>
+          <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
+            <div data-aos="fade-right" className="relative h-[400px] overflow-hidden rounded-2xl border border-white/10 md:h-[480px]">
+              <Suspense
+                fallback={
+                  <div className="flex h-full w-full items-center justify-center bg-white/5">
+                    <div className="h-8 w-8 animate-spin rounded-full border-4 border-white/30 border-t-transparent" />
+                  </div>
+                }
+              >
+                <ServiceAreasMap />
+              </Suspense>
+            </div>
+            <div data-aos="fade-left" className="max-h-[480px] overflow-y-auto rounded-2xl border border-white/10 bg-white/5 p-6">
+              <div className="grid grid-cols-2 gap-3">
+                {allCityLinks.map((c) => (
+                  <Link
+                    key={c.slug}
+                    href={`/${c.slug}`}
+                    className="group flex items-center gap-2 rounded-lg border border-white/10 px-3 py-2.5 text-sm font-semibold text-white/70 transition-colors hover:border-white/30 hover:text-white"
+                  >
+                    <MapPin className="h-3.5 w-3.5 shrink-0 text-secondary" aria-hidden="true" />
+                    {c.city}
+                  </Link>
+                ))}
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Emergency / Priority Service */}
-      <section className="py-16 bg-red-50 border-t border-red-100">
+      {/* ══════════ EMERGENCY SERVICE ══════════ */}
+      <section className="border-t border-red-100 bg-red-50 py-16">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-8">
-            <div className="flex-shrink-0 bg-red-100 p-5 rounded-2xl">
+          <div className="mx-auto flex max-w-4xl flex-col items-center gap-8 md:flex-row" data-aos="fade-up">
+            <div className="shrink-0 rounded-2xl bg-red-100 p-5">
               <AlertTriangle className="h-12 w-12 text-red-600" aria-hidden="true" />
             </div>
             <div className="flex-1 text-center md:text-left">
-              <h2 className="text-2xl md:text-3xl font-heading font-bold text-slate-900 mb-2">
-                Need Emergency Service?
-              </h2>
-              <p className="text-slate-600 mb-1">
-                No heat? AC failure? Water leak? We offer same-day emergency service across Los Angeles — including nights and weekends.
-              </p>
-              <p className="text-sm text-slate-500">
-                Priority scheduling available for Comfort Club members at no extra charge.
-              </p>
+              <h2 className="mb-2 text-2xl font-bold text-slate-900 md:text-3xl">Need Emergency Service?</h2>
+              <p className="mb-1 text-slate-600">No heat? AC failure? Water leak? We offer same-day emergency service across Los Angeles — including nights and weekends.</p>
+              <p className="text-sm text-slate-500">Priority scheduling available for Comfort Club members at no extra charge.</p>
             </div>
-            <div className="flex flex-col gap-3 flex-shrink-0">
-              <Button size="lg" className="bg-red-600 hover:bg-red-700 text-white font-bold shadow-lg shadow-red-500/20 h-12 px-6" asChild>
-                <a href={`tel:${COMPANY_PHONE.replace(/\D/g, '')}`}>
-                  <Phone className="mr-2 h-5 w-5" /> Call Now
+            <div className="flex shrink-0 flex-col gap-3">
+              <Button size="lg" className="h-12 bg-red-600 px-6 font-bold text-white shadow-lg shadow-red-500/20 hover:bg-red-700" asChild>
+                <a href={`tel:${COMPANY_PHONE.replace(/\D/g, "")}`}>
+                  <Phone className="mr-2 h-5 w-5" aria-hidden="true" /> Call Now
                 </a>
               </Button>
-              <Button size="lg" variant="outline" className="border-red-200 text-red-700 hover:bg-red-100 font-semibold" asChild>
+              <Button size="lg" variant="outline" className="border-red-200 font-semibold text-red-700 hover:bg-red-100" asChild>
                 <Link href="/quote">Request Priority Quote</Link>
               </Button>
             </div>
@@ -803,68 +1024,35 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-primary text-white text-center relative overflow-hidden">
-        <div className="absolute inset-0 bg-slate-900/20 mix-blend-multiply"></div>
-        <div className="absolute inset-0 opacity-10" style={{backgroundImage: "url('/images/hero-home.webp')", backgroundSize: "cover", backgroundPosition: "center"}}></div>
-        <div className="container mx-auto px-4 relative z-10">
-          <h2 className="text-3xl md:text-5xl font-heading font-bold mb-6">
-            Ready to Upgrade Your Home?
-          </h2>
-          <p className="text-xl text-slate-200 mb-8 max-w-2xl mx-auto">
+      {/* ══════════ FINAL CTA ══════════ */}
+      <section className="relative overflow-hidden bg-slate-950 py-28 text-center text-white">
+        <div className="container relative z-10 mx-auto px-4" data-aos="zoom-in">
+          <h2 className="text-display mx-auto max-w-3xl text-4xl md:text-7xl">Ready to upgrade your home?</h2>
+          <p className="mx-auto mb-10 mt-6 max-w-xl text-lg text-white/60">
             Schedule your service today and take advantage of our monthly specials. Fast, reliable, and always professional.
           </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Button size="lg" variant="secondary" className="h-14 px-10 text-lg font-bold bg-white text-primary hover:bg-slate-100" asChild>
+          <div className="flex flex-col justify-center gap-4 sm:flex-row">
+            <Button size="lg" className="h-14 px-10 text-lg font-bold bg-white text-slate-950 hover:bg-white/90" asChild>
               <Link href="/booking">Book Online Now</Link>
             </Button>
-            <Button size="lg" className="h-14 px-10 text-lg font-bold bg-secondary text-white hover:bg-secondary/90 border-0" asChild>
+            <Button size="lg" variant="outline" className="h-14 px-10 text-lg font-bold border-white/30 text-white hover:bg-white/10" asChild>
               <a href={getWhatsAppLink("Hello! I'm interested in booking a service.")} target="_blank" rel="noopener noreferrer">
-                 <MessageCircle className="mr-2 h-5 w-5" />
-                 Chat on WhatsApp
+                <MessageCircle className="mr-2 h-5 w-5" aria-hidden="true" />
+                Chat on WhatsApp
               </a>
             </Button>
           </div>
         </div>
       </section>
+
+      {/* Fullscreen image lightbox */}
+      {lightbox && (
+        <ImageLightbox
+          images={lightbox.images}
+          initialIndex={lightbox.index}
+          onClose={() => setLightbox(null)}
+        />
+      )}
     </Layout>
-  );
-}
-
-function PhoneIcon({ className }: { className?: string }) {
-  return (
-    <svg 
-      xmlns="http://www.w3.org/2000/svg" 
-      viewBox="0 0 24 24" 
-      fill="none" 
-      stroke="currentColor" 
-      strokeWidth="2" 
-      strokeLinecap="round" 
-      strokeLinejoin="round" 
-      className={className}
-    >
-      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-    </svg>
-  );
-}
-
-function DecorativeEgg({
-  className,
-  colorClass,
-  sizeClass = "h-12 w-9",
-}: {
-  className?: string;
-  colorClass: string;
-  sizeClass?: string;
-}) {
-  return (
-    <div className={`pointer-events-none absolute ${className ?? ""}`} aria-hidden="true">
-      <div
-        className={`relative ${sizeClass} rounded-[50%_50%_45%_45%/60%_60%_40%_40%] border-2 border-white/70 bg-gradient-to-b ${colorClass} shadow-[0_12px_30px_rgba(15,23,42,0.12)] animate-[easterFloat_5.5s_ease-in-out_infinite]`}
-      >
-        <span className="absolute left-1.5 right-1.5 top-2 h-1 rounded-full bg-white/65" />
-        <span className="absolute left-2 right-2 top-5 h-1 rounded-full bg-white/45" />
-      </div>
-    </div>
   );
 }
