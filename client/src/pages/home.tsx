@@ -264,9 +264,13 @@ function CountUpStat({ end, label }: { end: number; label: string }) {
 }
 
 function ClickableImage({ src, alt, className, onClick }: { src: string; alt: string; className?: string; onClick?: () => void }) {
+  const webpSrc = toWebp(src);
   return (
     <button type="button" onClick={onClick} className="group relative block h-full w-full cursor-zoom-in focus:outline-none" aria-label={`View ${alt} fullscreen`}>
-      <img src={src} alt={alt} loading="lazy" decoding="async" className={className ?? "h-full w-full object-cover"} />
+      <picture>
+        {!src.endsWith(".webp") && <source srcSet={webpSrc} type="image/webp" />}
+        <img src={src} alt={alt} loading="lazy" decoding="async" className={className ?? "h-full w-full object-cover"} />
+      </picture>
       {onClick && (
         <div className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/20 transition-colors">
           <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-white/90 rounded-full p-2 shadow-lg">
@@ -322,12 +326,16 @@ function VideoReelSection() {
               className="group relative h-44 w-72 shrink-0 overflow-hidden rounded-xl bg-slate-800"
               aria-label={`Play ${v.label} video`}
             >
-              <img
-                src={v.thumb}
-                alt={v.label}
-                loading="lazy"
-                className="h-full w-full object-cover opacity-75 transition-opacity duration-300 group-hover:opacity-50"
-              />
+              <picture>
+                {!v.thumb.endsWith(".webp") && <source srcSet={toWebp(v.thumb)} type="image/webp" />}
+                <img
+                  src={v.thumb}
+                  alt={v.label}
+                  loading="lazy"
+                  decoding="async"
+                  className="h-full w-full object-cover opacity-75 transition-opacity duration-300 group-hover:opacity-50"
+                />
+              </picture>
               <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
                 <div className="flex h-11 w-11 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm transition-transform duration-200 group-hover:scale-110">
                   <Play className="h-5 w-5 fill-white text-white" aria-hidden="true" />
@@ -358,7 +366,12 @@ function VideoReelSection() {
 }
 
 /* ─── Auto-rotating room image slideshow (3-second interval) ─── */
-function RoomImageSlideshow({ images, headline }: { images: string[]; headline: string }) {
+/* Only 3 images rendered at a time (prev/curr/next) to avoid loading all 5 at once */
+function toWebp(src: string) {
+  return src.replace(/\.(png|jpg|jpeg)$/i, ".webp");
+}
+
+function RoomImageSlideshow({ images, headline, priority = false }: { images: string[]; headline: string; priority?: boolean }) {
   const [idx, setIdx] = useState(0);
 
   useEffect(() => {
@@ -366,19 +379,33 @@ function RoomImageSlideshow({ images, headline }: { images: string[]; headline: 
     return () => clearInterval(t);
   }, [images.length]);
 
+  const n = images.length;
+  const prevIdx = (idx - 1 + n) % n;
+  const nextIdx = (idx + 1) % n;
+  const inWindow = new Set([prevIdx, idx, nextIdx]);
+
   return (
     <>
-      {images.map((src, i) => (
-        <img
-          key={src}
-          src={src}
-          alt={headline}
-          loading="lazy"
-          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${
-            i === idx ? "opacity-100" : "opacity-0"
-          }`}
-        />
-      ))}
+      {images.map((src, i) => {
+        if (!inWindow.has(i)) return null;
+        const webpSrc = toWebp(src);
+        const isFirst = priority && i === 0;
+        return (
+          <picture key={src}>
+            {!src.endsWith(".webp") && <source srcSet={webpSrc} type="image/webp" />}
+            <img
+              src={src}
+              alt={headline}
+              loading={isFirst ? "eager" : "lazy"}
+              decoding="async"
+              fetchPriority={isFirst ? "high" : "low"}
+              className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${
+                i === idx ? "opacity-100" : "opacity-0"
+              }`}
+            />
+          </picture>
+        );
+      })}
     </>
   );
 }
@@ -536,6 +563,7 @@ export default function Home() {
           loop
           playsInline
           preload="metadata"
+          poster="/images/hero-home.webp"
           className="absolute inset-0 h-full w-full object-cover"
           aria-hidden="true"
         >
@@ -741,7 +769,7 @@ export default function Home() {
                       aria-label={`View ${room.label} images fullscreen`}
                       onKeyDown={(e) => e.key === "Enter" && openLightbox(room.images.map((s) => ({ src: s, alt: room.headline })), 0)}
                     >
-                      <RoomImageSlideshow images={room.images} headline={room.headline} />
+                      <RoomImageSlideshow images={room.images} headline={room.headline} priority={i === 0} />
                       <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity z-10">
                         <span className="flex items-center gap-1 rounded-full bg-black/60 px-2.5 py-1 text-xs text-white font-medium">
                           <Maximize2 className="h-3 w-3" /> View
@@ -754,7 +782,10 @@ export default function Home() {
                       className="group absolute -bottom-6 -right-6 hidden h-28 w-36 overflow-hidden rounded-xl border-4 border-white shadow-xl sm:block cursor-zoom-in"
                       aria-label="View detail image fullscreen"
                     >
-                      <img src={room.inset} alt={`${room.headline} detail`} loading="lazy" className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110" />
+                      <picture>
+                        {!room.inset.endsWith(".webp") && <source srcSet={toWebp(room.inset)} type="image/webp" />}
+                        <img src={room.inset} alt={`${room.headline} detail`} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110" />
+                      </picture>
                     </button>
                   </div>
 

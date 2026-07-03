@@ -626,11 +626,16 @@ export default function Services() {
                   <div className="mt-14 pt-12 border-t border-green-100">
                     {/* Hero banner */}
                     <div className="relative rounded-2xl overflow-hidden mb-10">
-                      <img
-                        src="/images/sod-materials.png"
-                        alt="Bernardino Martin landscape materials yard with fleet vehicles"
-                        className="w-full h-56 md:h-72 object-cover object-center"
-                      />
+                      <picture>
+                        <source srcSet="/images/sod-materials.webp" type="image/webp" />
+                        <img
+                          src="/images/sod-materials.png"
+                          alt="Bernardino Martin landscape materials yard with fleet vehicles"
+                          loading="lazy"
+                          decoding="async"
+                          className="w-full h-56 md:h-72 object-cover object-center"
+                        />
+                      </picture>
                       <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/60 to-transparent flex flex-col justify-center px-8 md:px-12">
                         <span className="text-xs font-bold uppercase tracking-widest text-green-400 mb-2">Quality Guaranteed</span>
                         <h3 className="text-2xl md:text-4xl font-black text-white font-heading leading-tight mb-2">
@@ -672,11 +677,16 @@ export default function Services() {
                             onClick={() => openLightbox(LANDSCAPE_LIGHTBOX, idx)}
                             className="relative aspect-[4/3] overflow-hidden bg-slate-100 w-full cursor-zoom-in focus:outline-none block"
                           >
-                            <img
-                              src={product.img}
-                              alt={product.alt}
-                              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                            />
+                            <picture>
+                              <source srcSet={product.img.replace(/\.png$/i, ".webp")} type="image/webp" />
+                              <img
+                                src={product.img}
+                                alt={product.alt}
+                                loading="lazy"
+                                decoding="async"
+                                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                              />
+                            </picture>
                             <div className="absolute top-2 left-2 flex items-center gap-1.5 rounded-full bg-white/95 px-2.5 py-1 shadow-sm">
                               <span
                                 className="inline-block h-3 w-3 rounded-full border border-white/60 shadow-sm flex-shrink-0"
