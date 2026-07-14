@@ -31,6 +31,16 @@ export interface FAQ {
   answer: string;
 }
 
+export interface ColorOption {
+  name: string;
+  hex: string;
+}
+
+export interface PatternOption {
+  name: string;
+  description: string;
+}
+
 export interface ServiceDetailTemplateProps {
   serviceName: string;
   slug: string;
@@ -47,6 +57,10 @@ export interface ServiceDetailTemplateProps {
   relatedServices: RelatedService[];
   cityLinks: CityLink[];
   faqs: FAQ[];
+  /** Optional — for services with material/finish choices (e.g. stamped concrete integral colors). Renders a swatch grid after Key Benefits. */
+  colorOptions?: ColorOption[];
+  /** Optional — for services with texture/pattern choices (e.g. stamp mat patterns). Renders alongside colorOptions. */
+  patternOptions?: PatternOption[];
 }
 
 const COLOR_MAP = {
@@ -109,6 +123,8 @@ export function ServiceDetailTemplate({
   relatedServices,
   cityLinks,
   faqs,
+  colorOptions,
+  patternOptions,
 }: ServiceDetailTemplateProps) {
   const [muted, setMuted] = useState(true);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
@@ -364,6 +380,56 @@ export function ServiceDetailTemplate({
           </div>
         </div>
       </section>
+
+      {/* ─── SECTION 4.5: COLOR & PATTERN OPTIONS (only for services that have them) ─── */}
+      {(colorOptions?.length || patternOptions?.length) ? (
+        <section className="py-16 md:py-20 bg-slate-50">
+          <div className="max-w-6xl mx-auto px-4">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-slate-900">Color &amp; Pattern Options</h2>
+              <p className="text-slate-500 mt-2 max-w-xl mx-auto">
+                Every {serviceName.toLowerCase()} project is customized to your home. Here are the finishes most requested by Los Angeles homeowners.
+              </p>
+            </div>
+
+            {colorOptions && colorOptions.length > 0 && (
+              <div className="mb-12">
+                <h3 className="text-lg font-bold text-slate-900 mb-5 text-center">Integral Colors</h3>
+                <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4 max-w-4xl mx-auto">
+                  {colorOptions.map((c) => (
+                    <div key={c.name} className="text-center">
+                      <div
+                        className="aspect-square rounded-xl border border-slate-200 shadow-sm mb-2"
+                        style={{ backgroundColor: c.hex }}
+                        role="img"
+                        aria-label={`${c.name} color swatch`}
+                      />
+                      <p className="text-xs font-semibold text-slate-700">{c.name}</p>
+                    </div>
+                  ))}
+                </div>
+                <p className="text-xs text-slate-400 text-center mt-5 max-w-lg mx-auto">
+                  Swatches are a close approximation for planning — bring your final color choice to your on-site estimate, since cured concrete tone can vary slightly with mix and finish.
+                </p>
+              </div>
+            )}
+
+            {patternOptions && patternOptions.length > 0 && (
+              <div>
+                <h3 className="text-lg font-bold text-slate-900 mb-5 text-center">Stamp Patterns</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
+                  {patternOptions.map((p) => (
+                    <div key={p.name} className="bg-white rounded-xl p-5 border border-slate-200">
+                      <p className="font-bold text-slate-900 mb-1">{p.name}</p>
+                      <p className="text-sm text-slate-600 leading-relaxed">{p.description}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </section>
+      ) : null}
 
       {/* ─── SECTION 5: VIDEO SHOWCASE ───────────────────────── */}
       <section className="bg-slate-900 overflow-hidden" aria-label="Service video showcase">

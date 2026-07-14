@@ -164,6 +164,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           { href: "/services/outdoor-landscaping", label: "Landscaping" },
           { href: "/services/outdoor-sod", label: "Sod Installation" },
           { href: "/services/outdoor-irrigation", label: "Smart Irrigation" },
+          { href: "/services/outdoor-hardscape", label: "Hardscape & Concrete" },
         ]},
         { title: "Technology", links: [
           { href: "/services/tech-network", label: "Network Cabling" },
@@ -513,6 +514,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 <li><Link href="/services/solar-install" className="hover:text-secondary transition-colors">Solar Installation</Link></li>
                 <li><Link href="/services/electrical-panel" className="hover:text-secondary transition-colors">Electrical Panel</Link></li>
                 <li><Link href="/services/outdoor-landscaping" className="hover:text-secondary transition-colors">Landscaping</Link></li>
+                <li><Link href="/services/outdoor-hardscape" className="hover:text-secondary transition-colors">Hardscape & Concrete</Link></li>
                 <li className="pt-2"><Link href="/services" className="font-bold text-secondary hover:text-secondary/80 transition-colors">View all 39 services →</Link></li>
               </ul>
             </div>

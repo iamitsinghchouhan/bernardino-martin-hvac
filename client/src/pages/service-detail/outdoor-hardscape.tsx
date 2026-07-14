@@ -44,6 +44,29 @@ export default function OutdoorHardscape() {
         { name: "Smart Irrigation Systems", slug: "outdoor-irrigation" },
       ]}
       cityLinks={[]}
+      colorOptions={[
+        { name: "Caribbean Blue", hex: "#2C7A6B" },
+        { name: "Forest Green", hex: "#5F6B5A" },
+        { name: "Graham Cracker", hex: "#D99A7C" },
+        { name: "Onyx", hex: "#3B4048" },
+        { name: "Mahogany", hex: "#6E2A3A" },
+        { name: "Royal Blue", hex: "#3A4A5E" },
+        { name: "Ruby Red", hex: "#9E3B3B" },
+        { name: "Sunbaked Orange", hex: "#D98950" },
+        { name: "Tree Bark", hex: "#4A2E35" },
+        { name: "Wheat", hex: "#C97B57" },
+        { name: "Sunrise Yellow", hex: "#D98F5F" },
+        { name: "White", hex: "#DCD3C0" },
+        { name: "Gray", hex: "#9C9C94" },
+      ]}
+      patternOptions={[
+        { name: "Ashlar Slate", description: "Large, irregular slate-look flagstones — ideal for wide driveways and grand entries." },
+        { name: "Flagstone", description: "Organic, curved-edge stone shapes for a natural garden-path aesthetic." },
+        { name: "Wood Plank", description: "Realistic wood grain and plank joints — a warm look for pool decks without real wood's upkeep." },
+        { name: "Herringbone", description: "Classic diagonal brick-laid pattern for walkways and courtyards." },
+        { name: "London Cobble", description: "A traditional, lightly-textured cobblestone look — a timeless choice for driveways and courtyards." },
+        { name: "European Fan", description: "An elegant fan pattern of gently curved rectangular stones — striking on circular driveways and entry courts." },
+      ]}
       faqs={[
         {
           question: "How does stamped concrete compare to pavers for a Los Angeles patio?",
