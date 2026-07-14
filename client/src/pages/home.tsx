@@ -598,10 +598,11 @@ export default function Home() {
           <source src="/videos/hero-home.mp4" type="video/mp4" />
         </video>
 
-        {/* Gradient overlays keep the welcome text readable over the video/image on every device */}
+        {/* Gradient overlays — kept narrow/localized to where the text actually sits (left + bottom)
+            so most of the video frame (center-right, top) stays fully visible instead of dimmed. */}
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/70 to-slate-950/40" />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-transparent to-slate-950/45" />
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/85 via-slate-950/35 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/65 via-transparent to-slate-950/25" />
         </div>
 
         {/* Content — always visible */}
@@ -659,15 +660,17 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Sound toggle — only shown once the video is actually playing (all screen sizes) */}
+        {/* Sound toggle — moved to top-right, a clear open area of the frame with nothing else
+            behind it, and given a solid background + ring so it stays readable over any part
+            of the video (bright sky, dark asphalt, etc). Only shown once video is playing. */}
         {videoReady && (
           <button
             type="button"
             onClick={toggleHeroMute}
             aria-label={heroMuted ? "Unmute background video" : "Mute background video"}
-            className="absolute bottom-6 right-6 z-20 flex items-center gap-1.5 rounded-full bg-black/50 backdrop-blur-sm px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-black/70"
+            className="absolute top-6 right-6 z-20 flex items-center gap-2 rounded-full bg-slate-950/80 px-4 py-2 text-xs font-bold text-white shadow-lg ring-1 ring-white/25 backdrop-blur-sm transition-colors hover:bg-slate-950"
           >
-            {heroMuted ? <VolumeX className="h-3.5 w-3.5" aria-hidden="true" /> : <Volume2 className="h-3.5 w-3.5" aria-hidden="true" />}
+            {heroMuted ? <VolumeX className="h-4 w-4" aria-hidden="true" /> : <Volume2 className="h-4 w-4" aria-hidden="true" />}
             {heroMuted ? "Sound Off" : "Sound On"}
           </button>
         )}

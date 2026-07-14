@@ -1,0 +1,44 @@
+{
+  "id": 30,
+  "city": "West Hollywood",
+  "slug": "hvac-west-hollywood",
+  "region": "Central LA",
+  "population": "~35,000",
+  "zipCodes": [
+    "90046",
+    "90048",
+    "90069"
+  ],
+  "description": "West Hollywood is dense with older mid-century apartment buildings, hillside homes near the Sunset Strip, and condos in the Design District — many without existing ductwork. Bernardino Martin specializes in ductless mini-split installs for these retrofit-heavy properties, alongside standard AC repair and maintenance for the newer builds throughout WeHo.",
+  "climate": "Warm Mediterranean climate with hot afternoons in hillside and canyon-adjacent areas near the Sunset Strip",
+  "commonServices": [
+    "Ductless Mini-Split Installation",
+    "AC Repair & Diagnostics",
+    "HVAC Maintenance",
+    "AC Installation"
+  ],
+  "serviceAreas": [
+    "Sunset Strip",
+    "Design District",
+    "Santa Monica Blvd corridor",
+    "West Hollywood West"
+  ],
+  "responseTime": "20-35 minutes",
+  "videoFile": "generic-area-hero.mp4",
+  "imageFile": "generic-area-hero.png",
+  "metaDescription": "HVAC services in West Hollywood - AC repair, installation, heating and maintenance from a licensed local contractor. Call (818) 400-0227.",
+  "metaKeywords": "HVAC West Hollywood, AC repair West Hollywood, heating service West Hollywood, air conditioning West Hollywood",
+  "localPhone": "(818) 400-0227",
+  "nearestCities": [
+    "Beverly Hills",
+    "Hollywood",
+    "Hollywood Hills",
+    "Beverly Grove"
+  ],
+  "notableLandmarks": [
+    "Sunset Strip",
+    "Pacific Design Center",
+    "West Hollywood Park"
+  ],
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+}

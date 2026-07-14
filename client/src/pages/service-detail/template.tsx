@@ -59,6 +59,8 @@ export interface ServiceDetailTemplateProps {
   faqs: FAQ[];
   /** Optional — for services with material/finish choices (e.g. stamped concrete integral colors). Renders a swatch grid after Key Benefits. */
   colorOptions?: ColorOption[];
+  /** Optional — a real photographed color chart. When provided, this image replaces the CSS swatch grid from colorOptions (more accurate than flat color divs). */
+  colorChartImage?: string;
   /** Optional — for services with texture/pattern choices (e.g. stamp mat patterns). Renders alongside colorOptions. */
   patternOptions?: PatternOption[];
   /** Optional escape hatch for a service-specific section (e.g. a photo-based look picker) that doesn't fit the generic template fields. Renders after Color & Pattern Options, before Video Showcase. */
@@ -126,6 +128,7 @@ export function ServiceDetailTemplate({
   cityLinks,
   faqs,
   colorOptions,
+  colorChartImage,
   patternOptions,
   extraSection,
 }: ServiceDetailTemplateProps) {
@@ -389,7 +392,9 @@ export function ServiceDetailTemplate({
         <section className="py-16 md:py-20 bg-slate-50">
           <div className="max-w-6xl mx-auto px-4">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-900">Color &amp; Pattern Options</h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-slate-900">
+                {colorOptions?.length && patternOptions?.length ? "Color & Pattern Options" : colorOptions?.length ? "Color Options" : "Pattern Options"}
+              </h2>
               <p className="text-slate-500 mt-2 max-w-xl mx-auto">
                 Every {serviceName.toLowerCase()} project is customized to your home. Here are the finishes most requested by Los Angeles homeowners.
               </p>
@@ -398,21 +403,35 @@ export function ServiceDetailTemplate({
             {colorOptions && colorOptions.length > 0 && (
               <div className="mb-12">
                 <h3 className="text-lg font-bold text-slate-900 mb-5 text-center">Integral Colors</h3>
-                <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4 max-w-4xl mx-auto">
-                  {colorOptions.map((c) => (
-                    <div key={c.name} className="text-center">
-                      <div
-                        className="aspect-square rounded-xl border border-slate-200 shadow-sm mb-2"
-                        style={{ backgroundColor: c.hex }}
-                        role="img"
-                        aria-label={`${c.name} color swatch`}
-                      />
-                      <p className="text-xs font-semibold text-slate-700">{c.name}</p>
-                    </div>
-                  ))}
-                </div>
+                {colorChartImage ? (
+                  <div className="max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-lg border border-slate-200">
+                    <img
+                      src={colorChartImage}
+                      alt={`Real color chart showing ${colorOptions.map((c) => c.name).join(", ")} integral concrete colors`}
+                      loading="lazy"
+                      decoding="async"
+                      className="w-full h-auto"
+                    />
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4 max-w-4xl mx-auto">
+                    {colorOptions.map((c) => (
+                      <div key={c.name} className="text-center">
+                        <div
+                          className="aspect-square rounded-xl border border-slate-200 shadow-sm mb-2"
+                          style={{ backgroundColor: c.hex }}
+                          role="img"
+                          aria-label={`${c.name} color swatch`}
+                        />
+                        <p className="text-xs font-semibold text-slate-700">{c.name}</p>
+                      </div>
+                    ))}
+                  </div>
+                )}
                 <p className="text-xs text-slate-400 text-center mt-5 max-w-lg mx-auto">
-                  Swatches are a close approximation for planning — bring your final color choice to your on-site estimate, since cured concrete tone can vary slightly with mix and finish.
+                  {colorChartImage
+                    ? "Actual cured color can vary slightly by mix and finish — bring your final choice to your on-site estimate to confirm."
+                    : "Swatches are a close approximation for planning — bring your final color choice to your on-site estimate, since cured concrete tone can vary slightly with mix and finish."}
                 </p>
               </div>
             )}

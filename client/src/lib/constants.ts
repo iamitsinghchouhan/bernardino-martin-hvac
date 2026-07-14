@@ -573,3 +573,27 @@ export const CITIES = [
   "San Fernando Valley",
   "Playa Del Rey",
 ];
+
+/** Single source of truth for city name -> city page URL, shared by the /service-areas
+ *  list and the interactive map's marker popups, so a city can never silently link
+ *  somewhere else (e.g. the booking page) just because one of the two forgot to update. */
+export const CITY_PAGE_LINKS: Record<string, string> = {
+  Malibu: "/hvac-malibu",
+  Burbank: "/hvac-burbank",
+  Gardena: "/hvac-gardena",
+  Glendale: "/hvac-glendale",
+  Torrance: "/hvac-torrance",
+  Hawthorne: "/hvac-hawthorne",
+  Inglewood: "/hvac-inglewood",
+  "El Segundo": "/hvac-el-segundo",
+  "Long Beach": "/hvac-long-beach",
+  "Culver City": "/hvac-culver-city",
+  "Los Angeles": "/hvac-los-angeles",
+  "Santa Monica": "/hvac-santa-monica",
+  "Hermosa Beach": "/hvac-hermosa-beach",
+  "Redondo Beach": "/hvac-redondo-beach",
+  "West Hollywood": "/hvac-west-hollywood",
+  "Manhattan Beach": "/hvac-manhattan-beach",
+  "San Fernando Valley": "/hvac-san-fernando-valley",
+  "Playa Del Rey": "/hvac-playa-del-rey",
+};

@@ -1,30 +1,11 @@
 import { Layout } from "@/components/layout";
 import { SEO } from "@/components/seo";
-import { CITIES } from "@/lib/constants";
+import { CITIES, CITY_PAGE_LINKS } from "@/lib/constants";
 import { MapPin } from "lucide-react";
 import { Link } from "wouter";
 import { lazy, Suspense } from "react";
 
 const ServiceAreasMap = lazy(() => import("@/components/service-areas-map").then(m => ({ default: m.ServiceAreasMap })));
-
-const CITY_PAGE_LINKS: Record<string, string> = {
-  Malibu: "/hvac-malibu",
-  Burbank: "/hvac-burbank",
-  Gardena: "/hvac-gardena",
-  Glendale: "/hvac-glendale",
-  Torrance: "/hvac-torrance",
-  Hawthorne: "/hvac-hawthorne",
-  Inglewood: "/hvac-inglewood",
-  "Long Beach": "/hvac-long-beach",
-  "Culver City": "/hvac-culver-city",
-  "Los Angeles": "/hvac-los-angeles",
-  "Santa Monica": "/hvac-santa-monica",
-  "Hermosa Beach": "/hvac-hermosa-beach",
-  "Redondo Beach": "/hvac-redondo-beach",
-  "Manhattan Beach": "/hvac-manhattan-beach",
-  "San Fernando Valley": "/hvac-san-fernando-valley",
-  "Playa Del Rey": "/hvac-playa-del-rey",
-};
 
 export default function ServiceAreas() {
   return (
@@ -58,7 +39,7 @@ export default function ServiceAreas() {
           <h2 className="text-3xl font-heading font-bold mb-8 text-center">Cities We Serve</h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {CITIES.map((city) => (
-              <Link key={city} href={CITY_PAGE_LINKS[city] ?? "/booking?service=ac-maintenance"} className="flex items-center gap-3 p-4 bg-white border border-slate-200 rounded-xl hover:border-primary hover:shadow-lg hover:-translate-y-1 transition-all group">
+              <Link key={city} href={CITY_PAGE_LINKS[city] ?? "/service-areas"} className="flex items-center gap-3 p-4 bg-white border border-slate-200 rounded-xl hover:border-primary hover:shadow-lg hover:-translate-y-1 transition-all group">
                   <div className="bg-primary/5 p-2 rounded-lg group-hover:bg-primary transition-colors">
                     <MapPin className="h-4 w-4 text-primary group-hover:text-white transition-colors" />
                   </div>

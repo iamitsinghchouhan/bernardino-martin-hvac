@@ -743,6 +743,80 @@ export default function Services() {
                       </Link>
                     </div>
                   </div>
+
+                  {/* ── HARDSCAPE & CONCRETE ──────────────────────────────────── */}
+                  <div className="mt-14 pt-12 border-t border-green-100">
+                    {/* Hero banner */}
+                    <div className="relative rounded-2xl overflow-hidden mb-10">
+                      <img
+                        src="/images/hardscape/hardscape-banner-workers.webp"
+                        alt="Bernardino Martin crew installing a paver patio and retaining wall by a backyard pool"
+                        loading="lazy"
+                        decoding="async"
+                        className="w-full h-56 md:h-72 object-cover object-center"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/60 to-transparent flex flex-col justify-center px-8 md:px-12">
+                        <span className="text-xs font-bold uppercase tracking-widest text-teal-400 mb-2">Built to Last. Designed to Impress.</span>
+                        <h3 className="text-2xl md:text-4xl font-black text-white font-heading leading-tight mb-2">
+                          Hardscape &amp;<br className="hidden md:block" />Concrete
+                        </h3>
+                        <p className="text-slate-300 text-sm md:text-base max-w-sm mb-5">
+                          Stamped concrete driveways, patios, retaining walls, and pool decks — dozens of pattern and color combinations.
+                        </p>
+                        <a
+                          href="tel:8184000227"
+                          className="inline-flex items-center gap-2 self-start rounded-full bg-teal-500 hover:bg-teal-400 px-5 py-2.5 text-sm font-bold text-white transition-colors"
+                        >
+                          <Phone className="h-4 w-4" /> Free Estimate: (818) 400-0227
+                        </a>
+                      </div>
+                    </div>
+
+                    {/* Pattern preview grid */}
+                    <div className="mb-6">
+                      <h4 className="text-lg font-bold text-slate-900">Popular Patterns</h4>
+                      <p className="text-sm text-slate-500 mt-1">Every pattern is available in a range of integral colors — see the full picker on the service page.</p>
+                    </div>
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                      {[
+                        { label: "Ashlar Slate", img: "/images/hardscape/hardscape-pattern-ashlar-slate.webp" },
+                        { label: "Flagstone", img: "/images/hardscape/hardscape-pattern-flagstone.webp" },
+                        { label: "Wood Plank", img: "/images/hardscape/hardscape-pattern-wood-plank.webp" },
+                        { label: "Herringbone", img: "/images/hardscape/hardscape-pattern-herringbone.webp" },
+                        { label: "London Cobble", img: "/images/hardscape/hardscape-pattern-london-cobble.webp" },
+                        { label: "European Fan", img: "/images/hardscape/hardscape-pattern-european-fan.webp" },
+                      ].map((pattern) => (
+                        <Link
+                          key={pattern.label}
+                          href="/services/outdoor-hardscape"
+                          className="group rounded-2xl overflow-hidden border border-slate-100 bg-white shadow-sm hover:shadow-md transition-all duration-300 block"
+                        >
+                          <div className="aspect-square overflow-hidden">
+                            <img
+                              src={pattern.img}
+                              alt={`${pattern.label} stamped concrete pattern`}
+                              loading="lazy"
+                              decoding="async"
+                              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            />
+                          </div>
+                          <div className="p-2.5 text-center">
+                            <p className="text-xs font-bold text-slate-700 group-hover:text-teal-700 transition-colors">{pattern.label}</p>
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
+
+                    <div className="mt-8 text-center">
+                      <Link
+                        href="/services/outdoor-hardscape"
+                        className="inline-flex items-center gap-2 rounded-full border border-teal-200 bg-teal-50 px-6 py-2.5 text-sm font-bold text-teal-700 hover:bg-teal-100 transition-colors"
+                      >
+                        <Home className="h-4 w-4" /> View Hardscape &amp; Concrete Details
+                        <ChevronRight className="h-4 w-4" />
+                      </Link>
+                    </div>
+                  </div>
                 </div>
               </div>
             )}

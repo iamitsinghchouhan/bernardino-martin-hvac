@@ -1,7 +1,7 @@
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-import { CITIES } from "@/lib/constants";
+import { CITIES, CITY_PAGE_LINKS } from "@/lib/constants";
 import { Link } from "wouter";
 
 // Self-hosted marker assets (were loaded from cdnjs + raw.githubusercontent.com, which had a 5-minute
@@ -67,7 +67,9 @@ export function ServiceAreasMap() {
             <Marker key={city} position={coords} icon={customIcon}>
               <Popup className="font-sans">
                 <div className="text-center font-bold">{city}</div>
-                <div className="text-xs text-primary mt-1"><Link href={`/booking?service=ac-maintenance`}>Book Service Here</Link></div>
+                <div className="text-xs text-primary mt-1">
+                  <Link href={CITY_PAGE_LINKS[city] ?? "/service-areas"}>View {city} Service Page</Link>
+                </div>
               </Popup>
             </Marker>
           );

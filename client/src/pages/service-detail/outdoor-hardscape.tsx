@@ -1,25 +1,60 @@
 import { useState } from "react";
+import { ShieldCheck, Hammer, Clock, Users, LayoutGrid, Layers, Sofa, Flame, Car, Footprints } from "lucide-react";
 import { ServiceDetailTemplate } from "./template";
 
 const LOOKS = [
   {
-    label: "Ashlar Slate — Mahogany",
-    image: "/images/hardscape/hardscape-hero-mahogany-driveway.webp",
-    alt: "Stamped concrete driveway in Ashlar Slate pattern with Mahogany integral color",
-    description: "Large, irregular slate-look flagstones in a deep mahogany tone — a grand, high-contrast look for wide driveways.",
+    label: "Ashlar Slate — Onyx",
+    image: "/images/hardscape/hardscape-pattern-ashlar-slate.webp",
+    alt: "Stamped concrete driveway in Ashlar Slate pattern with a charcoal Onyx integral color",
+    description: "Large, irregular slate-look flagstones in a deep charcoal tone — ideal for wide driveways and grand entries.",
   },
   {
-    label: "London Cobble — Ruby Red",
-    image: "/images/hardscape/hardscape-texture-london-cobble-ruby-red.webp",
-    alt: "Close-up texture of London Cobble stamped concrete pattern in Ruby Red integral color",
-    description: "A traditional lightly-textured cobblestone look in a rich brick red — timeless on driveways and courtyards.",
+    label: "Flagstone — Graham Cracker",
+    image: "/images/hardscape/hardscape-pattern-flagstone.webp",
+    alt: "Flagstone-pattern stamped concrete garden path in a warm Graham Cracker tan color",
+    description: "Organic, curved-edge stone shapes in a warm tan — a natural fit for garden paths and walkways.",
   },
   {
-    label: "European Fan — Sunrise Yellow",
-    image: "/images/hardscape/hardscape-pool-deck-european-fan-sunrise.webp",
-    alt: "Pool deck and patio stamped in European Fan pattern with Sunrise Yellow and Wheat tones at sunset",
-    description: "Gently curved fan-shaped stones in warm sunrise tones — a striking choice for pool decks and patios.",
+    label: "Wood Plank — Wheat",
+    image: "/images/hardscape/hardscape-pattern-wood-plank.webp",
+    alt: "Wood Plank stamped concrete pool deck in a honey Wheat tone at sunset",
+    description: "Realistic wood grain and plank joints in a warm honey tone — the look of real wood on a pool deck without the upkeep.",
   },
+  {
+    label: "Herringbone — Mahogany",
+    image: "/images/hardscape/hardscape-pattern-herringbone.webp",
+    alt: "Herringbone-pattern stamped concrete driveway in a rich Mahogany red-brown color",
+    description: "A classic diagonal brick-laid pattern in a rich reddish-brown — striking on driveways and courtyards.",
+  },
+  {
+    label: "London Cobble — Gray",
+    image: "/images/hardscape/hardscape-pattern-london-cobble.webp",
+    alt: "London Cobble stamped concrete driveway in cool Gray tones at dusk",
+    description: "A traditional, lightly-textured cobblestone look in cool gray — a timeless choice for driveways and entries.",
+  },
+  {
+    label: "European Fan — Tree Bark",
+    image: "/images/hardscape/hardscape-pattern-european-fan.webp",
+    alt: "European Fan stamped concrete driveway in a warm Tree Bark brown tone",
+    description: "Gently curved fan-shaped stones in a warm brown — an elegant choice for circular driveways and entry courts.",
+  },
+];
+
+const TRUST_BADGES = [
+  { icon: ShieldCheck, label: "Premium Materials" },
+  { icon: Hammer, label: "Expert Craftsmanship" },
+  { icon: Clock, label: "Built to Last" },
+  { icon: Users, label: "Family Owned" },
+];
+
+const WHAT_WE_BUILD = [
+  { icon: LayoutGrid, label: "Pavers" },
+  { icon: Layers, label: "Retaining Walls" },
+  { icon: Sofa, label: "Outdoor Living" },
+  { icon: Flame, label: "Fire Features" },
+  { icon: Car, label: "Driveways" },
+  { icon: Footprints, label: "Walkways" },
 ];
 
 /* Interactive photo-based look picker + before/after showcase, specific to this service. */
@@ -29,6 +64,32 @@ function HardscapeShowcase() {
 
   return (
     <>
+      {/* Trust badges + what we build — real HTML content (not baked into an image) */}
+      <section className="py-14 bg-white border-b border-slate-100">
+        <div className="max-w-5xl mx-auto px-4 text-center">
+          <p className="text-xs font-bold uppercase tracking-[0.3em] text-green-600 mb-2">Built to Last. Designed to Impress.</p>
+          <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 mb-10">
+            {TRUST_BADGES.map((b) => (
+              <div key={b.label} className="flex items-center gap-2 text-slate-700">
+                <b.icon className="h-4 w-4 text-green-600" aria-hidden="true" />
+                <span className="text-sm font-semibold">{b.label}</span>
+              </div>
+            ))}
+          </div>
+          <h3 className="text-lg font-bold text-slate-900 mb-5">What We Build</h3>
+          <div className="grid grid-cols-3 sm:grid-cols-6 gap-4 max-w-3xl mx-auto">
+            {WHAT_WE_BUILD.map((c) => (
+              <div key={c.label} className="flex flex-col items-center gap-2">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-green-50 border border-green-100">
+                  <c.icon className="h-5 w-5 text-green-700" aria-hidden="true" />
+                </div>
+                <span className="text-xs font-semibold text-slate-600 text-center">{c.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Before / After */}
       <section className="py-16 md:py-20 bg-white">
         <div className="max-w-6xl mx-auto px-4">
@@ -50,11 +111,11 @@ function HardscapeShowcase() {
         </div>
       </section>
 
-      {/* Interactive look picker */}
+      {/* Interactive look picker — one real photo per pattern option, above */}
       <section className="py-16 md:py-20 bg-slate-50">
         <div className="max-w-6xl mx-auto px-4">
           <div className="text-center mb-10">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900">Explore Our Most Popular Looks</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900">Explore Every Pattern</h2>
             <p className="text-slate-500 mt-2 max-w-xl mx-auto">
               Pick a pattern and color combination below to see it in a real setting.
             </p>
@@ -156,14 +217,7 @@ export default function OutdoorHardscape() {
         { name: "White", hex: "#DCD3C0" },
         { name: "Gray", hex: "#9C9C94" },
       ]}
-      patternOptions={[
-        { name: "Ashlar Slate", description: "Large, irregular slate-look flagstones — ideal for wide driveways and grand entries." },
-        { name: "Flagstone", description: "Organic, curved-edge stone shapes for a natural garden-path aesthetic." },
-        { name: "Wood Plank", description: "Realistic wood grain and plank joints — a warm look for pool decks without real wood's upkeep." },
-        { name: "Herringbone", description: "Classic diagonal brick-laid pattern for walkways and courtyards." },
-        { name: "London Cobble", description: "A traditional, lightly-textured cobblestone look — a timeless choice for driveways and courtyards." },
-        { name: "European Fan", description: "An elegant fan pattern of gently curved rectangular stones — striking on circular driveways and entry courts." },
-      ]}
+      colorChartImage="/images/hardscape/hardscape-color-chart.webp"
       extraSection={<HardscapeShowcase />}
       faqs={[
         {

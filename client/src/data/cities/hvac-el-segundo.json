@@ -1,0 +1,42 @@
+{
+  "id": 29,
+  "city": "El Segundo",
+  "slug": "hvac-el-segundo",
+  "region": "South Bay",
+  "population": "~16,700",
+  "zipCodes": [
+    "90245"
+  ],
+  "description": "El Segundo sits right on the coast next to LAX, giving it a cooler, foggier microclimate than most of the South Bay. Bernardino Martin services the mid-century homes near Recreation Park and Main Street as well as the newer builds and live-work spaces around Smoky Hollow and The Point, with HVAC systems tuned for marine-layer mornings and warm inland-facing afternoons.",
+  "climate": "Coastal marine layer with foggy, cool mornings near the beach and LAX, warming inland through the afternoon",
+  "commonServices": [
+    "AC Repair & Diagnostics",
+    "HVAC Maintenance",
+    "AC Installation",
+    "Duct Cleaning & Installation"
+  ],
+  "serviceAreas": [
+    "Downtown El Segundo",
+    "Smoky Hollow",
+    "The Point",
+    "Recreation Park area"
+  ],
+  "responseTime": "20-35 minutes",
+  "videoFile": "generic-area-hero.mp4",
+  "imageFile": "generic-area-hero.png",
+  "metaDescription": "HVAC services in El Segundo - AC repair, installation, heating and maintenance from a licensed local contractor. Call (818) 400-0227.",
+  "metaKeywords": "HVAC El Segundo, AC repair El Segundo, heating service El Segundo, air conditioning El Segundo",
+  "localPhone": "(818) 400-0227",
+  "nearestCities": [
+    "Manhattan Beach",
+    "Hawthorne",
+    "Hermosa Beach",
+    "Torrance"
+  ],
+  "notableLandmarks": [
+    "El Segundo Beach",
+    "The Lakes at El Segundo",
+    "El Segundo Recreation Park"
+  ],
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+}
