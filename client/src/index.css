@@ -202,13 +202,16 @@
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-/* Editorial display headline — big, bold, tight, uppercase */
+/* Editorial display headline — big, bold, tight, uppercase.
+   line-height 1.0 (not 0.95) + a hair of bottom padding so tall/again-line letters are never
+   clipped by the tight leading or an overflow-hidden ancestor. */
 .text-display {
   font-family: var(--font-heading);
   font-weight: 800;
   letter-spacing: -0.02em;
-  line-height: 0.95;
+  line-height: 1;
   text-transform: uppercase;
+  padding-bottom: 0.04em;
 }
 
 /* Sticky numbered room-list active/inactive states.

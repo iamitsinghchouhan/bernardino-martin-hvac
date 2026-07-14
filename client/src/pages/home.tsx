@@ -507,56 +507,45 @@ function FeelGallery({ onImageClick }: { onImageClick: (index: number) => void }
 export default function Home() {
   const { refs: roomRefs, active: activeRoom } = useActiveSection(ROOMS.length);
   const heroVideoRef = useRef<HTMLVideoElement>(null);
-  const [heroMuted, setHeroMuted] = useState(false);
-  const [textFaded, setTextFaded] = useState(false);
+  const [heroMuted, setHeroMuted] = useState(true);
+  const [videoReady, setVideoReady] = useState(false);
   const [lightbox, setLightbox] = useState<{ images: LightboxImage[]; index: number } | null>(null);
 
   function openLightbox(images: LightboxImage[], index: number) {
     setLightbox({ images, index });
   }
 
-  /* Hero overlay + text fade: out at 3s, back when video loops.
-     Mobile shows a static image (no video), so skip entirely and keep the hero text visible. */
+  /* Hero video: plays on ALL screen sizes, but is loaded lazily — only after the page has
+     finished loading and the main thread goes idle — so it never competes with the critical
+     resources that decide FCP/LCP/TBT. Until it can play, the preloaded poster image stays
+     visible (it's the painted LCP), and if the video ever fails to load the image simply
+     remains. Muted by default so mobile browsers allow autoplay; users can unmute. */
   useEffect(() => {
-    if (window.innerWidth < 768) return;
     const video = heroVideoRef.current;
     if (!video) return;
+    let cancelled = false;
 
-    // Try unmuted autoplay; fall back to muted if browser blocks it
-    video.muted = false;
-    const playAttempt = video.play();
-    if (playAttempt !== undefined) {
-      playAttempt.catch(() => {
-        video.muted = true;
-        setHeroMuted(true);
-        video.play().catch(() => {});
-      });
-    }
-
-    let fadeOutTimer: ReturnType<typeof setTimeout> | null = null;
-    let prevTime = 0;
-
-    const scheduleFadeOut = () => {
-      if (fadeOutTimer) clearTimeout(fadeOutTimer);
-      fadeOutTimer = setTimeout(() => setTextFaded(true), 3000);
-    };
-
-    const handleTimeUpdate = () => {
-      const curr = video.currentTime;
-      // Detect loop: time jumped backward from near-end to near-zero
-      if (prevTime > 1 && curr < 0.5) {
-        setTextFaded(false);
-        scheduleFadeOut();
+    const startVideo = () => {
+      if (cancelled || !video) return;
+      video.muted = true;
+      const p = video.play();
+      if (p !== undefined) {
+        p.then(() => { if (!cancelled) setVideoReady(true); }).catch(() => {});
       }
-      prevTime = curr;
     };
 
-    scheduleFadeOut();
-    video.addEventListener("timeupdate", handleTimeUpdate);
+    const schedule = () => {
+      const ric: (cb: () => void) => void =
+        (window as any).requestIdleCallback || ((cb: () => void) => window.setTimeout(cb, 1500));
+      ric(startVideo);
+    };
+
+    if (document.readyState === "complete") schedule();
+    else window.addEventListener("load", schedule, { once: true });
 
     return () => {
-      if (fadeOutTimer) clearTimeout(fadeOutTimer);
-      video.removeEventListener("timeupdate", handleTimeUpdate);
+      cancelled = true;
+      window.removeEventListener("load", schedule);
     };
   }, []);
 
@@ -565,6 +554,7 @@ export default function Home() {
     if (!video) return;
     const next = !heroMuted;
     video.muted = next;
+    if (!next) video.play().catch(() => {});
     setHeroMuted(next);
   };
 
@@ -579,55 +569,50 @@ export default function Home() {
       />
 
       {/* ══════════ HERO — full-screen video background ══════════ */}
-      <section className="relative h-screen min-h-[600px] w-full overflow-hidden bg-slate-950 text-white" data-testid="hero-section">
-        {/* Mobile: static hero image only. The video is the LCP killer on slow 4G, so we skip it below md.
-            This exact image is preloaded in index.html, so it paints almost immediately. */}
+      {/* Height fits within the viewport under the fixed chrome (banner + top bar + header ≈ 148px),
+          with a min-height so the content never gets clipped in short/landscape viewports. svh keeps
+          it stable while mobile browser bars show/hide. */}
+      <section className="relative min-h-[560px] h-[calc(100svh-148px)] w-full overflow-hidden bg-slate-950 text-white" data-testid="hero-section">
+        {/* Always-visible background image = the painted LCP and a guaranteed fallback if the video
+            can't load. Preloaded in index.html, so it appears almost immediately. */}
         <img
           src="/images/hero-home.webp"
           alt=""
           aria-hidden="true"
           fetchPriority="high"
           decoding="async"
-          className="absolute inset-0 h-full w-full object-cover md:hidden"
+          className="absolute inset-0 h-full w-full object-cover"
         />
-        {/* Desktop: full-motion background video. preload="none" so the poster (preloaded) is the LCP
-            and the video streams in afterwards instead of blocking first paint. */}
+        {/* Background video — loaded lazily (see effect) and fades in over the image once it can play,
+            on every screen size. No autoPlay attribute: playback is started from JS after idle. */}
         <video
           ref={heroVideoRef}
-          autoPlay
           loop
           playsInline
+          muted
           preload="none"
           poster="/images/hero-home.webp"
-          className="absolute inset-0 hidden h-full w-full object-cover md:block"
+          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${videoReady ? "opacity-100" : "opacity-0"}`}
           aria-hidden="true"
         >
           <source src="/videos/hero-home.mp4" type="video/mp4" />
         </video>
 
-        {/* Gradient overlays + content — all fade together when video plays */}
-        <div
-          className={`absolute inset-0 transition-opacity duration-1000 ${
-            textFaded ? "opacity-0" : "opacity-100"
-          }`}
-        >
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/65 to-slate-950/25" />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-slate-950/40" />
+        {/* Gradient overlays keep the welcome text readable over the video/image on every device */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/70 to-slate-950/40" />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-transparent to-slate-950/45" />
         </div>
 
-        {/* Content — fades with overlay */}
-        <div
-          className={`relative z-10 flex h-full flex-col justify-center transition-opacity duration-1000 ${
-            textFaded ? "opacity-0" : "opacity-100"
-          }`}
-        >
-          <div className="container mx-auto px-4 pt-16">
-            <p className="mb-4 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.3em] text-white/60">
+        {/* Content — always visible */}
+        <div className="relative z-10 flex h-full flex-col justify-center">
+          <div className="container mx-auto px-4 pt-8 md:pt-16">
+            <p className="mb-3 flex items-center gap-2 text-[0.65rem] font-bold uppercase tracking-[0.25em] text-white/70 sm:text-xs sm:tracking-[0.3em]">
               <span className="h-2 w-2 rounded-full bg-secondary animate-pulse" />
               Los Angeles Home Services
             </p>
 
-            <h1 className="text-display text-4xl leading-[0.95] sm:text-5xl md:text-6xl lg:text-7xl" data-testid="text-hero-title">
+            <h1 className="text-display text-[2rem] sm:text-5xl md:text-6xl lg:text-7xl" data-testid="text-hero-title">
               <span className="block">YOUR HOME</span>
               <span className="block text-right text-secondary md:pl-24">DESERVES THE BEST</span>
             </h1>
@@ -636,16 +621,16 @@ export default function Home() {
               <div>
                 <p className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
                   <span className="font-heading text-xl font-black text-white">BERNARDINO MARTIN</span>
-                  <span className="text-xs font-bold uppercase tracking-[0.2em] text-white/50">Heating &bull; Air Conditioning &bull; Solar</span>
+                  <span className="text-xs font-bold uppercase tracking-[0.2em] text-white/75">Heating &bull; Air Conditioning &bull; Solar</span>
                 </p>
-                <p className="mt-2 max-w-md text-sm leading-relaxed text-white/70">
+                <p className="mt-2 max-w-md text-sm leading-relaxed text-white/85">
                   From rooftop to foundation, we handle everything — real work, honest pricing, quality results across Los Angeles.
                 </p>
               </div>
 
               <div className="flex flex-col gap-4 sm:flex-row">
                 <Button size="lg" className="hover-scale h-14 px-8 text-base font-bold bg-white text-slate-950 hover:bg-white/90" asChild data-testid="button-hero-call">
-                  <a href={`tel:${COMPANY_PHONE.replace(/\D/g, "")}`}>
+                  <a href={`tel:${COMPANY_PHONE.replace(/\D/g, "")}`} aria-label="Call Now for 24/7 service">
                     <Phone className="mr-2 h-5 w-5" aria-hidden="true" />
                     Call Now
                   </a>
@@ -674,16 +659,18 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Sound toggle button */}
-        <button
-          type="button"
-          onClick={toggleHeroMute}
-          aria-label={heroMuted ? "Unmute video" : "Mute video"}
-          className="absolute bottom-6 right-6 z-20 hidden md:flex items-center gap-1.5 rounded-full bg-black/50 backdrop-blur-sm px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-black/70"
-        >
-          {heroMuted ? <VolumeX className="h-3.5 w-3.5" aria-hidden="true" /> : <Volume2 className="h-3.5 w-3.5" aria-hidden="true" />}
-          {heroMuted ? "Sound Off" : "Sound On"}
-        </button>
+        {/* Sound toggle — only shown once the video is actually playing (all screen sizes) */}
+        {videoReady && (
+          <button
+            type="button"
+            onClick={toggleHeroMute}
+            aria-label={heroMuted ? "Unmute background video" : "Mute background video"}
+            className="absolute bottom-6 right-6 z-20 flex items-center gap-1.5 rounded-full bg-black/50 backdrop-blur-sm px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-black/70"
+          >
+            {heroMuted ? <VolumeX className="h-3.5 w-3.5" aria-hidden="true" /> : <Volume2 className="h-3.5 w-3.5" aria-hidden="true" />}
+            {heroMuted ? "Sound Off" : "Sound On"}
+          </button>
+        )}
       </section>
 
       {/* ══════════ VIDEO REEL STRIP (compact) ══════════ */}
@@ -1058,7 +1045,7 @@ export default function Home() {
             </div>
             <div className="flex shrink-0 flex-col gap-3">
               <Button size="lg" className="h-12 bg-red-600 px-6 font-bold text-white shadow-lg shadow-red-500/20 hover:bg-red-700" asChild>
-                <a href={`tel:${COMPANY_PHONE.replace(/\D/g, "")}`}>
+                <a href={`tel:${COMPANY_PHONE.replace(/\D/g, "")}`} aria-label="Call Now for emergency service">
                   <Phone className="mr-2 h-5 w-5" aria-hidden="true" /> Call Now
                 </a>
               </Button>

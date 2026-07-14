@@ -122,20 +122,20 @@
          the swap is seamless. aria-hidden keeps it out of the accessibility tree. */
       /* Reserves the height of the emergency banner + top bar + header so the hero doesn't
          jump down when React mounts the real chrome above it. */
-      .boot-topbar{height:38px;background:#dc2626;flex:none}
+      .boot-topbar{height:36px;background:#dc2626;flex:none}
       .boot-topbar2{height:112px;background:#020617;flex:none}
-      .boot-hero{position:relative;height:100vh;min-height:600px;width:100%;overflow:hidden;background:#020617;color:#fff;flex:none}
+      .boot-hero{position:relative;height:calc(100svh - 148px);min-height:560px;width:100%;overflow:hidden;background:#020617;color:#fff;flex:none}
       .boot-hero__img{position:absolute;inset:0;height:100%;width:100%;object-fit:cover}
-      .boot-hero__scrim{position:absolute;inset:0;background:linear-gradient(90deg,rgba(2,6,23,.9),rgba(2,6,23,.65) 45%,rgba(2,6,23,.25))}
-      .boot-hero__scrim2{position:absolute;inset:0;background:linear-gradient(0deg,rgba(2,6,23,.8),transparent 55%)}
-      .boot-hero__inner{position:relative;z-index:2;display:flex;height:100%;flex-direction:column;justify-content:center;max-width:1280px;margin:0 auto;padding:4rem 1rem 0;box-sizing:border-box}
-      .boot-hero__eyebrow{margin:0 0 1rem;display:flex;align-items:center;gap:.5rem;font-size:.75rem;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.6)}
+      .boot-hero__scrim{position:absolute;inset:0;background:linear-gradient(90deg,rgba(2,6,23,.9),rgba(2,6,23,.7) 45%,rgba(2,6,23,.4))}
+      .boot-hero__scrim2{position:absolute;inset:0;background:linear-gradient(0deg,rgba(2,6,23,.85),transparent 55%)}
+      .boot-hero__inner{position:relative;z-index:2;display:flex;height:100%;flex-direction:column;justify-content:center;max-width:1280px;margin:0 auto;padding:2rem 1rem 0;box-sizing:border-box}
+      .boot-hero__eyebrow{margin:0 0 .75rem;display:flex;align-items:center;gap:.5rem;font-size:.65rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,255,255,.7)}
       .boot-hero__dot{height:.5rem;width:.5rem;border-radius:9999px;background:#3DB54A}
-      .boot-hero__h1{margin:0;font-family:'Outfit','Inter',sans-serif;font-weight:800;letter-spacing:-.02em;line-height:.95;text-transform:uppercase;font-size:2.25rem}
+      .boot-hero__h1{margin:0;font-family:'Outfit','Inter',sans-serif;font-weight:800;letter-spacing:-.02em;line-height:1;text-transform:uppercase;font-size:2rem}
       .boot-hero__h1 .g{color:#3DB54A;display:block;text-align:right}
-      .boot-hero__brand{margin:1.25rem 0 0;font-family:'Outfit','Inter',sans-serif;font-size:1.25rem;font-weight:900}
-      .boot-hero__sub{margin:.5rem 0 0;max-width:28rem;font-size:.875rem;line-height:1.6;color:rgba(255,255,255,.75)}
-      .boot-hero__cta{margin-top:1.5rem;display:flex;flex-wrap:wrap;gap:1rem}
+      .boot-hero__brand{margin:1rem 0 0;font-family:'Outfit','Inter',sans-serif;font-size:1.25rem;font-weight:900}
+      .boot-hero__sub{margin:.5rem 0 0;max-width:28rem;font-size:.875rem;line-height:1.6;color:rgba(255,255,255,.85)}
+      .boot-hero__cta{margin-top:1.25rem;display:flex;flex-wrap:wrap;gap:1rem}
       .boot-hero__btn{display:inline-flex;align-items:center;justify-content:center;height:3.5rem;padding:0 2rem;border-radius:.5rem;font-weight:700;font-size:1rem;text-decoration:none}
       .boot-hero__btn--solid{background:#fff;color:#020617}
       .boot-hero__btn--outline{border:1px solid rgba(255,255,255,.3);color:#fff}

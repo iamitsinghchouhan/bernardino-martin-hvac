@@ -465,7 +465,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           isScrolled ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-4 opacity-0"
         }`}
       >
-        <a href="tel:+18184000227" onClick={() => trackEvent("phone_click")} className="inline-flex items-center gap-2 rounded-full bg-red-600 px-4 py-3 text-sm text-white font-bold shadow-lg transition hover:bg-red-700 sm:px-5 sm:text-base">
+        <a href="tel:+18184000227" onClick={() => trackEvent("phone_click")} aria-label="Call for a free consultation" className="inline-flex items-center gap-2 rounded-full bg-red-600 px-4 py-3 text-sm text-white font-bold shadow-lg transition hover:bg-red-700 sm:px-5 sm:text-base">
           <Phone className="h-4 w-4" />
           Call Now
         </a>
