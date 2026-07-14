@@ -61,6 +61,8 @@ export interface ServiceDetailTemplateProps {
   colorOptions?: ColorOption[];
   /** Optional — for services with texture/pattern choices (e.g. stamp mat patterns). Renders alongside colorOptions. */
   patternOptions?: PatternOption[];
+  /** Optional escape hatch for a service-specific section (e.g. a photo-based look picker) that doesn't fit the generic template fields. Renders after Color & Pattern Options, before Video Showcase. */
+  extraSection?: React.ReactNode;
 }
 
 const COLOR_MAP = {
@@ -125,6 +127,7 @@ export function ServiceDetailTemplate({
   faqs,
   colorOptions,
   patternOptions,
+  extraSection,
 }: ServiceDetailTemplateProps) {
   const [muted, setMuted] = useState(true);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
@@ -430,6 +433,8 @@ export function ServiceDetailTemplate({
           </div>
         </section>
       ) : null}
+
+      {extraSection}
 
       {/* ─── SECTION 5: VIDEO SHOWCASE ───────────────────────── */}
       <section className="bg-slate-900 overflow-hidden" aria-label="Service video showcase">

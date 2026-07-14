@@ -1,4 +1,101 @@
+import { useState } from "react";
 import { ServiceDetailTemplate } from "./template";
+
+const LOOKS = [
+  {
+    label: "Ashlar Slate — Mahogany",
+    image: "/images/hardscape/hardscape-hero-mahogany-driveway.webp",
+    alt: "Stamped concrete driveway in Ashlar Slate pattern with Mahogany integral color",
+    description: "Large, irregular slate-look flagstones in a deep mahogany tone — a grand, high-contrast look for wide driveways.",
+  },
+  {
+    label: "London Cobble — Ruby Red",
+    image: "/images/hardscape/hardscape-texture-london-cobble-ruby-red.webp",
+    alt: "Close-up texture of London Cobble stamped concrete pattern in Ruby Red integral color",
+    description: "A traditional lightly-textured cobblestone look in a rich brick red — timeless on driveways and courtyards.",
+  },
+  {
+    label: "European Fan — Sunrise Yellow",
+    image: "/images/hardscape/hardscape-pool-deck-european-fan-sunrise.webp",
+    alt: "Pool deck and patio stamped in European Fan pattern with Sunrise Yellow and Wheat tones at sunset",
+    description: "Gently curved fan-shaped stones in warm sunrise tones — a striking choice for pool decks and patios.",
+  },
+];
+
+/* Interactive photo-based look picker + before/after showcase, specific to this service. */
+function HardscapeShowcase() {
+  const [active, setActive] = useState(0);
+  const look = LOOKS[active];
+
+  return (
+    <>
+      {/* Before / After */}
+      <section className="py-16 md:py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900">See the Transformation</h2>
+            <p className="text-slate-500 mt-2 max-w-xl mx-auto">
+              A cracked, faded driveway resurfaced with stamped concrete — same footprint, completely new curb appeal.
+            </p>
+          </div>
+          <div className="rounded-2xl overflow-hidden shadow-lg border border-slate-200">
+            <img
+              src="/images/hardscape/hardscape-before-after-flagstone.webp"
+              alt="Before and after comparison: plain cracked concrete driveway on the left, resurfaced stamped concrete flagstone driveway on the right"
+              loading="lazy"
+              decoding="async"
+              className="w-full h-auto object-cover"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Interactive look picker */}
+      <section className="py-16 md:py-20 bg-slate-50">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900">Explore Our Most Popular Looks</h2>
+            <p className="text-slate-500 mt-2 max-w-xl mx-auto">
+              Pick a pattern and color combination below to see it in a real setting.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap justify-center gap-3 mb-8">
+            {LOOKS.map((l, i) => (
+              <button
+                key={l.label}
+                type="button"
+                onClick={() => setActive(i)}
+                aria-pressed={i === active}
+                className={`px-5 py-2.5 rounded-full text-sm font-semibold border transition-colors ${
+                  i === active
+                    ? "bg-slate-950 text-white border-slate-950"
+                    : "bg-white text-slate-700 border-slate-200 hover:border-slate-400"
+                }`}
+              >
+                {l.label}
+              </button>
+            ))}
+          </div>
+
+          <div className="rounded-2xl overflow-hidden shadow-lg border border-slate-200 bg-white">
+            <img
+              src={look.image}
+              alt={look.alt}
+              loading="lazy"
+              decoding="async"
+              className="w-full h-auto max-h-[520px] object-cover"
+            />
+            <div className="p-6 text-center">
+              <p className="font-bold text-slate-900">{look.label}</p>
+              <p className="text-sm text-slate-600 mt-1 max-w-2xl mx-auto">{look.description}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
 
 export default function OutdoorHardscape() {
   return (
@@ -8,7 +105,7 @@ export default function OutdoorHardscape() {
       category="Outdoor & Property"
       categoryColor="green"
       heroVideo="/videos/svc-landscaping.mp4"
-      heroImage="/images/svc-landscaping.png"
+      heroImage="/images/hardscape/hardscape-hero-mahogany-driveway.webp"
       tagline="Stamped concrete driveways, patios, pool coping, and outdoor living spaces in Los Angeles"
       overview={[
         "A well-designed hardscape dramatically increases the usability and value of your property. In Los Angeles's indoor-outdoor lifestyle, a beautifully finished patio, driveway, or pool deck transforms underutilized outdoor space into an extension of the living area. We design and install stamped concrete, plain concrete, exposed aggregate, and paver hardscape for driveways, patios, walkways, pool decks, outdoor kitchens, and fire pit areas.",
@@ -67,6 +164,7 @@ export default function OutdoorHardscape() {
         { name: "London Cobble", description: "A traditional, lightly-textured cobblestone look — a timeless choice for driveways and courtyards." },
         { name: "European Fan", description: "An elegant fan pattern of gently curved rectangular stones — striking on circular driveways and entry courts." },
       ]}
+      extraSection={<HardscapeShowcase />}
       faqs={[
         {
           question: "How does stamped concrete compare to pavers for a Los Angeles patio?",

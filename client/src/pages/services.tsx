@@ -145,7 +145,7 @@ const CATEGORY_DATA: CategoryMeta[] = [
       { name: "Sod Installation", slug: "outdoor-sod", icon: Sprout, desc: "San Augustine and RTF sod installation", duration: "1-2 days", price: "From $1.50/sq ft", image: "/images/svc-sod-installation.png" },
       { name: "Planting & Garden Care", slug: "outdoor-planting", icon: Flower2, desc: "Seasonal plants, shrubs, and garden beds", duration: "2-6 hrs", price: "From $149", image: "/images/svc-planting.png" },
       { name: "Smart Irrigation Systems", slug: "outdoor-irrigation", icon: Droplets, desc: "App-controlled irrigation with insurance savings", duration: "3-6 hrs", price: "From $499", image: "/images/hero-bm-irrigation.png" },
-      { name: "Hardscape — Driveways & Patios", slug: "outdoor-hardscape", icon: Home, desc: "Stamped concrete driveways, patios, coping", duration: "2-5 days", price: "Free estimate", image: "/images/svc-landscaping.png" },
+      { name: "Hardscape — Driveways & Patios", slug: "outdoor-hardscape", icon: Home, desc: "Stamped concrete driveways, patios, coping", duration: "2-5 days", price: "Free estimate", image: "/images/hardscape/hardscape-hero-mahogany-driveway.webp" },
     ],
   },
   {
@@ -582,7 +582,7 @@ export default function Services() {
                     {[
                       { label: "Lawn & Turf", sub: "San Augustine & RTF Sod · Grass repair · Leveling", img: "/images/svc-sod-installation.png", link: "/services/outdoor-sod", color: "bg-green-600" },
                       { label: "Garden & Planting", sub: "Seasonal plants · Trees · Garden bed design", img: "/images/svc-planting.png", link: "/services/outdoor-planting", color: "bg-emerald-600" },
-                      { label: "Hardscape & Concrete", sub: "Driveways · Patios · Stamped concrete · Pool decks", img: "/images/svc-landscaping.png", link: "/services/outdoor-hardscape", color: "bg-teal-600" },
+                      { label: "Hardscape & Concrete", sub: "Driveways · Patios · Stamped concrete · Pool decks", img: "/images/hardscape/hardscape-pool-deck-european-fan-sunrise.webp", link: "/services/outdoor-hardscape", color: "bg-teal-600" },
                     ].map((item) => (
                       <Link key={item.label} href={item.link} className="group relative rounded-2xl overflow-hidden bg-slate-100 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 block">
                         <div className="aspect-[4/3] overflow-hidden">
