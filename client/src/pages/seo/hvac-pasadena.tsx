@@ -55,15 +55,15 @@ export default function HvacPasadena() {
         title="HVAC Services in Pasadena, CA"
         description="Reliable HVAC service for Pasadena's historic homes, modern upgrades, and high-demand inland summer conditions."
         videoSrc="/videos/city-pasadena.mp4"
-        posterSrc="/images/cities/pasadena-city.png"
-        imageSrc="/images/cities/pasadena-city.png"
+        posterSrc="/images/cities/pasadena-city-2.webp"
+        imageSrc="/images/cities/pasadena-city-2.webp"
         imageAlt="HVAC technician retrofitting a heating system in a historic Pasadena Craftsman home"
       />
 
       <SeoIntro paragraphs={introParagraphs} />
 
       <SeoFeatureImage
-        src="/images/cities/pasadena-city.png"
+        src="/images/cities/pasadena-city-2.webp"
         alt="Pasadena California historic homes HVAC service"
       />
 
@@ -80,6 +80,23 @@ export default function HvacPasadena() {
             src: "/images/services/hvac-maintenance.webp",
             alt: "HVAC maintenance Pasadena CA",
             caption: "HVAC Maintenance",
+          },
+        ]}
+      />
+
+      <SeoImageGrid
+        heading="Real Work in Pasadena"
+        columns={2}
+        images={[
+          {
+            src: "/images/cities/pasadena-gallery-1.webp",
+            alt: "Solar panel installation on a Pasadena Craftsman-style home",
+            caption: "Solar Installation",
+          },
+          {
+            src: "/images/cities/pasadena-gallery-2.webp",
+            alt: "Mini-split ductless AC installation in a Pasadena home",
+            caption: "Ductless Mini-Split Install",
           },
         ]}
       />

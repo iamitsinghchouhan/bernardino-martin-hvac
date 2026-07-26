@@ -26,7 +26,12 @@
   ],
   "responseTime": "20-35 minutes",
   "videoFile": "city-san-fernando-valley.mp4",
-  "imageFile": "san-fernando-valley-hero.png",
+  "imageFile": "san-fernando-valley-hero-2.webp",
+  "galleryImages": [
+    "/images/cities/san-fernando-valley-hero-2.webp",
+    "/images/cities/san-fernando-valley-gallery-1.webp",
+    "/images/cities/san-fernando-valley-gallery-2.webp"
+  ],
   "metaDescription": "Trusted HVAC services in San Fernando Valley - AC repair, replacement, heating and maintenance for Valley homes. Call (818) 400-0227 today.",
   "metaKeywords": "HVAC San Fernando Valley, AC repair San Fernando Valley, Valley heating service, Valley HVAC contractor",
   "localPhone": "(818) 400-0227",

@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import type { CityData } from "@/data/cities/types";
-import { SERVICES } from "@/lib/constants";
+import { SERVICES, SERVICE_CATEGORIES } from "@/lib/constants";
 import { ArrowRight, Check } from "lucide-react";
 import { Link } from "wouter";
 
@@ -72,6 +72,40 @@ export default function CityServices({ cityData }: CityServicesProps) {
                 </div>
               </div>
             ))}
+          </div>
+
+          {/* Full catalog — link chips only (not full descriptions) to avoid duplicating
+              the same service copy across 30 near-identical city pages; each links to
+              that service's own dedicated page for the real detail. */}
+          <div className="mt-16 rounded-3xl border border-slate-200 bg-white p-6 md:p-8">
+            <h3 className="text-xl font-bold text-slate-900">
+              Every Service We Offer in {cityData.city}
+            </h3>
+            <p className="mt-2 text-sm text-slate-600">
+              Beyond our most-requested HVAC work above, we also handle the full range of home services below.
+            </p>
+            <div className="mt-6 space-y-5">
+              {SERVICE_CATEGORIES.map((category) => {
+                const categoryServices = SERVICES.filter((s) => s.category === category);
+                if (categoryServices.length === 0) return null;
+                return (
+                  <div key={category}>
+                    <p className="text-xs font-bold uppercase tracking-[0.18em] text-primary">{category}</p>
+                    <div className="mt-2 flex flex-wrap gap-2">
+                      {categoryServices.map((service) => (
+                        <Link
+                          key={service.id}
+                          href={`/services/${service.id}`}
+                          className="rounded-full border border-slate-200 bg-slate-50 px-3.5 py-1.5 text-sm font-medium text-slate-700 transition-colors hover:border-primary/30 hover:bg-primary/5 hover:text-primary"
+                        >
+                          {service.title}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>

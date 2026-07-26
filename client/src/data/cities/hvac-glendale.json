@@ -26,7 +26,12 @@
   ],
   "responseTime": "15-30 minutes",
   "videoFile": "city-glendale.mp4",
-  "imageFile": "glendale-hero.png",
+  "imageFile": "glendale-hero-2.webp",
+  "galleryImages": [
+    "/images/cities/glendale-hero-2.webp",
+    "/images/cities/glendale-gallery-1.webp",
+    "/images/cities/glendale-gallery-2.webp"
+  ],
   "metaDescription": "Professional HVAC services in Glendale - AC repair, installation, heating and maintenance from a licensed local contractor. Call (818) 400-0227.",
   "metaKeywords": "HVAC Glendale, AC repair Glendale, heating service Glendale, air conditioning Glendale",
   "localPhone": "(818) 400-0227",

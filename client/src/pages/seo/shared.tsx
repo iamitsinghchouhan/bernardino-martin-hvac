@@ -395,19 +395,19 @@ export function SeoCityCards() {
   const cards = [
     {
       href: "/hvac-burbank",
-      src: "/images/cities/burbank-city.png",
+      src: "/images/cities/burbank-city-2.webp",
       alt: "HVAC services in Burbank CA",
       label: "HVAC in Burbank",
     },
     {
       href: "/hvac-glendale",
-      src: "/images/cities/glendale-city.png",
+      src: "/images/cities/glendale-hero-2.webp",
       alt: "HVAC services in Glendale CA",
       label: "HVAC in Glendale",
     },
     {
       href: "/hvac-pasadena",
-      src: "/images/cities/pasadena-city.png",
+      src: "/images/cities/pasadena-city-2.webp",
       alt: "HVAC services in Pasadena CA",
       label: "HVAC in Pasadena",
     },

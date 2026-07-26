@@ -23,7 +23,11 @@
   ],
   "responseTime": "25-45 minutes",
   "videoFile": "generic-area-hero.mp4",
-  "imageFile": "generic-area-hero.png",
+  "imageFile": "malibu-hero.webp",
+  "galleryImages": [
+    "/images/cities/malibu-hero.webp",
+    "/images/cities/malibu-gallery-1.webp"
+  ],
   "metaDescription": "HVAC services in Malibu - AC repair, installation, heating and maintenance from a licensed local contractor. Call (818) 400-0227.",
   "metaKeywords": "HVAC Malibu, AC repair Malibu, heating service Malibu, air conditioning Malibu",
   "localPhone": "(818) 400-0227",

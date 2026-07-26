@@ -63,6 +63,34 @@ export default function CityPageTemplate({ cityData }: CityPageTemplateProps) {
 
       <CityPageHero cityData={cityData} />
 
+      {cityData.galleryImages && cityData.galleryImages.length > 0 && (
+        <section className="bg-white py-16">
+          <div className="container mx-auto px-4">
+            <div className="mx-auto max-w-6xl">
+              <div className="max-w-2xl">
+                <p className="text-sm font-bold uppercase tracking-[0.2em] text-primary">On the Job</p>
+                <h2 className="mt-3 text-3xl font-heading font-bold text-slate-950 md:text-4xl">
+                  Real Work in {cityData.city}
+                </h2>
+              </div>
+              <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {cityData.galleryImages.map((src, i) => (
+                  <div key={src} className="aspect-[4/3] overflow-hidden rounded-2xl border border-slate-200">
+                    <img
+                      src={src}
+                      alt={`Bernardino Martin technicians on a service call in ${cityData.city}`}
+                      loading={i === 0 ? "eager" : "lazy"}
+                      decoding="async"
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
       <section className="bg-white py-16">
         <div className="container mx-auto px-4">
           <div className="mx-auto max-w-5xl">

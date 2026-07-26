@@ -24,7 +24,11 @@
   ],
   "responseTime": "20-35 minutes",
   "videoFile": "city-woodland-hills.mp4",
-  "imageFile": "woodland-hills-hero.png",
+  "imageFile": "woodland-hills-hero-2.webp",
+  "galleryImages": [
+    "/images/cities/woodland-hills-hero-2.webp",
+    "/images/cities/woodland-hills-gallery-1.webp"
+  ],
   "metaDescription": "Woodland Hills HVAC experts for AC installation, repair, maintenance and mini-splits. Built for hot west-valley homes. (818) 400-0227.",
   "metaKeywords": "HVAC Woodland Hills, AC repair Woodland Hills, AC installation Woodland Hills, mini split Woodland Hills",
   "localPhone": "(818) 400-0227",

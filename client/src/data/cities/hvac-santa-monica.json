@@ -26,7 +26,12 @@
   ],
   "responseTime": "25-40 minutes",
   "videoFile": "city-santa-monica.mp4",
-  "imageFile": "santa-monica-hero.png",
+  "imageFile": "santa-monica-hero-2.webp",
+  "galleryImages": [
+    "/images/cities/santa-monica-hero-2.webp",
+    "/images/cities/santa-monica-gallery-1.webp",
+    "/images/cities/santa-monica-gallery-2.webp"
+  ],
   "metaDescription": "HVAC services in Santa Monica - coastal AC repair, installation, ductless systems and maintenance from a licensed local team. (818) 400-0227.",
   "metaKeywords": "HVAC Santa Monica, AC repair Santa Monica, ductless Santa Monica, heating Santa Monica",
   "localPhone": "(818) 400-0227",

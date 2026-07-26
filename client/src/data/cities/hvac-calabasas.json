@@ -24,7 +24,12 @@
   ],
   "responseTime": "25-40 minutes",
   "videoFile": "city-calabasas.mp4",
-  "imageFile": "calabasas-hero.png",
+  "imageFile": "calabasas-hero-2.webp",
+  "galleryImages": [
+    "/images/cities/calabasas-hero-2.webp",
+    "/images/cities/calabasas-gallery-1.webp",
+    "/images/cities/calabasas-gallery-2.webp"
+  ],
   "metaDescription": "Calabasas HVAC services for premium AC installation, maintenance, heating and ductless comfort upgrades. Call (818) 400-0227.",
   "metaKeywords": "HVAC Calabasas, AC installation Calabasas, heating Calabasas, ductless Calabasas",
   "localPhone": "(818) 400-0227",

@@ -182,7 +182,7 @@ const FEEL_GALLERY_IMAGES = [
   { src: "/images/hero-bm-solar-roof.png", alt: "Solar panel installation on LA home" },
   { src: "/images/services/electrical-hero.png", alt: "Licensed electrical panel work" },
   { src: "/images/hero-bm-irrigation.png", alt: "Smart irrigation system in action" },
-  { src: "/images/real-ductwork.webp", alt: "Custom ductwork fabrication" },
+  { src: "/images/hvac-tech-attic-flex-duct.webp", alt: "Custom ductwork fabrication" },
 ];
 
 /* ─── Active-room tracker for the sticky numbered list ─── */

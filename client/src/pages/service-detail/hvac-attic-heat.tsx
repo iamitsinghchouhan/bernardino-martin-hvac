@@ -8,7 +8,7 @@ export default function HvacAtticHeat() {
       category="HVAC & Heating"
       categoryColor="blue"
       heroVideo="/videos/svc-hvac.mp4"
-      heroImage="/images/real-ductwork.webp"
+      heroImage="/images/hvac-tech-attic-flex-duct.webp"
       tagline="Reduce attic temperatures to make your AC dramatically more efficient"
       overview={[
         "On a typical Los Angeles summer afternoon, an unventilated attic can reach 150–160°F. That superheated air radiates through your ceiling and directly into your living space, forcing your air conditioner to work against an enormous and constant heat source. Studies have shown that attic temperatures this high can increase cooling loads by 20–30%, meaning your AC is fighting a losing battle against a problem that has nothing to do with the AC itself.",

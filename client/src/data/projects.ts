@@ -43,7 +43,7 @@ export const PROJECTS = [
     id: 6,
     title: "Custom Ductwork Fabrication",
     category: "HVAC",
-    image: "/images/real-ductwork.webp",
+    image: "/images/hvac-tech-attic-flex-duct.webp",
     description: "Installation of custom-fabricated insulated ductwork for optimal airflow and energy efficiency in a residential attic.",
     location: "Glendale, CA",
   },

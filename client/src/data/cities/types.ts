@@ -18,4 +18,6 @@ export type CityData = {
   nearestCities: string[];
   notableLandmarks: string[];
   googleMyBusinessUrl: string;
+  /** Optional — real, city-specific photos (not the generic stock image) for a "Real Work in [City]" gallery. */
+  galleryImages?: string[];
 };

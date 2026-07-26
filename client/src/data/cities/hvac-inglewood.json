@@ -26,7 +26,13 @@
   ],
   "responseTime": "20-35 minutes",
   "videoFile": "generic-area-hero.mp4",
-  "imageFile": "generic-area-hero.png",
+  "imageFile": "inglewood-hero.webp",
+  "galleryImages": [
+    "/images/cities/inglewood-hero.webp",
+    "/images/cities/inglewood-gallery-1.webp",
+    "/images/cities/inglewood-gallery-2.webp",
+    "/images/cities/inglewood-gallery-3.webp"
+  ],
   "metaDescription": "HVAC services in Inglewood - AC repair, installation, heating and maintenance from a licensed local contractor. Call (818) 400-0227.",
   "metaKeywords": "HVAC Inglewood, AC repair Inglewood, heating service Inglewood, air conditioning Inglewood",
   "localPhone": "(818) 400-0227",
