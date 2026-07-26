@@ -35,6 +35,7 @@ export default function NetworkLosAngeles() {
       <SEO
         title="Network Installation in Los Angeles, CA | Bernardino Martin"
         description="Professional network cabling, fiber internet, smart home setup in Los Angeles. Homes & businesses. Clean install. Call (818) 400-0227."
+        canonical="/network-installation-los-angeles"
       />
 
       <SeoHero

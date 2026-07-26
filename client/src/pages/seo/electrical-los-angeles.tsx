@@ -35,6 +35,7 @@ export default function ElectricalLosAngeles() {
       <SEO
         title="Electrical Services in Los Angeles, CA | Bernardino Martin"
         description="Licensed electricians in Los Angeles for panel upgrades, EV charger installation, home rewiring & more. Safe, code-compliant work. Call (818) 400-0227."
+        canonical="/electrical-services-los-angeles"
       />
 
       <SeoHero

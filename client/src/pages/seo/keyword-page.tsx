@@ -47,7 +47,7 @@ export type KeywordPageData = {
 export function KeywordServicePage({ page }: { page: KeywordPageData }) {
   return (
     <Layout>
-      <SEO title={page.title} description={page.metaDescription} />
+      <SEO title={page.title} description={page.metaDescription} canonical={`/${page.slug}`} />
 
       <section className="relative overflow-hidden bg-slate-950 text-white">
         <div

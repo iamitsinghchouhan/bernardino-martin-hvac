@@ -35,6 +35,7 @@ export default function IrrigationLosAngeles() {
       <SEO
         title="Smart Irrigation Systems in Los Angeles, CA | Bernardino Martin"
         description="App-controlled smart irrigation systems in Los Angeles. Save water, reduce bills, protect your home. Insurance discounts up to 40%. Call (818) 400-0227."
+        canonical="/irrigation-los-angeles"
       />
 
       <SeoHero

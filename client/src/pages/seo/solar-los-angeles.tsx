@@ -35,6 +35,7 @@ export default function SolarLosAngeles() {
       <SEO
         title="Solar Panel Installation in Los Angeles, CA | Bernardino Martin"
         description="Expert solar panel installation in Los Angeles. Custom systems, permit handling, utility interconnection. Free energy audit. Call (818) 400-0227."
+        canonical="/solar-installation-los-angeles"
       />
 
       <SeoHero

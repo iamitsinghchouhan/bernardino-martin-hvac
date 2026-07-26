@@ -35,6 +35,7 @@ export default function PlumbingLosAngeles() {
       <SEO
         title="Plumbing Services in Los Angeles, CA | Bernardino Martin"
         description="Full-service residential plumbing in Los Angeles. Pipe repair, water filtration, smart shutoff valves, drain cleaning. Call (818) 400-0227."
+        canonical="/plumbing-los-angeles"
       />
 
       <SeoHero

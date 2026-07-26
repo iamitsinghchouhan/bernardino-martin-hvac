@@ -35,6 +35,7 @@ export default function LandscapingLosAngeles() {
       <SEO
         title="Landscaping Services in Los Angeles, CA | Bernardino Martin"
         description="Professional landscaping in Los Angeles. Sod installation, drought-tolerant designs, planting & garden care. Free estimate. Call (818) 400-0227."
+        canonical="/landscaping-los-angeles"
       />
 
       <SeoHero

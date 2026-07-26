@@ -39,6 +39,7 @@ export default function HvacLosAngeles() {
       <SEO
         title="HVAC Services in Los Angeles, CA | Bernardino Martin"
         description="Professional HVAC repair, installation & maintenance in Los Angeles. Licensed technicians, same-day service, all brands. Call (818) 400-0227."
+        canonical="/hvac-los-angeles"
       />
 
       <SeoHero
