@@ -160,7 +160,6 @@ const ROOMS = [
 const REEL_VIDEOS = [
   { src: "/videos/hvac-tech-inspecting.mp4", label: "HVAC Inspection", thumb: "/images/hvac-tech-tablet.png" },
   { src: "/videos/hvac-repair-outdoor.mp4", label: "AC Repair", thumb: "/images/hvac-tech-gauges.png" },
-  { src: "/videos/hvac-family-comfort.mp4", label: "Home Comfort", thumb: "/images/hvac-tech-homeowner.png" },
   { src: "/videos/hvac-tech-ac-outdoor.mp4", label: "AC Service", thumb: "/images/hero-bm-ac-units.png" },
   { src: "/videos/hvac-tech-driveway.mp4", label: "Service Call", thumb: "/images/hero-bm-vehicles.png" },
   { src: "/videos/solar-panel-install.mp4", label: "Solar Install", thumb: "/images/hero-bm-solar-roof.png" },

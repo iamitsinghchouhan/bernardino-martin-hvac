@@ -46,7 +46,8 @@ export interface ServiceDetailTemplateProps {
   slug: string;
   category: string;
   categoryColor: "blue" | "orange" | "amber" | "cyan" | "yellow" | "green" | "purple";
-  heroVideo: string;
+  /** Optional — omit for an image-only hero (no video anywhere on the page, including the Video Showcase section). */
+  heroVideo?: string;
   heroImage: string;
   tagline: string;
   overview: string[];
@@ -202,20 +203,31 @@ export function ServiceDetailTemplate({
 
       {/* ─── SECTION 1: HERO ─────────────────────────────────── */}
       <section className="relative min-h-[70vh] flex items-end overflow-hidden bg-slate-900" aria-label={`${serviceName} hero`}>
-        <video
-          ref={heroVideoRef}
-          autoPlay
-          loop
-          muted={muted}
-          playsInline
-          poster={heroImage}
-          preload="metadata"
-          className="absolute inset-0 w-full h-full object-cover"
-          aria-label={`${serviceName} service video`}
-        >
-          <source src={heroVideo} type="video/mp4" />
-          <track kind="captions" src="/captions.vtt" srcLang="en" label="English" default />
-        </video>
+        {heroVideo ? (
+          <video
+            ref={heroVideoRef}
+            autoPlay
+            loop
+            muted={muted}
+            playsInline
+            poster={heroImage}
+            preload="metadata"
+            className="absolute inset-0 w-full h-full object-cover"
+            aria-label={`${serviceName} service video`}
+          >
+            <source src={heroVideo} type="video/mp4" />
+            <track kind="captions" src="/captions.vtt" srcLang="en" label="English" default />
+          </video>
+        ) : (
+          <img
+            src={heroImage}
+            alt=""
+            aria-hidden="true"
+            fetchPriority="high"
+            decoding="async"
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+        )}
         <div className="absolute inset-0 bg-slate-900/65" />
 
         <div className="relative z-10 w-full pb-16 pt-36 px-4">
@@ -272,15 +284,17 @@ export function ServiceDetailTemplate({
         </div>
 
         {/* Unmute toggle */}
-        <button
-          type="button"
-          onClick={handleMuteToggle}
-          aria-label={muted ? "Unmute video" : "Mute video"}
-          className="absolute bottom-6 right-6 z-20 flex items-center gap-2 rounded-full bg-black/50 backdrop-blur-sm px-4 py-2 text-white text-sm font-medium hover:bg-black/70 transition-colors"
-        >
-          {muted ? <VolumeX className="h-4 w-4" aria-hidden="true" /> : <Volume2 className="h-4 w-4" aria-hidden="true" />}
-          <span>{muted ? "Sound Off" : "Sound On"}</span>
-        </button>
+        {heroVideo && (
+          <button
+            type="button"
+            onClick={handleMuteToggle}
+            aria-label={muted ? "Unmute video" : "Mute video"}
+            className="absolute bottom-6 right-6 z-20 flex items-center gap-2 rounded-full bg-black/50 backdrop-blur-sm px-4 py-2 text-white text-sm font-medium hover:bg-black/70 transition-colors"
+          >
+            {muted ? <VolumeX className="h-4 w-4" aria-hidden="true" /> : <Volume2 className="h-4 w-4" aria-hidden="true" />}
+            <span>{muted ? "Sound Off" : "Sound On"}</span>
+          </button>
+        )}
       </section>
 
       {/* ─── SECTION 2: OVERVIEW ─────────────────────────────── */}
@@ -455,30 +469,32 @@ export function ServiceDetailTemplate({
 
       {extraSection}
 
-      {/* ─── SECTION 5: VIDEO SHOWCASE ───────────────────────── */}
-      <section className="bg-slate-900 overflow-hidden" aria-label="Service video showcase">
-        <div className="relative max-h-[55vh] overflow-hidden">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            poster={heroImage}
-            preload="none"
-            className="w-full h-full object-cover"
-            aria-label={`${serviceName} technicians at work`}
-            style={{ minHeight: "320px", maxHeight: "55vh" }}
-          >
-            <source src={heroVideo} type="video/mp4" />
-            <track kind="captions" src="/captions.vtt" srcLang="en" label="English" default />
-          </video>
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent flex items-end">
-            <p className="text-white/75 text-sm px-6 pb-6 max-w-xl">
-              Watch our {serviceName.toLowerCase()} technicians delivering top-quality service across Los Angeles
-            </p>
+      {/* ─── SECTION 5: VIDEO SHOWCASE (only when the service has a video) ───── */}
+      {heroVideo && (
+        <section className="bg-slate-900 overflow-hidden" aria-label="Service video showcase">
+          <div className="relative max-h-[55vh] overflow-hidden">
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              poster={heroImage}
+              preload="none"
+              className="w-full h-full object-cover"
+              aria-label={`${serviceName} technicians at work`}
+              style={{ minHeight: "320px", maxHeight: "55vh" }}
+            >
+              <source src={heroVideo} type="video/mp4" />
+              <track kind="captions" src="/captions.vtt" srcLang="en" label="English" default />
+            </video>
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent flex items-end">
+              <p className="text-white/75 text-sm px-6 pb-6 max-w-xl">
+                Watch our {serviceName.toLowerCase()} technicians delivering top-quality service across Los Angeles
+              </p>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* ─── SECTION 6: RELATED SERVICES ─────────────────────── */}
       {relatedServices.length > 0 && (

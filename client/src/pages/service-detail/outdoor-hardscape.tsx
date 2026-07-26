@@ -165,8 +165,7 @@ export default function OutdoorHardscape() {
       slug="outdoor-hardscape"
       category="Outdoor & Property"
       categoryColor="green"
-      heroVideo="/videos/svc-landscaping.mp4"
-      heroImage="/images/hardscape/hardscape-hero-mahogany-driveway.webp"
+      heroImage="/images/hardscape/hardscape-banner-workers.webp"
       tagline="Stamped concrete driveways, patios, pool coping, and outdoor living spaces in Los Angeles"
       overview={[
         "A well-designed hardscape dramatically increases the usability and value of your property. In Los Angeles's indoor-outdoor lifestyle, a beautifully finished patio, driveway, or pool deck transforms underutilized outdoor space into an extension of the living area. We design and install stamped concrete, plain concrete, exposed aggregate, and paver hardscape for driveways, patios, walkways, pool decks, outdoor kitchens, and fire pit areas.",
