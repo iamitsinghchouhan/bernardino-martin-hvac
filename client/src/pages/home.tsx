@@ -508,6 +508,7 @@ export default function Home() {
   const heroVideoRef = useRef<HTMLVideoElement>(null);
   const [heroMuted, setHeroMuted] = useState(true);
   const [videoReady, setVideoReady] = useState(false);
+  const [textFaded, setTextFaded] = useState(false);
   const [lightbox, setLightbox] = useState<{ images: LightboxImage[]; index: number } | null>(null);
 
   function openLightbox(images: LightboxImage[], index: number) {
@@ -529,7 +530,12 @@ export default function Home() {
       video.muted = true;
       const p = video.play();
       if (p !== undefined) {
-        p.then(() => { if (!cancelled) setVideoReady(true); }).catch(() => {});
+        p.then(() => {
+          if (cancelled) return;
+          setVideoReady(true);
+          // Fade the text out the moment the video actually starts playing.
+          setTextFaded(true);
+        }).catch(() => {});
       }
     };
 
@@ -547,6 +553,30 @@ export default function Home() {
       window.removeEventListener("load", schedule);
     };
   }, []);
+
+  /* Bring the text back once the video completes its first full loop, then leave it alone —
+     the video has the `loop` attribute so `ended` never fires; instead we watch for
+     currentTime wrapping from near-the-end back to near-zero via timeupdate. */
+  useEffect(() => {
+    if (!videoReady) return;
+    const video = heroVideoRef.current;
+    if (!video) return;
+
+    let prevTime = 0;
+    let hasLooped = false;
+
+    const handleTimeUpdate = () => {
+      const curr = video.currentTime;
+      if (!hasLooped && prevTime > 1 && curr < 0.5) {
+        hasLooped = true;
+        setTextFaded(false);
+      }
+      prevTime = curr;
+    };
+
+    video.addEventListener("timeupdate", handleTimeUpdate);
+    return () => video.removeEventListener("timeupdate", handleTimeUpdate);
+  }, [videoReady]);
 
   const toggleHeroMute = () => {
     const video = heroVideoRef.current;
@@ -604,8 +634,13 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-t from-slate-950/65 via-transparent to-slate-950/25" />
         </div>
 
-        {/* Content — always visible */}
-        <div className="relative z-10 flex h-full flex-col justify-center">
+        {/* Content — fades out the instant the video starts playing, fades back in once the
+            video completes one full loop (see effects above), then stays visible. */}
+        <div
+          className={`relative z-10 flex h-full flex-col justify-center transition-opacity duration-1000 ${
+            textFaded ? "pointer-events-none opacity-0" : "opacity-100"
+          }`}
+        >
           <div className="container mx-auto px-4 pt-8 md:pt-16">
             <p className="mb-3 flex items-center gap-2 text-[0.65rem] font-bold uppercase tracking-[0.25em] text-white/70 sm:text-xs sm:tracking-[0.3em]">
               <span className="h-2 w-2 rounded-full bg-secondary animate-pulse" />
