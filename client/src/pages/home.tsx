@@ -506,7 +506,7 @@ function FeelGallery({ onImageClick }: { onImageClick: (index: number) => void }
 export default function Home() {
   const { refs: roomRefs, active: activeRoom } = useActiveSection(ROOMS.length);
   const heroVideoRef = useRef<HTMLVideoElement>(null);
-  const [heroMuted, setHeroMuted] = useState(true);
+  const [heroMuted, setHeroMuted] = useState(false);
   const [videoReady, setVideoReady] = useState(false);
   const [textFaded, setTextFaded] = useState(false);
   const [lightbox, setLightbox] = useState<{ images: LightboxImage[]; index: number } | null>(null);
@@ -519,7 +519,9 @@ export default function Home() {
      finished loading and the main thread goes idle — so it never competes with the critical
      resources that decide FCP/LCP/TBT. Until it can play, the preloaded poster image stays
      visible (it's the painted LCP), and if the video ever fails to load the image simply
-     remains. Muted by default so mobile browsers allow autoplay; users can unmute. */
+     remains. Tries to play WITH sound first; browsers that block unmuted autoplay reject the
+     play() promise, and only then do we fall back to a muted autoplay (with the toggle
+     reflecting the actual muted state either way). */
   useEffect(() => {
     const video = heroVideoRef.current;
     if (!video) return;
@@ -527,15 +529,21 @@ export default function Home() {
 
     const startVideo = () => {
       if (cancelled || !video) return;
-      video.muted = true;
+      video.muted = false;
       const p = video.play();
+      const onPlaying = () => {
+        if (cancelled) return;
+        setVideoReady(true);
+        // Fade the text (and its darkening overlay) out the moment the video actually starts playing.
+        setTextFaded(true);
+      };
       if (p !== undefined) {
-        p.then(() => {
-          if (cancelled) return;
-          setVideoReady(true);
-          // Fade the text out the moment the video actually starts playing.
-          setTextFaded(true);
-        }).catch(() => {});
+        p.then(onPlaying).catch(() => {
+          if (cancelled || !video) return;
+          video.muted = true;
+          setHeroMuted(true);
+          video.play().then(onPlaying).catch(() => {});
+        });
       }
     };
 
@@ -618,7 +626,7 @@ export default function Home() {
           ref={heroVideoRef}
           loop
           playsInline
-          muted
+          muted={heroMuted}
           preload="none"
           poster="/images/hero-home.webp"
           className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${videoReady ? "opacity-100" : "opacity-0"}`}
@@ -627,9 +635,12 @@ export default function Home() {
           <source src="/videos/hero-home.mp4" type="video/mp4" />
         </video>
 
-        {/* Gradient overlays — kept narrow/localized to where the text actually sits (left + bottom)
-            so most of the video frame (center-right, top) stays fully visible instead of dimmed. */}
-        <div className="absolute inset-0">
+        {/* Gradient overlays — only needed to keep the text readable, so they fade out together
+            with the text (video plays at full, unfiltered brightness while the text is hidden)
+            and fade back in together with the text after one loop. */}
+        <div
+          className={`absolute inset-0 transition-opacity duration-1000 ${textFaded ? "opacity-0" : "opacity-100"}`}
+        >
           <div className="absolute inset-0 bg-gradient-to-r from-slate-950/85 via-slate-950/35 to-transparent" />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-950/65 via-transparent to-slate-950/25" />
         </div>
