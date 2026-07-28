@@ -8,9 +8,18 @@ import {
   Clock3,
   Phone,
   ShieldCheck,
+  Sparkles,
   Star,
+  Trash2,
   Wrench,
 } from "lucide-react";
+
+const CLEANUP_POINTS = [
+  { icon: Trash2, title: "Debris & packaging hauled away", description: "Old equipment, boxes, and job-site waste leave with us — never left for you to bag up." },
+  { icon: Sparkles, title: "Work area wiped down", description: "Dust and fingerprints from the install or repair get cleaned off surfaces before we go." },
+  { icon: ShieldCheck, title: "Floors & walkways protected", description: "We lay down floor protection during the job, so there's nothing to clean up on the way out." },
+  { icon: Check, title: "Final walkthrough with you", description: "We review the finished work together before we consider the job done." },
+];
 import { Link } from "wouter";
 
 export type KeywordImage = {
@@ -278,6 +287,33 @@ export function KeywordServicePage({ page }: { page: KeywordPageData }) {
                   </div>
                 );
               })}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white">
+        <div className="container mx-auto px-4 py-16 md:py-20">
+          <div className="mx-auto max-w-6xl rounded-[2rem] border border-green-100 bg-gradient-to-br from-green-50 to-white p-8 shadow-sm md:p-10">
+            <div className="max-w-2xl">
+              <p className="text-sm font-semibold uppercase tracking-[0.28em] text-green-700">Complimentary Service</p>
+              <h2 className="mt-3 text-3xl font-heading font-bold text-slate-900 md:text-4xl">
+                We Clean Up When We're Done
+              </h2>
+              <p className="mt-4 text-base leading-8 text-slate-600 md:text-lg">
+                Every installation, repair, or upgrade includes a full cleanup of the work area at no extra charge — so your home looks the same, or better, than before we arrived.
+              </p>
+            </div>
+            <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+              {CLEANUP_POINTS.map((point) => (
+                <div key={point.title} className="rounded-2xl border border-green-100 bg-white p-5">
+                  <div className="inline-flex rounded-xl bg-green-100 p-2.5 text-green-700">
+                    <point.icon className="h-5 w-5" />
+                  </div>
+                  <h3 className="mt-4 text-base font-semibold text-slate-900">{point.title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-slate-600">{point.description}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>

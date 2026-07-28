@@ -114,7 +114,7 @@ export const keywordPagesA: KeywordPageData[] = [
     heroLabel: "Ductless Comfort",
     heroTitle: "Mini Split Service in Los Angeles",
     heroSubtitle: "Installation support, repair, and maintenance for ductless mini-split systems in Los Angeles homes, additions, and upgraded comfort zones.",
-    heroImage: { src: "/images/svc-ductless.webp", alt: "Mini split service in a Los Angeles home" },
+    heroImage: { src: "/images/hvac-tech-minisplit-hero.webp", alt: "Technician installing a ductless mini-split system in a Los Angeles home" },
     introHeading: "Ductless Service for Modern Los Angeles Homes",
     introParagraphs: [
       "Mini-split systems have become one of the most useful comfort upgrades for Los Angeles homes because they fit real-world situations so well. A converted garage, a new ADU, an upstairs bedroom that never cools evenly, or a home that does not have good duct access can all benefit from ductless climate control. Bernardino Martin provides mini split service in Los Angeles for homeowners who want efficient targeted comfort without the limitations of a full ducted redesign.",

@@ -14,7 +14,16 @@ import {
   Calendar,
   ChevronDown,
   ChevronRight,
+  Sparkles,
+  Trash2,
 } from "lucide-react";
+
+const CLEANUP_POINTS = [
+  { icon: Trash2, title: "Debris & packaging hauled away", description: "Old equipment, boxes, and job-site waste leave with us — never left for you to bag up." },
+  { icon: Sparkles, title: "Work area wiped down", description: "Dust and fingerprints from the install or repair get cleaned off surfaces before we go." },
+  { icon: Shield, title: "Floors & walkways protected", description: "We lay down floor protection during the job, so there's nothing to clean up on the way out." },
+  { icon: Check, title: "Final walkthrough with you", description: "We review the finished work together before we consider the job done." },
+];
 
 export interface RelatedService {
   name: string;
@@ -375,6 +384,34 @@ export function ServiceDetailTemplate({
                 <span className="text-slate-700 text-sm font-medium leading-relaxed">{item}</span>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── SECTION 3.5: COMPLIMENTARY CLEANUP ──────────────── */}
+      <section className="py-16 md:py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="rounded-3xl border border-green-100 bg-gradient-to-br from-green-50 to-white p-8 shadow-sm md:p-10">
+            <div className="max-w-2xl">
+              <p className="text-sm font-bold uppercase tracking-[0.2em] text-green-700">Complimentary Service</p>
+              <h2 className="mt-3 text-3xl font-bold text-slate-900 md:text-4xl">
+                We Clean Up When We're Done
+              </h2>
+              <p className="mt-4 text-base leading-7 text-slate-600">
+                Every {serviceName.toLowerCase()} job includes a full cleanup of the work area at no extra charge — so your home looks the same, or better, than before we arrived.
+              </p>
+            </div>
+            <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+              {CLEANUP_POINTS.map((point) => (
+                <div key={point.title} className="rounded-2xl border border-green-100 bg-white p-5">
+                  <div className="inline-flex rounded-xl bg-green-100 p-2.5 text-green-700">
+                    <point.icon className="h-5 w-5" aria-hidden="true" />
+                  </div>
+                  <h3 className="mt-4 text-base font-semibold text-slate-900">{point.title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-slate-600">{point.description}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
