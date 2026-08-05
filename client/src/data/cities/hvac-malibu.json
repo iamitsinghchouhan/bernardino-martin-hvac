@@ -28,6 +28,11 @@
     "/images/cities/malibu-hero.webp",
     "/images/cities/malibu-gallery-1.webp"
   ],
+  "landmarkPhoto": {
+    "src": "/images/cities/malibu-hero.webp",
+    "alt": "Bernardino Martin crew working along the Malibu coastline",
+    "caption": "Serving Malibu from the Pacific Coast Highway to the canyons"
+  },
   "metaDescription": "HVAC services in Malibu - AC repair, installation, heating and maintenance from a licensed local contractor. Call (818) 400-0227.",
   "metaKeywords": "HVAC Malibu, AC repair Malibu, heating service Malibu, air conditioning Malibu",
   "localPhone": "(818) 400-0227",

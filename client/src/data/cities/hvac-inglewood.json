@@ -33,6 +33,11 @@
     "/images/cities/inglewood-gallery-2.webp",
     "/images/cities/inglewood-gallery-3.webp"
   ],
+  "landmarkPhoto": {
+    "src": "/images/cities/inglewood-hero.webp",
+    "alt": "The Inglewood city arch sign, served by Bernardino Martin",
+    "caption": "Serving Inglewood — home of SoFi Stadium and the Forum"
+  },
   "metaDescription": "HVAC services in Inglewood - AC repair, installation, heating and maintenance from a licensed local contractor. Call (818) 400-0227.",
   "metaKeywords": "HVAC Inglewood, AC repair Inglewood, heating service Inglewood, air conditioning Inglewood",
   "localPhone": "(818) 400-0227",

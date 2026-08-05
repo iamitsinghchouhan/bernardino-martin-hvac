@@ -32,6 +32,11 @@
     "/images/cities/glendale-gallery-1.webp",
     "/images/cities/glendale-gallery-2.webp"
   ],
+  "landmarkPhoto": {
+    "src": "/images/cities/glendale-hero-2.webp",
+    "alt": "Bernardino Martin technician serving a Glendale, CA neighborhood",
+    "caption": "Serving Glendale homes from Downtown to the Adams Hill foothills"
+  },
   "metaDescription": "Professional HVAC services in Glendale - AC repair, installation, heating and maintenance from a licensed local contractor. Call (818) 400-0227.",
   "metaKeywords": "HVAC Glendale, AC repair Glendale, heating service Glendale, air conditioning Glendale",
   "localPhone": "(818) 400-0227",

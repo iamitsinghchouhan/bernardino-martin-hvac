@@ -30,6 +30,11 @@
     "/images/cities/calabasas-gallery-1.webp",
     "/images/cities/calabasas-gallery-2.webp"
   ],
+  "landmarkPhoto": {
+    "src": "/images/cities/calabasas-hero-2.webp",
+    "alt": "Bernardino Martin crew serving a Calabasas, CA hillside home",
+    "caption": "Serving Calabasas from Old Town to the Mulholland corridor"
+  },
   "metaDescription": "Calabasas HVAC services for premium AC installation, maintenance, heating and ductless comfort upgrades. Call (818) 400-0227.",
   "metaKeywords": "HVAC Calabasas, AC installation Calabasas, heating Calabasas, ductless Calabasas",
   "localPhone": "(818) 400-0227",

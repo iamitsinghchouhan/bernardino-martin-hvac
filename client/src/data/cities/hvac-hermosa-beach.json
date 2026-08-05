@@ -24,6 +24,11 @@
   "responseTime": "20-35 minutes",
   "videoFile": "generic-area-hero.mp4",
   "imageFile": "hermosa-beach-hero.webp",
+  "landmarkPhoto": {
+    "src": "/images/cities/hermosa-beach-hero.webp",
+    "alt": "Bernardino Martin crew serving a Hermosa Beach, CA coastal home",
+    "caption": "Serving Hermosa Beach from The Strand to the Sand Section"
+  },
   "metaDescription": "HVAC services in Hermosa Beach - AC repair, installation, heating and maintenance from a licensed local contractor. Call (818) 400-0227.",
   "metaKeywords": "HVAC Hermosa Beach, AC repair Hermosa Beach, heating service Hermosa Beach, air conditioning Hermosa Beach",
   "localPhone": "(818) 400-0227",

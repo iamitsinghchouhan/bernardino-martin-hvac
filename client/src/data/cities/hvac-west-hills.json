@@ -26,6 +26,11 @@
   "responseTime": "25-40 minutes",
   "videoFile": "city-west-hills.mp4",
   "imageFile": "west-hills-hero-2.webp",
+  "landmarkPhoto": {
+    "src": "/images/cities/west-hills-hero-2.webp",
+    "alt": "Bernardino Martin crew serving a West Hills, CA home",
+    "caption": "Serving West Hills from Shadow Ranch to the Valley Circle corridor"
+  },
   "metaDescription": "West Hills HVAC services for AC repair, installation, maintenance and ductwork improvements. Fast local support. Call (818) 400-0227.",
   "metaKeywords": "HVAC West Hills, AC repair West Hills, AC installation West Hills, ductwork West Hills",
   "localPhone": "(818) 400-0227",

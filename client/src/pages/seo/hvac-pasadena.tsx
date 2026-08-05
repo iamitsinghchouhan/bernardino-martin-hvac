@@ -10,6 +10,8 @@ import {
   SeoRelatedLinks,
   SeoWhyChoose,
 } from "./shared";
+import { LandmarkSpotlight } from "@/components/city-pages/LandmarkSpotlight";
+import { CityServicesShowcase } from "@/components/city-pages/CityServicesShowcase";
 import { Clock, Phone, Shield, Star } from "lucide-react";
 
 const introParagraphs: [string, string, string] = [
@@ -59,6 +61,12 @@ export default function HvacPasadena() {
         imageSrc="/images/cities/pasadena-city-2.webp"
         imageAlt="HVAC technician retrofitting a heating system in a historic Pasadena Craftsman home"
       />
+
+      <LandmarkSpotlight landmarkPhoto={{
+        src: "/images/cities/pasadena-city-2.webp",
+        alt: "Bernardino Martin technician serving a historic Pasadena Craftsman-style neighborhood",
+        caption: "Serving Pasadena's Craftsman and historic homes near Old Pasadena",
+      }} />
 
       <SeoIntro paragraphs={introParagraphs} />
 
@@ -148,6 +156,12 @@ export default function HvacPasadena() {
           </div>
         </div>
       </section>
+
+      <CityServicesShowcase
+        cityName="Pasadena"
+        climateLabel="High inland summer heat with historic housing stock"
+        commonServices={["HVAC Maintenance", "Ductless Mini-Split Systems", "Thermostat Installation & Repair", "AC Installation"]}
+      />
 
       <SeoCtaBanner
         title="Book HVAC Service in Pasadena Today"

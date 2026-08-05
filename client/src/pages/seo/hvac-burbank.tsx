@@ -10,6 +10,8 @@ import {
   SeoRelatedLinks,
   SeoWhyChoose,
 } from "./shared";
+import { LandmarkSpotlight } from "@/components/city-pages/LandmarkSpotlight";
+import { CityServicesShowcase } from "@/components/city-pages/CityServicesShowcase";
 import { Clock, Phone, Shield, Star } from "lucide-react";
 
 const introParagraphs: [string, string, string] = [
@@ -59,6 +61,12 @@ export default function HvacBurbank() {
         imageSrc="/images/cities/burbank-city-2.webp"
         imageAlt="HVAC technician working on a residential rooftop system in Burbank California"
       />
+
+      <LandmarkSpotlight landmarkPhoto={{
+        src: "/images/cities/burbank-city-2.webp",
+        alt: "Warner Bros. water tower visible from a Burbank, CA neighborhood served by Bernardino Martin",
+        caption: "Serving Burbank near the Warner Bros. and Disney studio districts",
+      }} />
 
       <SeoIntro paragraphs={introParagraphs} />
 
@@ -131,6 +139,12 @@ export default function HvacBurbank() {
           </div>
         </div>
       </section>
+
+      <CityServicesShowcase
+        cityName="Burbank"
+        climateLabel="Valley heat with high summer demand"
+        commonServices={["AC Repair & Diagnostics", "HVAC Maintenance", "Duct Cleaning & Installation", "Heating System Services"]}
+      />
 
       <SeoCtaBanner
         title="Book HVAC Service in Burbank Today"

@@ -29,6 +29,11 @@
     "/images/cities/woodland-hills-hero-2.webp",
     "/images/cities/woodland-hills-gallery-1.webp"
   ],
+  "landmarkPhoto": {
+    "src": "/images/cities/woodland-hills-hero-2.webp",
+    "alt": "Bernardino Martin crew serving a Woodland Hills, CA home",
+    "caption": "Serving Woodland Hills from Warner Center to Walnut Acres"
+  },
   "metaDescription": "Woodland Hills HVAC experts for AC installation, repair, maintenance and mini-splits. Built for hot west-valley homes. (818) 400-0227.",
   "metaKeywords": "HVAC Woodland Hills, AC repair Woodland Hills, AC installation Woodland Hills, mini split Woodland Hills",
   "localPhone": "(818) 400-0227",

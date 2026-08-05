@@ -27,6 +27,11 @@
   "responseTime": "15-30 minutes",
   "videoFile": "city-sherman-oaks.mp4",
   "imageFile": "sherman-oaks-hero-2.webp",
+  "landmarkPhoto": {
+    "src": "/images/cities/sherman-oaks-hero-2.webp",
+    "alt": "Bernardino Martin technician serving a Sherman Oaks, CA home",
+    "caption": "Serving Sherman Oaks along Ventura Boulevard and into the hills"
+  },
   "metaDescription": "Sherman Oaks HVAC service for AC repair, installations, tune-ups and ductless upgrades from a licensed local team. (818) 400-0227.",
   "metaKeywords": "HVAC Sherman Oaks, AC repair Sherman Oaks, mini split Sherman Oaks, HVAC maintenance Sherman Oaks",
   "localPhone": "(818) 400-0227",

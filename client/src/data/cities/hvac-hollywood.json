@@ -27,6 +27,11 @@
   "responseTime": "20-35 minutes",
   "videoFile": "city-hollywood.mp4",
   "imageFile": "hollywood-hero-2.webp",
+  "landmarkPhoto": {
+    "src": "/images/cities/hollywood-hero-2.webp",
+    "alt": "The Hollywood Sign above a Hollywood, CA neighborhood served by Bernardino Martin",
+    "caption": "Proudly serving homes in the shadow of the Hollywood Sign"
+  },
   "metaDescription": "Professional HVAC services in Hollywood - AC repair, ductless installation, heating and maintenance for homes and mixed-use spaces. (818) 400-0227.",
   "metaKeywords": "HVAC Hollywood, AC repair Hollywood, ductless Hollywood, heating service Hollywood",
   "localPhone": "(818) 400-0227",

@@ -1,5 +1,6 @@
 import CityPageHero from "@/components/city-pages/CityPageHero";
-import CityServices from "@/components/city-pages/CityServices";
+import { LandmarkSpotlight } from "@/components/city-pages/LandmarkSpotlight";
+import { CityServicesShowcase } from "@/components/city-pages/CityServicesShowcase";
 import InternalCityLinks from "@/components/city-pages/InternalCityLinks";
 import ServiceSlider from "@/components/ServiceSlider";
 import { Button } from "@/components/ui/button";
@@ -62,6 +63,8 @@ export default function CityPageTemplate({ cityData }: CityPageTemplateProps) {
       />
 
       <CityPageHero cityData={cityData} />
+
+      <LandmarkSpotlight landmarkPhoto={cityData.landmarkPhoto} />
 
       {cityData.galleryImages && cityData.galleryImages.length > 0 && (
         <section className="bg-white py-16">
@@ -157,7 +160,11 @@ export default function CityPageTemplate({ cityData }: CityPageTemplateProps) {
         </div>
       </section>
 
-      <CityServices cityData={cityData} />
+      <CityServicesShowcase
+        cityName={cityData.city}
+        climateLabel={cityData.climate}
+        commonServices={cityData.commonServices}
+      />
 
       <ServiceSlider />
 

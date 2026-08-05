@@ -32,6 +32,11 @@
     "/images/cities/santa-monica-gallery-1.webp",
     "/images/cities/santa-monica-gallery-2.webp"
   ],
+  "landmarkPhoto": {
+    "src": "/images/cities/santa-monica-hero-2.webp",
+    "alt": "Ocean Avenue street sign near the Santa Monica Pier, served by Bernardino Martin",
+    "caption": "Serving Santa Monica from Ocean Avenue to the Pier"
+  },
   "metaDescription": "HVAC services in Santa Monica - coastal AC repair, installation, ductless systems and maintenance from a licensed local team. (818) 400-0227.",
   "metaKeywords": "HVAC Santa Monica, AC repair Santa Monica, ductless Santa Monica, heating Santa Monica",
   "localPhone": "(818) 400-0227",

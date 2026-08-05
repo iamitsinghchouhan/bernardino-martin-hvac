@@ -32,6 +32,11 @@
     "/images/cities/san-fernando-valley-gallery-1.webp",
     "/images/cities/san-fernando-valley-gallery-2.webp"
   ],
+  "landmarkPhoto": {
+    "src": "/images/cities/san-fernando-valley-hero-2.webp",
+    "alt": "Bernardino Martin technicians serving a San Fernando Valley neighborhood",
+    "caption": "Serving homes across the San Fernando Valley, from the East Valley to Lake Balboa"
+  },
   "metaDescription": "Trusted HVAC services in San Fernando Valley - AC repair, replacement, heating and maintenance for Valley homes. Call (818) 400-0227 today.",
   "metaKeywords": "HVAC San Fernando Valley, AC repair San Fernando Valley, Valley heating service, Valley HVAC contractor",
   "localPhone": "(818) 400-0227",

@@ -26,6 +26,11 @@
   "responseTime": "20-35 minutes",
   "videoFile": "city-encino.mp4",
   "imageFile": "encino-hero-2.webp",
+  "landmarkPhoto": {
+    "src": "/images/cities/encino-hero-2.webp",
+    "alt": "Bernardino Martin technician serving an Encino, CA home",
+    "caption": "Serving Encino homes along Ventura Boulevard and beyond"
+  },
   "metaDescription": "Encino HVAC services for AC installation, tune-ups, heating and ductless comfort upgrades. Trusted local contractor. (818) 400-0227.",
   "metaKeywords": "HVAC Encino, AC installation Encino, heating service Encino, ductless Encino",
   "localPhone": "(818) 400-0227",

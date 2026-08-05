@@ -41,6 +41,7 @@ const CLEANUP_POINTS = [
   { icon: Check, title: "Final walkthrough with you", description: "We review the finished work together before we consider the job done." },
 ];
 import { ImageLightbox, type LightboxImage } from "@/components/image-lightbox";
+import { useInView } from "@/hooks/use-in-view";
 import { Link } from "wouter";
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
 
@@ -216,27 +217,6 @@ function useActiveSection(count: number) {
   }, [count]);
 
   return { refs, active };
-}
-
-function useInView<T extends HTMLElement>(threshold = 0.3) {
-  const ref = useRef<T>(null);
-  const [inView, setInView] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-          observer.disconnect();
-        }
-      },
-      { threshold },
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [threshold]);
-  return { ref, inView };
 }
 
 /* Mounts its children only once the placeholder scrolls near the viewport. Keeps heavy
@@ -996,14 +976,25 @@ export default function Home() {
       <section className="bg-white py-24">
         <div className="container mx-auto px-4">
           <div className="mx-auto rounded-3xl border border-green-100 bg-gradient-to-br from-green-50 to-white p-8 shadow-sm md:p-12" data-aos="fade-up">
-            <div className="mx-auto max-w-2xl text-center">
-              <p className="mb-4 text-xs font-bold uppercase tracking-[0.3em] text-green-700">Complimentary Service</p>
-              <h2 className="text-display text-4xl md:text-6xl text-slate-950">We Clean Up When We're Done.</h2>
-              <p className="mt-5 text-base leading-7 text-slate-600 md:text-lg">
-                Every installation, repair, or upgrade includes a full cleanup of the work area at no extra charge — so your home looks the same, or better, than before we arrived.
-              </p>
+            <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+              <div className="overflow-hidden rounded-2xl border border-green-100 shadow-sm">
+                <img
+                  src="/images/complimentary-cleanup.webp"
+                  alt="Bernardino Martin technician wiping down a finished mini-split installation"
+                  loading="lazy"
+                  decoding="async"
+                  className="h-full w-full object-cover"
+                />
+              </div>
+              <div>
+                <p className="mb-4 text-xs font-bold uppercase tracking-[0.3em] text-green-700">Complimentary Service</p>
+                <h2 className="text-display text-4xl md:text-5xl text-slate-950">We Clean Up When We're Done.</h2>
+                <p className="mt-5 text-base leading-7 text-slate-600 md:text-lg">
+                  Every installation, repair, or upgrade includes a full cleanup of the work area at no extra charge — so your home looks the same, or better, than before we arrived.
+                </p>
+              </div>
             </div>
-            <div className="mx-auto mt-10 grid max-w-5xl gap-4 md:grid-cols-2 xl:grid-cols-4">
+            <div className="mx-auto mt-10 grid max-w-6xl gap-4 md:grid-cols-2 xl:grid-cols-4">
               {CLEANUP_POINTS.map((point) => (
                 <div key={point.title} className="rounded-2xl border border-green-100 bg-white p-5">
                   <div className="inline-flex rounded-xl bg-green-100 p-2.5 text-green-700">

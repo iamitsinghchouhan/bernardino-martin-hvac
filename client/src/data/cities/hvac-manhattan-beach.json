@@ -24,6 +24,11 @@
   "responseTime": "20-35 minutes",
   "videoFile": "generic-area-hero.mp4",
   "imageFile": "manhattan-beach-hero.webp",
+  "landmarkPhoto": {
+    "src": "/images/cities/manhattan-beach-hero.webp",
+    "alt": "Bernardino Martin crew serving a Manhattan Beach, CA coastal home",
+    "caption": "Serving Manhattan Beach from The Strand to the Hill Section"
+  },
   "metaDescription": "HVAC services in Manhattan Beach - AC repair, installation, heating and maintenance from a licensed local contractor. Call (818) 400-0227.",
   "metaKeywords": "HVAC Manhattan Beach, AC repair Manhattan Beach, heating service Manhattan Beach, air conditioning Manhattan Beach",
   "localPhone": "(818) 400-0227",

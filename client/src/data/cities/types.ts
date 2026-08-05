@@ -20,4 +20,6 @@ export type CityData = {
   googleMyBusinessUrl: string;
   /** Optional — real, city-specific photos (not the generic stock image) for a "Real Work in [City]" gallery. */
   galleryImages?: string[];
+  /** Optional — a real, city-specific landmark photo for the "Landmark Spotlight" section. */
+  landmarkPhoto?: { src: string; alt: string; caption: string };
 };
