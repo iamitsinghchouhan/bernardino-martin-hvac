@@ -6,9 +6,12 @@ import { Link } from "wouter";
 
 type CityPageHeroProps = {
   cityData: CityData;
+  /** Pilot redesign opt-in — defaults to false so every other city keeps the current
+      video hero. When true, renders a slow-zoom photo hero instead (see below). */
+  redesign?: boolean;
 };
 
-export default function CityPageHero({ cityData }: CityPageHeroProps) {
+export default function CityPageHero({ cityData, redesign = false }: CityPageHeroProps) {
   const phoneHref = `tel:${cityData.localPhone.replace(/\D/g, "")}`;
   const videoSchema = buildVideoObjectSchema({
     name: `${cityData.city} HVAC Service`,
@@ -16,6 +19,59 @@ export default function CityPageHero({ cityData }: CityPageHeroProps) {
     thumbnailUrl: `/images/cities/${cityData.imageFile}`,
     contentUrl: `/videos/cities/${cityData.videoFile}`,
   });
+
+  if (redesign) {
+    return (
+      <section className="relative isolate flex min-h-[640px] items-end overflow-hidden bg-slate-950 text-white md:min-h-[760px]">
+        {/* Slow cinematic zoom on the city's real photo — no generic video loop */}
+        <img
+          src={`/images/cities/${cityData.imageFile}`}
+          alt={`${cityData.city} HVAC service area`}
+          className="animate-kenburns absolute inset-0 h-full w-full object-cover"
+          loading="eager"
+          fetchPriority="high"
+          decoding="async"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-slate-950/10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-950/70 via-transparent to-transparent" />
+
+        <div className="container relative z-10 mx-auto px-4 pb-16 pt-32 md:pb-20">
+          <div className="max-w-2xl" data-aos="fade-up">
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-secondary">
+              {cityData.city} HVAC Service
+            </p>
+            <h1 className="text-display mt-4 text-4xl text-white md:text-6xl">
+              Heating and Air Conditioning in {cityData.city}
+            </h1>
+            <p className="mt-5 max-w-xl text-base leading-7 text-slate-200 md:text-lg">
+              Licensed local help for {cityData.city} homes and light commercial spaces, with {cityData.responseTime.toLowerCase()} response times and service built for {cityData.climate.toLowerCase()}.
+            </p>
+
+            {/* Slim inline stat strip instead of 3 boxed pills */}
+            <div className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm font-semibold text-slate-200">
+              <span>{cityData.responseTime} response</span>
+              <span className="text-white/30">&bull;</span>
+              <span>{cityData.population} population served</span>
+              <span className="text-white/30">&bull;</span>
+              <span>ZIP {cityData.zipCodes[0]}</span>
+            </div>
+
+            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+              <Button size="lg" className="bg-white font-semibold text-primary hover:bg-slate-100" asChild>
+                <Link href="/quote">Get Free Quote</Link>
+              </Button>
+              <Button size="lg" variant="outline" className="border-white/30 bg-transparent text-white hover:bg-white/10" asChild>
+                <a href={phoneHref}>
+                  <Phone className="mr-2 h-5 w-5" />
+                  Call Now
+                </a>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="relative isolate overflow-hidden text-white">

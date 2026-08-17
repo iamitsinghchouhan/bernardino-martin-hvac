@@ -7,12 +7,17 @@ import { CategoryBannerVideo } from "@/components/services/CategoryBannerVideo";
 import { ServiceCardTile } from "@/components/services/ServiceCardTile";
 import { ImageLightbox, type LightboxImage } from "@/components/image-lightbox";
 import { useInView } from "@/hooks/use-in-view";
+import { CityServiceCategoryTabs } from "./CityServiceCategoryTabs";
 
 type CityServicesShowcaseProps = {
   cityName: string;
   climateLabel?: string;
   /** cityData.commonServices — titles matched against SERVICES for the highlighted cards. */
   commonServices: string[];
+  /** Pilot redesign opt-in — swaps the repeated 7-category video-banner block (identical to
+      /services' own layout) for a category-tab + master-detail service browser. Defaults to
+      false so every other city keeps the current block unchanged. */
+  redesign?: boolean;
 };
 
 /** One category's video + card grid, mounted only once scrolled near the viewport. The video
@@ -53,7 +58,7 @@ function LazyCategorySection({ cat, onImageClick }: { cat: CategoryMeta; onImage
   );
 }
 
-export function CityServicesShowcase({ cityName, climateLabel, commonServices }: CityServicesShowcaseProps) {
+export function CityServicesShowcase({ cityName, climateLabel, commonServices, redesign = false }: CityServicesShowcaseProps) {
   const highlighted = commonServices
     .map((title) => SERVICES.find((s) => s.title === title))
     .filter((s): s is (typeof SERVICES)[number] => Boolean(s));
@@ -119,26 +124,30 @@ export function CityServicesShowcase({ cityName, climateLabel, commonServices }:
         </div>
       </section>
 
-      {/* Every service, with the same real photos + videos used on the main /services page.
-          Photos/videos are intentionally identical across every city page (that's the point —
-          same crews, same equipment); the intro line below and the rest of the page (unique
-          description, climate, landmarks, service areas) is what keeps each page distinct. */}
-      <section className="bg-white py-16 md:py-20">
-        <div className="container mx-auto px-4">
-          <div className="mx-auto mb-10 max-w-6xl" data-aos="fade-up">
-            <p className="text-sm font-bold uppercase tracking-[0.2em] text-primary">Everything We Offer</p>
-            <h2 className="text-display mt-3 text-3xl text-slate-950 md:text-5xl">
-              Every Service Available in {cityName}
-            </h2>
-            <p className="mt-4 max-w-3xl text-base leading-7 text-slate-600">
-              The full Bernardino Martin lineup, sized for {(climateLabel ?? "local conditions").toLowerCase()} — same trusted crews and transparent pricing, wherever you are in {cityName}.
-            </p>
+      {/* Every service, with the same real photos used on the main /services page (identical
+          images across every city page by design — same crews, same equipment). Redesigned
+          cities get a compact category-tab browser instead of /services' own 7-stacked-banner
+          layout, so the page doesn't read as a repeat of a page a visitor may have just seen. */}
+      {redesign ? (
+        <CityServiceCategoryTabs cityName={cityName} onImageClick={openLightbox} />
+      ) : (
+        <section className="bg-white py-16 md:py-20">
+          <div className="container mx-auto px-4">
+            <div className="mx-auto mb-10 max-w-6xl" data-aos="fade-up">
+              <p className="text-sm font-bold uppercase tracking-[0.2em] text-primary">Everything We Offer</p>
+              <h2 className="text-display mt-3 text-3xl text-slate-950 md:text-5xl">
+                Every Service Available in {cityName}
+              </h2>
+              <p className="mt-4 max-w-3xl text-base leading-7 text-slate-600">
+                The full Bernardino Martin lineup, sized for {(climateLabel ?? "local conditions").toLowerCase()} — same trusted crews and transparent pricing, wherever you are in {cityName}.
+              </p>
+            </div>
           </div>
-        </div>
-        {CATEGORY_DATA.map((cat) => (
-          <LazyCategorySection key={cat.id} cat={cat} onImageClick={openLightbox} />
-        ))}
-      </section>
+          {CATEGORY_DATA.map((cat) => (
+            <LazyCategorySection key={cat.id} cat={cat} onImageClick={openLightbox} />
+          ))}
+        </section>
+      )}
 
       {/* Full catalog — link chips only (not full descriptions), grouped by category */}
       <section className="bg-slate-50 py-16">

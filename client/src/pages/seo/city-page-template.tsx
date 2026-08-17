@@ -93,7 +93,7 @@ export default function CityPageTemplate({ cityData, redesign = false, headline,
         structuredData={structuredData}
       />
 
-      <CityPageHero cityData={cityData} />
+      <CityPageHero cityData={cityData} redesign={redesign} />
 
       <LandmarkSpotlight
         landmarkPhoto={cityData.landmarkPhoto}
@@ -225,6 +225,7 @@ export default function CityPageTemplate({ cityData, redesign = false, headline,
         cityName={cityData.city}
         climateLabel={cityData.climate}
         commonServices={cityData.commonServices}
+        redesign={redesign}
       />
 
       {!redesign && <ServiceSlider />}
