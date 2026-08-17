@@ -69,9 +69,9 @@ export function CityServicesShowcase({ cityName, climateLabel, commonServices }:
       <section className="bg-slate-50 py-16">
         <div className="container mx-auto px-4">
           <div className="mx-auto max-w-6xl">
-            <div className="max-w-3xl">
+            <div className="max-w-3xl" data-aos="fade-up">
               <p className="text-sm font-bold uppercase tracking-[0.2em] text-primary">Core Service Mix</p>
-              <h2 className="mt-3 text-3xl font-heading font-bold text-slate-950 md:text-4xl">
+              <h2 className="text-display mt-3 text-3xl text-slate-950 md:text-5xl">
                 Services Available in {cityName}
               </h2>
               <p className="mt-4 text-base leading-7 text-slate-600">
@@ -81,7 +81,7 @@ export function CityServicesShowcase({ cityName, climateLabel, commonServices }:
 
             <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
               {highlighted.map((service) => (
-                <div key={service.id} className="flex h-full flex-col rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+                <div key={service.id} className="flex h-full flex-col rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl" data-aos="fade-up">
                   <div className="flex items-center gap-3">
                     <div className="rounded-2xl bg-primary/10 p-3 text-primary">
                       <service.icon className="h-6 w-6" />
@@ -125,9 +125,9 @@ export function CityServicesShowcase({ cityName, climateLabel, commonServices }:
           description, climate, landmarks, service areas) is what keeps each page distinct. */}
       <section className="bg-white py-16 md:py-20">
         <div className="container mx-auto px-4">
-          <div className="mx-auto mb-10 max-w-6xl">
+          <div className="mx-auto mb-10 max-w-6xl" data-aos="fade-up">
             <p className="text-sm font-bold uppercase tracking-[0.2em] text-primary">Everything We Offer</p>
-            <h2 className="mt-3 text-3xl font-heading font-bold text-slate-950 md:text-4xl">
+            <h2 className="text-display mt-3 text-3xl text-slate-950 md:text-5xl">
               Every Service Available in {cityName}
             </h2>
             <p className="mt-4 max-w-3xl text-base leading-7 text-slate-600">

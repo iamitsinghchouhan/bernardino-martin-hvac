@@ -49,26 +49,26 @@ export default function CityPageHero({ cityData }: CityPageHeroProps) {
 
       <div className="container relative z-10 mx-auto px-4 py-20 md:py-28">
         <div className="mx-auto max-w-4xl text-center">
-          <h1 className="inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.22em] text-slate-100">
+          <p className="inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.22em] text-slate-100" data-aos="fade-up">
             {cityData.city} HVAC Service
-          </h1>
-          <h2 className="mt-6 text-4xl font-heading font-black tracking-tight text-white md:text-6xl">
+          </p>
+          <h1 className="text-display mt-6 text-4xl text-white md:text-6xl" data-aos="fade-up" data-aos-delay="100">
             Heating and Air Conditioning in {cityData.city}
-          </h2>
-          <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-slate-100 md:text-xl">
+          </h1>
+          <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-slate-100 md:text-xl" data-aos="fade-up" data-aos-delay="150">
             Licensed local help for {cityData.city} homes and light commercial spaces, with {cityData.responseTime.toLowerCase()} response times and service built for {cityData.climate.toLowerCase()}.
           </p>
 
-          <div className="mt-8 flex flex-wrap justify-center gap-4">
-            <div className="rounded-2xl border border-white/15 bg-white/10 px-5 py-3">
+          <div className="mt-8 flex flex-wrap justify-center gap-4" data-aos="fade-up" data-aos-delay="200">
+            <div className="rounded-2xl border border-white/15 bg-white/10 px-5 py-3 transition-colors hover:bg-white/15">
               <div className="text-lg font-bold text-white">{cityData.responseTime}</div>
               <div className="text-xs uppercase tracking-[0.18em] text-slate-200">Typical response</div>
             </div>
-            <div className="rounded-2xl border border-white/15 bg-white/10 px-5 py-3">
+            <div className="rounded-2xl border border-white/15 bg-white/10 px-5 py-3 transition-colors hover:bg-white/15">
               <div className="text-lg font-bold text-white">{cityData.population}</div>
               <div className="text-xs uppercase tracking-[0.18em] text-slate-200">Population served</div>
             </div>
-            <div className="rounded-2xl border border-white/15 bg-white/10 px-5 py-3">
+            <div className="rounded-2xl border border-white/15 bg-white/10 px-5 py-3 transition-colors hover:bg-white/15">
               <div className="text-lg font-bold text-white">{cityData.zipCodes[0]}</div>
               <div className="text-xs uppercase tracking-[0.18em] text-slate-200">Primary ZIP</div>
             </div>
