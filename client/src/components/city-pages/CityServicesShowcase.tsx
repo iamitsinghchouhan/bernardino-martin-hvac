@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "wouter";
 import { ArrowRight, Check } from "lucide-react";
-import { SERVICES, SERVICE_CATEGORIES } from "@/lib/constants";
+import { SERVICES } from "@/lib/constants";
 import { CATEGORY_DATA, type CategoryMeta } from "@/data/service-catalog";
 import { CategoryBannerVideo } from "@/components/services/CategoryBannerVideo";
 import { ServiceCardTile } from "@/components/services/ServiceCardTile";
@@ -160,26 +160,22 @@ export function CityServicesShowcase({ cityName, climateLabel, commonServices, r
               Beyond our most-requested work above, we also handle the full range of home services below.
             </p>
             <div className="mt-6 space-y-5">
-              {SERVICE_CATEGORIES.map((category) => {
-                const categoryServices = SERVICES.filter((s) => s.category === category);
-                if (categoryServices.length === 0) return null;
-                return (
-                  <div key={category}>
-                    <p className="text-xs font-bold uppercase tracking-[0.18em] text-primary">{category}</p>
-                    <div className="mt-2 flex flex-wrap gap-2">
-                      {categoryServices.map((service) => (
-                        <Link
-                          key={service.id}
-                          href={`/services/${service.id}`}
-                          className="rounded-full border border-slate-200 bg-slate-50 px-3.5 py-1.5 text-sm font-medium text-slate-700 transition-colors hover:border-primary/30 hover:bg-primary/5 hover:text-primary"
-                        >
-                          {service.title}
-                        </Link>
-                      ))}
-                    </div>
+              {CATEGORY_DATA.map((cat) => (
+                <div key={cat.id}>
+                  <p className="text-xs font-bold uppercase tracking-[0.18em] text-primary">{cat.name}</p>
+                  <div className="mt-2 flex flex-wrap gap-2">
+                    {cat.services.map((svc) => (
+                      <Link
+                        key={svc.slug}
+                        href={`/services/${svc.slug}`}
+                        className="rounded-full border border-slate-200 bg-slate-50 px-3.5 py-1.5 text-sm font-medium text-slate-700 transition-colors hover:border-primary/30 hover:bg-primary/5 hover:text-primary"
+                      >
+                        {svc.name}
+                      </Link>
+                    ))}
                   </div>
-                );
-              })}
+                </div>
+              ))}
             </div>
           </div>
         </div>
