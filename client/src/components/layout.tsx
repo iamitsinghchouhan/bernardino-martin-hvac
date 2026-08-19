@@ -3,7 +3,7 @@ import { Phone, Menu, Calendar, MessageCircle, ShieldCheck, AlertCircle, Instagr
 import { useState, useEffect, lazy, Suspense } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { COMPANY_PHONE, COMPANY_NAME, COMPANY_FULL, getWhatsAppLink } from "@/lib/constants";
+import { COMPANY_PHONE, COMPANY_NAME, COMPANY_FULL, getWhatsAppLink, CITIES, CITY_PAGE_LINKS } from "@/lib/constants";
 import { trackEvent } from "@/hooks/use-analytics";
 const ChatWidget = lazy(() => import("@/components/chat-widget").then(m => ({ default: m.ChatWidget })));
 
@@ -29,38 +29,9 @@ const FOOTER_SERVICE_PAGES = [
   { href: "/new-installation-los-angeles", label: "New Installation LA" },
 ];
 
-const FOOTER_SERVICE_AREAS = [
-  { href: "/hvac-burbank", label: "Burbank" },
-  { href: "/hvac-glendale", label: "Glendale" },
-  { href: "/hvac-pasadena", label: "Pasadena" },
-  { href: "/hvac-san-fernando-valley", label: "San Fernando Valley" },
-  { href: "/hvac-santa-monica", label: "Santa Monica" },
-  { href: "/hvac-hollywood", label: "Hollywood" },
-  { href: "/hvac-north-hollywood", label: "North Hollywood" },
-  { href: "/hvac-van-nuys", label: "Van Nuys" },
-  { href: "/hvac-chatsworth", label: "Chatsworth" },
-  { href: "/hvac-northridge", label: "Northridge" },
-  { href: "/hvac-reseda", label: "Reseda" },
-  { href: "/hvac-canoga-park", label: "Canoga Park" },
-  { href: "/hvac-woodland-hills", label: "Woodland Hills" },
-  { href: "/hvac-calabasas", label: "Calabasas" },
-  { href: "/hvac-sherman-oaks", label: "Sherman Oaks" },
-  { href: "/hvac-studio-city", label: "Studio City" },
-  { href: "/hvac-encino", label: "Encino" },
-  { href: "/hvac-tarzana", label: "Tarzana" },
-  { href: "/hvac-west-hills", label: "West Hills" },
-  { href: "/hvac-redondo-beach", label: "Redondo Beach" },
-  { href: "/hvac-hermosa-beach", label: "Hermosa Beach" },
-  { href: "/hvac-playa-del-rey", label: "Playa del Rey" },
-  { href: "/hvac-inglewood", label: "Inglewood" },
-  { href: "/hvac-culver-city", label: "Culver City" },
-  { href: "/hvac-torrance", label: "Torrance" },
-  { href: "/hvac-malibu", label: "Malibu" },
-  { href: "/hvac-long-beach", label: "Long Beach" },
-  { href: "/hvac-gardena", label: "Gardena" },
-  { href: "/hvac-hawthorne", label: "Hawthorne" },
-  { href: "/hvac-manhattan-beach", label: "Manhattan Beach" },
-];
+// Derived from the same CITIES/CITY_PAGE_LINKS single source of truth used by the homepage
+// service-area map and /service-areas — so the footer can never drift out of sync again.
+const FOOTER_SERVICE_AREAS = CITIES.map((city) => ({ href: CITY_PAGE_LINKS[city], label: city }));
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const [location] = useLocation();
@@ -522,23 +493,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
             <div>
               <h3 className="text-white font-bold mb-4 font-heading">Service Areas</h3>
               <ul className="columns-2 space-y-1 text-sm">
-                <li><a href="/hvac-glendale" aria-label="HVAC services in Glendale" className="hover:text-secondary transition-colors block py-1">Glendale</a></li>
-                <li><a href="/hvac-san-fernando-valley" aria-label="HVAC services in San Fernando Valley" className="hover:text-secondary transition-colors block py-1">San Fernando Valley</a></li>
-                <li><a href="/hvac-santa-monica" aria-label="HVAC services in Santa Monica" className="hover:text-secondary transition-colors block py-1">Santa Monica</a></li>
-                <li><a href="/hvac-hollywood" aria-label="HVAC services in Hollywood" className="hover:text-secondary transition-colors block py-1">Hollywood</a></li>
-                <li><a href="/hvac-north-hollywood" aria-label="HVAC services in North Hollywood" className="hover:text-secondary transition-colors block py-1">North Hollywood</a></li>
-                <li><a href="/hvac-van-nuys" aria-label="HVAC services in Van Nuys" className="hover:text-secondary transition-colors block py-1">Van Nuys</a></li>
-                <li><a href="/hvac-chatsworth" aria-label="HVAC services in Chatsworth" className="hover:text-secondary transition-colors block py-1">Chatsworth</a></li>
-                <li><a href="/hvac-northridge" aria-label="HVAC services in Northridge" className="hover:text-secondary transition-colors block py-1">Northridge</a></li>
-                <li><a href="/hvac-reseda" aria-label="HVAC services in Reseda" className="hover:text-secondary transition-colors block py-1">Reseda</a></li>
-                <li><a href="/hvac-canoga-park" aria-label="HVAC services in Canoga Park" className="hover:text-secondary transition-colors block py-1">Canoga Park</a></li>
-                <li><a href="/hvac-woodland-hills" aria-label="HVAC services in Woodland Hills" className="hover:text-secondary transition-colors block py-1">Woodland Hills</a></li>
-                <li><a href="/hvac-calabasas" aria-label="HVAC services in Calabasas" className="hover:text-secondary transition-colors block py-1">Calabasas</a></li>
-                <li><a href="/hvac-sherman-oaks" aria-label="HVAC services in Sherman Oaks" className="hover:text-secondary transition-colors block py-1">Sherman Oaks</a></li>
-                <li><a href="/hvac-studio-city" aria-label="HVAC services in Studio City" className="hover:text-secondary transition-colors block py-1">Studio City</a></li>
-                <li><a href="/hvac-encino" aria-label="HVAC services in Encino" className="hover:text-secondary transition-colors block py-1">Encino</a></li>
-                <li><a href="/hvac-tarzana" aria-label="HVAC services in Tarzana" className="hover:text-secondary transition-colors block py-1">Tarzana</a></li>
-                <li><a href="/hvac-west-hills" aria-label="HVAC services in West Hills" className="hover:text-secondary transition-colors block py-1">West Hills</a></li>
+                {CITIES.map((city) => (
+                  <li key={city}>
+                    <a href={CITY_PAGE_LINKS[city]} aria-label={`HVAC services in ${city}`} className="hover:text-secondary transition-colors block py-1">{city}</a>
+                  </li>
+                ))}
               </ul>
             </div>
 

@@ -61,6 +61,7 @@ const findService = (id: string) => {
 const EXTRA_CITY_LINKS = [
   { city: "Burbank", slug: "hvac-burbank" },
   { city: "Pasadena", slug: "hvac-pasadena" },
+  { city: "Los Angeles", slug: "hvac-los-angeles" },
 ];
 const TOTAL_CITY_PAGES = allCities.length + EXTRA_CITY_LINKS.length;
 

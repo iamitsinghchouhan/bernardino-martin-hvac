@@ -27,6 +27,8 @@ import city25 from "./hvac-long-beach.json";
 import city26 from "./hvac-gardena.json";
 import city27 from "./hvac-hawthorne.json";
 import city28 from "./hvac-manhattan-beach.json";
+import city29 from "./hvac-el-segundo.json";
+import city30 from "./hvac-west-hollywood.json";
 
 const allCities: CityData[] = [
   city1,
@@ -57,6 +59,8 @@ const allCities: CityData[] = [
   city26,
   city27,
   city28,
+  city29,
+  city30,
 ];
 
 export default allCities;

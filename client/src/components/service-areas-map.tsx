@@ -40,7 +40,22 @@ const cityCoordinates: Record<string, [number, number]> = {
   "West Hollywood": [34.0900, -118.3617],
   "Manhattan Beach": [33.8847, -118.4109],
   "San Fernando Valley": [34.2083, -118.5365],
-  "Playa Del Rey": [33.9575, -118.4484]
+  "Playa Del Rey": [33.9575, -118.4484],
+  "Hollywood": [34.0928, -118.3287],
+  "Pasadena": [34.1478, -118.1445],
+  "North Hollywood": [34.1870, -118.3813],
+  "Van Nuys": [34.1867, -118.4487],
+  "Chatsworth": [34.2572, -118.5992],
+  "Northridge": [34.2381, -118.5292],
+  "Reseda": [34.2011, -118.5353],
+  "Canoga Park": [34.2011, -118.5989],
+  "Woodland Hills": [34.1684, -118.6059],
+  "Calabasas": [34.1367, -118.6615],
+  "Sherman Oaks": [34.1508, -118.4489],
+  "Studio City": [34.1408, -118.3965],
+  "Encino": [34.1592, -118.5079],
+  "Tarzana": [34.1730, -118.5531],
+  "West Hills": [34.2011, -118.6431]
 };
 
 export function ServiceAreasMap() {
