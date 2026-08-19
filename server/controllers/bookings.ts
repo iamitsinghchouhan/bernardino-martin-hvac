@@ -2,12 +2,14 @@ import type { Request, Response, NextFunction } from "express";
 import { storage } from "../storage";
 import { insertBookingSchema } from "@shared/schema";
 import { scheduleRemindersForBooking } from "../reminder-engine";
+import { notifyNewBooking } from "../services/notifications";
 
 export async function createBooking(req: Request, res: Response, next: NextFunction) {
   try {
     const data = insertBookingSchema.parse(req.body);
     const booking = await storage.createBooking(data);
     await scheduleRemindersForBooking(booking);
+    notifyNewBooking(booking);
     res.status(201).json(booking);
   } catch (err) {
     next(err);

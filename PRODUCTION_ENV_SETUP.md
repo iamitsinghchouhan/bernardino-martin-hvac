@@ -89,6 +89,19 @@ openssl rand -base64 24
 **Purpose**: Port for the Node.js server
 **Value**: `3000` (default, should be behind reverse proxy like Nginx)
 
+### 6. EMAIL_USER / EMAIL_PASS (Optional — needed for email features)
+**Purpose**: Gmail credentials used to send admin "reply to contact" emails and owner
+notification emails (new booking/quote/contact alerts). The app runs fine without these — email
+sending is skipped and logged as an error, nothing else is affected.
+**EMAIL_USER**: the Gmail address to send from (e.g. `you@gmail.com`)
+**EMAIL_PASS**: a Gmail **App Password** (not your regular Gmail password) — generate one at
+https://myaccount.google.com/apppasswords (requires 2-Step Verification enabled on the account)
+
+### 7. OWNER_NOTIFICATION_EMAIL (Optional)
+**Purpose**: Where new booking/quote/contact alert emails are sent. Defaults to `EMAIL_USER` if
+unset, so this only needs to be set if you want alerts to go to a different inbox than the one
+email is sent *from*.
+
 ## VPS Setup Instructions
 
 ### Step 1: SSH to Production Server
@@ -123,6 +136,11 @@ NODE_ENV=production
 
 # Application Port
 PORT=3000
+
+# Email (optional — enables admin reply emails + new lead notifications)
+EMAIL_USER=you@gmail.com
+EMAIL_PASS=your16charapppassword
+OWNER_NOTIFICATION_EMAIL=you@gmail.com
 ```
 
 ### Step 4: Save and Exit
