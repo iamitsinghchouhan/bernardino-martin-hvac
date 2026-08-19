@@ -1,4 +1,20 @@
+import { Check } from "lucide-react";
 import { ServiceDetailTemplate } from "./template";
+
+const ENERGY_LOAD_ITEMS = [
+  "Air conditioning & mini splits",
+  "Heat pumps & furnaces",
+  "Refrigerators & freezers",
+  "Microwaves & ovens",
+  "Dishwashers",
+  "Washers & dryers",
+  "TVs & computers",
+  "Internet equipment",
+  "Lighting & bulb wattage",
+  "Ceiling fans",
+  "Security & smart home devices",
+  "EV charging requirements",
+];
 
 export default function SolarInstall() {
   return (
@@ -37,6 +53,38 @@ export default function SolarInstall() {
       ]}
       duration="1-2 days"
       startingPrice="Free estimate"
+      extraSection={
+        <section className="bg-amber-50 py-16">
+          <div className="container mx-auto px-4">
+            <div className="mx-auto max-w-5xl">
+              <p className="text-sm font-bold uppercase tracking-[0.2em] text-amber-700">How We Design Your System</p>
+              <h2 className="text-display mt-3 text-3xl text-slate-950 md:text-4xl">
+                Every Solar Installation Begins With a Complete Energy Assessment
+              </h2>
+              <p className="mt-4 max-w-3xl text-base leading-7 text-slate-700">
+                We don't guess. We calculate. Before recommending a system, we carefully evaluate your home's total electrical consumption &mdash; including future needs like adding an EV, a new charger, or other appliances, so your system is designed with room to grow.
+              </p>
+
+              <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {ENERGY_LOAD_ITEMS.map((item) => (
+                  <div key={item} className="flex items-center gap-2 rounded-xl bg-white px-4 py-3 text-sm font-medium text-slate-700 shadow-sm">
+                    <Check className="h-4 w-4 shrink-0 text-amber-600" />
+                    {item}
+                  </div>
+                ))}
+              </div>
+
+              <p className="mt-8 max-w-3xl text-base leading-7 text-slate-700">
+                We also evaluate your roof condition, space, sun exposure, and orientation to maximize long-term performance. Based on this assessment, we determine the proper number of panels, inverter capacity, and electrical equipment to engineer a system built for your home's needs today &mdash; and prepared for tomorrow's.
+              </p>
+
+              <div className="mt-6 rounded-2xl border border-amber-200 bg-white p-5 text-sm leading-6 text-slate-600">
+                <strong className="text-slate-900">Before your assessment:</strong> we ask homeowners to provide up to 12 months of electric bills, so we can understand your actual energy use and evaluate all major electrical loads.
+              </div>
+            </div>
+          </div>
+        </section>
+      }
       relatedServices={[
         { name: "Solar System Maintenance", slug: "solar-maintenance" },
         { name: "Solar Inverter Installation", slug: "solar-inverter" },
