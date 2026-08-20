@@ -587,6 +587,8 @@ export const CITIES = [
   "Encino",
   "Tarzana",
   "West Hills",
+  "Westchester",
+  "Lennox",
 ];
 
 /** Single source of truth for city name -> city page URL, shared by the /service-areas
@@ -626,4 +628,6 @@ export const CITY_PAGE_LINKS: Record<string, string> = {
   Encino: "/hvac-encino",
   Tarzana: "/hvac-tarzana",
   "West Hills": "/hvac-west-hills",
+  Westchester: "/hvac-westchester",
+  Lennox: "/hvac-lennox",
 };

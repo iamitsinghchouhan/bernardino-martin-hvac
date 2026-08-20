@@ -55,7 +55,9 @@ const cityCoordinates: Record<string, [number, number]> = {
   "Studio City": [34.1408, -118.3965],
   "Encino": [34.1592, -118.5079],
   "Tarzana": [34.1730, -118.5531],
-  "West Hills": [34.2011, -118.6431]
+  "West Hills": [34.2011, -118.6431],
+  "Westchester": [33.9622, -118.4011],
+  "Lennox": [33.9381, -118.3576]
 };
 
 export function ServiceAreasMap() {

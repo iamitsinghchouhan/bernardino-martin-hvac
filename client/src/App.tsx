@@ -80,6 +80,8 @@ const HvacHawthorne = lazy(() => import("@/pages/seo/hvac-hawthorne"));
 const HvacManhattanBeach = lazy(() => import("@/pages/seo/hvac-manhattan-beach"));
 const HvacElSegundo = lazy(() => import("@/pages/seo/hvac-el-segundo"));
 const HvacWestHollywood = lazy(() => import("@/pages/seo/hvac-west-hollywood"));
+const HvacWestchester = lazy(() => import("@/pages/seo/hvac-westchester"));
+const HvacLennox = lazy(() => import("@/pages/seo/hvac-lennox"));
 
 // ── Service detail pages ──────────────────────────────────────────────────
 const SvcHvacRepair = lazy(() => import("@/pages/service-detail/hvac-repair"));
@@ -220,6 +222,8 @@ function Router() {
         <Route path="/hvac-manhattan-beach" component={HvacManhattanBeach} />
         <Route path="/hvac-el-segundo" component={HvacElSegundo} />
         <Route path="/hvac-west-hollywood" component={HvacWestHollywood} />
+        <Route path="/hvac-westchester" component={HvacWestchester} />
+        <Route path="/hvac-lennox" component={HvacLennox} />
         <Route path="/air-conditioning-service-los-angeles" component={AirConditioningServiceLosAngeles} />
         <Route path="/ac-repair-los-angeles" component={AcRepairLosAngeles} />
         <Route path="/mini-split-service-los-angeles" component={MiniSplitServiceLosAngeles} />

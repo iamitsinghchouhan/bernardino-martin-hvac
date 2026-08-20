@@ -1,0 +1,43 @@
+{
+  "id": 31,
+  "city": "Westchester",
+  "slug": "hvac-westchester",
+  "region": "LAX Gateway",
+  "population": "~42,600",
+  "zipCodes": [
+    "90045",
+    "90056"
+  ],
+  "description": "Westchester is a Westside Los Angeles neighborhood built around Loyola Marymount University and the LAX flight path, with a mix of single-family homes near The Loop and apartments closer to the airport. Bernardino Martin helps Westchester homeowners and property managers with AC repair, heating service, and maintenance built to perform reliably in a marine-layer coastal climate.",
+  "climate": "Coastal marine layer with foggy, cool mornings near the airport and the coast, warming through clear afternoons",
+  "commonServices": [
+    "AC Repair & Diagnostics",
+    "HVAC Maintenance",
+    "Duct Cleaning & Installation",
+    "Heating System Services"
+  ],
+  "serviceAreas": [
+    "The Loop",
+    "Kentwood",
+    "North Westchester",
+    "LAX-adjacent Westchester"
+  ],
+  "responseTime": "20-35 minutes",
+  "videoFile": "generic-area-hero.mp4",
+  "imageFile": "generic-area-hero.png",
+  "metaDescription": "HVAC services in Westchester - AC repair, installation, heating and maintenance from a licensed local contractor. Call (818) 400-0227.",
+  "metaKeywords": "HVAC Westchester, AC repair Westchester, heating service Westchester, air conditioning Westchester",
+  "localPhone": "(818) 400-0227",
+  "nearestCities": [
+    "Playa del Rey",
+    "Culver City",
+    "El Segundo",
+    "Inglewood"
+  ],
+  "notableLandmarks": [
+    "Loyola Marymount University",
+    "Los Angeles International Airport",
+    "Otis College of Art and Design"
+  ],
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+}

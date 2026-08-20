@@ -1,0 +1,42 @@
+{
+  "id": 32,
+  "city": "Lennox",
+  "slug": "hvac-lennox",
+  "region": "South Bay",
+  "population": "~20,000",
+  "zipCodes": [
+    "90304"
+  ],
+  "description": "Lennox is a tight-knit, unincorporated Los Angeles County community bordering LAX, with a dense mix of single-family homes and apartments along the Hawthorne Boulevard corridor. Bernardino Martin helps Lennox homeowners and property managers with AC repair, heating service, and maintenance built for everyday reliability across a range of home ages and sizes.",
+  "climate": "Moderate South Bay climate with coastal influence in the mornings and warmer inland afternoons",
+  "commonServices": [
+    "AC Repair & Diagnostics",
+    "HVAC Maintenance",
+    "Duct Cleaning & Installation",
+    "Heating System Services"
+  ],
+  "serviceAreas": [
+    "Lennox Park area",
+    "Hawthorne Boulevard corridor",
+    "North Lennox",
+    "South Lennox near LAX"
+  ],
+  "responseTime": "20-35 minutes",
+  "videoFile": "generic-area-hero.mp4",
+  "imageFile": "generic-area-hero.png",
+  "metaDescription": "HVAC services in Lennox - AC repair, installation, heating and maintenance from a licensed local contractor. Call (818) 400-0227.",
+  "metaKeywords": "HVAC Lennox, AC repair Lennox, heating service Lennox, air conditioning Lennox",
+  "localPhone": "(818) 400-0227",
+  "nearestCities": [
+    "Inglewood",
+    "Hawthorne",
+    "Gardena",
+    "El Segundo"
+  ],
+  "notableLandmarks": [
+    "Lennox Park",
+    "Los Angeles International Airport",
+    "Hawthorne Boulevard"
+  ],
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+}
