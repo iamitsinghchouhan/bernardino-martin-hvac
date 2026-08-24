@@ -7,7 +7,7 @@ export default function SolarIrrigation() {
       slug="solar-irrigation"
       category="Solar & Energy"
       categoryColor="amber"
-      heroVideo="/videos/svc-solar.mp4"
+      heroVideo="/videos/svc-solar-irrigation.mp4"
       heroImage="/images/svc-smart-irrigation.png"
       tagline="Eco-friendly solar-powered watering systems — run your irrigation for free with sunshine"
       overview={[
