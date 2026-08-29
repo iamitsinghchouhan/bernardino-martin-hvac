@@ -1,4 +1,5 @@
 import type { CityData } from "@/data/cities/types";
+import { getCityPageByName } from "@/data/city-pages";
 import { Link } from "wouter";
 
 type InternalCityLinksProps = {
@@ -10,9 +11,10 @@ export default function InternalCityLinks({
   currentCity,
   allCities,
 }: InternalCityLinksProps) {
+  void allCities;
   const nearbyCities = currentCity.nearestCities
-    .map((cityName) => allCities.find((city) => city.city === cityName))
-    .filter((city): city is CityData => Boolean(city));
+    .map((cityName) => getCityPageByName(cityName))
+    .filter((city): city is NonNullable<ReturnType<typeof getCityPageByName>> => Boolean(city));
 
   if (!nearbyCities.length) {
     return null;
@@ -37,11 +39,11 @@ export default function InternalCityLinks({
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {nearbyCities.map((city) => (
               <Link
-                key={city.slug}
-                href={`/${city.slug}`}
+                key={city.path}
+                href={city.path}
                 className="rounded-2xl border border-slate-200 bg-slate-50 px-5 py-4 text-center text-sm font-semibold text-slate-800 transition-colors hover:border-primary/30 hover:bg-primary hover:text-white"
               >
-                {city.city}
+                {city.name}
               </Link>
             ))}
           </div>

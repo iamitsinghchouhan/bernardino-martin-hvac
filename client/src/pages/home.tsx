@@ -12,7 +12,6 @@ import {
   COMPANY_FULL,
   getWhatsAppLink,
 } from "@/lib/constants";
-import { buildVideoObjectSchema } from "@/lib/video-schema";
 import allCities from "@/data/cities/all-cities";
 import { PROJECTS } from "@/data/projects";
 import {
@@ -321,17 +320,8 @@ function StatementBreak({ dark, text }: { dark?: boolean; text: string }) {
 function VideoReelSection() {
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
 
-  const reelSchema = buildVideoObjectSchema({
-    name: "Bernardino Martin HVAC, Solar & Plumbing Services Showcase",
-    description: "A showcase of HVAC, solar, plumbing, electrical, landscaping, irrigation, and network installation work performed by Bernardino Martin in Los Angeles.",
-    thumbnailUrl: "/images/real-solar-install.webp",
-    contentUrl: "/videos/hvac-repair-outdoor.mp4",
-  });
-
   return (
     <section className="bg-slate-950 py-12">
-      <script type="application/ld+json">{JSON.stringify(reelSchema)}</script>
-
       <div className="container mx-auto px-4">
         <div className="mb-6 flex items-baseline justify-between">
           <div>

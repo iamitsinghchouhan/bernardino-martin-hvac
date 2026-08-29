@@ -4,7 +4,6 @@ import { Layout } from "@/components/layout";
 import { SEO } from "@/components/seo";
 import { SERVICES, SERVICE_CATEGORIES, getWhatsAppLink } from "@/lib/constants";
 import type { Service, ServiceCategory } from "@/lib/constants";
-import { buildVideoObjectSchema } from "@/lib/video-schema";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import {

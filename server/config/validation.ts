@@ -5,6 +5,10 @@
  */
 
 export function validateEnvironmentVariables() {
+  if (process.env.SKIP_DB_VALIDATION === "true") {
+    console.warn('⚠ SKIP_DB_VALIDATION=true — skipping strict environment variable checks for local validation');
+    return true;
+  }
   const requiredEnvVars = [
     'DATABASE_URL',
     'SESSION_SECRET',

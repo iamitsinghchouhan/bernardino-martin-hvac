@@ -8,6 +8,7 @@ import ServiceSlider from "@/components/ServiceSlider";
 import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/layout";
 import { SEO } from "@/components/seo";
+import { getCityBreadcrumbSchema } from "@/components/city-pages/CityBreadcrumb";
 import { ImageLightbox, type LightboxImage } from "@/components/image-lightbox";
 import allCities from "@/data/cities/all-cities";
 import type { CityData } from "@/data/cities/types";
@@ -60,32 +61,35 @@ export default function CityPageTemplate({ cityData, redesign = false, headline,
     return list;
   }, [cityData]);
 
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    name: `Bernardino Martin HVAC - ${cityData.city}`,
-    image: `https://bernardinomartinhvac.com${image}`,
-    description: cityData.description,
-    telephone: cityData.localPhone,
-    address: businessAddress,
-    url: canonical,
-    areaServed: {
-      "@type": "City",
-      name: cityData.city,
+  const structuredData = [
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      name: `Bernardino Martin HVAC - ${cityData.city}`,
+      image: `https://bernardinomartinhvac.com${image}`,
+      description: cityData.description,
+      telephone: cityData.localPhone,
+      address: businessAddress,
+      url: canonical,
+      areaServed: {
+        "@type": "City",
+        name: cityData.city,
+      },
+      serviceType: [
+        "HVAC Repair",
+        "Air Conditioning Installation",
+        "Heating Service",
+        "HVAC Maintenance",
+      ],
+      priceRange: "$$",
     },
-    serviceType: [
-      "HVAC Repair",
-      "Air Conditioning Installation",
-      "Heating Service",
-      "HVAC Maintenance",
-    ],
-    priceRange: "$$",
-  };
+    getCityBreadcrumbSchema(cityData.city, `/${cityData.slug}`),
+  ];
 
   return (
     <Layout>
       <SEO
-        title={`HVAC Services in ${cityData.city} - Bernardino Martin Heating & Cooling`}
+        title={`HVAC Services in ${cityData.city}, CA | Bernardino Martin`}
         description={cityData.metaDescription}
         keywords={cityData.metaKeywords}
         canonical={canonical}

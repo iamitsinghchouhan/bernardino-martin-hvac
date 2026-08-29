@@ -12,6 +12,7 @@ import {
 } from "./shared";
 import { LandmarkSpotlight } from "@/components/city-pages/LandmarkSpotlight";
 import { CityServicesShowcase } from "@/components/city-pages/CityServicesShowcase";
+import { getCityBreadcrumbSchema } from "@/components/city-pages/CityBreadcrumb";
 import { Clock, Phone, Shield, Star } from "lucide-react";
 
 const introParagraphs: [string, string, string] = [
@@ -49,6 +50,8 @@ export default function HvacPasadena() {
       <SEO
         title="HVAC Services in Pasadena, CA | Bernardino Martin"
         description="Trusted HVAC repair & installation in Pasadena, CA. Serving historic homes & modern properties. Call (818) 400-0227."
+        canonical="/hvac-pasadena"
+        structuredData={getCityBreadcrumbSchema("Pasadena", "/hvac-pasadena")}
       />
 
       <CityHero

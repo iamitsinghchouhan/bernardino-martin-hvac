@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { CityBreadcrumb } from "@/components/city-pages/CityBreadcrumb";
 import type { CityData } from "@/data/cities/types";
-import { buildVideoObjectSchema } from "@/lib/video-schema";
 import { Phone, Volume2, VolumeX } from "lucide-react";
 import { Link } from "wouter";
 
@@ -17,12 +17,6 @@ export default function CityPageHero({ cityData, redesign = false }: CityPageHer
   const phoneHref = `tel:${cityData.localPhone.replace(/\D/g, "")}`;
   const videoRef = useRef<HTMLVideoElement>(null);
   const [muted, setMuted] = useState(true);
-  const videoSchema = buildVideoObjectSchema({
-    name: `${cityData.city} HVAC Service`,
-    description: cityData.metaDescription,
-    thumbnailUrl: `/images/cities/${cityData.imageFile}`,
-    contentUrl: `/videos/cities/${cityData.videoFile}`,
-  });
 
   if (redesign) {
     // Only feature the video card when this city has its own real, dedicated clip — the
@@ -39,7 +33,6 @@ export default function CityPageHero({ cityData, redesign = false }: CityPageHer
 
     return (
       <section className="relative isolate flex min-h-[640px] items-end overflow-hidden bg-slate-950 text-white md:min-h-[760px]">
-        {hasRealVideo && <script type="application/ld+json">{JSON.stringify(videoSchema)}</script>}
         {/* Slow cinematic zoom on the city's real photo — the page's visual anchor */}
         <img
           src={`/images/cities/${cityData.imageFile}`}
@@ -55,11 +48,12 @@ export default function CityPageHero({ cityData, redesign = false }: CityPageHer
         <div className="container relative z-10 mx-auto px-4 pb-16 pt-32 md:pb-20">
           <div className="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-2xl" data-aos="fade-up">
+              <CityBreadcrumb cityName={cityData.city} cityPath={`/${cityData.slug}`} />
               <p className="text-xs font-semibold uppercase tracking-[0.3em] text-secondary">
                 {cityData.city} HVAC Service
               </p>
               <h1 className="text-display mt-4 text-4xl text-white md:text-6xl">
-                Heating and Air Conditioning in {cityData.city}
+                HVAC Services in {cityData.city}, CA
               </h1>
               <p className="mt-5 max-w-xl text-base leading-7 text-slate-200 md:text-lg">
                 Licensed local help for {cityData.city} homes and light commercial spaces, with {cityData.responseTime.toLowerCase()} response times and service built for {cityData.climate.toLowerCase()}.
@@ -130,7 +124,6 @@ export default function CityPageHero({ cityData, redesign = false }: CityPageHer
 
   return (
     <section className="relative isolate overflow-hidden text-white">
-      <script type="application/ld+json">{JSON.stringify(videoSchema)}</script>
       <div className="absolute inset-0">
         <img
           src={`/images/cities/${cityData.imageFile}`}
@@ -160,11 +153,12 @@ export default function CityPageHero({ cityData, redesign = false }: CityPageHer
 
       <div className="container relative z-10 mx-auto px-4 py-20 md:py-28">
         <div className="mx-auto max-w-4xl text-center">
+          <CityBreadcrumb cityName={cityData.city} cityPath={`/${cityData.slug}`} />
           <p className="inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.22em] text-slate-100" data-aos="fade-up">
             {cityData.city} HVAC Service
           </p>
           <h1 className="text-display mt-6 text-4xl text-white md:text-6xl" data-aos="fade-up" data-aos-delay="100">
-            Heating and Air Conditioning in {cityData.city}
+            HVAC Services in {cityData.city}, CA
           </h1>
           <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-slate-100 md:text-xl" data-aos="fade-up" data-aos-delay="150">
             Licensed local help for {cityData.city} homes and light commercial spaces, with {cityData.responseTime.toLowerCase()} response times and service built for {cityData.climate.toLowerCase()}.

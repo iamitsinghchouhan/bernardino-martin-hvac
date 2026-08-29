@@ -12,6 +12,7 @@ import {
   SeoWhyChoose,
   losAngelesAreas,
 } from "./shared";
+import { getCityBreadcrumbSchema } from "@/components/city-pages/CityBreadcrumb";
 
 const introParagraphs: [string, string, string] = [
   "Los Angeles homeowners need HVAC systems that can keep up with long hot summers, warm shoulder seasons, and the occasional chilly winter morning. In neighborhoods like Hollywood, Silver Lake, Koreatown, Westwood, and across the San Fernando Valley, indoor comfort depends on properly sized equipment, clean airflow, and fast repairs when temperatures climb. Bernardino Martin provides HVAC services in Los Angeles for homes, apartments, and light commercial spaces that need dependable cooling, heating, and ventilation without unnecessary upsells. We work with older ducted systems, newer inverter equipment, rooftop package units, and ductless systems designed for additions, offices, and converted garages that are common throughout Los Angeles.",
@@ -40,10 +41,12 @@ export default function HvacLosAngeles() {
         title="HVAC Services in Los Angeles, CA | Bernardino Martin"
         description="Professional HVAC repair, installation & maintenance in Los Angeles. Licensed technicians, same-day service, all brands. Call (818) 400-0227."
         canonical="/hvac-los-angeles"
+        structuredData={getCityBreadcrumbSchema("Los Angeles", "/hvac-los-angeles")}
       />
 
       <SeoHero
         badge="Los Angeles HVAC"
+        cityBreadcrumb="Los Angeles"
         title="HVAC Services in Los Angeles, CA"
         description="Reliable heating and cooling repair, replacement, and maintenance for Los Angeles homes, apartments, and small businesses."
         videoSrc="/videos/hvac-service-la.mp4"

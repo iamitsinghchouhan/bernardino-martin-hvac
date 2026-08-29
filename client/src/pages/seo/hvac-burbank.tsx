@@ -12,6 +12,7 @@ import {
 } from "./shared";
 import { LandmarkSpotlight } from "@/components/city-pages/LandmarkSpotlight";
 import { CityServicesShowcase } from "@/components/city-pages/CityServicesShowcase";
+import { getCityBreadcrumbSchema } from "@/components/city-pages/CityBreadcrumb";
 import { Clock, Phone, Shield, Star } from "lucide-react";
 
 const introParagraphs: [string, string, string] = [
@@ -49,6 +50,8 @@ export default function HvacBurbank() {
       <SEO
         title="HVAC Services in Burbank, CA | Bernardino Martin"
         description="Expert HVAC repair & installation in Burbank, CA. Same-day service, all brands, licensed technicians. Call (818) 400-0227."
+        canonical="/hvac-burbank"
+        structuredData={getCityBreadcrumbSchema("Burbank", "/hvac-burbank")}
       />
 
       <CityHero

@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
+import { CityBreadcrumb as GlobalCityBreadcrumb } from "@/components/city-pages/CityBreadcrumb";
 import { COMPANY_PHONE } from "@/lib/constants";
-import { buildVideoObjectSchema } from "@/lib/video-schema";
 import {
   Check,
   Clock,
@@ -79,6 +79,7 @@ export function SeoHero({
   imageAlt,
   videoSrc,
   posterSrc,
+  cityBreadcrumb,
 }: {
   badge: string;
   title: string;
@@ -87,21 +88,10 @@ export function SeoHero({
   imageAlt?: string;
   videoSrc?: string;
   posterSrc?: string;
+  cityBreadcrumb?: string;
 }) {
-  const videoSchema = videoSrc
-    ? buildVideoObjectSchema({
-        name: title,
-        description,
-        thumbnailUrl: posterSrc || imageSrc || "/opengraph.jpg",
-        contentUrl: videoSrc,
-      })
-    : null;
-
   return (
     <section className="relative overflow-hidden py-20 text-white min-h-[480px] flex items-center">
-      {videoSchema ? (
-        <script type="application/ld+json">{JSON.stringify(videoSchema)}</script>
-      ) : null}
       {imageSrc ? (
         <img
           src={imageSrc}
@@ -132,6 +122,7 @@ export function SeoHero({
       <div className="absolute inset-0 bg-blue-950/45" />
       <div className="container relative z-10 mx-auto max-w-4xl px-4 text-center">
         <div>
+          {cityBreadcrumb ? <CityBreadcrumb city={cityBreadcrumb} /> : null}
           <div className="inline-flex items-center rounded-full border border-white/25 bg-white/10 px-4 py-1.5 text-sm font-semibold uppercase tracking-[0.2em]">
             {badge}
           </div>
@@ -186,20 +177,8 @@ export function CityHero({
   videoSrc?: string;
   posterSrc?: string;
 }) {
-  const videoSchema = videoSrc
-    ? buildVideoObjectSchema({
-        name: title,
-        description,
-        thumbnailUrl: posterSrc || imageSrc || "/opengraph.jpg",
-        contentUrl: videoSrc,
-      })
-    : null;
-
   return (
     <section className="relative overflow-hidden py-20 text-white min-h-[480px] flex items-center">
-      {videoSchema ? (
-        <script type="application/ld+json">{JSON.stringify(videoSchema)}</script>
-      ) : null}
       {imageSrc ? (
         <img
           src={imageSrc}
@@ -575,15 +554,7 @@ export function SeoCtaBanner({
 }
 
 export function CityBreadcrumb({ city }: { city: string }) {
-  return (
-    <div className="mb-6 text-sm font-medium text-slate-200">
-      <Link href="/hvac-los-angeles" className="hover:text-white">
-        Los Angeles
-      </Link>
-      <span className="mx-2 text-slate-300">{">"}</span>
-      <span>{city}</span>
-    </div>
-  );
+  return <GlobalCityBreadcrumb cityName={city} />;
 }
 
 export function CityProblems({

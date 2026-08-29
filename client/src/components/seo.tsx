@@ -22,6 +22,12 @@ function normalizeUrl(url: string) {
   return `${SITE_URL}${url.startsWith("/") ? url : `/${url}`}`;
 }
 
+function canonicalPath(location: string) {
+  const [pathWithoutHash] = location.split("#");
+  const [pathWithoutQuery] = pathWithoutHash.split("?");
+  return pathWithoutQuery || "/";
+}
+
 export function SEO({
   title,
   description,
@@ -32,9 +38,9 @@ export function SEO({
   structuredData,
 }: SEOProps) {
   const [location] = useLocation();
-  const canonicalUrl = normalizeUrl(canonical ?? location);
+  const canonicalUrl = normalizeUrl(canonical ?? canonicalPath(location));
   const imageUrl = image ? normalizeUrl(image) : `${SITE_URL}/opengraph.webp`;
-  const fullTitle = `${title} | ${SITE_NAME}`;
+  const fullTitle = title.includes("|") ? title : `${title} | ${SITE_NAME}`;
 
   return (
     <Helmet prioritizeSeoTags>

@@ -40,7 +40,7 @@ const cityCoordinates: Record<string, [number, number]> = {
   "West Hollywood": [34.0900, -118.3617],
   "Manhattan Beach": [33.8847, -118.4109],
   "San Fernando Valley": [34.2083, -118.5365],
-  "Playa Del Rey": [33.9575, -118.4484],
+  "Playa del Rey": [33.9575, -118.4484],
   "Hollywood": [34.0928, -118.3287],
   "Pasadena": [34.1478, -118.1445],
   "North Hollywood": [34.1870, -118.3813],
