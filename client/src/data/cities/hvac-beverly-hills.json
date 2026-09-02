@@ -1,0 +1,44 @@
+{
+  "id": 36,
+  "city": "Beverly Hills",
+  "slug": "hvac-beverly-hills",
+  "region": "Los Angeles Westside",
+  "population": "~34,000",
+  "zipCodes": [
+    "90210",
+    "90211",
+    "90212"
+  ],
+  "description": "Beverly Hills combines luxurious mid-century estates with modern renovations, creating diverse HVAC challenges across properties of all sizes. Bernardino Martin provides HVAC services in Beverly Hills for homeowners and property managers who need reliable cooling and heating systems that match the performance standards of their premium properties. Whether servicing classic Hollywood-era homes, contemporary estates, or multi-unit residential buildings near the commercial district, we deliver the dependable craftsmanship that Beverly Hills properties demand.",
+  "climate": "Warm, sunny climate with moderate inland heat and coastal marine layer influence; summer temperatures typically in the mid-80s to low 90s",
+  "commonServices": [
+    "AC Repair & Diagnostics",
+    "HVAC Maintenance",
+    "Ductless Mini-Split Systems",
+    "Heating System Services"
+  ],
+  "serviceAreas": [
+    "Luxury Estate area north of Sunset Boulevard",
+    "Beverly Hills commercial district",
+    "Santa Monica Boulevard corridor",
+    "Residential neighborhoods south of Sunset"
+  ],
+  "responseTime": "20-35 minutes",
+  "videoFile": "generic-area-hero.mp4",
+  "imageFile": "generic-area-hero.png",
+  "metaDescription": "HVAC services in Beverly Hills - AC repair, installation, heating and maintenance from a licensed local contractor. Call (818) 400-0227.",
+  "metaKeywords": "HVAC Beverly Hills, AC repair Beverly Hills, heating service Beverly Hills, air conditioning Beverly Hills",
+  "localPhone": "(818) 400-0227",
+  "nearestCities": [
+    "West Hollywood",
+    "Los Angeles",
+    "Culver City",
+    "Santa Monica"
+  ],
+  "notableLandmarks": [
+    "Rodeo Drive",
+    "Beverly Hills Hotel",
+    "Hollywood Bowl"
+  ],
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+}

@@ -8,6 +8,7 @@ export const SITE_URL = "https://bernardinomartinhvac.com";
 export const CANONICAL_CITY_PAGES: CanonicalCityPage[] = [
   { name: "Malibu", path: "/hvac-malibu" },
   { name: "Burbank", path: "/hvac-burbank" },
+  { name: "Beverly Hills", path: "/hvac-beverly-hills" },
   { name: "Gardena", path: "/hvac-gardena" },
   { name: "Glendale", path: "/hvac-glendale" },
   { name: "Torrance", path: "/hvac-torrance" },

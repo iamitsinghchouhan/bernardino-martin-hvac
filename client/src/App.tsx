@@ -36,6 +36,7 @@ const LandscapingLosAngeles = lazy(() => import("@/pages/seo/landscaping-los-ang
 const IrrigationLosAngeles = lazy(() => import("@/pages/seo/irrigation-los-angeles"));
 const NetworkLosAngeles = lazy(() => import("@/pages/seo/network-los-angeles"));
 const HvacBurbank = lazy(() => import("@/pages/seo/hvac-burbank"));
+const HvacBeverlyHills = lazy(() => import("@/pages/seo/hvac-beverly-hills"));
 const HvacGlendale = lazy(() => import("@/pages/seo/hvac-glendale"));
 const HvacSanFernandoValley = lazy(() => import("@/pages/seo/hvac-san-fernando-valley"));
 const HvacSantaMonica = lazy(() => import("@/pages/seo/hvac-santa-monica"));
@@ -191,6 +192,7 @@ function Router() {
         <Route path="/irrigation-los-angeles" component={IrrigationLosAngeles} />
         <Route path="/network-installation-los-angeles" component={NetworkLosAngeles} />
         <Route path="/hvac-burbank" component={HvacBurbank} />
+        <Route path="/hvac-beverly-hills" component={HvacBeverlyHills} />
         <Route path="/hvac-glendale" component={HvacGlendale} />
         <Route path="/hvac-san-fernando-valley" component={HvacSanFernandoValley} />
         <Route path="/hvac-santa-monica" component={HvacSantaMonica} />
