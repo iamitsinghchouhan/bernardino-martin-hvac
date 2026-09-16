@@ -33,6 +33,10 @@ export default defineConfig({
 
   root: path.resolve(rootDir, "client"),
 
+  // Without this, Vite looks for .env files inside `root` (client/) instead of the repo root,
+  // so VITE_*-prefixed vars defined in the real .env never reach import.meta.env at build time.
+  envDir: rootDir,
+
   publicDir: path.resolve(rootDir, "client/public"),
 
   assetsInclude: ["**/*.mp4", "**/*.webm", "**/*.ogg", "**/*.jpg", "**/*.png", "**/*.svg", "**/*.gif"],
@@ -45,11 +49,10 @@ export default defineConfig({
     rollupOptions: {
       output: {
         // Only group the truly-shared core that nearly every route needs. Heavy, single-use
-        // libraries (recharts → admin analytics, leaflet → the map) are intentionally NOT
-        // force-grouped: doing so pulled their shared sub-deps (e.g. react-is) into a big named
-        // chunk that the homepage then had to load. Letting Vite split naturally keeps recharts
-        // (~106KB) and leaflet in their own lazy chunks and puts small shared utils in a tiny
-        // common chunk instead.
+        // libraries (recharts → admin analytics) are intentionally NOT force-grouped: doing so
+        // pulled their shared sub-deps (e.g. react-is) into a big named chunk that the homepage
+        // then had to load. Letting Vite split naturally keeps recharts (~106KB) in its own lazy
+        // chunk and puts small shared utils in a tiny common chunk instead.
         manualChunks: {
           "vendor-react": ["react", "react-dom"],
 
