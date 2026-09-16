@@ -30,6 +30,9 @@ import {
   Maximize2,
   Sparkles,
   Trash2,
+  Wrench,
+  Lightbulb,
+  PhoneCall,
 } from "lucide-react";
 
 const CLEANUP_POINTS = [
@@ -180,8 +183,6 @@ const REEL_VIDEOS = [
   { src: "/videos/electrical-la.mp4", label: "Electrical", thumb: "/images/services/electrical-hero.png" },
   { src: "/videos/reel-ultra-realistic.mp4", label: "Behind The Scenes", thumb: "/images/real-solar-install.webp" },
 ];
-
-const FEEL_WORDS = ["comfortable", "efficient", "protected", "powered", "confident"];
 
 const FEEL_GALLERY_IMAGES = [
   { src: "/images/hero-bm-vehicles.png", alt: "Bernardino Martin arriving at your home" },
@@ -423,76 +424,32 @@ function RoomImageSlideshow({ images, headline }: { images: string[]; headline: 
   );
 }
 
-/* ─── Scroll-linked horizontal photo gallery with a changing "feel" word ─── */
+/* ─── Horizontal photo strip, one consistent interaction at every width ─── */
+/* Previously pinned the section for 200vh on desktop and scroll-jacked the images sideways —
+   replaced with a plain swipeable/scrollable strip everywhere: easier to predict, easier to use
+   on a trackpad or with a mouse wheel, and doesn't need a prefers-reduced-motion branch since
+   there's no scroll-driven animation left to guard against. */
 function FeelGallery({ onImageClick }: { onImageClick: (index: number) => void }) {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
-  const [wordIndex, setWordIndex] = useState(0);
-  const [reducedMotion, setReducedMotion] = useState(false);
-
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setReducedMotion(mq.matches);
-    const onChange = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
-    mq.addEventListener("change", onChange);
-    return () => mq.removeEventListener("change", onChange);
-  }, []);
-
-  useEffect(() => {
-    if (reducedMotion) return;
-    const handleScroll = () => {
-      if (window.innerWidth < 1024) return;
-      const section = sectionRef.current;
-      const track = trackRef.current;
-      if (!section || !track) return;
-      const rect = section.getBoundingClientRect();
-      const total = rect.height - window.innerHeight;
-      if (total <= 0) return;
-      const progress = Math.min(Math.max(-rect.top / total, 0), 1);
-      const maxTranslate = Math.max(track.scrollWidth - window.innerWidth + 64, 0);
-      track.style.transform = `translateX(-${progress * maxTranslate}px)`;
-      setWordIndex(Math.min(FEEL_WORDS.length - 1, Math.floor(progress * FEEL_WORDS.length)));
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [reducedMotion]);
-
   return (
-    <>
-      {/* Desktop: scroll-linked pinned horizontal gallery — skipped entirely for reduced-motion users */}
-      {!reducedMotion && (
-        <section ref={sectionRef} className="relative hidden bg-white lg:block" style={{ height: "200vh" }}>
-          <div className="sticky top-0 flex h-screen flex-col items-center justify-center overflow-hidden">
-            <p className="mb-10 text-2xl text-slate-500">
-              Your home will feel <span className="text-display inline text-slate-950">{FEEL_WORDS[wordIndex]}</span>
-            </p>
-            <div ref={trackRef} className="flex w-max gap-6 px-8 will-change-transform">
-              {FEEL_GALLERY_IMAGES.map((img, i) => (
-                <div key={img.src} className={`h-64 w-80 shrink-0 overflow-hidden rounded-2xl shadow-xl ${i % 2 === 0 ? "-rotate-2" : "rotate-2"}`}>
-                  <ClickableImage src={img.src} alt={img.alt} className="h-full w-full object-cover" onClick={() => onImageClick(i)} />
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Mobile: simple swipeable strip. Also used at every width for reduced-motion users, in
-          place of the scroll-pinned version above. */}
-      <section className={`bg-white py-16 ${reducedMotion ? "" : "lg:hidden"}`}>
-        <p className="mb-6 px-4 text-xl text-slate-500">
-          Your home will feel <span className="text-display inline text-slate-950">{FEEL_WORDS[2]}</span>
+    <section className="bg-white py-20">
+      <div className="container mx-auto px-4">
+        <p className="mb-8 text-2xl text-slate-600 md:text-3xl" data-aos="fade-up">
+          Your home will feel <span className="text-display inline text-slate-950">comfortable</span> — inside and out.
         </p>
-        <div className="no-scrollbar flex gap-4 overflow-x-auto px-4 pb-2">
-          {FEEL_GALLERY_IMAGES.map((img, i) => (
-            <div key={img.src} className="h-48 w-64 shrink-0 overflow-hidden rounded-2xl shadow-lg">
-              <ClickableImage src={img.src} alt={img.alt} className="h-full w-full object-cover" onClick={() => onImageClick(i)} />
-            </div>
-          ))}
-        </div>
-      </section>
-    </>
+      </div>
+      <div className="no-scrollbar flex snap-x snap-mandatory gap-5 overflow-x-auto px-4 pb-2 md:container md:mx-auto">
+        {FEEL_GALLERY_IMAGES.map((img, i) => (
+          <div
+            key={img.src}
+            data-aos="fade-up"
+            data-aos-delay={i * 60}
+            className="h-56 w-72 shrink-0 snap-center overflow-hidden rounded-2xl shadow-lg transition-transform duration-300 hover:-translate-y-1 hover:shadow-xl md:h-64 md:w-80"
+          >
+            <ClickableImage src={img.src} alt={img.alt} className="h-full w-full object-cover" onClick={() => onImageClick(i)} />
+          </div>
+        ))}
+      </div>
+    </section>
   );
 }
 
@@ -718,11 +675,13 @@ export default function Home() {
       <VideoReelSection />
 
       {/* ══════════ STATS TICKER ══════════ */}
-      <div className="w-full border-b border-slate-800 bg-slate-950 py-4">
+      {/* Light, not dark — breaks up what would otherwise be three consecutive black sections
+          (hero, video reel, stats) right at the top of the page. */}
+      <div className="w-full border-b border-slate-200 bg-white py-4">
         <div className="container mx-auto grid grid-cols-1 gap-3 px-4 text-center sm:grid-cols-3 sm:text-left">
-          <p className="text-sm font-bold text-white/80">{SERVICES.length} services across {SERVICE_CATEGORIES.length} specialty categories</p>
-          <p className="text-sm font-bold text-white/80 sm:text-center">{TOTAL_CITY_PAGES} Los Angeles-area cities served</p>
-          <p className="text-sm font-bold text-white/80 sm:text-right">Licensed, bonded &amp; insured since day one</p>
+          <p className="text-sm font-bold text-slate-700">{SERVICES.length} services across {SERVICE_CATEGORIES.length} specialty categories</p>
+          <p className="text-sm font-bold text-slate-700 sm:text-center">{TOTAL_CITY_PAGES} Los Angeles-area cities served</p>
+          <p className="text-sm font-bold text-slate-700 sm:text-right">Licensed, bonded &amp; insured since day one</p>
         </div>
       </div>
 
@@ -740,7 +699,7 @@ export default function Home() {
                 href={`/booking${promo.code ? `?promo=${promo.code}` : ""}`}
                 data-aos="fade-up"
                 data-aos-delay={i * 100}
-                className="group flex items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-lg"
+                className="group flex items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
               >
                 <div>
                   <span className="mb-1 inline-block rounded-full bg-primary/5 px-2.5 py-0.5 text-xs font-bold text-primary">{promo.title}</span>
@@ -870,9 +829,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ══════════ STATEMENT BREAK 2 ══════════ */}
-      <StatementBreak text="Licensed. Bonded. Insured." />
-
       {/* ══════════ REVIEWS ══════════ */}
       <ReviewSlider />
 
@@ -966,7 +922,7 @@ export default function Home() {
                     { project: "Complete HVAC Replacement", range: "Starting from $5,000" },
                     { project: "Ductless Mini-Split System", range: "Starting from $2,500" },
                   ].map((p) => (
-                    <div key={p.project} className="flex items-center justify-between rounded-lg border border-white/10 bg-white/5 p-3">
+                    <div key={p.project} className="flex items-center justify-between rounded-lg border border-white/10 bg-white/5 p-3 transition-colors hover:border-white/20 hover:bg-white/10">
                       <div>
                         <div className="text-sm font-semibold text-white">{p.project}</div>
                         <div className="text-xs text-white/70">{p.range}</div>
@@ -1004,7 +960,7 @@ export default function Home() {
             </div>
             <div className="mx-auto mt-10 grid max-w-6xl gap-4 md:grid-cols-2 xl:grid-cols-4">
               {CLEANUP_POINTS.map((point) => (
-                <div key={point.title} className="rounded-2xl border border-green-100 bg-white p-5">
+                <div key={point.title} className="rounded-2xl border border-green-100 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
                   <div className="inline-flex rounded-xl bg-green-100 p-2.5 text-green-700">
                     <point.icon className="h-5 w-5" aria-hidden="true" />
                   </div>
@@ -1029,19 +985,25 @@ export default function Home() {
             {[
               {
                 title: "Maintenance Best Practices",
+                icon: Wrench,
                 tips: ["Change air filters every 1-3 months", "Schedule professional tune-ups twice a year", "Keep outdoor units clear of debris and vegetation", "Check thermostat batteries and calibration annually", "Inspect ductwork for leaks and seal gaps"],
               },
               {
                 title: "Energy Efficiency Tips",
+                icon: Lightbulb,
                 tips: ["Install a programmable or smart thermostat", "Seal windows and doors to prevent air leaks", "Use ceiling fans to assist air circulation", "Consider upgrading to a high-efficiency HVAC system", "Add insulation to attic and crawl spaces"],
               },
               {
                 title: "When to Call a Professional",
+                icon: PhoneCall,
                 tips: ["Unusual noises from your HVAC unit", "Inconsistent temperatures between rooms", "System cycling on and off frequently", "Spike in energy bills without usage changes", "Visible ice buildup on refrigerant lines"],
               },
             ].map((card, i) => (
-              <div key={card.title} data-aos="fade-up" data-aos-delay={i * 150} className="rounded-2xl border border-slate-100 p-6">
-                <h3 className="text-lg font-bold text-slate-900">{card.title}</h3>
+              <div key={card.title} data-aos="fade-up" data-aos-delay={i * 150} className="rounded-2xl border border-slate-100 p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+                <div className="inline-flex rounded-xl bg-primary/10 p-2.5 text-primary">
+                  <card.icon className="h-5 w-5" aria-hidden="true" />
+                </div>
+                <h3 className="mt-4 text-lg font-bold text-slate-900">{card.title}</h3>
                 <ul className="mt-4 space-y-2.5">
                   {card.tips.map((tip) => (
                     <li key={tip} className="flex items-start gap-2 text-sm text-slate-600">
