@@ -185,14 +185,14 @@ const REEL_VIDEOS = [
 ];
 
 const FEEL_GALLERY_IMAGES = [
-  { src: "/images/hero-bm-vehicles.png", alt: "Bernardino Martin arriving at your home" },
-  { src: "/images/real-solar-install.webp", alt: "Real solar panel installation in Los Angeles" },
-  { src: "/images/hero-bm-ac-units.png", alt: "HVAC inspection by Bernardino Martin" },
-  { src: "/images/real-copper-welding.webp", alt: "Copper pipe welding work" },
-  { src: "/images/hero-bm-solar-roof.png", alt: "Solar panel installation on LA home" },
-  { src: "/images/services/electrical-hero.png", alt: "Licensed electrical panel work" },
-  { src: "/images/hero-bm-irrigation.png", alt: "Smart irrigation system in action" },
-  { src: "/images/hvac-tech-attic-flex-duct.webp", alt: "Custom ductwork fabrication" },
+  { src: "/images/solar-techs-rooftop-2.jpg", alt: "Two-technician solar panel installation on a Los Angeles rooftop" },
+  { src: "/images/solar-aerial-cleaning.png", alt: "Aerial view of solar panel cleaning service" },
+  { src: "/images/real-ac-service.webp", alt: "AC condenser cleaning and service" },
+  { src: "/images/solar-inverter-install.png", alt: "Solar inverter and electrical panel installation" },
+  { src: "/images/real-crane-lift.webp", alt: "Commercial HVAC unit crane lift installation" },
+  { src: "/images/solar-panel-rail.png", alt: "Solar panel mounting rail installation" },
+  { src: "/images/real-solar-test.webp", alt: "Electrical system testing and diagnostics" },
+  { src: "/images/solar-techs-rooftop-3.jpg", alt: "Solar installation crew at work on a Los Angeles home" },
 ];
 
 /* ─── Active-room tracker for the sticky numbered list ─── */
@@ -326,7 +326,7 @@ function VideoReelSection() {
         <div className="mb-6 flex items-baseline justify-between">
           <div>
             <p className="mb-1 text-xs font-bold uppercase tracking-[0.3em] text-white/65">Our Work In Motion</p>
-            <h2 className="text-display text-2xl text-white md:text-3xl">Watch us in action</h2>
+            <h2 className="text-display text-2xl text-white md:text-3xl">See it before you book it.</h2>
           </div>
           <p className="hidden text-xs text-white/65 sm:block">Scroll to explore →</p>
         </div>
@@ -434,7 +434,7 @@ function FeelGallery({ onImageClick }: { onImageClick: (index: number) => void }
     <section className="bg-white py-20">
       <div className="container mx-auto px-4">
         <p className="mb-8 text-2xl text-slate-600 md:text-3xl" data-aos="fade-up">
-          Your home will feel <span className="text-display inline text-slate-950">comfortable</span> — inside and out.
+          From the rooftop to the panel — the <span className="text-display inline text-slate-950">real work</span> behind your comfort.
         </p>
       </div>
       <div className="no-scrollbar flex snap-x snap-mandatory gap-5 overflow-x-auto px-4 pb-2 md:container md:mx-auto">
@@ -551,8 +551,8 @@ export default function Home() {
   return (
     <Layout>
       <SEO
-        title="Los Angeles HVAC, Solar & Plumbing | Bernardino Martin"
-        description="BERNARDINO MARTIN — licensed & insured HVAC, solar & plumbing in Los Angeles. 24/7 emergency service. Call (818) 400-0227 for a free estimate."
+        title="Los Angeles HVAC, Solar, Electrical & Plumbing | Bernardino Martin"
+        description="Licensed HVAC, solar, electrical & plumbing pros serving Los Angeles and the San Fernando Valley. 24/7 emergency service. Call (818) 400-0227."
       />
 
       {/* ══════════ HERO — full-screen video background ══════════ */}
@@ -605,12 +605,12 @@ export default function Home() {
           <div className="container mx-auto px-4 pt-8 md:pt-16">
             <p className="mb-3 flex items-center gap-2 text-[0.65rem] font-bold uppercase tracking-[0.25em] text-white/70 sm:text-xs sm:tracking-[0.3em]">
               <span className="h-2 w-2 rounded-full bg-secondary animate-pulse" />
-              Los Angeles Home Services
+              Licensed For Los Angeles &bull; Ready 24/7
             </p>
 
             <h1 className="text-display text-[2rem] sm:text-5xl md:text-6xl lg:text-7xl" data-testid="text-hero-title">
-              <span className="block">YOUR HOME</span>
-              <span className="block text-right text-secondary md:pl-24">DESERVES THE BEST</span>
+              <span className="block">WHATEVER BREAKS,</span>
+              <span className="block text-right text-secondary md:pl-24">WE FIX IT FAST.</span>
             </h1>
 
             <div className="mt-5 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
@@ -620,7 +620,7 @@ export default function Home() {
                   <span className="text-xs font-bold uppercase tracking-[0.2em] text-white/75">Heating &bull; Air Conditioning &bull; Solar</span>
                 </p>
                 <p className="mt-2 max-w-md text-sm leading-relaxed text-white/85">
-                  From rooftop to foundation, we handle everything — real work, honest pricing, quality results across Los Angeles.
+                  HVAC, solar, plumbing, electrical, and more — one licensed team for everything your home needs, with same-day service across Los Angeles and the San Fernando Valley.
                 </p>
               </div>
 
@@ -690,7 +690,7 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="mb-5" data-aos="fade-up">
             <p className="mb-1 text-xs font-bold uppercase tracking-[0.3em] text-primary">Limited-Time Offers</p>
-            <h2 className="text-display text-xl text-slate-950 md:text-2xl">Current Specials</h2>
+            <h2 className="text-display text-xl text-slate-950 md:text-2xl">Deals worth calling about.</h2>
           </div>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
             {PROMOS.map((promo, i) => (
@@ -719,7 +719,7 @@ export default function Home() {
       <FeelGallery onImageClick={(i) => openLightbox(FEEL_GALLERY_IMAGES, i)} />
 
       {/* ══════════ MISSION STATEMENT ══════════ */}
-      <StatementBreak text="Bernardino Martin is a licensed Los Angeles contractor for HVAC, solar, plumbing, electrical, landscaping, and smart home services." />
+      <StatementBreak text="Bernardino Martin is a licensed contractor serving Los Angeles and the San Fernando Valley with HVAC, solar, plumbing, electrical, landscaping, and smart home services." />
 
       {/* ══════════ WALK THROUGH THE HOUSE (auto-rotating images) ══════════ */}
       <section className="bg-white py-24">
@@ -1083,8 +1083,8 @@ export default function Home() {
               <AlertTriangle className="h-12 w-12 text-red-600" aria-hidden="true" />
             </div>
             <div className="flex-1 text-center md:text-left">
-              <h2 className="mb-2 text-2xl font-bold text-slate-900 md:text-3xl">Need Emergency Service?</h2>
-              <p className="mb-1 text-slate-600">No heat? AC failure? Water leak? We offer same-day emergency service across Los Angeles — including nights and weekends.</p>
+              <h2 className="mb-2 text-2xl font-bold text-slate-900 md:text-3xl">It won't wait. Neither do we.</h2>
+              <p className="mb-1 text-slate-600">No heat at 2 AM? AC down in a heat wave? Pipe burst on a Sunday? We're already on the way — same-day emergency service across Los Angeles, nights and weekends included.</p>
               <p className="text-sm text-slate-600">Priority scheduling available for Comfort Club members at no extra charge.</p>
             </div>
             <div className="flex shrink-0 flex-col gap-3">
@@ -1104,9 +1104,9 @@ export default function Home() {
       {/* ══════════ FINAL CTA ══════════ */}
       <section className="relative overflow-hidden bg-slate-950 py-28 text-center text-white">
         <div className="container relative z-10 mx-auto px-4" data-aos="zoom-in">
-          <h2 className="text-display mx-auto max-w-3xl text-4xl md:text-7xl">Ready to upgrade your home?</h2>
+          <h2 className="text-display mx-auto max-w-3xl text-4xl md:text-7xl">Your home. Your call.</h2>
           <p className="mx-auto mb-10 mt-6 max-w-xl text-lg text-white/60">
-            Schedule your service today and take advantage of our monthly specials. Fast, reliable, and always professional.
+            Every job done right the first time — that's why Los Angeles homeowners keep calling us back. Schedule today and take advantage of our monthly specials.
           </p>
           <div className="flex flex-col justify-center gap-4 sm:flex-row">
             <Button size="lg" className="h-14 px-10 text-lg font-bold bg-white text-slate-950 hover:bg-white/90" asChild>
