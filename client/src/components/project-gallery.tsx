@@ -77,7 +77,7 @@ export function ProjectGallery() {
                             <h3 className="text-2xl md:text-3xl font-heading font-bold text-slate-900 mb-2 leading-tight">
                                 {project.title}
                             </h3>
-                            <p className="text-sm font-medium text-slate-500 flex items-center gap-2">
+                            <p className="text-sm font-medium text-slate-600 flex items-center gap-2">
                                 <span className="w-2 h-2 rounded-full bg-green-500"></span>
                                 {project.location}
                             </p>
@@ -88,8 +88,8 @@ export function ProjectGallery() {
                         </div>
                         
                         <div className="mt-auto pt-6 border-t border-slate-100">
-                            <div className="text-xs text-slate-400 font-mono mb-2 uppercase tracking-wider">Project ID: #{project.id}0024</div>
-                            <Button className="w-full" asChild>
+                            <div className="text-xs text-slate-600 font-mono mb-2 uppercase tracking-wider">Project ID: #{project.id}0024</div>
+                            <Button size="lg" className="h-12 w-full" asChild>
                                 <a href="/contact">Inquire About This Project</a>
                             </Button>
                         </div>

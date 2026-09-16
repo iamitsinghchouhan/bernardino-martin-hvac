@@ -9,7 +9,6 @@ import {
   SERVICES,
   SERVICE_CATEGORIES,
   COMPANY_PHONE,
-  COMPANY_FULL,
   getWhatsAppLink,
 } from "@/lib/constants";
 import allCities from "@/data/cities/all-cities";
@@ -220,8 +219,8 @@ function useActiveSection(count: number) {
 }
 
 /* Mounts its children only once the placeholder scrolls near the viewport. Keeps heavy
-   below-the-fold widgets — the Leaflet map plus its 300KB+ of map tiles and the vendor-maps
-   chunk — out of the initial page load, so mobile users who never scroll there pay nothing. */
+   below-the-fold widgets — the Google Maps map plus its script/tile payload — out of the
+   initial page load, so mobile users who never scroll there pay nothing. */
 function DeferUntilNearViewport({
   children,
   placeholder,
@@ -281,7 +280,7 @@ function CountUpStat({ end, label }: { end: number; label: string }) {
       <div className="text-display text-4xl md:text-5xl text-white">
         <span ref={spanRef}>0</span>+
       </div>
-      <div className="mt-2 text-xs uppercase tracking-[0.2em] text-white/50">{label}</div>
+      <div className="mt-2 text-xs uppercase tracking-[0.2em] text-white/60">{label}</div>
     </div>
   );
 }
@@ -331,13 +330,13 @@ function VideoReelSection() {
           <p className="hidden text-xs text-white/65 sm:block">Scroll to explore →</p>
         </div>
 
-        <div className="no-scrollbar -mx-4 flex gap-4 overflow-x-auto px-4 pb-3">
+        <div className="no-scrollbar -mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-3">
           {REEL_VIDEOS.map((v) => (
             <button
               key={v.src}
               type="button"
               onClick={() => setActiveVideo(v.src)}
-              className="group relative h-44 w-72 shrink-0 overflow-hidden rounded-xl bg-slate-800"
+              className="group relative h-44 w-72 shrink-0 snap-center overflow-hidden rounded-xl bg-slate-800"
               aria-label={`Play ${v.label} video`}
             >
               <picture>
@@ -389,6 +388,7 @@ function RoomImageSlideshow({ images, headline }: { images: string[]; headline: 
   const [idx, setIdx] = useState(0);
 
   useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const t = setInterval(() => setIdx((prev) => (prev + 1) % images.length), 3000);
     return () => clearInterval(t);
   }, [images.length]);
@@ -428,8 +428,18 @@ function FeelGallery({ onImageClick }: { onImageClick: (index: number) => void }
   const sectionRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const [wordIndex, setWordIndex] = useState(0);
+  const [reducedMotion, setReducedMotion] = useState(false);
 
   useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setReducedMotion(mq.matches);
+    const onChange = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+
+  useEffect(() => {
+    if (reducedMotion) return;
     const handleScroll = () => {
       if (window.innerWidth < 1024) return;
       const section = sectionRef.current;
@@ -446,28 +456,31 @@ function FeelGallery({ onImageClick }: { onImageClick: (index: number) => void }
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [reducedMotion]);
 
   return (
     <>
-      {/* Desktop: scroll-linked pinned horizontal gallery */}
-      <section ref={sectionRef} className="relative hidden bg-white lg:block" style={{ height: "200vh" }}>
-        <div className="sticky top-0 flex h-screen flex-col items-center justify-center overflow-hidden">
-          <p className="mb-10 text-2xl text-slate-500">
-            Your home will feel <span className="text-display inline text-slate-950">{FEEL_WORDS[wordIndex]}</span>
-          </p>
-          <div ref={trackRef} className="flex w-max gap-6 px-8 will-change-transform">
-            {FEEL_GALLERY_IMAGES.map((img, i) => (
-              <div key={img.src} className={`h-64 w-80 shrink-0 overflow-hidden rounded-2xl shadow-xl ${i % 2 === 0 ? "-rotate-2" : "rotate-2"}`}>
-                <ClickableImage src={img.src} alt={img.alt} className="h-full w-full object-cover" onClick={() => onImageClick(i)} />
-              </div>
-            ))}
+      {/* Desktop: scroll-linked pinned horizontal gallery — skipped entirely for reduced-motion users */}
+      {!reducedMotion && (
+        <section ref={sectionRef} className="relative hidden bg-white lg:block" style={{ height: "200vh" }}>
+          <div className="sticky top-0 flex h-screen flex-col items-center justify-center overflow-hidden">
+            <p className="mb-10 text-2xl text-slate-500">
+              Your home will feel <span className="text-display inline text-slate-950">{FEEL_WORDS[wordIndex]}</span>
+            </p>
+            <div ref={trackRef} className="flex w-max gap-6 px-8 will-change-transform">
+              {FEEL_GALLERY_IMAGES.map((img, i) => (
+                <div key={img.src} className={`h-64 w-80 shrink-0 overflow-hidden rounded-2xl shadow-xl ${i % 2 === 0 ? "-rotate-2" : "rotate-2"}`}>
+                  <ClickableImage src={img.src} alt={img.alt} className="h-full w-full object-cover" onClick={() => onImageClick(i)} />
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
-      {/* Mobile: simple swipeable strip */}
-      <section className="bg-white py-16 lg:hidden">
+      {/* Mobile: simple swipeable strip. Also used at every width for reduced-motion users, in
+          place of the scroll-pinned version above. */}
+      <section className={`bg-white py-16 ${reducedMotion ? "" : "lg:hidden"}`}>
         <p className="mb-6 px-4 text-xl text-slate-500">
           Your home will feel <span className="text-display inline text-slate-950">{FEEL_WORDS[2]}</span>
         </p>
@@ -581,8 +594,8 @@ export default function Home() {
   return (
     <Layout>
       <SEO
-        title="Los Angeles HVAC, Solar & Plumbing Services"
-        description={`${COMPANY_FULL} — Licensed & insured heating, air conditioning, solar panel installation & plumbing in Los Angeles. 24/7 emergency service. Call (818) 400-0227 for a free estimate.`}
+        title="Los Angeles HVAC, Solar & Plumbing | Bernardino Martin"
+        description="BERNARDINO MARTIN — licensed & insured HVAC, solar & plumbing in Los Angeles. 24/7 emergency service. Call (818) 400-0227 for a free estimate."
       />
 
       {/* ══════════ HERO — full-screen video background ══════════ */}
@@ -716,6 +729,10 @@ export default function Home() {
       {/* ══════════ CURRENT OFFERS ══════════ */}
       <section className="border-b border-slate-100 bg-slate-50 py-8">
         <div className="container mx-auto px-4">
+          <div className="mb-5" data-aos="fade-up">
+            <p className="mb-1 text-xs font-bold uppercase tracking-[0.3em] text-primary">Limited-Time Offers</p>
+            <h2 className="text-display text-xl text-slate-950 md:text-2xl">Current Specials</h2>
+          </div>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
             {PROMOS.map((promo, i) => (
               <Link
@@ -818,12 +835,12 @@ export default function Home() {
                           <Check className="mt-1 h-4 w-4 shrink-0 text-secondary" aria-hidden="true" />
                           <div>
                             <span className="font-semibold text-slate-900">{service.title}</span>
-                            <span className="block text-sm text-slate-500">{service.description}</span>
+                            <span className="block text-sm text-slate-600">{service.description}</span>
                           </div>
                         </li>
                       ))}
                     </ul>
-                    <Button className="mt-6 bg-slate-950 hover:bg-primary" asChild>
+                    <Button size="lg" className="mt-6 h-12 bg-slate-950 hover:bg-primary" asChild>
                       <Link href={`/booking?service=${room.services[0].id}`}>
                         Book {room.label} Service
                         <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
@@ -839,7 +856,7 @@ export default function Home() {
 
       {/* ══════════ BRAND LOGOS ══════════ */}
       <section className="group overflow-hidden border-b border-slate-100 bg-white py-14">
-        <p className="mb-8 text-center text-xs font-bold uppercase tracking-[0.3em] text-slate-600">Brands We Service</p>
+        <h2 className="mb-8 text-center text-xs font-bold uppercase tracking-[0.3em] text-slate-600">Brands We Service</h2>
         <div className="animate-marquee flex w-max items-center gap-16 group-hover:[animation-play-state:paused]" style={{ animationDuration: "22s" }}>
           {[...BRAND_LOGOS, ...BRAND_LOGOS].map((brand, i) => (
             <img
@@ -874,13 +891,13 @@ export default function Home() {
 
           <div className="mx-auto mb-12 max-w-4xl" data-aos="fade-up">
             <div className="flex flex-col overflow-hidden rounded-3xl border border-slate-100 bg-white shadow-xl md:flex-row">
-              <div className="relative flex flex-col justify-center bg-slate-950 p-10 text-center text-white md:w-2/5">
-                <div className="text-xs font-bold uppercase tracking-[0.3em] text-white/50">Comfort Club</div>
+              <div className="relative flex flex-col justify-center bg-slate-950 p-6 text-center text-white sm:p-10 md:w-2/5">
+                <div className="text-xs font-bold uppercase tracking-[0.3em] text-white/60">Comfort Club</div>
                 <div className="mt-4 text-5xl font-black">
                   $19<span className="text-xl font-medium text-white/65">/mo</span>
                 </div>
-                <p className="mb-8 mt-2 text-sm text-white/50">Billed annually at $228/year</p>
-                <Button className="w-full bg-white text-slate-950 hover:bg-white/90" asChild>
+                <p className="mb-8 mt-2 text-sm text-white/70">Billed annually at $228/year</p>
+                <Button size="lg" className="h-12 w-full bg-white text-slate-950 hover:bg-white/90" asChild>
                   <Link href="/booking?service=hvac-maintenance">Join the Club</Link>
                 </Button>
               </div>
@@ -905,12 +922,12 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="mx-auto max-w-5xl rounded-3xl bg-slate-950 p-10 text-white" data-aos="fade-up">
+          <div className="mx-auto max-w-5xl rounded-3xl bg-slate-950 p-6 text-white sm:p-10" data-aos="fade-up">
             <div className="flex flex-col items-center gap-12 lg:flex-row">
               <div className="w-full space-y-5 lg:w-1/2">
-                <p className="text-xs font-bold uppercase tracking-[0.3em] text-white/50">Flexible Payment Options</p>
+                <p className="text-xs font-bold uppercase tracking-[0.3em] text-white/60">Flexible Payment Options</p>
                 <h3 className="text-2xl font-bold">Affordable comfort, your way</h3>
-                <p className="leading-relaxed text-white/60">
+                <p className="leading-relaxed text-white/70">
                   Major upgrades and installations shouldn't break the bank. We offer flexible payment
                   solutions so you can invest in your home's comfort without the stress.
                 </p>
@@ -925,7 +942,7 @@ export default function Home() {
                       <Check className="mt-1 h-4 w-4 shrink-0 text-secondary" aria-hidden="true" />
                       <div>
                         <span className="block font-bold text-white">{item.title}</span>
-                        <span className="text-sm text-white/50">{item.desc}</span>
+                        <span className="text-sm text-white/70">{item.desc}</span>
                       </div>
                     </li>
                   ))}
@@ -952,7 +969,7 @@ export default function Home() {
                     <div key={p.project} className="flex items-center justify-between rounded-lg border border-white/10 bg-white/5 p-3">
                       <div>
                         <div className="text-sm font-semibold text-white">{p.project}</div>
-                        <div className="text-xs text-white/50">{p.range}</div>
+                        <div className="text-xs text-white/70">{p.range}</div>
                       </div>
                     </div>
                   ))}
@@ -968,7 +985,7 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="mx-auto rounded-3xl border border-green-100 bg-gradient-to-br from-green-50 to-white p-8 shadow-sm md:p-12" data-aos="fade-up">
             <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
-              <div className="overflow-hidden rounded-2xl border border-green-100 shadow-sm">
+              <div className="aspect-[4/3] overflow-hidden rounded-2xl border border-green-100 shadow-sm">
                 <img
                   src="/images/complimentary-cleanup.webp"
                   alt="Bernardino Martin technician wiping down a finished mini-split installation"
@@ -1038,7 +1055,7 @@ export default function Home() {
           </div>
 
           <div className="mt-12 text-center">
-            <Button variant="outline" className="border-primary text-primary hover:bg-primary/5 font-semibold" asChild>
+            <Button size="lg" variant="outline" className="h-12 border-primary text-primary hover:bg-primary/5 font-semibold" asChild>
               <Link href="/quote">Get a Free Expert Assessment</Link>
             </Button>
           </div>
@@ -1049,7 +1066,7 @@ export default function Home() {
       <section className="bg-slate-950 py-24 text-white">
         <div className="container mx-auto px-4">
           <div className="mx-auto mb-12 max-w-2xl text-center" data-aos="fade-up">
-            <p className="mb-4 text-xs font-bold uppercase tracking-[0.3em] text-white/50">Where We Work</p>
+            <p className="mb-4 text-xs font-bold uppercase tracking-[0.3em] text-white/60">Where We Work</p>
             <h2 className="text-display text-4xl md:text-6xl">Serving Greater Los Angeles.</h2>
             <div className="mt-8 flex justify-center gap-12">
               <CountUpStat end={SERVICES.length} label="Services" />
@@ -1079,7 +1096,7 @@ export default function Home() {
               </DeferUntilNearViewport>
             </div>
             <div data-aos="fade-left" className="max-h-[480px] overflow-y-auto rounded-2xl border border-white/10 bg-white/5 p-6">
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                 {allCityLinks.map((c) => (
                   <Link
                     key={c.slug}
@@ -1114,7 +1131,7 @@ export default function Home() {
                   <Phone className="mr-2 h-5 w-5" aria-hidden="true" /> Call Now
                 </a>
               </Button>
-              <Button size="lg" variant="outline" className="border-red-200 font-semibold text-red-700 hover:bg-red-100" asChild>
+              <Button size="lg" variant="outline" className="h-12 border-red-200 font-semibold text-red-700 hover:bg-red-100" asChild>
                 <Link href="/quote">Request Priority Quote</Link>
               </Button>
             </div>

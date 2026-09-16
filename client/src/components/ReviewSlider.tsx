@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { Star } from "lucide-react";
+import { useEffect, useState } from "react";
 
 const FALLBACK_REVIEWS = [
   {
@@ -148,6 +149,15 @@ export function ReviewSlider() {
     queryKey: ["/api/cms/reviews"],
   });
 
+  const [reducedMotion, setReducedMotion] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setReducedMotion(mq.matches);
+    const onChange = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+
   const reviews = (data && data.length
     ? data.map((item) => ({
         name: item.customerName ?? item.name ?? "Customer",
@@ -192,14 +202,12 @@ export function ReviewSlider() {
           <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-slate-50 to-transparent md:w-24" />
           <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-slate-50 to-transparent md:w-24" />
 
-          <div className="group overflow-hidden">
+          <div className={`group ${reducedMotion ? "no-scrollbar overflow-x-auto" : "overflow-hidden"}`}>
             <div
-              className="flex w-max gap-5 py-2 group-hover:[animation-play-state:paused]"
-              style={{
-                animation: `review-marquee ${reviews.length * 3}s linear infinite`,
-              }}
+              className={`flex w-max gap-5 py-2 ${reducedMotion ? "" : "group-hover:[animation-play-state:paused]"}`}
+              style={reducedMotion ? undefined : { animation: `review-marquee ${reviews.length * 3}s linear infinite` }}
             >
-              {loopedReviews.map((review, index) => (
+              {(reducedMotion ? reviews : loopedReviews).map((review, index) => (
                 <article
                   key={`${review.name}-${index}`}
                   className="w-[280px] shrink-0 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02] hover:shadow-xl md:w-[340px]"
