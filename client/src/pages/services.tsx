@@ -201,18 +201,18 @@ export default function Services() {
 
       {/* ── HERO ─────────────────────────────────────────────── */}
       <section className="relative overflow-hidden bg-slate-900 pt-28 pb-16">
-        {/* Hero background video — shows all services in motion */}
-        <video
-          src="/videos/svc-hvac.mp4"
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="metadata"
-          className="absolute inset-0 w-full h-full object-cover opacity-25"
+        <img
+          src="/images/rebrand/hero-redesign.png"
+          alt=""
           aria-hidden="true"
+          fetchPriority="high"
+          decoding="async"
+          className="absolute inset-0 w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-900/90 via-blue-950/85 to-slate-900/90" />
+        {/* Flat, uniform overlay (not a directional gradient) — this hero's text is centered,
+            not bottom-anchored, so a flat tint keeps it legible over every part of the photo
+            equally instead of only darkening one edge. */}
+        <div className="absolute inset-0 bg-slate-900/55" />
         <div className="relative max-w-7xl mx-auto px-4 text-center">
           <span className="inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/20 px-4 py-2 text-sm font-semibold text-white/90 mb-6">
             {totalServices} Services &bull; 7 Categories &bull; Los Angeles

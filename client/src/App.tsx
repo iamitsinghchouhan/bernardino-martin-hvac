@@ -125,6 +125,9 @@ const SvcOutdoorHardscape = lazy(() => import("@/pages/service-detail/outdoor-ha
 const SvcTechNetwork = lazy(() => import("@/pages/service-detail/tech-network"));
 const SvcTechSmarthome = lazy(() => import("@/pages/service-detail/tech-smarthome"));
 const SvcTechNest = lazy(() => import("@/pages/service-detail/tech-nest"));
+const SvcHomeCleaning = lazy(() => import("@/pages/service-detail/home-cleaning"));
+const SvcMovingHelp = lazy(() => import("@/pages/service-detail/moving-help"));
+const SvcHandyman = lazy(() => import("@/pages/service-detail/handyman"));
 
 function PageLoader() {
   return (
@@ -280,6 +283,9 @@ function Router() {
         <Route path="/services/tech-network" component={SvcTechNetwork} />
         <Route path="/services/tech-smarthome" component={SvcTechSmarthome} />
         <Route path="/services/tech-nest" component={SvcTechNest} />
+        <Route path="/services/home-cleaning" component={SvcHomeCleaning} />
+        <Route path="/services/moving-help" component={SvcMovingHelp} />
+        <Route path="/services/handyman" component={SvcHandyman} />
 
         <Route path="/:slug" component={DynamicPage} />
 

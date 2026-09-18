@@ -63,14 +63,18 @@ app.use(
           "'unsafe-inline'",
           "'unsafe-eval'",
           "https://cdnjs.cloudflare.com",
-          "https://unpkg.com"
+          "https://unpkg.com",
+          "https://maps.googleapis.com",
+          "https://maps.gstatic.com"
         ],
         styleSrc: [
           "'self'",
           "'unsafe-inline'",
           "https://fonts.googleapis.com",
           "https://cdnjs.cloudflare.com",
-          "https://unpkg.com"
+          "https://unpkg.com",
+          "https://maps.googleapis.com",
+          "https://maps.gstatic.com"
         ],
         fontSrc: [
           "'self'",
@@ -91,7 +95,9 @@ app.use(
           "ws:",
           "wss:",
           "https://api.mapbox.com",
-          "https://basemaps.cartocdn.com"
+          "https://basemaps.cartocdn.com",
+          "https://maps.googleapis.com",
+          "https://maps.gstatic.com"
         ],
         frameAncestors: ["'self'"],
         objectSrc: ["'none'"],

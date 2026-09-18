@@ -4,374 +4,215 @@ import { ReviewSlider } from "@/components/ReviewSlider";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
-import {
-  PROMOS,
-  SERVICES,
-  SERVICE_CATEGORIES,
-  COMPANY_PHONE,
-  getWhatsAppLink,
-} from "@/lib/constants";
-import allCities from "@/data/cities/all-cities";
-import { PROJECTS } from "@/data/projects";
+import { COMPANY_PHONE, getWhatsAppLink } from "@/lib/constants";
 import {
   ArrowRight,
-  Check,
   Phone,
-  AlertTriangle,
-  MapPin,
-  Calendar,
-  MessageCircle,
   ShieldCheck,
-  Clock,
-  Siren,
+  Settings,
+  Star,
+  MapPin,
   Play,
-  Volume2,
-  VolumeX,
-  Maximize2,
+  Fan,
+  Sun,
+  Droplets,
+  Zap,
+  TreePine,
   Sparkles,
-  Trash2,
+  Truck,
   Wrench,
-  Lightbulb,
-  PhoneCall,
+  Wifi,
+  Leaf,
+  Heart,
+  Home as HomeIcon,
+  Send,
+  ChevronLeft,
+  ChevronRight,
+  ChevronDown,
+  Users,
+  Maximize2,
+  Check,
 } from "lucide-react";
-
-const CLEANUP_POINTS = [
-  { icon: Trash2, title: "Debris & packaging hauled away", description: "Old equipment, boxes, and job-site waste leave with us — never left for you to bag up." },
-  { icon: Sparkles, title: "Work area wiped down", description: "Dust and fingerprints from the install or repair get cleaned off surfaces before we go." },
-  { icon: ShieldCheck, title: "Floors & walkways protected", description: "We lay down floor protection during the job, so there's nothing to clean up on the way out." },
-  { icon: Check, title: "Final walkthrough with you", description: "We review the finished work together before we consider the job done." },
-];
-import { ImageLightbox, type LightboxImage } from "@/components/image-lightbox";
-import { useInView } from "@/hooks/use-in-view";
 import { Link } from "wouter";
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
+import { trackEvent } from "@/hooks/use-analytics";
 
-const ProjectGallery = lazy(() => import("@/components/project-gallery").then((m) => ({ default: m.ProjectGallery })));
 const ServiceAreasMap = lazy(() => import("@/components/service-areas-map").then((m) => ({ default: m.ServiceAreasMap })));
 
-const BRAND_LOGOS = [
-  "carrier", "trane", "lennox", "mitsubishi", "daikin", "goodman", "lg", "rheem", "york", "bosch",
+const HERO_TRUST = [
+  { icon: Settings, label: "Fast Response" },
+  { icon: ShieldCheck, label: "Honest Pricing" },
+  { icon: Star, label: "Quality Work" },
+  { icon: MapPin, label: "Local LA Team" },
 ];
 
-const findService = (id: string) => {
-  const service = SERVICES.find((s) => s.id === id);
-  if (!service) throw new Error(`Unknown service id: ${id}`);
-  return service;
-};
-
-const EXTRA_CITY_LINKS = [
-  { city: "Burbank", slug: "hvac-burbank" },
-  { city: "Pasadena", slug: "hvac-pasadena" },
-  { city: "Los Angeles", slug: "hvac-los-angeles" },
-];
-const TOTAL_CITY_PAGES = allCities.length + EXTRA_CITY_LINKS.length;
-
-/* ─── Walk Through The House — 5 rotating images per room ─── */
-const ROOMS = [
-  {
-    number: "01",
-    label: "Outside",
-    headline: "We start where your neighbors can see",
-    images: [
-      "/images/real-solar-install.webp",
-      "/images/hero-bm-solar-roof.png",
-      "/images/hero-bm-vehicles.png",
-      "/images/solar-techs-rooftop-1.jpg",
-      "/images/real-rooftop-hvac.webp",
-    ],
-    inset: "/images/solar-panel-cleaning.png",
-    services: [findService("solar-install"), findService("hvac-repair"), findService("outdoor-irrigation")],
-  },
-  {
-    number: "02",
-    label: "Living Room",
-    headline: "Heating and cooling for every room",
-    images: [
-      "/images/hvac-tech-minisplit.png",
-      "/images/hvac-tech-homeowner.png",
-      "/images/thermostat-nest-install.png",
-      "/images/real-diagnostics.webp",
-      "/images/hvac-tech-tablet.png",
-    ],
-    inset: "/images/hvac-tech-filter.png",
-    services: [findService("hvac-ductless"), findService("hvac-thermostat"), findService("hvac-maintenance")],
-  },
-  {
-    number: "03",
-    label: "Kitchen",
-    headline: "Modern plumbing, leak-proofed",
-    images: [
-      "/images/moen-smart-water-shutoff.webp",
-      "/images/real-piping.webp",
-      "/images/real-pipe-repair.webp",
-      "/images/svc-plumbing.webp",
-      "/images/real-trenching.webp",
-    ],
-    inset: "/images/real-piping.webp",
-    services: [findService("plumbing-shutoff"), findService("plumbing-general")],
-  },
-  {
-    number: "04",
-    label: "Bathroom",
-    headline: "Real pipe work, done right",
-    images: [
-      "/images/real-copper-welding.webp",
-      "/images/svc-plumbing.webp",
-      "/images/real-pipe-repair.webp",
-      "/images/moen-smart-water-shutoff.webp",
-      "/images/real-piping.webp",
-    ],
-    inset: "/images/real-copper-welding.webp",
-    services: [findService("plumbing-jet-cleanup"), findService("plumbing-general")],
-  },
-  {
-    number: "05",
-    label: "Utility Room",
-    headline: "Safe, licensed electrical work",
-    images: [
-      "/images/services/electrical-hero.png",
-      "/images/services/electrical-ev-charger.png",
-      "/images/svc-electrical.png",
-      "/images/real-rooftop-hvac.webp",
-      "/images/real-crane-lift.webp",
-    ],
-    inset: "/images/services/electrical-ev-charger.png",
-    services: [findService("electrical-panel"), findService("electrical-general")],
-  },
-  {
-    number: "06",
-    label: "Backyard",
-    headline: "Your outdoor space, transformed",
-    images: [
-      "/images/hero-bm-irrigation.png",
-      "/images/landscape-feature.jpg",
-      "/images/svc-landscaping.png",
-      "/images/svc-sod-installation.png",
-      "/images/svc-planting.png",
-    ],
-    inset: "/images/svc-planting.png",
-    services: [findService("outdoor-landscaping"), findService("outdoor-sod"), findService("outdoor-planting")],
-  },
-  {
-    number: "07",
-    label: "Smart Home",
-    headline: "The future of your home, wired right",
-    images: [
-      "/images/hero-bm-smart-home.png",
-      "/images/thermostat-nest-app.png",
-      "/images/services/network-smarthome.png",
-      "/images/services/network-panel.png",
-      "/images/services/network-wifi.png",
-    ],
-    inset: "/images/thermostat-nest-install.png",
-    services: [findService("tech-network"), findService("tech-smarthome"), findService("tech-smart-network")],
-  },
+const SERVICE_TILES = [
+  { title: "HVAC", desc: "Cooling & Heating", href: "/services/hvac-repair", img: "/images/rebrand/tile-hvac.png", icon: Fan },
+  { title: "Solar", desc: "Energy Solutions", href: "/services/solar-install", img: "/images/rebrand/tile-solar.png", icon: Sun },
+  { title: "Plumbing", desc: "Repairs & Installations", href: "/services/plumbing-general", img: "/images/rebrand/tile-plumbing.png", icon: Droplets },
+  { title: "Electrical", desc: "Safe & Reliable", href: "/services/electrical-general", img: "/images/rebrand/tile-electrical.png", icon: Zap },
+  { title: "Landscaping", desc: "Beautiful Outdoors", href: "/services/outdoor-landscaping", img: "/images/rebrand/tile-landscaping.png", icon: TreePine },
+  { title: "Technology", desc: "Smart Home & Networking", href: "/services/tech-smarthome", img: "/images/services/network-smarthome.png", icon: Wifi },
+  { title: "Home Cleaning", desc: "A Cleaner, Healthier Home", href: "/services/home-cleaning", img: "/images/rebrand/tile-cleaning.png", icon: Sparkles },
+  { title: "Moving Help", desc: "Moving & Packing", href: "/services/moving-help", img: "/images/rebrand/tile-moving.png", icon: Truck },
+  { title: "Handyman", desc: "General Home Help", href: "/services/handyman", img: "/images/rebrand/tile-handyman.png", icon: Wrench },
 ];
 
-/* ─── Reel videos for compact video strip ─── */
+const SEASONS = [
+  { icon: "/images/rebrand/season-summer.png", label: "Summer", desc: "AC Tune-Ups", href: "/services/hvac-maintenance" },
+  { icon: "/images/rebrand/season-fall.png", label: "Fall", desc: "Home Prep", href: "/services/heating-gas-furnace" },
+  { icon: "/images/rebrand/season-winter.png", label: "Winter", desc: "Heating & More", href: "/services/hvac-repair" },
+  { icon: "/images/rebrand/season-spring.png", label: "Spring", desc: "Clean & Refresh", href: "/services/outdoor-irrigation" },
+];
+
+const BRAND_LOGOS = ["carrier", "trane", "lennox", "mitsubishi", "daikin", "goodman", "lg", "rheem", "york", "bosch"];
+
+const FAQS = [
+  { q: "Are you licensed and insured?", a: "Yes — Bernardino Martin is fully licensed, bonded, and insured for HVAC, solar, plumbing, electrical, and general home services across Los Angeles." },
+  { q: "Do you offer emergency service?", a: "Yes, we offer 24/7 emergency service for urgent HVAC and plumbing issues, nights and weekends included." },
+  { q: "What areas do you serve?", a: "We serve Los Angeles and the greater San Fernando Valley — see our full list of service areas below, or call us to confirm your neighborhood." },
+  { q: "How do I get a quote?", a: "Call us, chat on WhatsApp, or fill out our online quote form and we'll get back to you to schedule a visit." },
+];
+
+const GALLERY_ITEMS = [
+  { title: "Solar Installation", location: "Los Angeles, CA", img: "/images/rebrand/gallery-solar-install.jpg", desc: "Rooftop solar panel installation for a Los Angeles home." },
+  { title: "Solar Maintenance", location: "Los Angeles, CA", img: "/images/rebrand/gallery-solar-maintenance.png", desc: "Professional solar panel cleaning to keep energy output at its peak." },
+  { title: "Landscape Design", location: "Los Angeles, CA", img: "/images/rebrand/gallery-landscape.png", desc: "Full landscape and hardscape design for a Los Angeles property." },
+  { title: "Mini-Split Service", location: "Los Angeles, CA", img: "/images/rebrand/gallery-minisplit.png", desc: "Ductless mini-split maintenance and service for year-round comfort." },
+  { title: "Smart Network Install", location: "Los Angeles, CA", img: "/images/services/smart-network-solutions.jpeg", desc: "Structured wiring and network cabinet installation for a smart home." },
+  { title: "Smart Irrigation", location: "Los Angeles, CA", img: "/images/rebrand/gallery-irrigation.png", desc: "Solar-powered smart irrigation controller setup for efficient watering." },
+];
+
+const SIDE_PHOTOS = [
+  { src: "/images/rebrand/mood-living-room.png", alt: "Comfortable living room" },
+  { src: "/images/rebrand/mood-backyard.png", alt: "Landscaped backyard" },
+  { src: "/images/rebrand/mood-electrical-panel.png", alt: "Electrical panel service" },
+  { src: "/images/rebrand/mood-bathroom.png", alt: "Bathroom remodel" },
+  { src: "/images/rebrand/mood-backyard-evening.png", alt: "Backyard patio in the evening" },
+  { src: "/images/rebrand/mood-solar-roof.png", alt: "Solar panels on a rooftop" },
+];
+
 const REEL_VIDEOS = [
-  { src: "/videos/hvac-tech-inspecting.mp4", label: "HVAC Inspection", thumb: "/images/hvac-tech-tablet.png" },
-  { src: "/videos/hvac-repair-outdoor.mp4", label: "AC Repair", thumb: "/images/hvac-tech-gauges.png" },
-  { src: "/videos/hvac-tech-ac-outdoor.mp4", label: "AC Service", thumb: "/images/hero-bm-ac-units.png" },
-  { src: "/videos/hvac-tech-driveway.mp4", label: "Service Call", thumb: "/images/hero-bm-vehicles.png" },
-  { src: "/videos/solar-panel-install.mp4", label: "Solar Install", thumb: "/images/hero-bm-solar-roof.png" },
-  { src: "/videos/solar-la.mp4", label: "Solar LA", thumb: "/images/solar-panel-cleaning.png" },
-  { src: "/videos/plumbing-la.mp4", label: "Plumbing", thumb: "/images/real-piping.webp" },
-  { src: "/videos/landscaping-la.mp4", label: "Landscaping", thumb: "/images/svc-landscaping.png" },
-  { src: "/videos/irrigation-la.mp4", label: "Irrigation", thumb: "/images/hero-bm-irrigation.png" },
-  { src: "/videos/network-la.mp4", label: "Smart Home", thumb: "/images/hero-bm-smart-home.png" },
-  { src: "/videos/electrical-la.mp4", label: "Electrical", thumb: "/images/services/electrical-hero.png" },
-  { src: "/videos/reel-ultra-realistic.mp4", label: "Behind The Scenes", thumb: "/images/real-solar-install.webp" },
+  { src: "/videos/reel-hvac-family.mp4", label: "Home Comfort", thumb: "/images/rebrand/tile-electrical.png" },
+  { src: "/videos/reel-ac-inspect.mp4", label: "AC Inspection", thumb: "/images/rebrand/tile-hvac.png" },
+  { src: "/videos/reel-ac-condenser-circle.mp4", label: "Condenser Service", thumb: "/images/rebrand/tile-plumbing.png" },
+  { src: "/videos/solar-irrigation-real.mp4", label: "Solar Irrigation", thumb: "/images/rebrand/thumb-solar-irrigation.jpg" },
 ];
 
-const FEEL_GALLERY_IMAGES = [
-  { src: "/images/solar-techs-rooftop-2.jpg", alt: "Two-technician solar panel installation on a Los Angeles rooftop" },
-  { src: "/images/solar-aerial-cleaning.png", alt: "Aerial view of solar panel cleaning service" },
-  { src: "/images/real-ac-service.webp", alt: "AC condenser cleaning and service" },
-  { src: "/images/solar-inverter-install.png", alt: "Solar inverter and electrical panel installation" },
-  { src: "/images/real-crane-lift.webp", alt: "Commercial HVAC unit crane lift installation" },
-  { src: "/images/solar-panel-rail.png", alt: "Solar panel mounting rail installation" },
-  { src: "/images/real-solar-test.webp", alt: "Electrical system testing and diagnostics" },
-  { src: "/images/solar-techs-rooftop-3.jpg", alt: "Solar installation crew at work on a Los Angeles home" },
-];
-
-/* ─── Active-room tracker for the sticky numbered list ─── */
-function useActiveSection(count: number) {
-  const refs = useRef<(HTMLDivElement | null)[]>([]);
-  const [active, setActive] = useState(0);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const idx = refs.current.findIndex((el) => el === entry.target);
-            if (idx !== -1) setActive(idx);
-          }
-        });
-      },
-      { rootMargin: "-45% 0px -45% 0px", threshold: 0 },
-    );
-    refs.current.slice(0, count).forEach((el) => el && observer.observe(el));
-    return () => observer.disconnect();
-  }, [count]);
-
-  return { refs, active };
+function formatDuration(totalSeconds: number) {
+  const m = Math.floor(totalSeconds / 60);
+  const s = Math.round(totalSeconds % 60);
+  return `${m}:${s.toString().padStart(2, "0")}`;
 }
 
-/* Mounts its children only once the placeholder scrolls near the viewport. Keeps heavy
-   below-the-fold widgets — the Google Maps map plus its script/tile payload — out of the
-   initial page load, so mobile users who never scroll there pay nothing. */
-function DeferUntilNearViewport({
-  children,
-  placeholder,
-  rootMargin = "400px",
-}: {
-  children: React.ReactNode;
-  placeholder: React.ReactNode;
-  rootMargin?: string;
-}) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [show, setShow] = useState(false);
+function useVideoDuration(src: string) {
+  const [duration, setDuration] = useState<number | null>(null);
   useEffect(() => {
-    const el = ref.current;
-    if (!el || show) return;
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setShow(true);
-          io.disconnect();
-        }
-      },
-      { rootMargin },
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, [rootMargin, show]);
-  return (
-    <div ref={ref} className="h-full w-full">
-      {show ? children : placeholder}
-    </div>
-  );
+    const probe = document.createElement("video");
+    probe.preload = "metadata";
+    probe.src = src;
+    const onLoaded = () => setDuration(probe.duration);
+    probe.addEventListener("loadedmetadata", onLoaded);
+    return () => probe.removeEventListener("loadedmetadata", onLoaded);
+  }, [src]);
+  return duration;
 }
 
-function CountUpStat({ end, label }: { end: number; label: string }) {
-  const spanRef = useRef<HTMLSpanElement>(null);
-  const started = useRef(false);
-  const { ref, inView } = useInView<HTMLDivElement>(0.4);
+/* ─── "What can we help you with today?" — auto-scrolling strip of bigger tiles.
+   Scrolled via JS (scrollLeft on a real overflow-x-auto container) rather than a CSS
+   transform animation — a transform-animated element never reports a "stable" bounding box,
+   which makes its contents unreliable (or impossible) to click. A real scroll position keeps
+   every tile genuinely clickable at all times, and doubles as touch/drag-scrollable on mobile
+   where there's no hover to pause on. Clicking a tile opens a big preview with a button through
+   to that service's page, rather than navigating immediately — satisfies both "view it big" and
+   "go to the page". */
+function ServicesMarquee() {
+  const [active, setActive] = useState<(typeof SERVICE_TILES)[number] | null>(null);
+  const scrollerRef = useRef<HTMLDivElement>(null);
+  const pausedRef = useRef(false);
+  const looped = [...SERVICE_TILES, ...SERVICE_TILES];
 
   useEffect(() => {
-    if (!inView || started.current) return;
-    started.current = true;
-    let attempts = 0;
-    const tryInit = () => {
-      const CountUp = (window as any).countUp?.CountUp;
-      if (CountUp && spanRef.current) {
-        new CountUp(spanRef.current, end, { duration: 1.6 }).start();
-        return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const el = scrollerRef.current;
+    if (!el) return;
+    const id = window.setInterval(() => {
+      if (pausedRef.current) return;
+      const halfway = el.scrollWidth / 2;
+      if (el.scrollLeft >= halfway) {
+        el.scrollLeft -= halfway;
+      } else {
+        el.scrollLeft += 1;
       }
-      attempts += 1;
-      if (attempts < 20) setTimeout(tryInit, 150);
-    };
-    tryInit();
-  }, [inView, end]);
+    }, 40);
+    return () => window.clearInterval(id);
+  }, []);
 
   return (
-    <div ref={ref} className="text-center">
-      <div className="text-display text-4xl md:text-5xl text-white">
-        <span ref={spanRef}>0</span>+
-      </div>
-      <div className="mt-2 text-xs uppercase tracking-[0.2em] text-white/60">{label}</div>
-    </div>
-  );
-}
-
-function ClickableImage({ src, alt, className, onClick }: { src: string; alt: string; className?: string; onClick?: () => void }) {
-  const webpSrc = toWebp(src);
-  return (
-    <button type="button" onClick={onClick} className="group relative block h-full w-full cursor-zoom-in focus:outline-none" aria-label={`View ${alt} fullscreen`}>
-      <picture>
-        {!src.endsWith(".webp") && <source srcSet={webpSrc} type="image/webp" />}
-        <img src={src} alt={alt} loading="lazy" decoding="async" className={className ?? "h-full w-full object-cover"} />
-      </picture>
-      {onClick && (
-        <div className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/20 transition-colors">
-          <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-white/90 rounded-full p-2 shadow-lg">
-            <Maximize2 className="h-4 w-4 text-slate-900" />
-          </div>
-        </div>
-      )}
-    </button>
-  );
-}
-
-/* ─── Full-bleed editorial statement break ─── */
-function StatementBreak({ dark, text }: { dark?: boolean; text: string }) {
-  return (
-    <section className={dark ? "bg-slate-950 py-28 text-white" : "border-y border-slate-100 bg-white py-28 text-slate-950"}>
-      <div className="container mx-auto px-4 text-center" data-aos="zoom-in">
-        <p className="text-display mx-auto max-w-4xl text-3xl md:text-5xl lg:text-6xl">{text}</p>
-      </div>
-    </section>
-  );
-}
-
-/* ─── Compact multi-video reel section (horizontal scroll strip) ─── */
-function VideoReelSection() {
-  const [activeVideo, setActiveVideo] = useState<string | null>(null);
-
-  return (
-    <section className="bg-slate-950 py-12">
+    <section id="services-grid" className="border-b border-slate-100 bg-white py-16">
       <div className="container mx-auto px-4">
-        <div className="mb-6 flex items-baseline justify-between">
-          <div>
-            <p className="mb-1 text-xs font-bold uppercase tracking-[0.3em] text-white/65">Our Work In Motion</p>
-            <h2 className="text-display text-2xl text-white md:text-3xl">See it before you book it.</h2>
-          </div>
-          <p className="hidden text-xs text-white/65 sm:block">Scroll to explore →</p>
+        <div className="mb-8 max-w-2xl">
+          <h2 className="font-sans text-3xl font-bold text-[var(--rb-navy)] sm:text-4xl">What can we help you with today?</h2>
+          <p className="mt-2 text-slate-500">One trusted team. Many solutions. Click a service to view it and open its page.</p>
         </div>
+      </div>
 
-        <div className="no-scrollbar -mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-3">
-          {REEL_VIDEOS.map((v) => (
+      <div
+        ref={scrollerRef}
+        onMouseEnter={() => { pausedRef.current = true; }}
+        onMouseLeave={() => { pausedRef.current = false; }}
+        onTouchStart={() => { pausedRef.current = true; }}
+        onTouchEnd={() => { pausedRef.current = false; }}
+        className="no-scrollbar overflow-x-auto"
+      >
+        <div className="flex w-max gap-6 px-4">
+          {looped.map((tile, i) => (
             <button
-              key={v.src}
+              key={`${tile.href}-${i}`}
               type="button"
-              onClick={() => setActiveVideo(v.src)}
-              className="group relative h-44 w-72 shrink-0 snap-center overflow-hidden rounded-xl bg-slate-800"
-              aria-label={`Play ${v.label} video`}
+              onClick={() => setActive(tile)}
+              className="group/tile w-80 shrink-0 overflow-hidden rounded-2xl border border-slate-100 bg-white text-left shadow-sm transition-shadow hover:shadow-lg"
             >
-              <picture>
-                {!v.thumb.endsWith(".webp") && <source srcSet={toWebp(v.thumb)} type="image/webp" />}
-                <img
-                  src={v.thumb}
-                  alt=""
-                  loading="lazy"
-                  decoding="async"
-                  className="h-full w-full object-cover opacity-75 transition-opacity duration-300 group-hover:opacity-50"
-                />
-              </picture>
-              <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
-                <div className="flex h-11 w-11 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm transition-transform duration-200 group-hover:scale-110">
-                  <Play className="h-5 w-5 fill-white text-white" aria-hidden="true" />
-                </div>
-                <span className="text-xs font-bold uppercase tracking-wider text-white drop-shadow">{v.label}</span>
-              </div>
-              <div className="absolute inset-0 rounded-xl ring-1 ring-white/10 transition-all group-hover:ring-secondary/50" />
+              <span className="relative block h-80 w-full overflow-hidden">
+                <img src={tile.img} alt="" aria-hidden="true" loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-500 group-hover/tile:scale-105" />
+                <span className="absolute inset-0 bg-black/0 transition-colors group-hover/tile:bg-black/20" />
+                <span className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 opacity-0 shadow transition-opacity group-hover/tile:opacity-100">
+                  <Maximize2 className="h-4 w-4 text-slate-900" aria-hidden="true" />
+                </span>
+              </span>
+              <span className="flex items-center gap-2.5 p-5">
+                <tile.icon className="h-6 w-6 shrink-0 text-[var(--rb-orange)]" aria-hidden="true" />
+                <span>
+                  <span className="block text-base font-bold text-[var(--rb-navy)]">{tile.title}</span>
+                  <span className="block text-sm text-slate-500">{tile.desc}</span>
+                </span>
+              </span>
             </button>
           ))}
         </div>
       </div>
 
-      <Dialog open={!!activeVideo} onOpenChange={() => setActiveVideo(null)}>
-        <DialogContent className="max-w-4xl overflow-hidden border-none bg-black p-0">
+      <Dialog open={!!active} onOpenChange={() => setActive(null)}>
+        <DialogContent className="max-w-2xl overflow-hidden border-none bg-white p-0">
           <VisuallyHidden>
-            <DialogTitle>Service video</DialogTitle>
+            <DialogTitle>{active?.title}</DialogTitle>
           </VisuallyHidden>
-          {activeVideo && (
-            <video key={activeVideo} controls autoPlay playsInline className="w-full">
-              <source src={activeVideo} type="video/mp4" />
-              <track kind="captions" src="/captions.vtt" srcLang="en" label="English" default />
-            </video>
+          {active && (
+            <div>
+              <img src={active.img} alt={active.title} className="max-h-[55vh] w-full object-cover" />
+              <div className="flex flex-col items-start gap-4 p-6 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <h3 className="text-xl font-bold text-[var(--rb-navy)]">{active.title}</h3>
+                  <p className="mt-1 text-sm text-slate-500">{active.desc}</p>
+                </div>
+                <Button className="bg-[var(--rb-orange)] hover:bg-[var(--rb-orange-dark)]" asChild>
+                  <Link href={active.href}>
+                    View Service Page
+                    <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
+                  </Link>
+                </Button>
+              </div>
+            </div>
           )}
         </DialogContent>
       </Dialog>
@@ -379,99 +220,246 @@ function VideoReelSection() {
   );
 }
 
-/* ─── Auto-rotating room image slideshow (3-second interval) ─── */
-/* Only 3 images rendered at a time (prev/curr/next) to avoid loading all 5 at once */
-function toWebp(src: string) {
-  return src.replace(/\.(png|jpg|jpeg)$/i, ".webp");
-}
+/* ─── Real-work gallery — dark, with prev/next arrows ─── */
+function WorkGallery() {
+  const scrollerRef = useRef<HTMLDivElement>(null);
+  const [lightbox, setLightbox] = useState<(typeof GALLERY_ITEMS)[number] | null>(null);
 
-function RoomImageSlideshow({ images, headline }: { images: string[]; headline: string }) {
-  const [idx, setIdx] = useState(0);
-
-  useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const t = setInterval(() => setIdx((prev) => (prev + 1) % images.length), 3000);
-    return () => clearInterval(t);
-  }, [images.length]);
-
-  const n = images.length;
-  const prevIdx = (idx - 1 + n) % n;
-  const nextIdx = (idx + 1) % n;
-  const inWindow = new Set([prevIdx, idx, nextIdx]);
+  const scrollBy = (dir: 1 | -1) => {
+    scrollerRef.current?.scrollBy({ left: dir * 340, behavior: "smooth" });
+  };
 
   return (
-    <>
-      {images.map((src, i) => {
-        if (!inWindow.has(i)) return null;
-        const webpSrc = toWebp(src);
-        return (
-          <picture key={src}>
-            {!src.endsWith(".webp") && <source srcSet={webpSrc} type="image/webp" />}
-            <img
-              src={src}
-              alt={headline}
-              loading="lazy"
-              decoding="async"
-              fetchPriority="low"
-              className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${
-                i === idx ? "opacity-100" : "opacity-0"
-              }`}
-            />
-          </picture>
-        );
-      })}
-    </>
+    <section id="our-work" className="bg-white py-20">
+      <div className="container mx-auto px-4">
+        <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <p className="mb-2 text-xs font-bold uppercase tracking-[0.3em] text-[var(--rb-orange)]">Our Work Speaks For Itself</p>
+            <h2 className="font-sans text-3xl font-bold text-[var(--rb-navy)] md:text-4xl">Real Work. Real Homes. Real Results.</h2>
+            <p className="mt-2 text-slate-500">Proudly caring for homes throughout Los Angeles.</p>
+          </div>
+          <Button variant="outline" className="border-slate-200 text-[var(--rb-navy)] hover:bg-slate-50" asChild>
+            <Link href="/services">
+              View Full Gallery
+              <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
+            </Link>
+          </Button>
+        </div>
+
+        <div className="relative">
+          <div ref={scrollerRef} className="no-scrollbar flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2">
+            {GALLERY_ITEMS.map((item) => (
+              <button
+                key={item.title}
+                type="button"
+                onClick={() => setLightbox(item)}
+                className="group relative h-64 w-72 shrink-0 snap-start overflow-hidden rounded-2xl shadow-sm"
+                aria-label={`View project: ${item.title}`}
+              >
+                <img src={item.img} alt={item.title} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/15 to-transparent" />
+                <span className="absolute bottom-3 left-3">
+                  <span className="block text-xs font-bold uppercase tracking-wider text-white">{item.title}</span>
+                  <span className="mt-0.5 flex items-center gap-1 text-xs text-white/70">
+                    <MapPin className="h-3 w-3" aria-hidden="true" />
+                    {item.location}
+                  </span>
+                </span>
+              </button>
+            ))}
+          </div>
+          <button
+            type="button"
+            onClick={() => scrollBy(-1)}
+            aria-label="Scroll gallery left"
+            className="absolute -left-4 top-1/2 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 shadow-md hover:text-[var(--rb-orange)] md:flex"
+          >
+            <ChevronLeft className="h-5 w-5" aria-hidden="true" />
+          </button>
+          <button
+            type="button"
+            onClick={() => scrollBy(1)}
+            aria-label="Scroll gallery right"
+            className="absolute -right-4 top-1/2 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 shadow-md hover:text-[var(--rb-orange)] md:flex"
+          >
+            <ChevronRight className="h-5 w-5" aria-hidden="true" />
+          </button>
+        </div>
+      </div>
+
+      <Dialog open={!!lightbox} onOpenChange={() => setLightbox(null)}>
+        <DialogContent className="max-w-3xl overflow-hidden border-none bg-white p-0">
+          <VisuallyHidden>
+            <DialogTitle>{lightbox?.title}</DialogTitle>
+          </VisuallyHidden>
+          {lightbox && (
+            <div>
+              <img src={lightbox.img} alt={lightbox.title} className="max-h-[60vh] w-full object-cover" />
+              <div className="p-6">
+                <p className="text-xs font-bold uppercase tracking-wider text-[var(--rb-orange)]">{lightbox.location}</p>
+                <h3 className="mt-1 text-xl font-bold text-[var(--rb-navy)]">{lightbox.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-600">{lightbox.desc}</p>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
+    </section>
   );
 }
 
-/* ─── Horizontal photo strip, one consistent interaction at every width ─── */
-/* Previously pinned the section for 200vh on desktop and scroll-jacked the images sideways —
-   replaced with a plain swipeable/scrollable strip everywhere: easier to predict, easier to use
-   on a trackpad or with a mouse wheel, and doesn't need a prefers-reduced-motion branch since
-   there's no scroll-driven animation left to guard against. */
-function FeelGallery({ onImageClick }: { onImageClick: (index: number) => void }) {
+/* ─── Video reel (left, navy) + vertically auto-scrolling reviews (right) ─── */
+/** Full-width video showcase — one large featured player plus a row of properly-sized
+    (not tiny) thumbnails underneath. Reviews live in their own separate full-width section
+    right below this one (see ReviewSlider) rather than squeezed into a side-by-side column,
+    which was fighting against both the video content and the review list's own natural sizing. */
+function VideoShowcase() {
+  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+  const activeDuration = useVideoDuration(activeVideo ?? REEL_VIDEOS[0].src);
+
+  const [featured, setFeatured] = useState(0);
+  const featuredVideo = REEL_VIDEOS[featured];
+  const featuredDuration = useVideoDuration(featuredVideo.src);
+
+  const [lightboxPhoto, setLightboxPhoto] = useState<(typeof SIDE_PHOTOS)[number] | null>(null);
+
   return (
-    <section className="bg-white py-20">
+    <section id="see-us-in-action" className="bg-[var(--rb-navy)] py-20">
       <div className="container mx-auto px-4">
-        <p className="mb-8 text-2xl text-slate-600 md:text-3xl" data-aos="fade-up">
-          From the rooftop to the panel — the <span className="text-display inline text-slate-950">real work</span> behind your comfort.
-        </p>
-      </div>
-      <div className="no-scrollbar flex snap-x snap-mandatory gap-5 overflow-x-auto px-4 pb-2 md:container md:mx-auto">
-        {FEEL_GALLERY_IMAGES.map((img, i) => (
-          <div
-            key={img.src}
-            data-aos="fade-up"
-            data-aos-delay={i * 60}
-            className="h-56 w-72 shrink-0 snap-center overflow-hidden rounded-2xl shadow-lg transition-transform duration-300 hover:-translate-y-1 hover:shadow-xl md:h-64 md:w-80"
-          >
-            <ClickableImage src={img.src} alt={img.alt} className="h-full w-full object-cover" onClick={() => onImageClick(i)} />
+        <div className="mx-auto mb-8 max-w-2xl text-center">
+          <p className="mb-2 text-xs font-bold uppercase tracking-[0.3em] text-[var(--rb-orange)]">The Bernardino Difference</p>
+          <h2 className="font-sans text-3xl font-bold text-white sm:text-4xl">See Us in Action</h2>
+          <p className="mt-2 text-white/70">Meet the people, see the projects, and discover why homeowners keep us on speed dial.</p>
+          <Button size="lg" className="mt-5 bg-white text-[var(--rb-navy)] hover:bg-white/90" onClick={() => setActiveVideo(featuredVideo.src)}>
+            Watch Videos
+            <Play className="ml-2 h-4 w-4 fill-current" aria-hidden="true" />
+          </Button>
+        </div>
+
+        {/* Real project photos flank the video, edge-to-edge like a background panel — not
+            individual rounded cards — so the section doesn't read as empty navy space on wide
+            screens. Clickable through to a full-screen view. None of these six are used
+            anywhere else on the homepage. */}
+        <div className="mx-auto grid grid-cols-1 items-stretch gap-0 lg:grid-cols-[1fr_2.3fr_1fr]">
+          <div className="hidden lg:flex lg:flex-col">
+            {SIDE_PHOTOS.slice(0, 3).map((p) => (
+              <button key={p.src} type="button" onClick={() => setLightboxPhoto(p)} className="group relative min-h-0 flex-1 overflow-hidden" aria-label={`View full-screen: ${p.alt}`}>
+                <img src={p.src} alt={p.alt} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" />
+                <span className="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors group-hover:bg-black/30">
+                  <Maximize2 className="h-5 w-5 text-white opacity-0 transition-opacity group-hover:opacity-100" aria-hidden="true" />
+                </span>
+              </button>
+            ))}
           </div>
-        ))}
+
+          <div className="px-4 py-6 lg:px-6">
+            {/* Plays muted and auto-advances to the next clip on its own — no click needed.
+                Same physical slot either way, so nothing resizes when it starts playing. The
+                only way to get sound is the fullscreen button, which opens the real video with
+                audio and controls (autoplay-with-sound from page load would just get blocked by
+                the browser anyway). */}
+            <div className="group relative block aspect-[16/9] w-full overflow-hidden rounded-2xl bg-black shadow-2xl">
+              <video
+                key={featuredVideo.src}
+                autoPlay
+                muted
+                playsInline
+                className="h-full w-full object-cover"
+                onEnded={() => setFeatured((f) => (f + 1) % REEL_VIDEOS.length)}
+              >
+                <source src={featuredVideo.src} type="video/mp4" />
+              </video>
+              <button
+                type="button"
+                onClick={() => setActiveVideo(featuredVideo.src)}
+                aria-label={`Watch ${featuredVideo.label} full screen with sound`}
+                className="absolute right-4 top-4 flex items-center gap-2 rounded-full bg-black/60 px-3 py-2 text-xs font-bold text-white shadow-lg ring-1 ring-white/25 backdrop-blur-sm transition-colors hover:bg-black/80"
+              >
+                <Maximize2 className="h-3.5 w-3.5" aria-hidden="true" />
+                Full Screen
+              </button>
+              <span className="pointer-events-none absolute bottom-4 left-4 rounded-md bg-black/60 px-2.5 py-1 text-xs font-semibold text-white/90">
+                {featuredVideo.label}
+              </span>
+              {featuredDuration !== null && (
+                <span className="pointer-events-none absolute bottom-4 right-4 rounded-md bg-black/70 px-3 py-1.5 text-sm font-bold text-white">
+                  {formatDuration(featuredDuration)}
+                </span>
+              )}
+            </div>
+
+            <div className="mt-4 grid grid-cols-4 gap-3">
+              {REEL_VIDEOS.map((v, i) => (
+                <button
+                  key={v.src}
+                  type="button"
+                  onClick={() => setFeatured(i)}
+                  aria-label={`Preview ${v.label} video`}
+                  className={`group relative aspect-video overflow-hidden rounded-xl ring-2 transition-all ${i === featured ? "ring-[var(--rb-orange)]" : "ring-transparent hover:ring-white/40"}`}
+                >
+                  <img src={v.thumb} alt="" aria-hidden="true" loading="lazy" decoding="async" className="h-full w-full object-cover" />
+                  {i !== featured && <span className="absolute inset-0 bg-black/35 transition-colors group-hover:bg-black/15" />}
+                  <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent px-2 py-1.5 text-left text-[11px] font-bold text-white">
+                    {v.label}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="hidden lg:flex lg:flex-col">
+            {SIDE_PHOTOS.slice(3, 6).map((p) => (
+              <button key={p.src} type="button" onClick={() => setLightboxPhoto(p)} className="group relative min-h-0 flex-1 overflow-hidden" aria-label={`View full-screen: ${p.alt}`}>
+                <img src={p.src} alt={p.alt} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" />
+                <span className="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors group-hover:bg-black/30">
+                  <Maximize2 className="h-5 w-5 text-white opacity-0 transition-opacity group-hover:opacity-100" aria-hidden="true" />
+                </span>
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
+
+      <Dialog open={!!lightboxPhoto} onOpenChange={() => setLightboxPhoto(null)}>
+        <DialogContent className="max-w-5xl overflow-hidden border-none bg-black p-0">
+          <VisuallyHidden>
+            <DialogTitle>{lightboxPhoto?.alt}</DialogTitle>
+          </VisuallyHidden>
+          {lightboxPhoto && (
+            <img src={lightboxPhoto.src} alt={lightboxPhoto.alt} className="max-h-[85vh] w-full object-contain" />
+          )}
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={!!activeVideo} onOpenChange={() => setActiveVideo(null)}>
+        <DialogContent className="max-w-4xl overflow-hidden border-none bg-black p-0">
+          <VisuallyHidden>
+            <DialogTitle>Service video</DialogTitle>
+          </VisuallyHidden>
+          {activeVideo && (
+            <div className="relative">
+              <video key={activeVideo} controls autoPlay playsInline className="w-full">
+                <source src={activeVideo} type="video/mp4" />
+                <track kind="captions" src="/captions.vtt" srcLang="en" label="English" default />
+              </video>
+              {activeDuration !== null && (
+                <span className="absolute bottom-3 right-3 rounded-md bg-black/70 px-2.5 py-1 text-xs font-bold text-white">
+                  {formatDuration(activeDuration)}
+                </span>
+              )}
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </section>
   );
 }
 
 export default function Home() {
-  const { refs: roomRefs, active: activeRoom } = useActiveSection(ROOMS.length);
   const heroVideoRef = useRef<HTMLVideoElement>(null);
-  const [heroMuted, setHeroMuted] = useState(false);
   const [videoReady, setVideoReady] = useState(false);
-  const [textFaded, setTextFaded] = useState(false);
-  const [lightbox, setLightbox] = useState<{ images: LightboxImage[]; index: number } | null>(null);
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
 
-  function openLightbox(images: LightboxImage[], index: number) {
-    setLightbox({ images, index });
-  }
-
-  /* Hero video: plays on ALL screen sizes, but is loaded lazily — only after the page has
-     finished loading and the main thread goes idle — so it never competes with the critical
-     resources that decide FCP/LCP/TBT. Until it can play, the preloaded poster image stays
-     visible (it's the painted LCP), and if the video ever fails to load the image simply
-     remains. Tries to play WITH sound first; browsers that block unmuted autoplay reject the
-     play() promise, and only then do we fall back to a muted autoplay (with the toggle
-     reflecting the actual muted state either way). */
   useEffect(() => {
     const video = heroVideoRef.current;
     if (!video) return;
@@ -479,22 +467,8 @@ export default function Home() {
 
     const startVideo = () => {
       if (cancelled || !video) return;
-      video.muted = false;
-      const p = video.play();
-      const onPlaying = () => {
-        if (cancelled) return;
-        setVideoReady(true);
-        // Fade the text (and its darkening overlay) out the moment the video actually starts playing.
-        setTextFaded(true);
-      };
-      if (p !== undefined) {
-        p.then(onPlaying).catch(() => {
-          if (cancelled || !video) return;
-          video.muted = true;
-          setHeroMuted(true);
-          video.play().then(onPlaying).catch(() => {});
-        });
-      }
+      video.muted = true;
+      video.play().then(() => { if (!cancelled) setVideoReady(true); }).catch(() => {});
     };
 
     const schedule = () => {
@@ -512,540 +486,314 @@ export default function Home() {
     };
   }, []);
 
-  /* Bring the text back once the video completes its first full loop, then leave it alone —
-     the video has the `loop` attribute so `ended` never fires; instead we watch for
-     currentTime wrapping from near-the-end back to near-zero via timeupdate. */
-  useEffect(() => {
-    if (!videoReady) return;
-    const video = heroVideoRef.current;
-    if (!video) return;
-
-    let prevTime = 0;
-    let hasLooped = false;
-
-    const handleTimeUpdate = () => {
-      const curr = video.currentTime;
-      if (!hasLooped && prevTime > 1 && curr < 0.5) {
-        hasLooped = true;
-        setTextFaded(false);
-      }
-      prevTime = curr;
-    };
-
-    video.addEventListener("timeupdate", handleTimeUpdate);
-    return () => video.removeEventListener("timeupdate", handleTimeUpdate);
-  }, [videoReady]);
-
-  const toggleHeroMute = () => {
-    const video = heroVideoRef.current;
-    if (!video) return;
-    const next = !heroMuted;
-    video.muted = next;
-    if (!next) video.play().catch(() => {});
-    setHeroMuted(next);
-  };
-
-
-  const allCityLinks = [...allCities.map((c) => ({ city: c.city, slug: c.slug })), ...EXTRA_CITY_LINKS];
-
   return (
     <Layout>
       <SEO
         title="Los Angeles HVAC, Solar, Electrical & Plumbing | Bernardino Martin"
-        description="Licensed HVAC, solar, electrical & plumbing pros serving Los Angeles and the San Fernando Valley. 24/7 emergency service. Call (818) 400-0227."
+        description="Licensed HVAC, solar, electrical, plumbing, landscaping & home services serving Los Angeles and the San Fernando Valley. 24/7 emergency service. Call (818) 400-0227."
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: FAQS.map((f) => ({
+            "@type": "Question",
+            name: f.q,
+            acceptedAnswer: { "@type": "Answer", text: f.a },
+          })),
+        }}
       />
 
-      {/* ══════════ HERO — full-screen video background ══════════ */}
-      {/* Height fits within the viewport under the fixed chrome (banner + top bar + header ≈ 148px),
-          with a min-height so the content never gets clipped in short/landscape viewports. svh keeps
-          it stable while mobile browser bars show/hide. */}
-      <section className="relative min-h-[560px] h-[calc(100svh-148px)] w-full overflow-hidden bg-slate-950 text-white" data-testid="hero-section">
-        {/* Always-visible background image = the painted LCP and a guaranteed fallback if the video
-            can't load. Preloaded in index.html, so it appears almost immediately. */}
-        <img
-          src="/images/hero-home.webp"
-          alt=""
-          aria-hidden="true"
-          fetchPriority="high"
-          decoding="async"
-          className="absolute inset-0 h-full w-full object-cover"
-        />
-        {/* Background video — loaded lazily (see effect) and fades in over the image once it can play,
-            on every screen size. No autoPlay attribute: playback is started from JS after idle. */}
-        <video
-          ref={heroVideoRef}
-          loop
-          playsInline
-          muted={heroMuted}
-          preload="none"
-          poster="/images/hero-home.webp"
-          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${videoReady ? "opacity-100" : "opacity-0"}`}
-          aria-hidden="true"
-        >
-          <source src="/videos/hero-home.mp4" type="video/mp4" />
-        </video>
+      <div className="rebrand">
+        {/* ══════════ HERO ══════════ */}
+        <section className="relative overflow-hidden bg-[var(--rb-navy)] text-white">
+          <img
+            src="/images/rebrand/hero-redesign.png"
+            alt=""
+            aria-hidden="true"
+            fetchPriority="high"
+            decoding="async"
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+          <video
+            ref={heroVideoRef}
+            loop
+            muted
+            playsInline
+            preload="none"
+            poster="/images/rebrand/hero-redesign.png"
+            className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${videoReady ? "opacity-100" : "opacity-0"}`}
+            aria-hidden="true"
+          >
+            <source src="/videos/hero-redesign.mp4" type="video/mp4" />
+          </video>
+          <div className="relative z-10 container mx-auto px-4 py-20 sm:py-28">
+            {/* No darkening scrim on the video itself (kept clear, per request) — legibility
+                comes from a text-shadow on the copy instead, which inherits to every child here. */}
+            <div className="max-w-xl text-shadow-hero">
+              <h1 className="text-display text-4xl leading-[1.05] sm:text-6xl">
+                <span className="block text-white">Your Home.</span>
+                <span className="block text-[var(--rb-orange)]">Our Priority.</span>
+              </h1>
+              <p className="mt-4 text-sm font-bold uppercase tracking-wider text-white/85 sm:text-base">
+                HVAC &bull; Solar &bull; Plumbing &bull; Electrical &bull; Landscaping &bull; Cleaning &amp; More
+              </p>
+              <p className="mt-4 max-w-md text-white/75">
+                From rooftop to foundation, we keep your home comfortable, efficient and beautiful — all year round.
+              </p>
 
-        {/* Gradient overlays — only needed to keep the text readable, so they fade out together
-            with the text (video plays at full, unfiltered brightness while the text is hidden)
-            and fade back in together with the text after one loop. */}
-        <div
-          className={`absolute inset-0 transition-opacity duration-1000 ${textFaded ? "opacity-0" : "opacity-100"}`}
-        >
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/85 via-slate-950/35 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/65 via-transparent to-slate-950/25" />
-        </div>
-
-        {/* Content — fades out the instant the video starts playing, fades back in once the
-            video completes one full loop (see effects above), then stays visible. */}
-        <div
-          className={`relative z-10 flex h-full flex-col justify-center transition-opacity duration-1000 ${
-            textFaded ? "pointer-events-none opacity-0" : "opacity-100"
-          }`}
-        >
-          <div className="container mx-auto px-4 pt-8 md:pt-16">
-            <p className="mb-3 flex items-center gap-2 text-[0.65rem] font-bold uppercase tracking-[0.25em] text-white/70 sm:text-xs sm:tracking-[0.3em]">
-              <span className="h-2 w-2 rounded-full bg-secondary animate-pulse" />
-              Licensed For Los Angeles &bull; Ready 24/7
-            </p>
-
-            <h1 className="text-display text-[2rem] sm:text-5xl md:text-6xl lg:text-7xl" data-testid="text-hero-title">
-              <span className="block">WHATEVER BREAKS,</span>
-              <span className="block text-right text-secondary md:pl-24">WE FIX IT FAST.</span>
-            </h1>
-
-            <div className="mt-5 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
-              <div>
-                <p className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                  <span className="font-heading text-xl font-black text-white">BERNARDINO MARTIN</span>
-                  <span className="text-xs font-bold uppercase tracking-[0.2em] text-white/75">Heating &bull; Air Conditioning &bull; Solar</span>
-                </p>
-                <p className="mt-2 max-w-md text-sm leading-relaxed text-white/85">
-                  HVAC, solar, plumbing, electrical, and more — one licensed team for everything your home needs, with same-day service across Los Angeles and the San Fernando Valley.
-                </p>
-              </div>
-
-              <div className="flex flex-col gap-4 sm:flex-row">
-                <Button size="lg" className="hover-scale h-14 px-8 text-base font-bold bg-white text-slate-950 hover:bg-white/90" asChild data-testid="button-hero-call">
-                  <a href={`tel:${COMPANY_PHONE.replace(/\D/g, "")}`} aria-label="Call Now for 24/7 service">
-                    <Phone className="mr-2 h-5 w-5" aria-hidden="true" />
-                    Call Now
-                  </a>
-                </Button>
-                <Button size="lg" variant="outline" className="hover-scale h-14 px-8 text-base font-bold border-white/30 text-white hover:bg-white/10" asChild data-testid="button-hero-book">
-                  <Link href="/booking">
-                    <Calendar className="mr-2 h-5 w-5" aria-hidden="true" />
-                    Book Online
+              <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+                <Button size="lg" className="h-13 bg-[var(--rb-orange)] px-7 font-bold hover:bg-[var(--rb-orange-dark)]" asChild>
+                  <Link href="/quote">
+                    Get a Free Estimate
+                    <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
                   </Link>
                 </Button>
+                <a
+                  href="#see-us-in-action"
+                  onClick={(e) => { e.preventDefault(); document.getElementById("see-us-in-action")?.scrollIntoView({ behavior: "smooth" }); }}
+                  className="inline-flex h-13 items-center justify-center gap-2 rounded-md border border-white/40 px-7 font-bold text-white transition-colors hover:bg-white/10"
+                >
+                  <Play className="h-4 w-4 fill-white" aria-hidden="true" />
+                  Watch Our Story
+                </a>
               </div>
-            </div>
 
-            <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2">
-              {[
-                { icon: ShieldCheck, label: "Licensed, Bonded & Insured" },
-                { icon: Clock, label: "Same-Day Service" },
-                { icon: Siren, label: "24/7 Emergency Response" },
-              ].map((item) => (
-                <span key={item.label} className="flex items-center gap-2 text-sm font-semibold text-white/80">
-                  <item.icon className="h-4 w-4 text-secondary" aria-hidden="true" />
-                  {item.label}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Sound toggle — moved to top-right, a clear open area of the frame with nothing else
-            behind it, and given a solid background + ring so it stays readable over any part
-            of the video (bright sky, dark asphalt, etc). Only shown once video is playing. */}
-        {videoReady && (
-          <button
-            type="button"
-            onClick={toggleHeroMute}
-            aria-label={heroMuted ? "Unmute background video" : "Mute background video"}
-            className="absolute top-6 right-6 z-20 flex items-center gap-2 rounded-full bg-slate-950/80 px-4 py-2 text-xs font-bold text-white shadow-lg ring-1 ring-white/25 backdrop-blur-sm transition-colors hover:bg-slate-950"
-          >
-            {heroMuted ? <VolumeX className="h-4 w-4" aria-hidden="true" /> : <Volume2 className="h-4 w-4" aria-hidden="true" />}
-            {heroMuted ? "Sound Off" : "Sound On"}
-          </button>
-        )}
-      </section>
-
-      {/* ══════════ VIDEO REEL STRIP (compact) ══════════ */}
-      <VideoReelSection />
-
-      {/* ══════════ STATS TICKER ══════════ */}
-      {/* Light, not dark — breaks up what would otherwise be three consecutive black sections
-          (hero, video reel, stats) right at the top of the page. */}
-      <div className="w-full border-b border-slate-200 bg-white py-4">
-        <div className="container mx-auto grid grid-cols-1 gap-3 px-4 text-center sm:grid-cols-3 sm:text-left">
-          <p className="text-sm font-bold text-slate-700">{SERVICES.length} services across {SERVICE_CATEGORIES.length} specialty categories</p>
-          <p className="text-sm font-bold text-slate-700 sm:text-center">{TOTAL_CITY_PAGES} Los Angeles-area cities served</p>
-          <p className="text-sm font-bold text-slate-700 sm:text-right">Licensed, bonded &amp; insured since day one</p>
-        </div>
-      </div>
-
-      {/* ══════════ CURRENT OFFERS ══════════ */}
-      <section className="border-b border-slate-100 bg-slate-50 py-8">
-        <div className="container mx-auto px-4">
-          <div className="mb-5" data-aos="fade-up">
-            <p className="mb-1 text-xs font-bold uppercase tracking-[0.3em] text-primary">Limited-Time Offers</p>
-            <h2 className="text-display text-xl text-slate-950 md:text-2xl">Deals worth calling about.</h2>
-          </div>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-            {PROMOS.map((promo, i) => (
-              <Link
-                key={i}
-                href={`/booking${promo.code ? `?promo=${promo.code}` : ""}`}
-                data-aos="fade-up"
-                data-aos-delay={i * 100}
-                className="group flex items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
-              >
-                <div>
-                  <span className="mb-1 inline-block rounded-full bg-primary/5 px-2.5 py-0.5 text-xs font-bold text-primary">{promo.title}</span>
-                  <p className="text-sm font-semibold text-slate-800">{promo.sub || promo.description}</p>
-                </div>
-                <ArrowRight className="h-5 w-5 shrink-0 text-secondary transition-transform group-hover:translate-x-1" aria-hidden="true" />
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ══════════ STATEMENT BREAK 1 ══════════ */}
-      <StatementBreak dark text="Real work. Honest pricing. Quality results." />
-
-      {/* ══════════ SCROLL-LINKED "FEEL" GALLERY ══════════ */}
-      <FeelGallery onImageClick={(i) => openLightbox(FEEL_GALLERY_IMAGES, i)} />
-
-      {/* ══════════ MISSION STATEMENT ══════════ */}
-      <StatementBreak text="Bernardino Martin is a licensed contractor serving Los Angeles and the San Fernando Valley with HVAC, solar, plumbing, electrical, landscaping, and smart home services." />
-
-      {/* ══════════ WALK THROUGH THE HOUSE (auto-rotating images) ══════════ */}
-      <section className="bg-white py-24">
-        <div className="container mx-auto px-4">
-          <div className="mb-16 max-w-3xl" data-aos="fade-up">
-            <p className="mb-4 text-xs font-bold uppercase tracking-[0.3em] text-primary">Walk Through The House</p>
-            <h2 className="text-display text-4xl md:text-6xl text-slate-950">Every room. One trusted team.</h2>
-          </div>
-
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-[280px_1fr]">
-            {/* Sticky numbered list — desktop only */}
-            <div className="hidden lg:block">
-              <div className="sticky top-32 space-y-5">
-                {ROOMS.map((room, i) => (
-                  <div key={room.number} className={`room-nav-item flex items-baseline gap-4 ${i === activeRoom ? "is-active" : ""}`}>
-                    <span className="text-display text-2xl">{room.number}</span>
-                    <span className="text-lg font-semibold">{room.label}</span>
-                  </div>
+              <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3">
+                {HERO_TRUST.map((item) => (
+                  <span key={item.label} className="flex items-center gap-2 text-sm font-semibold text-white/80">
+                    <item.icon className="h-4 w-4 text-[var(--rb-orange)]" aria-hidden="true" />
+                    {item.label}
+                  </span>
                 ))}
               </div>
             </div>
+          </div>
 
-            {/* Stacked room content with auto-rotating images */}
-            <div className="space-y-28">
-              {ROOMS.map((room, i) => (
-                <div
-                  key={room.number}
-                  ref={(el) => {
-                    roomRefs.current[i] = el;
-                  }}
-                  className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:items-center"
-                >
-                  <p className="text-display mb-2 text-sm text-primary lg:hidden">
-                    {room.number} — {room.label}
-                  </p>
+          <button
+            type="button"
+            onClick={() => document.getElementById("our-work")?.scrollIntoView({ behavior: "smooth" })}
+            className="group absolute bottom-6 right-6 z-10 hidden items-center gap-3 rounded-full bg-black/35 py-2 pl-2 pr-5 shadow-lg ring-1 ring-white/25 backdrop-blur-md transition-all hover:bg-black/50 hover:ring-white/40 sm:flex"
+            aria-label="See our work in action"
+          >
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--rb-orange)] shadow-md transition-transform group-hover:scale-110">
+              <Play className="ml-0.5 h-4 w-4 fill-white text-white" aria-hidden="true" />
+            </span>
+            <span className="whitespace-nowrap text-sm font-bold text-white">See Our Work in Action</span>
+          </button>
 
-                  {/* Main image area with auto-rotating slideshow */}
-                  <div data-aos="fade-up" className="relative aspect-[4/3]">
-                    <div
-                      className="group relative h-full w-full overflow-hidden rounded-2xl cursor-zoom-in"
-                      onClick={() => openLightbox(room.images.map((s) => ({ src: s, alt: room.headline })), 0)}
-                      role="button"
-                      tabIndex={0}
-                      aria-label={`View ${room.label} images fullscreen`}
-                      onKeyDown={(e) => e.key === "Enter" && openLightbox(room.images.map((s) => ({ src: s, alt: room.headline })), 0)}
-                    >
-                      <RoomImageSlideshow images={room.images} headline={room.headline} />
-                      <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity z-10">
-                        <span className="flex items-center gap-1 rounded-full bg-black/60 px-2.5 py-1 text-xs text-white font-medium">
-                          <Maximize2 className="h-3 w-3" /> View
-                        </span>
-                      </div>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => openLightbox([{ src: room.inset, alt: `${room.headline} — detail` }], 0)}
-                      className="group absolute -bottom-6 -right-6 hidden h-28 w-36 overflow-hidden rounded-xl border-4 border-white shadow-xl sm:block cursor-zoom-in"
-                      aria-label="View detail image fullscreen"
-                    >
-                      <picture>
-                        {!room.inset.endsWith(".webp") && <source srcSet={toWebp(room.inset)} type="image/webp" />}
-                        <img src={room.inset} alt={`${room.headline} detail`} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110" />
-                      </picture>
-                    </button>
-                  </div>
+          {/* Small trust card, top-right corner. Deliberately does NOT show a specific "5.0 Google
+              rating (N reviews)" figure — there's no real aggregate rating on file to back that
+              number, and it's the kind of specific third-party claim worth getting right rather
+              than inventing. "5-Star Service" is a description, not a cited statistic. */}
+          <div className="absolute right-4 top-4 z-10 hidden w-56 rounded-2xl bg-black/40 p-4 shadow-lg ring-1 ring-white/20 backdrop-blur-md sm:block lg:right-6 lg:top-6">
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--rb-orange)]">Trusted Locally</p>
+            <p className="mt-1 text-base font-bold text-white">5-Star Service</p>
+            <div className="mt-1.5 flex items-center gap-0.5 text-[var(--rb-orange)]">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Star key={i} className="h-3 w-3 fill-current" aria-hidden="true" />
+              ))}
+            </div>
+            <div className="my-2.5 h-px bg-white/15" />
+            <p className="text-xs italic leading-relaxed text-white/80">&ldquo;Reliable, professional, and incredibly easy to work with.&rdquo;</p>
+            <a
+              href="#reviews"
+              onClick={(e) => { e.preventDefault(); document.getElementById("reviews")?.scrollIntoView({ behavior: "smooth" }); }}
+              className="mt-2.5 inline-block text-xs font-bold text-white hover:text-[var(--rb-orange)] transition-colors"
+            >
+              Read homeowner stories →
+            </a>
+          </div>
+        </section>
 
-                  <div data-aos="fade-up" data-aos-delay="100">
-                    <h3 className="text-2xl font-bold text-slate-950 md:text-3xl">{room.headline}</h3>
-                    <ul className="mt-5 space-y-3">
-                      {room.services.map((service) => (
-                        <li key={service.id} className="flex items-start gap-3">
-                          <Check className="mt-1 h-4 w-4 shrink-0 text-secondary" aria-hidden="true" />
-                          <div>
-                            <span className="font-semibold text-slate-900">{service.title}</span>
-                            <span className="block text-sm text-slate-600">{service.description}</span>
-                          </div>
-                        </li>
-                      ))}
-                    </ul>
-                    <Button size="lg" className="mt-6 h-12 bg-slate-950 hover:bg-primary" asChild>
-                      <Link href={`/booking?service=${room.services[0].id}`}>
-                        Book {room.label} Service
-                        <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
-                      </Link>
-                    </Button>
-                  </div>
+        {/* ══════════ WHAT CAN WE HELP YOU WITH TODAY (bigger, auto-scrolling) ══════════ */}
+        <ServicesMarquee />
+
+        {/* ══════════ 4 PROMO CARDS ══════════ */}
+        <section className="bg-white py-14">
+          <div className="container mx-auto px-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              <Link href="/services/solar-install" className="group rounded-2xl p-6 transition-transform duration-300 hover:-translate-y-1" style={{ backgroundColor: "var(--rb-green-bg)" }}>
+                <Leaf className="mb-4 h-8 w-8" style={{ color: "var(--rb-green-text)" }} aria-hidden="true" />
+                <h3 className="font-sans text-base font-bold text-[var(--rb-navy)]">Save Energy</h3>
+                <p className="mt-1.5 text-sm text-slate-600">Lower your Utility Bills with modern solutions.</p>
+                <span className="mt-4 flex items-center gap-1 text-xs font-bold" style={{ color: "var(--rb-green-text)" }}>
+                  Learn About Solar <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+                </span>
+              </Link>
+
+              <Link href="/services/hvac-maintenance" className="group rounded-2xl p-6 transition-transform duration-300 hover:-translate-y-1" style={{ backgroundColor: "var(--rb-peach-bg)" }}>
+                <Heart className="mb-4 h-8 w-8" style={{ color: "var(--rb-peach-text)" }} aria-hidden="true" />
+                <h3 className="font-sans text-base font-bold text-[var(--rb-navy)]">Stay Comfortable</h3>
+                <p className="mt-1.5 text-sm text-slate-600">Reliable HVAC for every season.</p>
+                <span className="mt-4 flex items-center gap-1 text-xs font-bold" style={{ color: "var(--rb-peach-text)" }}>
+                  Explore HVAC <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+                </span>
+              </Link>
+
+              <Link href="/services" className="group rounded-2xl p-6 transition-transform duration-300 hover:-translate-y-1" style={{ backgroundColor: "var(--rb-blue-bg)" }}>
+                <HomeIcon className="mb-4 h-8 w-8" style={{ color: "var(--rb-blue-text)" }} aria-hidden="true" />
+                <h3 className="font-sans text-base font-bold text-[var(--rb-navy)]">One Team for Your Home</h3>
+                <p className="mt-1.5 text-sm text-slate-600">Repairs, upgrades, cleaning &amp; more.</p>
+                <span className="mt-4 flex items-center gap-1 text-xs font-bold" style={{ color: "var(--rb-blue-text)" }}>
+                  See All Services <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+                </span>
+              </Link>
+
+              <div className="relative overflow-hidden rounded-2xl bg-[var(--rb-navy)]">
+                <img
+                  src="/images/rebrand/call-photo.png"
+                  alt=""
+                  aria-hidden="true"
+                  loading="lazy"
+                  decoding="async"
+                  style={{ objectPosition: "88% center" }}
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
+                <div className="relative z-10 bg-gradient-to-r from-[var(--rb-navy)] via-[var(--rb-navy)]/95 to-transparent p-6">
+                  <h3 className="font-sans text-base font-bold text-white">Need Help Now?</h3>
+                  <a href={`tel:${COMPANY_PHONE.replace(/\D/g, "")}`} onClick={() => trackEvent("phone_click")} className="mt-3 flex items-center gap-2 text-lg font-black text-white hover:text-[var(--rb-orange)] transition-colors">
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--rb-orange)]">
+                      <Phone className="h-4 w-4 text-white" aria-hidden="true" />
+                    </span>
+                    {COMPANY_PHONE}
+                  </a>
+                  <a href={getWhatsAppLink("Hi, I need help now.")} target="_blank" rel="noopener noreferrer" className="mt-3 flex items-center gap-2 text-sm text-white/80 hover:text-white transition-colors">
+                    <Send className="h-3.5 w-3.5" aria-hidden="true" />
+                    We're here to help!
+                  </a>
                 </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ══════════ STATEMENT BREAK ══════════ */}
+        <section className="bg-[var(--rb-navy)] py-20 text-center text-white" data-aos="zoom-in">
+          <div className="container mx-auto px-4">
+            <p className="text-display mx-auto max-w-3xl text-3xl leading-tight sm:text-5xl">
+              One Call. Every Solution. <span className="text-[var(--rb-orange)]">Total Peace of Mind.</span>
+            </p>
+          </div>
+        </section>
+
+        {/* ══════════ REAL WORK GALLERY ══════════ */}
+        <WorkGallery />
+
+        {/* ══════════ SEE US IN ACTION (video reel) ══════════ */}
+        <VideoShowcase />
+
+        {/* ══════════ REVIEWS (3-column vertical auto-scroll wall) ══════════ */}
+        <ReviewSlider />
+
+        {/* ══════════ SEASONAL / OFFERS / ESTIMATE ══════════ */}
+        <section className="grid grid-cols-1 bg-white lg:grid-cols-3">
+          <div className="flex min-h-[420px] flex-col justify-center border-b border-slate-100 p-8 sm:p-10 lg:border-b-0 lg:border-r">
+            <p className="mb-2 text-xs font-bold uppercase tracking-[0.3em] text-[var(--rb-orange)]">Year-Round Care</p>
+            <h3 className="font-sans text-xl font-bold text-[var(--rb-navy)]">Seasonal Services</h3>
+            <p className="mt-1 text-sm text-slate-500">We've got you covered year-round.</p>
+            <div className="mt-8 grid grid-cols-2 gap-5">
+              {SEASONS.map((s) => (
+                <Link key={s.label} href={s.href} className="group flex flex-col items-center text-center">
+                  <span className="mb-2.5 flex h-20 w-20 items-center justify-center overflow-hidden rounded-full border border-slate-100 bg-white shadow-sm transition-transform group-hover:scale-105">
+                    <img src={s.icon} alt="" aria-hidden="true" loading="lazy" className="h-[130%] w-[130%] object-cover" />
+                  </span>
+                  <span className="text-sm font-bold text-[var(--rb-navy)]">{s.label}</span>
+                  <span className="text-xs leading-tight text-slate-500">{s.desc}</span>
+                </Link>
               ))}
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* ══════════ BRAND LOGOS ══════════ */}
-      <section className="group overflow-hidden border-b border-slate-100 bg-white py-14">
-        <h2 className="mb-8 text-center text-xs font-bold uppercase tracking-[0.3em] text-slate-600">Brands We Service</h2>
-        <div className="animate-marquee flex w-max items-center gap-16 group-hover:[animation-play-state:paused]" style={{ animationDuration: "22s" }}>
-          {[...BRAND_LOGOS, ...BRAND_LOGOS].map((brand, i) => (
-            <img
-              key={`${brand}-${i}`}
-              src={`/images/brands/${brand}.svg`}
-              alt={`${brand} HVAC equipment brand`}
-              loading="lazy"
-              className="brand-logo h-7 w-auto shrink-0 md:h-8"
-            />
-          ))}
-        </div>
-      </section>
-
-      {/* ══════════ REVIEWS ══════════ */}
-      <ReviewSlider />
-
-      {/* ══════════ REAL WORK GALLERY ══════════ */}
-      <Suspense fallback={<div className="bg-white py-24" />}>
-        <ProjectGallery />
-      </Suspense>
-
-      {/* ══════════ PEACE OF MIND: MEMBERSHIP + FINANCING ══════════ */}
-      <section className="bg-slate-50 py-24">
-        <div className="container mx-auto px-4">
-          <div className="mx-auto mb-14 max-w-2xl text-center" data-aos="fade-up">
-            <p className="mb-4 text-xs font-bold uppercase tracking-[0.3em] text-primary">Peace of Mind</p>
-            <h2 className="text-display text-4xl md:text-6xl text-slate-950">Membership. Financing. Fair pricing.</h2>
+          <div className="flex min-h-[420px] flex-col justify-center border-b border-slate-100 p-8 sm:p-10 lg:border-b-0 lg:border-r">
+            <img src="/images/rebrand/icon-offers.png" alt="" aria-hidden="true" loading="lazy" className="mb-4 h-12 w-12 object-contain" />
+            <p className="mb-1 text-xs font-bold uppercase tracking-[0.3em] text-[var(--rb-orange)]">Limited Time</p>
+            <h3 className="font-sans text-xl font-bold text-[var(--rb-navy)]">Special Offers</h3>
+            <p className="mt-1 text-sm text-slate-500">Fresh offers and seasonal savings for the care your home needs today.</p>
+            <div className="mt-8 flex items-center gap-6">
+              <Button className="bg-[var(--rb-orange)] hover:bg-[var(--rb-orange-dark)]" asChild>
+                <Link href="/booking">
+                  View Offers
+                  <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
+                </Link>
+              </Button>
+              <img src="/images/rebrand/badge-save-now.png" alt="Save now on seasonal offers" loading="lazy" className="h-28 w-28 object-contain" />
+            </div>
           </div>
 
-          <div className="mx-auto mb-12 max-w-4xl" data-aos="fade-up">
-            <div className="flex flex-col overflow-hidden rounded-3xl border border-slate-100 bg-white shadow-xl md:flex-row">
-              <div className="relative flex flex-col justify-center bg-slate-950 p-6 text-center text-white sm:p-10 md:w-2/5">
-                <div className="text-xs font-bold uppercase tracking-[0.3em] text-white/60">Comfort Club</div>
-                <div className="mt-4 text-5xl font-black">
-                  $19<span className="text-xl font-medium text-white/65">/mo</span>
+          <div className="flex min-h-[420px] flex-col justify-center p-8 sm:p-10">
+            <div className="mb-5 flex items-center justify-center rounded-xl bg-slate-50 p-3">
+              <img src="/images/rebrand/promo-online-booking.png" alt="Easy online booking" loading="lazy" decoding="async" className="h-44 w-auto object-contain" />
+            </div>
+            <p className="mb-1 text-xs font-bold uppercase tracking-[0.3em] text-[var(--rb-orange)]">Let's Get Started</p>
+            <h3 className="font-sans text-xl font-bold text-[var(--rb-navy)]">Get a Free Estimate</h3>
+            <ul className="mt-3 space-y-1.5 text-sm text-slate-600">
+              {["Quick, friendly response", "No obligation, ever", "Tailored to your home"].map((item) => (
+                <li key={item} className="flex items-center gap-2">
+                  <ShieldCheck className="h-4 w-4 shrink-0 text-[var(--rb-orange)]" aria-hidden="true" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <Button className="mt-5 w-fit bg-[var(--rb-orange)] hover:bg-[var(--rb-orange-dark)]" asChild>
+              <Link href="/quote">
+                Request an Estimate
+                <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
+              </Link>
+            </Button>
+          </div>
+        </section>
+
+        {/* ══════════ COMFORT CLUB MEMBERSHIP ══════════ */}
+        <section className="bg-white py-16" data-aos="fade-up">
+          <div className="container mx-auto px-4">
+            <div className="mx-auto flex max-w-4xl flex-col items-center gap-8 overflow-hidden rounded-3xl border border-slate-200 shadow-sm sm:flex-row">
+              <div className="flex w-full flex-col justify-center bg-[var(--rb-navy)] p-8 text-center text-white sm:w-2/5 sm:p-10">
+                <p className="text-xs font-bold uppercase tracking-[0.3em] text-white/60">Comfort Club</p>
+                <div className="mt-3 text-5xl font-black">
+                  $19<span className="text-lg font-medium text-white/60">/mo</span>
                 </div>
-                <p className="mb-8 mt-2 text-sm text-white/70">Billed annually at $228/year</p>
-                <Button size="lg" className="h-12 w-full bg-white text-slate-950 hover:bg-white/90" asChild>
+                <p className="mt-2 text-xs text-white/50">Billed annually at $228/year</p>
+                <Button className="mt-6 bg-[var(--rb-orange)] hover:bg-[var(--rb-orange-dark)]" asChild>
                   <Link href="/booking?service=hvac-maintenance">Join the Club</Link>
                 </Button>
               </div>
-              <div className="bg-white p-10 md:w-3/5">
-                <h3 className="mb-6 border-b pb-4 text-2xl font-bold text-slate-900">What's Included?</h3>
-                <ul className="space-y-4">
+              <div className="w-full p-8 sm:w-3/5 sm:p-10">
+                <h3 className="text-xl font-bold text-[var(--rb-navy)]">Skip the wait. Save on every visit.</h3>
+                <ul className="mt-5 space-y-3">
                   {[
-                    "Two comprehensive tune-ups per year (Spring AC, Fall Heating)",
-                    "Priority scheduling for emergency services",
-                    "15% discount on all repairs and parts",
-                    "No emergency service fees (after hours or weekends)",
-                    "Comprehensive safety inspections",
-                    "Extended lifespan of your equipment",
-                  ].map((feature) => (
-                    <li key={feature} className="flex items-start gap-3">
-                      <Check className="mt-1 h-4 w-4 shrink-0 text-secondary" aria-hidden="true" />
-                      <span className="font-medium text-slate-700">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div className="mx-auto max-w-5xl rounded-3xl bg-slate-950 p-6 text-white sm:p-10" data-aos="fade-up">
-            <div className="flex flex-col items-center gap-12 lg:flex-row">
-              <div className="w-full space-y-5 lg:w-1/2">
-                <p className="text-xs font-bold uppercase tracking-[0.3em] text-white/60">Flexible Payment Options</p>
-                <h3 className="text-2xl font-bold">Affordable comfort, your way</h3>
-                <p className="leading-relaxed text-white/70">
-                  Major upgrades and installations shouldn't break the bank. We offer flexible payment
-                  solutions so you can invest in your home's comfort without the stress.
-                </p>
-                <ul className="space-y-3 pt-2">
-                  {[
-                    { title: "Transparent Upfront Pricing", desc: "No hidden fees or surprise charges." },
-                    { title: "Flexible Payment Plans", desc: "Spread the cost of larger projects." },
-                    { title: "Free Estimates on Major Projects", desc: "Detailed written quotes before commitment." },
-                    { title: "Seasonal Promotions & Discounts", desc: "Save with our monthly specials." },
+                    "Two tune-ups a year (Spring AC, Fall Heating)",
+                    "Priority scheduling for emergency service",
+                    "15% off all repairs and parts",
                   ].map((item) => (
-                    <li key={item.title} className="flex items-start gap-3">
-                      <Check className="mt-1 h-4 w-4 shrink-0 text-secondary" aria-hidden="true" />
-                      <div>
-                        <span className="block font-bold text-white">{item.title}</span>
-                        <span className="text-sm text-white/70">{item.desc}</span>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-                <div className="flex flex-col gap-3 pt-2 sm:flex-row">
-                  <Button size="lg" className="bg-white text-slate-950 hover:bg-white/90" asChild>
-                    <Link href="/quote">Get a Free Quote</Link>
-                  </Button>
-                  <Button size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10" asChild>
-                    <a href={`tel:${COMPANY_PHONE.replace(/\D/g, "")}`}>
-                      <Phone className="mr-2 h-5 w-5" aria-hidden="true" /> Discuss Options
-                    </a>
-                  </Button>
-                </div>
-              </div>
-              <div className="w-full lg:w-1/2">
-                <div className="space-y-3 rounded-2xl border border-white/10 bg-white/5 p-6">
-                  {[
-                    { project: "Central AC Installation", range: "Starting from $3,500" },
-                    { project: "Solar Panel System", range: "Custom quote with rebates" },
-                    { project: "Complete HVAC Replacement", range: "Starting from $5,000" },
-                    { project: "Ductless Mini-Split System", range: "Starting from $2,500" },
-                  ].map((p) => (
-                    <div key={p.project} className="flex items-center justify-between rounded-lg border border-white/10 bg-white/5 p-3 transition-colors hover:border-white/20 hover:bg-white/10">
-                      <div>
-                        <div className="text-sm font-semibold text-white">{p.project}</div>
-                        <div className="text-xs text-white/70">{p.range}</div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ══════════ COMPLIMENTARY CLEANUP ══════════ */}
-      <section className="bg-white py-24">
-        <div className="container mx-auto px-4">
-          <div className="mx-auto rounded-3xl border border-green-100 bg-gradient-to-br from-green-50 to-white p-8 shadow-sm md:p-12" data-aos="fade-up">
-            <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
-              <div className="aspect-[4/3] overflow-hidden rounded-2xl border border-green-100 shadow-sm">
-                <img
-                  src="/images/complimentary-cleanup.webp"
-                  alt="Bernardino Martin technician wiping down a finished mini-split installation"
-                  loading="lazy"
-                  decoding="async"
-                  className="h-full w-full object-cover"
-                />
-              </div>
-              <div>
-                <p className="mb-4 text-xs font-bold uppercase tracking-[0.3em] text-green-700">Complimentary Service</p>
-                <h2 className="text-display text-4xl md:text-5xl text-slate-950">We Clean Up When We're Done.</h2>
-                <p className="mt-5 text-base leading-7 text-slate-600 md:text-lg">
-                  Every installation, repair, or upgrade includes a full cleanup of the work area at no extra charge — so your home looks the same, or better, than before we arrived.
-                </p>
-              </div>
-            </div>
-            <div className="mx-auto mt-10 grid max-w-6xl gap-4 md:grid-cols-2 xl:grid-cols-4">
-              {CLEANUP_POINTS.map((point) => (
-                <div key={point.title} className="rounded-2xl border border-green-100 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
-                  <div className="inline-flex rounded-xl bg-green-100 p-2.5 text-green-700">
-                    <point.icon className="h-5 w-5" aria-hidden="true" />
-                  </div>
-                  <h3 className="mt-4 text-base font-semibold text-slate-900">{point.title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-slate-600">{point.description}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ══════════ EDUCATIONAL TIPS ══════════ */}
-      <section className="bg-white py-24">
-        <div className="container mx-auto px-4">
-          <div className="mx-auto mb-14 max-w-2xl text-center" data-aos="fade-up">
-            <p className="mb-4 text-xs font-bold uppercase tracking-[0.3em] text-primary">Expert Tips</p>
-            <h2 className="text-display text-4xl md:text-6xl text-slate-950">HVAC tips & energy savings.</h2>
-          </div>
-
-          <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 md:grid-cols-3">
-            {[
-              {
-                title: "Maintenance Best Practices",
-                icon: Wrench,
-                tips: ["Change air filters every 1-3 months", "Schedule professional tune-ups twice a year", "Keep outdoor units clear of debris and vegetation", "Check thermostat batteries and calibration annually", "Inspect ductwork for leaks and seal gaps"],
-              },
-              {
-                title: "Energy Efficiency Tips",
-                icon: Lightbulb,
-                tips: ["Install a programmable or smart thermostat", "Seal windows and doors to prevent air leaks", "Use ceiling fans to assist air circulation", "Consider upgrading to a high-efficiency HVAC system", "Add insulation to attic and crawl spaces"],
-              },
-              {
-                title: "When to Call a Professional",
-                icon: PhoneCall,
-                tips: ["Unusual noises from your HVAC unit", "Inconsistent temperatures between rooms", "System cycling on and off frequently", "Spike in energy bills without usage changes", "Visible ice buildup on refrigerant lines"],
-              },
-            ].map((card, i) => (
-              <div key={card.title} data-aos="fade-up" data-aos-delay={i * 150} className="rounded-2xl border border-slate-100 p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
-                <div className="inline-flex rounded-xl bg-primary/10 p-2.5 text-primary">
-                  <card.icon className="h-5 w-5" aria-hidden="true" />
-                </div>
-                <h3 className="mt-4 text-lg font-bold text-slate-900">{card.title}</h3>
-                <ul className="mt-4 space-y-2.5">
-                  {card.tips.map((tip) => (
-                    <li key={tip} className="flex items-start gap-2 text-sm text-slate-600">
-                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-secondary" aria-hidden="true" />
-                      <span>{tip}</span>
+                    <li key={item} className="flex items-start gap-3">
+                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-[var(--rb-orange)]" aria-hidden="true" />
+                      <span className="text-sm text-slate-600">{item}</span>
                     </li>
                   ))}
                 </ul>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ══════════ BRANDS WE SERVICE (full color) ══════════ */}
+        <section className="group overflow-hidden border-y border-slate-100 bg-white py-12">
+          <h2 className="mb-8 text-center text-xs font-bold uppercase tracking-[0.3em] text-slate-500">Brands We Service</h2>
+          <div className="animate-marquee flex w-max items-center gap-16 group-hover:[animation-play-state:paused]" style={{ animationDuration: "22s" }}>
+            {[...BRAND_LOGOS, ...BRAND_LOGOS].map((brand, i) => (
+              <img key={`${brand}-${i}`} src={`/images/brands/${brand}.svg`} alt={`${brand} HVAC equipment brand`} loading="lazy" className="h-8 w-auto shrink-0 md:h-9" />
             ))}
           </div>
+        </section>
 
-          <div className="mt-12 text-center">
-            <Button size="lg" variant="outline" className="h-12 border-primary text-primary hover:bg-primary/5 font-semibold" asChild>
-              <Link href="/quote">Get a Free Expert Assessment</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* ══════════ SERVICE AREAS ══════════ */}
-      <section className="bg-slate-950 py-24 text-white">
-        <div className="container mx-auto px-4">
-          <div className="mx-auto mb-12 max-w-2xl text-center" data-aos="fade-up">
-            <p className="mb-4 text-xs font-bold uppercase tracking-[0.3em] text-white/60">Where We Work</p>
-            <h2 className="text-display text-4xl md:text-6xl">Serving Greater Los Angeles.</h2>
-            <div className="mt-8 flex justify-center gap-12">
-              <CountUpStat end={SERVICES.length} label="Services" />
-              <CountUpStat end={SERVICE_CATEGORIES.length} label="Categories" />
-              <CountUpStat end={TOTAL_CITY_PAGES} label="Cities Served" />
+        {/* ══════════ SERVICE AREAS ══════════ */}
+        <section className="bg-[var(--rb-navy)] py-20 text-white">
+          <div className="container mx-auto px-4">
+            <div className="mx-auto mb-10 max-w-2xl text-center">
+              <p className="mb-3 text-xs font-bold uppercase tracking-[0.3em] text-white/60">Where We Work</p>
+              <h2 className="font-sans text-3xl font-bold sm:text-4xl">Serving Greater Los Angeles</h2>
             </div>
-          </div>
-
-          <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
-            <div data-aos="fade-right" className="relative h-[400px] overflow-hidden rounded-2xl border border-white/10 md:h-[480px]">
-              <DeferUntilNearViewport
-                placeholder={
-                  <div className="flex h-full w-full items-center justify-center bg-white/5">
-                    <div className="h-8 w-8 animate-spin rounded-full border-4 border-white/30 border-t-transparent" />
-                  </div>
-                }
-              >
+            <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
+              <div className="relative h-[360px] overflow-hidden rounded-2xl border border-white/10 md:h-[420px]">
                 <Suspense
                   fallback={
                     <div className="flex h-full w-full items-center justify-center bg-white/5">
@@ -1055,81 +803,93 @@ export default function Home() {
                 >
                   <ServiceAreasMap />
                 </Suspense>
-              </DeferUntilNearViewport>
-            </div>
-            <div data-aos="fade-left" className="max-h-[480px] overflow-y-auto rounded-2xl border border-white/10 bg-white/5 p-6">
-              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                {allCityLinks.map((c) => (
-                  <Link
-                    key={c.slug}
-                    href={`/${c.slug}`}
-                    className="group flex items-center gap-2 rounded-lg border border-white/10 px-3 py-2.5 text-sm font-semibold text-white/70 transition-colors hover:border-white/30 hover:text-white"
-                  >
-                    <MapPin className="h-3.5 w-3.5 shrink-0 text-secondary" aria-hidden="true" />
-                    {c.city}
+              </div>
+              <div className="max-h-[420px] overflow-y-auto rounded-2xl border border-white/10 bg-white/5 p-6">
+                <div className="grid grid-cols-2 gap-3">
+                  {[
+                    { city: "Los Angeles", slug: "hvac-los-angeles" },
+                    { city: "Burbank", slug: "hvac-burbank" },
+                    { city: "Glendale", slug: "hvac-glendale" },
+                    { city: "Pasadena", slug: "hvac-pasadena" },
+                    { city: "Santa Monica", slug: "hvac-santa-monica" },
+                    { city: "Hollywood", slug: "hvac-hollywood" },
+                    { city: "Sherman Oaks", slug: "hvac-sherman-oaks" },
+                    { city: "Van Nuys", slug: "hvac-van-nuys" },
+                    { city: "Encino", slug: "hvac-encino" },
+                    { city: "Studio City", slug: "hvac-studio-city" },
+                  ].map((c) => (
+                    <Link key={c.slug} href={`/${c.slug}`} className="flex items-center gap-2 rounded-lg border border-white/10 px-3 py-2.5 text-sm font-semibold text-white/70 transition-colors hover:border-white/30 hover:text-white">
+                      <MapPin className="h-3.5 w-3.5 shrink-0 text-[var(--rb-orange)]" aria-hidden="true" />
+                      {c.city}
+                    </Link>
+                  ))}
+                  <Link href="/service-areas" className="col-span-2 flex items-center justify-center gap-1 rounded-lg border border-white/10 px-3 py-2.5 text-sm font-bold text-[var(--rb-orange)] transition-colors hover:border-white/30">
+                    View All Service Areas
+                    <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
                   </Link>
-                ))}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ══════════ EMERGENCY SERVICE ══════════ */}
-      <section className="border-t border-red-100 bg-red-50 py-16">
-        <div className="container mx-auto px-4">
-          <div className="mx-auto flex max-w-4xl flex-col items-center gap-8 md:flex-row" data-aos="fade-up">
-            <div className="shrink-0 rounded-2xl bg-red-100 p-5">
-              <AlertTriangle className="h-12 w-12 text-red-600" aria-hidden="true" />
+        {/* ══════════ FAQ ══════════ */}
+        <section className="bg-white py-16">
+          <div className="container mx-auto max-w-3xl px-4">
+            <div className="mb-8 text-center" data-aos="fade-up">
+              <p className="mb-2 text-xs font-bold uppercase tracking-[0.3em] text-[var(--rb-orange)]">Good to Know</p>
+              <h2 className="font-sans text-3xl font-bold text-[var(--rb-navy)]">Frequently Asked Questions</h2>
             </div>
-            <div className="flex-1 text-center md:text-left">
-              <h2 className="mb-2 text-2xl font-bold text-slate-900 md:text-3xl">It won't wait. Neither do we.</h2>
-              <p className="mb-1 text-slate-600">No heat at 2 AM? AC down in a heat wave? Pipe burst on a Sunday? We're already on the way — same-day emergency service across Los Angeles, nights and weekends included.</p>
-              <p className="text-sm text-slate-600">Priority scheduling available for Comfort Club members at no extra charge.</p>
-            </div>
-            <div className="flex shrink-0 flex-col gap-3">
-              <Button size="lg" className="h-12 bg-red-600 px-6 font-bold text-white shadow-lg shadow-red-500/20 hover:bg-red-700" asChild>
-                <a href={`tel:${COMPANY_PHONE.replace(/\D/g, "")}`} aria-label="Call Now for emergency service">
-                  <Phone className="mr-2 h-5 w-5" aria-hidden="true" /> Call Now
-                </a>
-              </Button>
-              <Button size="lg" variant="outline" className="h-12 border-red-200 font-semibold text-red-700 hover:bg-red-100" asChild>
-                <Link href="/quote">Request Priority Quote</Link>
-              </Button>
+            <div className="space-y-3" data-aos="fade-up">
+              {FAQS.map((faq, i) => (
+                <div key={faq.q} className="overflow-hidden rounded-xl border border-slate-200">
+                  <button
+                    type="button"
+                    onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                    aria-expanded={openFaq === i}
+                    className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left transition-colors hover:bg-slate-50"
+                  >
+                    <span className="text-sm font-bold text-[var(--rb-navy)] sm:text-base">{faq.q}</span>
+                    <ChevronDown className={`h-4 w-4 shrink-0 text-slate-500 transition-transform duration-200 ${openFaq === i ? "rotate-180" : ""}`} aria-hidden="true" />
+                  </button>
+                  {openFaq === i && (
+                    <div className="border-t border-slate-100 px-5 pb-4 pt-3 text-sm leading-relaxed text-slate-600">
+                      {faq.a}
+                    </div>
+                  )}
+                </div>
+              ))}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ══════════ FINAL CTA ══════════ */}
-      <section className="relative overflow-hidden bg-slate-950 py-28 text-center text-white">
-        <div className="container relative z-10 mx-auto px-4" data-aos="zoom-in">
-          <h2 className="text-display mx-auto max-w-3xl text-4xl md:text-7xl">Your home. Your call.</h2>
-          <p className="mx-auto mb-10 mt-6 max-w-xl text-lg text-white/60">
-            Every job done right the first time — that's why Los Angeles homeowners keep calling us back. Schedule today and take advantage of our monthly specials.
-          </p>
-          <div className="flex flex-col justify-center gap-4 sm:flex-row">
-            <Button size="lg" className="h-14 px-10 text-lg font-bold bg-white text-slate-950 hover:bg-white/90" asChild>
-              <Link href="/booking">Book Online Now</Link>
-            </Button>
-            <Button size="lg" variant="outline" className="h-14 px-10 text-lg font-bold border-white/30 text-white hover:bg-white/10" asChild>
-              <a href={getWhatsAppLink("Hello! I'm interested in booking a service.")} target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp to book a service">
-                <MessageCircle className="mr-2 h-5 w-5" aria-hidden="true" />
-                Chat on WhatsApp
-              </a>
-            </Button>
+        {/* ══════════ BOTTOM STATS BAR ══════════ */}
+        <section className="border-t border-slate-100 bg-white py-16">
+          <div className="container mx-auto max-w-6xl px-4">
+            <div className="grid grid-cols-1 place-items-center gap-8 sm:grid-cols-2 lg:grid-cols-4">
+              {[
+                { icon: Users, title: "Family-Owned & Operated", sub: "Serving LA Since Day One" },
+                { icon: ShieldCheck, title: "Licensed & Insured", sub: "Your Home Is Safe With Us" },
+                { icon: MapPin, title: "Serving Los Angeles", sub: "& Surrounding Areas" },
+                { icon: Leaf, title: "Eco-Friendly Solutions", sub: "For a Brighter Tomorrow" },
+              ].map((stat) => (
+                <div key={stat.title} className="flex items-center gap-3.5 text-left">
+                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-orange-50">
+                    <stat.icon className="h-6 w-6 text-[var(--rb-orange)]" aria-hidden="true" />
+                  </span>
+                  <div>
+                    <p className="text-base font-bold text-[var(--rb-navy)]">{stat.title}</p>
+                    <p className="text-sm text-slate-500">{stat.sub}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <p className="mt-10 flex items-center justify-center gap-3 whitespace-nowrap font-serif text-2xl italic text-slate-400 sm:text-3xl md:text-4xl">
+              Building Better Homes Together <Heart className="h-6 w-6 shrink-0 fill-current text-[var(--rb-orange)] sm:h-7 sm:w-7" aria-hidden="true" />
+            </p>
           </div>
-        </div>
-      </section>
-
-      {/* Fullscreen image lightbox */}
-      {lightbox && (
-        <ImageLightbox
-          images={lightbox.images}
-          initialIndex={lightbox.index}
-          onClose={() => setLightbox(null)}
-        />
-      )}
+        </section>
+      </div>
     </Layout>
   );
 }

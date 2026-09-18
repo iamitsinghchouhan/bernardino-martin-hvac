@@ -16,25 +16,50 @@ interface Message {
   options?: { label: string; action: () => void }[];
 }
 
+// A handful of different opening lines — one is picked at random each time the widget greets a
+// visitor, so the site doesn't say the exact same thing on every visit.
+const GREETINGS = [
+  "Need emergency service? We're on it — day or night.",
+  "Something acting up at home? Tell us what's going on and we'll take it from here.",
+  "Looking for help in your area? Let's get you sorted.",
+  "Ready to book a service? I can get that started right now.",
+  "Got a home project on your mind? Let's talk it through.",
+];
+
+function randomGreeting() {
+  return GREETINGS[Math.floor(Math.random() * GREETINGS.length)];
+}
+
 export function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([
+  // Lazy initializer — runs once per mount, so a fresh page load (or a re-mount when the SPA
+  // swaps routes) has a real chance at a different greeting rather than always showing the same one.
+  // References the hoisted `handleOption` function declaration below (safe — function
+  // declarations are available anywhere in scope, not just after their line in the file).
+  const [messages, setMessages] = useState<Message[]>(() => [
     {
       id: "1",
-      text: `Hi there! Welcome to ${COMPANY_FULL}. How can we help you today?`,
+      text: randomGreeting(),
       sender: "bot",
       type: "options",
       options: [
-        { label: "Book a Service", action: () => handleOption("book") },
+        { label: "Want to Book a Service?", action: () => handleOption("book") },
+        { label: "Need Emergency Service?", action: () => handleOption("emergency") },
+        { label: "Get a Free Quote", action: () => handleOption("quote") },
         { label: "Pay Bill / Invoice", action: () => handleOption("pay") },
-        { label: "Emergency Service", action: () => handleOption("emergency") },
-        { label: "Get a Quote", action: () => handleOption("quote") },
-        { label: "Our Services", action: () => handleOption("services") },
+        { label: "See Our Services", action: () => handleOption("services") },
       ],
     },
   ]);
   const [inputValue, setInputValue] = useState("");
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  // Greets the visitor proactively, the way a real front-desk person would — every time this
+  // component mounts (every fresh page load), not gated behind a "once per session" flag.
+  useEffect(() => {
+    const timer = window.setTimeout(() => setIsOpen(true), 3000);
+    return () => window.clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -42,7 +67,9 @@ export function ChatWidget() {
     }
   }, [messages, isOpen]);
 
-  const handleOption = (option: string) => {
+  // Function declaration (not `const`) — hoisted, so the lazy useState initializer above can
+  // safely close over it even though it's defined later in the component body.
+  function handleOption(option: string) {
     const userMsg: Message = { id: Date.now().toString(), text: "", sender: "user" };
     
     let botResponse: Message = {
@@ -151,25 +178,25 @@ export function ChatWidget() {
         onClick={() => setIsOpen(!isOpen)}
         aria-label={isOpen ? "Close chat" : "Open chat"}
         aria-expanded={isOpen}
-        className={`fixed bottom-6 right-6 z-50 rounded-full h-14 w-14 shadow-2xl transition-all duration-300 ${isOpen ? 'rotate-90 bg-slate-800 hover:bg-slate-900' : 'bg-primary hover:bg-primary/90 animate-bounce-subtle'}`}
+        className={`fixed bottom-6 right-6 z-50 rounded-full h-14 w-14 shadow-2xl transition-all duration-300 ${isOpen ? 'rotate-90 bg-slate-800 hover:bg-slate-900' : 'bg-[var(--rb-orange)] hover:bg-[var(--rb-orange-dark)] animate-bounce-subtle'}`}
       >
         {isOpen ? <X className="h-6 w-6" aria-hidden="true" /> : <MessageCircle className="h-7 w-7" aria-hidden="true" />}
       </Button>
 
       {/* Chat Window */}
       {isOpen && (
-        <Card className="fixed bottom-24 right-6 z-50 w-[90vw] sm:w-[380px] h-[500px] shadow-2xl flex flex-col animate-in slide-in-from-bottom-10 fade-in duration-300 border-primary/20">
-          <CardHeader className="bg-primary text-white p-4 rounded-t-xl flex flex-row items-center gap-3">
+        <Card className="fixed bottom-24 right-6 z-50 w-[85vw] sm:w-[320px] h-[420px] shadow-2xl flex flex-col animate-in slide-in-from-bottom-10 fade-in duration-300 border-none overflow-hidden">
+          <CardHeader className="bg-gradient-to-br from-[var(--rb-navy)] via-[var(--rb-navy)] to-[var(--rb-orange)] text-white p-4 flex flex-row items-center gap-3">
             <div className="relative">
-                <Avatar className="h-10 w-10 border-2 border-white/50">
-                <AvatarImage src="/images/technician.webp" />
+                <Avatar className="h-10 w-10 border-2 border-white/50 bg-white p-1">
+                <AvatarImage src="/images/rebrand/logo-redesign.png" className="object-contain" />
                 <AvatarFallback>BM</AvatarFallback>
                 </Avatar>
                 <span className="absolute bottom-0 right-0 w-3 h-3 bg-secondary border-2 border-primary rounded-full"></span>
             </div>
             <div>
-              <CardTitle className="text-lg font-bold">Customer Support</CardTitle>
-              <p className="text-xs text-slate-300">Online | Replies instantly</p>
+              <CardTitle className="text-lg font-bold">Martin</CardTitle>
+              <p className="text-xs text-slate-300">Online now — replies in minutes</p>
             </div>
           </CardHeader>
           
@@ -184,7 +211,7 @@ export function ChatWidget() {
                     <div
                       className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm shadow-sm ${
                         msg.sender === "user"
-                          ? "bg-primary text-white rounded-br-none"
+                          ? "bg-[var(--rb-navy)] text-white rounded-br-none"
                           : "bg-white text-slate-800 border border-slate-100 rounded-bl-none"
                       }`}
                     >
@@ -197,7 +224,7 @@ export function ChatWidget() {
                                 variant="outline"
                                 size="sm"
                                 onClick={opt.action}
-                                className="w-full justify-between text-xs font-semibold hover:bg-primary/5 hover:text-primary hover:border-primary/20 transition-colors bg-slate-50"
+                                className="w-full justify-between text-xs font-semibold hover:bg-orange-50 hover:text-[var(--rb-orange)] hover:border-[var(--rb-orange)]/30 transition-colors bg-slate-50"
                             >
                                 {opt.label}
                                 <ChevronRight className="h-3 w-3 opacity-50" />
@@ -228,7 +255,7 @@ export function ChatWidget() {
                 className="flex-1 bg-slate-50 border-slate-200 focus-visible:ring-primary"
                 aria-label="Chat message"
               />
-              <Button type="submit" size="icon" className="bg-primary hover:bg-primary/90" aria-label="Send message">
+              <Button type="submit" size="icon" className="bg-[var(--rb-orange)] hover:bg-[var(--rb-orange-dark)]" aria-label="Send message">
                 <Send className="h-4 w-4" aria-hidden="true" />
               </Button>
             </form>

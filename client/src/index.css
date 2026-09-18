@@ -161,6 +161,11 @@
     0% { transform: translateX(0); }
     100% { transform: translateX(-50%); }
   }
+  @keyframes review-scroll {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-50%); }
+  }
+  .animate-review-scroll { animation: review-scroll linear infinite; }
   @keyframes kenburns {
     0% { transform: scale(1.1); }
     100% { transform: scale(1.22); }
@@ -262,6 +267,30 @@
 .watermark {
   position: relative;
   overflow: hidden;
+}
+
+/* Palette for the reference-image redesign (header/footer/homepage) — new variable names, so
+   defining them at :root doesn't touch the existing --primary/--secondary tokens used sitewide
+   (city pages, service pages, booking, admin) — those are untouched above. Declared at :root
+   (not scoped to a wrapper class) because Radix portals (Sheet/Dialog) render outside the React
+   tree's DOM position; a class-scoped var wouldn't reach content rendered into a portal. */
+:root {
+  /* Brand palette (client-provided swatches): dark navy replaced with white backgrounds
+     per client direction — --rb-navy now the muted blue swatch, used for text/icons/accents
+     only, never as a section fill. --rb-gray and --rb-brown are the two remaining swatches. */
+  --rb-navy: #2e4a66;
+  --rb-navy-light: #3d5f80;
+  --rb-orange: #f0702a;
+  --rb-orange-dark: #d85f1e;
+  --rb-gold: #fdb022;
+  --rb-gray: #52525b;
+  --rb-brown: #5a3a2e;
+  --rb-green-bg: #e1f5e6;
+  --rb-green-text: #1f8a45;
+  --rb-peach-bg: #fce7de;
+  --rb-peach-text: #e0653a;
+  --rb-blue-bg: #dff0fb;
+  --rb-blue-text: #2b7bb9;
 }
 
 .watermark::after {

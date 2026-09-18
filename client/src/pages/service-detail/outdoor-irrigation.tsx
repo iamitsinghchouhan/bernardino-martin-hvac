@@ -7,7 +7,7 @@ export default function OutdoorIrrigation() {
       slug="outdoor-irrigation"
       category="Outdoor & Property"
       categoryColor="green"
-      heroVideo="/videos/svc-irrigation.mp4"
+      heroVideo="/videos/solar-irrigation-real.mp4"
       heroImage="/images/svc-smart-irrigation.png"
       tagline="App-controlled smart irrigation with weather-based scheduling and automatic leak protection"
       overview={[
