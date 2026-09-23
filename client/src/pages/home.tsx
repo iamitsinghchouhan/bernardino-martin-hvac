@@ -32,6 +32,8 @@ import {
   Users,
   Maximize2,
   Check,
+  Volume2,
+  VolumeX,
 } from "lucide-react";
 import { Link } from "wouter";
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
@@ -458,6 +460,7 @@ function VideoShowcase() {
 export default function Home() {
   const heroVideoRef = useRef<HTMLVideoElement>(null);
   const [videoReady, setVideoReady] = useState(false);
+  const [isHeroMuted, setIsHeroMuted] = useState(true);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   useEffect(() => {
@@ -467,8 +470,22 @@ export default function Home() {
 
     const startVideo = () => {
       if (cancelled || !video) return;
-      video.muted = true;
-      video.play().then(() => { if (!cancelled) setVideoReady(true); }).catch(() => {});
+      // Browsers only allow autoplay with sound for visitors who already have enough
+      // engagement with this site (per-browser, not something we can control) — try
+      // unmuted first so audio plays for those visitors, and fall back to muted
+      // autoplay (universally allowed) when the browser rejects it.
+      video.muted = false;
+      video
+        .play()
+        .then(() => { if (!cancelled) { setVideoReady(true); setIsHeroMuted(false); } })
+        .catch(() => {
+          if (cancelled || !video) return;
+          video.muted = true;
+          video
+            .play()
+            .then(() => { if (!cancelled) { setVideoReady(true); setIsHeroMuted(true); } })
+            .catch(() => {});
+        });
     };
 
     const schedule = () => {
@@ -485,6 +502,15 @@ export default function Home() {
       window.removeEventListener("load", schedule);
     };
   }, []);
+
+  function toggleHeroMute() {
+    const video = heroVideoRef.current;
+    if (!video) return;
+    const next = !video.muted;
+    video.muted = next;
+    if (!next) video.play().catch(() => {});
+    setIsHeroMuted(next);
+  }
 
   return (
     <Layout>
@@ -516,7 +542,7 @@ export default function Home() {
           <video
             ref={heroVideoRef}
             loop
-            muted
+            muted={isHeroMuted}
             playsInline
             preload="none"
             poster="/images/rebrand/hero-redesign.webp"
@@ -525,6 +551,18 @@ export default function Home() {
           >
             <source src="/videos/hero-redesign.mp4" type="video/mp4" />
           </video>
+          <button
+            type="button"
+            onClick={toggleHeroMute}
+            aria-label={isHeroMuted ? "Unmute background video" : "Mute background video"}
+            className="absolute right-4 top-4 z-20 flex h-11 w-11 items-center justify-center rounded-full bg-black/60 text-white shadow-lg ring-1 ring-white/25 backdrop-blur-sm transition-colors hover:bg-black/80"
+          >
+            {isHeroMuted ? (
+              <VolumeX className="h-5 w-5" aria-hidden="true" />
+            ) : (
+              <Volume2 className="h-5 w-5" aria-hidden="true" />
+            )}
+          </button>
           <div className="relative z-10 container mx-auto px-4 py-20 sm:py-28">
             {/* No darkening scrim on the video itself (kept clear, per request) — legibility
                 comes from a text-shadow on the copy instead, which inherits to every child here. */}
@@ -584,7 +622,7 @@ export default function Home() {
               rating (N reviews)" figure — there's no real aggregate rating on file to back that
               number, and it's the kind of specific third-party claim worth getting right rather
               than inventing. "5-Star Service" is a description, not a cited statistic. */}
-          <div className="absolute right-4 top-4 z-10 hidden w-56 rounded-2xl bg-black/40 p-4 shadow-lg ring-1 ring-white/20 backdrop-blur-md sm:block lg:right-6 lg:top-6">
+          <div className="absolute right-4 top-20 z-10 hidden w-56 rounded-2xl bg-black/40 p-4 shadow-lg ring-1 ring-white/20 backdrop-blur-md sm:block lg:right-6 lg:top-24">
             <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--rb-orange)]">Trusted Locally</p>
             <p className="mt-1 text-base font-bold text-white">5-Star Service</p>
             <div className="mt-1.5 flex items-center gap-0.5 text-[var(--rb-orange)]">
