@@ -8,7 +8,7 @@ export default function ElectricalPanel() {
       category="Electrical"
       categoryColor="yellow"
       heroVideo="/videos/svc-electrical.mp4"
-      heroImage="/images/svc-electrical.png"
+      heroImage="/images/svc-electrical.webp"
       tagline="Panel upgrades, sub-panel installations, and Federal Pacific replacements for modern LA homes"
       overview={[
         "The electrical panel is the nerve center of your home's power system. In Los Angeles, where solar installations, electric vehicle chargers, and high-efficiency HVAC systems have become standard, an outdated 100-amp panel is often simply too small to meet modern demand. We upgrade residential panels to 200 amps — the current standard for homes with solar, EV charging, and modern appliances — and coordinate with LADWP for service entrance upgrades when needed.",

@@ -8,7 +8,7 @@ export default function OutdoorSod() {
       category="Outdoor & Property"
       categoryColor="green"
       heroVideo="/videos/svc-landscaping.mp4"
-      heroImage="/images/svc-sod-installation.png"
+      heroImage="/images/svc-sod-installation.webp"
       tagline="San Augustine and RTF sod installation with professional soil preparation across Los Angeles"
       overview={[
         "A new sod lawn transforms a bare or patchy yard into a lush, usable outdoor space almost overnight. Unlike seeding, which takes weeks to germinate and months to establish, sod is instantly walkable after proper installation (with appropriate care) and provides immediate erosion control, cooling, and curb appeal. We source our sod from quality California farms, cutting it fresh to order for delivery to your property.",

@@ -8,7 +8,7 @@ export default function ElectricalEvCharger() {
       category="Electrical"
       categoryColor="yellow"
       heroVideo="/videos/svc-electrical.mp4"
-      heroImage="/images/svc-electrical.png"
+      heroImage="/images/svc-electrical.webp"
       tagline="Level 2 home EV charging station — charge your vehicle overnight and wake up with a full battery"
       overview={[
         "A Level 2 home EV charger adds 25–30 miles of range per hour of charging — compared to just 3–5 miles per hour from a standard 120V outlet. For most electric vehicle owners in Los Angeles, a full overnight charge on a Level 2 charger delivers a complete battery from near-empty, eliminating range anxiety and the need for public charging stations for daily commuting.",

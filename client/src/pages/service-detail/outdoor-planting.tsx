@@ -8,7 +8,7 @@ export default function OutdoorPlanting() {
       category="Outdoor & Property"
       categoryColor="green"
       heroVideo="/videos/svc-landscaping.mp4"
-      heroImage="/images/svc-planting.png"
+      heroImage="/images/svc-planting.webp"
       tagline="Seasonal planting, garden bed installation, and expert garden care for Los Angeles properties"
       overview={[
         "Los Angeles is one of the rare cities where something is always in bloom — the climate allows for gardening in every month of the year. Whether you want a dramatic entry with colorful seasonal annuals, a productive kitchen garden with herbs and vegetables, or a naturalistic garden with California native wildflowers, our planting team has the horticultural knowledge to select and install the right plants for your specific conditions.",

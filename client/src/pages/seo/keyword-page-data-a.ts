@@ -32,7 +32,7 @@ export const keywordPagesA: KeywordPageData[] = [
     ],
     inlineHeading: "Comfort service that improves reliability, not just appearances",
     inlineBody: "A cooling system that looks clean on the outside can still suffer from weak airflow, poor calibration, or worn electrical parts. We service Los Angeles air conditioning systems with attention to performance, energy use, and day-to-day comfort so homeowners get results they can feel after the appointment is over.",
-    inlineImage: { src: "/images/svc-hvac-maintenance-new.png", alt: "Indoor air conditioning service and maintenance work" },
+    inlineImage: { src: "/images/svc-hvac-maintenance-new.webp", alt: "Indoor air conditioning service and maintenance work" },
     servicesHeading: "What our Los Angeles air conditioning service includes",
     services: [
       "Cooling diagnostics and performance testing",
@@ -124,8 +124,8 @@ export const keywordPagesA: KeywordPageData[] = [
     galleryHeading: "Mini-split installations and ductless service work",
     galleryImages: [
       { src: "/images/svc-ductless.webp", alt: "Indoor ductless mini-split service" },
-      { src: "/images/svc-ductless-new.png", alt: "New mini-split installation support" },
-      { src: "/images/svc-hvac-install-new.png", alt: "High-efficiency comfort system installation" },
+      { src: "/images/svc-ductless-new.webp", alt: "New mini-split installation support" },
+      { src: "/images/svc-hvac-install-new.webp", alt: "High-efficiency comfort system installation" },
       { src: "/images/technician.webp", alt: "Technician reviewing ductless system setup" },
     ],
     systemsHeading: "Mini-split systems we support",
@@ -138,7 +138,7 @@ export const keywordPagesA: KeywordPageData[] = [
     ],
     inlineHeading: "A ductless system should feel seamless inside the home",
     inlineBody: "Mini-splits are popular because they can disappear into daily life while keeping specific rooms comfortable. Our service approach protects that convenience by focusing on cleanliness, control performance, and the smooth operation that Los Angeles homeowners expect from ductless equipment.",
-    inlineImage: { src: "/images/svc-ductless-new.png", alt: "Ductless mini-split wall unit installation" },
+    inlineImage: { src: "/images/svc-ductless-new.webp", alt: "Ductless mini-split wall unit installation" },
     servicesHeading: "Our Los Angeles mini-split services",
     services: [
       "Mini-split diagnostics and performance checks",
@@ -191,7 +191,7 @@ export const keywordPagesA: KeywordPageData[] = [
     ],
     inlineHeading: "Seasonal furnace service protects comfort before problems grow",
     inlineBody: "Many heating problems feel minor until the first cold week exposes them. Our Los Angeles furnace service is built to find those weak points early, restore consistent heating, and help homeowners avoid reactive emergency calls later in the season.",
-    inlineImage: { src: "/images/svc-heating-new.png", alt: "Technician reviewing a heating system inside a home" },
+    inlineImage: { src: "/images/svc-heating-new.webp", alt: "Technician reviewing a heating system inside a home" },
     servicesHeading: "Our Los Angeles furnace services",
     services: [
       "Seasonal furnace tune-ups",

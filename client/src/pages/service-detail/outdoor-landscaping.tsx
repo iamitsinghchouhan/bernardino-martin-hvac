@@ -8,7 +8,7 @@ export default function OutdoorLandscaping() {
       category="Outdoor & Property"
       categoryColor="green"
       heroVideo="/videos/svc-landscaping.mp4"
-      heroImage="/images/svc-landscaping.png"
+      heroImage="/images/svc-landscaping.webp"
       tagline="Custom landscape design built for Los Angeles climate, water conservation, and your lifestyle"
       overview={[
         "Los Angeles's mild climate allows for truly year-round gardening, but it also demands a different design philosophy than most parts of the country. Our landscape designs prioritize plants that thrive in Southern California's long dry summers and mild wet winters, choosing species that look beautiful without constant irrigation. From drought-tolerant Mediterranean gardens to tropical paradises fed by efficient drip systems, we design landscapes that match how you actually want to use your outdoor space.",

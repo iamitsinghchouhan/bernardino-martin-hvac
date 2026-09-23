@@ -7,7 +7,7 @@ export default function HomeCleaning() {
       slug="home-cleaning"
       category="Home Services"
       categoryColor="cyan"
-      heroImage="/images/rebrand/tile-cleaning.png"
+      heroImage="/images/rebrand/tile-cleaning.webp"
       tagline="Routine, move-in, and move-out cleaning for homes across Los Angeles"
       overview={[
         "A clean home is part of a comfortable one — so alongside our HVAC, solar, plumbing, and electrical work, our team also offers home cleaning for customers who'd rather make one call for everything the house needs.",

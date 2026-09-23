@@ -47,22 +47,22 @@ const HERO_TRUST = [
 ];
 
 const SERVICE_TILES = [
-  { title: "HVAC", desc: "Cooling & Heating", href: "/services/hvac-repair", img: "/images/rebrand/tile-hvac.png", icon: Fan },
-  { title: "Solar", desc: "Energy Solutions", href: "/services/solar-install", img: "/images/rebrand/tile-solar.png", icon: Sun },
-  { title: "Plumbing", desc: "Repairs & Installations", href: "/services/plumbing-general", img: "/images/rebrand/tile-plumbing.png", icon: Droplets },
-  { title: "Electrical", desc: "Safe & Reliable", href: "/services/electrical-general", img: "/images/rebrand/tile-electrical.png", icon: Zap },
-  { title: "Landscaping", desc: "Beautiful Outdoors", href: "/services/outdoor-landscaping", img: "/images/rebrand/tile-landscaping.png", icon: TreePine },
-  { title: "Technology", desc: "Smart Home & Networking", href: "/services/tech-smarthome", img: "/images/services/network-smarthome.png", icon: Wifi },
-  { title: "Home Cleaning", desc: "A Cleaner, Healthier Home", href: "/services/home-cleaning", img: "/images/rebrand/tile-cleaning.png", icon: Sparkles },
-  { title: "Moving Help", desc: "Moving & Packing", href: "/services/moving-help", img: "/images/rebrand/tile-moving.png", icon: Truck },
-  { title: "Handyman", desc: "General Home Help", href: "/services/handyman", img: "/images/rebrand/tile-handyman.png", icon: Wrench },
+  { title: "HVAC", desc: "Cooling & Heating", href: "/services/hvac-repair", img: "/images/rebrand/tile-hvac.webp", icon: Fan },
+  { title: "Solar", desc: "Energy Solutions", href: "/services/solar-install", img: "/images/rebrand/tile-solar.webp", icon: Sun },
+  { title: "Plumbing", desc: "Repairs & Installations", href: "/services/plumbing-general", img: "/images/rebrand/tile-plumbing.webp", icon: Droplets },
+  { title: "Electrical", desc: "Safe & Reliable", href: "/services/electrical-general", img: "/images/rebrand/tile-electrical.webp", icon: Zap },
+  { title: "Landscaping", desc: "Beautiful Outdoors", href: "/services/outdoor-landscaping", img: "/images/rebrand/tile-landscaping.webp", icon: TreePine },
+  { title: "Technology", desc: "Smart Home & Networking", href: "/services/tech-smarthome", img: "/images/services/network-smarthome.webp", icon: Wifi },
+  { title: "Home Cleaning", desc: "A Cleaner, Healthier Home", href: "/services/home-cleaning", img: "/images/rebrand/tile-cleaning.webp", icon: Sparkles },
+  { title: "Moving Help", desc: "Moving & Packing", href: "/services/moving-help", img: "/images/rebrand/tile-moving.webp", icon: Truck },
+  { title: "Handyman", desc: "General Home Help", href: "/services/handyman", img: "/images/rebrand/tile-handyman.webp", icon: Wrench },
 ];
 
 const SEASONS = [
-  { icon: "/images/rebrand/season-summer.png", label: "Summer", desc: "AC Tune-Ups", href: "/services/hvac-maintenance" },
-  { icon: "/images/rebrand/season-fall.png", label: "Fall", desc: "Home Prep", href: "/services/heating-gas-furnace" },
-  { icon: "/images/rebrand/season-winter.png", label: "Winter", desc: "Heating & More", href: "/services/hvac-repair" },
-  { icon: "/images/rebrand/season-spring.png", label: "Spring", desc: "Clean & Refresh", href: "/services/outdoor-irrigation" },
+  { icon: "/images/rebrand/season-summer.webp", label: "Summer", desc: "AC Tune-Ups", href: "/services/hvac-maintenance" },
+  { icon: "/images/rebrand/season-fall.webp", label: "Fall", desc: "Home Prep", href: "/services/heating-gas-furnace" },
+  { icon: "/images/rebrand/season-winter.webp", label: "Winter", desc: "Heating & More", href: "/services/hvac-repair" },
+  { icon: "/images/rebrand/season-spring.webp", label: "Spring", desc: "Clean & Refresh", href: "/services/outdoor-irrigation" },
 ];
 
 const BRAND_LOGOS = ["carrier", "trane", "lennox", "mitsubishi", "daikin", "goodman", "lg", "rheem", "york", "bosch"];
@@ -75,28 +75,28 @@ const FAQS = [
 ];
 
 const GALLERY_ITEMS = [
-  { title: "Solar Installation", location: "Los Angeles, CA", img: "/images/rebrand/gallery-solar-install.jpg", desc: "Rooftop solar panel installation for a Los Angeles home." },
-  { title: "Solar Maintenance", location: "Los Angeles, CA", img: "/images/rebrand/gallery-solar-maintenance.png", desc: "Professional solar panel cleaning to keep energy output at its peak." },
-  { title: "Landscape Design", location: "Los Angeles, CA", img: "/images/rebrand/gallery-landscape.png", desc: "Full landscape and hardscape design for a Los Angeles property." },
-  { title: "Mini-Split Service", location: "Los Angeles, CA", img: "/images/rebrand/gallery-minisplit.png", desc: "Ductless mini-split maintenance and service for year-round comfort." },
-  { title: "Smart Network Install", location: "Los Angeles, CA", img: "/images/services/smart-network-solutions.jpeg", desc: "Structured wiring and network cabinet installation for a smart home." },
-  { title: "Smart Irrigation", location: "Los Angeles, CA", img: "/images/rebrand/gallery-irrigation.png", desc: "Solar-powered smart irrigation controller setup for efficient watering." },
+  { title: "Solar Installation", location: "Los Angeles, CA", img: "/images/rebrand/gallery-solar-install.webp", desc: "Rooftop solar panel installation for a Los Angeles home." },
+  { title: "Solar Maintenance", location: "Los Angeles, CA", img: "/images/rebrand/gallery-solar-maintenance.webp", desc: "Professional solar panel cleaning to keep energy output at its peak." },
+  { title: "Landscape Design", location: "Los Angeles, CA", img: "/images/rebrand/gallery-landscape.webp", desc: "Full landscape and hardscape design for a Los Angeles property." },
+  { title: "Mini-Split Service", location: "Los Angeles, CA", img: "/images/rebrand/gallery-minisplit.webp", desc: "Ductless mini-split maintenance and service for year-round comfort." },
+  { title: "Smart Network Install", location: "Los Angeles, CA", img: "/images/services/smart-network-solutions.webp", desc: "Structured wiring and network cabinet installation for a smart home." },
+  { title: "Smart Irrigation", location: "Los Angeles, CA", img: "/images/rebrand/gallery-irrigation.webp", desc: "Solar-powered smart irrigation controller setup for efficient watering." },
 ];
 
 const SIDE_PHOTOS = [
-  { src: "/images/rebrand/mood-living-room.png", alt: "Comfortable living room" },
-  { src: "/images/rebrand/mood-backyard.png", alt: "Landscaped backyard" },
-  { src: "/images/rebrand/mood-electrical-panel.png", alt: "Electrical panel service" },
-  { src: "/images/rebrand/mood-bathroom.png", alt: "Bathroom remodel" },
-  { src: "/images/rebrand/mood-backyard-evening.png", alt: "Backyard patio in the evening" },
-  { src: "/images/rebrand/mood-solar-roof.png", alt: "Solar panels on a rooftop" },
+  { src: "/images/rebrand/mood-living-room.webp", alt: "Comfortable living room" },
+  { src: "/images/rebrand/mood-backyard.webp", alt: "Landscaped backyard" },
+  { src: "/images/rebrand/mood-electrical-panel.webp", alt: "Electrical panel service" },
+  { src: "/images/rebrand/mood-bathroom.webp", alt: "Bathroom remodel" },
+  { src: "/images/rebrand/mood-backyard-evening.webp", alt: "Backyard patio in the evening" },
+  { src: "/images/rebrand/mood-solar-roof.webp", alt: "Solar panels on a rooftop" },
 ];
 
 const REEL_VIDEOS = [
-  { src: "/videos/reel-hvac-family.mp4", label: "Home Comfort", thumb: "/images/rebrand/tile-electrical.png" },
-  { src: "/videos/reel-ac-inspect.mp4", label: "AC Inspection", thumb: "/images/rebrand/tile-hvac.png" },
-  { src: "/videos/reel-ac-condenser-circle.mp4", label: "Condenser Service", thumb: "/images/rebrand/tile-plumbing.png" },
-  { src: "/videos/solar-irrigation-real.mp4", label: "Solar Irrigation", thumb: "/images/rebrand/thumb-solar-irrigation.jpg" },
+  { src: "/videos/reel-hvac-family.mp4", label: "Home Comfort", thumb: "/images/rebrand/tile-electrical.webp" },
+  { src: "/videos/reel-ac-inspect.mp4", label: "AC Inspection", thumb: "/images/rebrand/tile-hvac.webp" },
+  { src: "/videos/reel-ac-condenser-circle.mp4", label: "Condenser Service", thumb: "/images/rebrand/tile-plumbing.webp" },
+  { src: "/videos/solar-irrigation-real.mp4", label: "Solar Irrigation", thumb: "/images/rebrand/thumb-solar-irrigation.webp" },
 ];
 
 function formatDuration(totalSeconds: number) {
@@ -506,7 +506,7 @@ export default function Home() {
         {/* ══════════ HERO ══════════ */}
         <section className="relative overflow-hidden bg-[var(--rb-navy)] text-white">
           <img
-            src="/images/rebrand/hero-redesign.png"
+            src="/images/rebrand/hero-redesign.webp"
             alt=""
             aria-hidden="true"
             fetchPriority="high"
@@ -519,7 +519,7 @@ export default function Home() {
             muted
             playsInline
             preload="none"
-            poster="/images/rebrand/hero-redesign.png"
+            poster="/images/rebrand/hero-redesign.webp"
             className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${videoReady ? "opacity-100" : "opacity-0"}`}
             aria-hidden="true"
           >
@@ -640,7 +640,7 @@ export default function Home() {
 
               <div className="relative overflow-hidden rounded-2xl bg-[var(--rb-navy)]">
                 <img
-                  src="/images/rebrand/call-photo.png"
+                  src="/images/rebrand/call-photo.webp"
                   alt=""
                   aria-hidden="true"
                   loading="lazy"
@@ -704,7 +704,7 @@ export default function Home() {
           </div>
 
           <div className="flex min-h-[420px] flex-col justify-center border-b border-slate-100 p-8 sm:p-10 lg:border-b-0 lg:border-r">
-            <img src="/images/rebrand/icon-offers.png" alt="" aria-hidden="true" loading="lazy" className="mb-4 h-12 w-12 object-contain" />
+            <img src="/images/rebrand/icon-offers.webp" alt="" aria-hidden="true" loading="lazy" className="mb-4 h-12 w-12 object-contain" />
             <p className="mb-1 text-xs font-bold uppercase tracking-[0.3em] text-[var(--rb-orange)]">Limited Time</p>
             <h3 className="font-sans text-xl font-bold text-[var(--rb-navy)]">Special Offers</h3>
             <p className="mt-1 text-sm text-slate-500">Fresh offers and seasonal savings for the care your home needs today.</p>
@@ -715,13 +715,13 @@ export default function Home() {
                   <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
                 </Link>
               </Button>
-              <img src="/images/rebrand/badge-save-now.png" alt="Save now on seasonal offers" loading="lazy" className="h-28 w-28 object-contain" />
+              <img src="/images/rebrand/badge-save-now.webp" alt="Save now on seasonal offers" loading="lazy" className="h-28 w-28 object-contain" />
             </div>
           </div>
 
           <div className="flex min-h-[420px] flex-col justify-center p-8 sm:p-10">
             <div className="mb-5 flex items-center justify-center rounded-xl bg-slate-50 p-3">
-              <img src="/images/rebrand/promo-online-booking.png" alt="Easy online booking" loading="lazy" decoding="async" className="h-44 w-auto object-contain" />
+              <img src="/images/rebrand/promo-online-booking.webp" alt="Easy online booking" loading="lazy" decoding="async" className="h-44 w-auto object-contain" />
             </div>
             <p className="mb-1 text-xs font-bold uppercase tracking-[0.3em] text-[var(--rb-orange)]">Let's Get Started</p>
             <h3 className="font-sans text-xl font-bold text-[var(--rb-navy)]">Get a Free Estimate</h3>

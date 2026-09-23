@@ -8,7 +8,7 @@ export default function ElectricalGeneral() {
       category="Electrical"
       categoryColor="yellow"
       heroVideo="/videos/svc-electrical.mp4"
-      heroImage="/images/svc-electrical.png"
+      heroImage="/images/svc-electrical.webp"
       tagline="Licensed residential electrical work — outlets, lighting, switches, and rewiring across Los Angeles"
       overview={[
         "From installing a new outlet in a garage to rewiring an outdated kitchen, our licensed California electricians handle the full range of residential electrical needs. We don't just fix what's broken — we bring your home's wiring up to current NEC code, ensuring your electrical system is safe, properly grounded, and ready for modern appliances and technology.",

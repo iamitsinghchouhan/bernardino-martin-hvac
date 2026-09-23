@@ -8,7 +8,7 @@ export default function HeatingElectricFurnace() {
       category="Heating Specialties"
       categoryColor="orange"
       heroVideo="/videos/svc-hvac.mp4"
-      heroImage="/images/services/heating-electric-furnace.png"
+      heroImage="/images/services/heating-electric-furnace.webp"
       tagline="Fast diagnostics and expert repair of all electric furnace systems"
       overview={[
         "Electric furnaces heat air by passing it over a series of electric resistance heating elements — think of oversized, high-wattage versions of a toaster coil. Multiple elements activate in sequence (controlled by components called sequencers) to gradually increase heat output and avoid tripping the circuit breaker. When any element, sequencer, relay, or control board in this sequence fails, the furnace either produces no heat, partial heat, or heats inconsistently — all problems our technicians diagnose using digital clamp meters and resistance testing equipment.",

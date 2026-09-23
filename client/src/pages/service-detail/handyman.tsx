@@ -7,7 +7,7 @@ export default function Handyman() {
       slug="handyman"
       category="Home Services"
       categoryColor="amber"
-      heroImage="/images/rebrand/tile-handyman.png"
+      heroImage="/images/rebrand/tile-handyman.webp"
       tagline="Small repairs, mounting, and general fixes for homes across Los Angeles"
       overview={[
         "Not every job needs a full service call — sometimes it's a squeaky door, a loose fence board, a shelf that needs mounting, or a small drywall patch. Our handyman service covers the smaller jobs that still deserve a licensed, reliable team.",

@@ -8,7 +8,7 @@ export const keywordPagesC: KeywordPageData[] = [
     heroLabel: "Lawn Installation",
     heroTitle: "Sod Installation in Los Angeles",
     heroSubtitle: "Fresh lawn installation for Los Angeles homes that want cleaner curb appeal, faster transformation, and a more finished outdoor look.",
-    heroImage: { src: "/images/svc-sod-installation.png", alt: "Sod installation project in Los Angeles" },
+    heroImage: { src: "/images/svc-sod-installation.webp", alt: "Sod installation project in Los Angeles" },
     introHeading: "Fast Lawn Transformation with Professional Sod Installation",
     introParagraphs: [
       "Sod installation is one of the fastest ways to change the look of a Los Angeles property. Bernardino Martin provides sod installation in Los Angeles for homeowners who want a cleaner yard, better curb appeal, and a lawn that feels intentionally finished rather than patchy or temporary. Good sod work is not just about laying grass. It depends on soil prep, grading, water planning, and choosing a lawn approach that makes sense for local conditions and the way the property will actually be used.",
@@ -17,9 +17,9 @@ export const keywordPagesC: KeywordPageData[] = [
     ],
     galleryHeading: "Sod installation projects and lawn-ready outdoor spaces",
     galleryImages: [
-      { src: "/images/svc-sod-installation.png", alt: "Completed sod installation in a residential yard" },
-      { src: "/images/svc-landscaping.png", alt: "Landscaping project paired with new sod" },
-      { src: "/images/svc-smart-irrigation.png", alt: "Irrigation-ready lawn zone for new sod" },
+      { src: "/images/svc-sod-installation.webp", alt: "Completed sod installation in a residential yard" },
+      { src: "/images/svc-landscaping.webp", alt: "Landscaping project paired with new sod" },
+      { src: "/images/svc-smart-irrigation.webp", alt: "Irrigation-ready lawn zone for new sod" },
       { src: "/images/hero-home.webp", alt: "Finished home exterior with clean lawn presentation" },
     ],
     systemsHeading: "Lawn systems and support that improve sod performance",
@@ -61,7 +61,7 @@ export const keywordPagesC: KeywordPageData[] = [
     heroLabel: "Planter Design",
     heroTitle: "Planters Landscaping in Los Angeles",
     heroSubtitle: "Structured planter and planting design that helps Los Angeles outdoor spaces feel layered, finished, and easier to maintain.",
-    heroImage: { src: "/images/svc-planting.png", alt: "Planters landscaping design in Los Angeles" },
+    heroImage: { src: "/images/svc-planting.webp", alt: "Planters landscaping design in Los Angeles" },
     introHeading: "Planter-Focused Landscaping That Adds Structure and Style",
     introParagraphs: [
       "Planters can completely change how an outdoor space feels. Bernardino Martin provides planters landscaping in Los Angeles for homeowners who want yards, patios, side spaces, and entry areas to feel more intentional and better designed. Planter zones help organize space, soften hardscape-heavy layouts, and introduce color and texture in a way that is easier to maintain than full-lawn concepts.",
@@ -70,10 +70,10 @@ export const keywordPagesC: KeywordPageData[] = [
     ],
     galleryHeading: "Planter landscapes, planting zones, and finished outdoor details",
     galleryImages: [
-      { src: "/images/svc-planting.png", alt: "Decorative planter and planting installation" },
-      { src: "/images/svc-landscaping.png", alt: "Outdoor space enhanced with planter landscaping" },
-      { src: "/images/svc-smart-irrigation.png", alt: "Planter landscaping with smart watering support" },
-      { src: "/images/svc-sod-installation.png", alt: "Planters combined with lawn and landscape design" },
+      { src: "/images/svc-planting.webp", alt: "Decorative planter and planting installation" },
+      { src: "/images/svc-landscaping.webp", alt: "Outdoor space enhanced with planter landscaping" },
+      { src: "/images/svc-smart-irrigation.webp", alt: "Planter landscaping with smart watering support" },
+      { src: "/images/svc-sod-installation.webp", alt: "Planters combined with lawn and landscape design" },
     ],
     systemsHeading: "Planter systems and landscape features we build around",
     systemsIntro: "Planter-focused projects work best when they connect to the larger outdoor system, including irrigation planning, planting strategy, and yard layout.",
@@ -85,7 +85,7 @@ export const keywordPagesC: KeywordPageData[] = [
     ],
     inlineHeading: "Planter design brings focus and refinement to outdoor spaces",
     inlineBody: "A good planter layout gives a yard structure. It adds intentional color, shape, and softness in the places where outdoor areas need it most. Our Los Angeles planter landscaping service is designed to make those spaces feel planned rather than empty.",
-    inlineImage: { src: "/images/svc-landscaping.png", alt: "Refined outdoor space with planter landscaping" },
+    inlineImage: { src: "/images/svc-landscaping.webp", alt: "Refined outdoor space with planter landscaping" },
     servicesHeading: "Our Los Angeles planter landscaping services",
     services: [
       "Planter layout design",
@@ -114,7 +114,7 @@ export const keywordPagesC: KeywordPageData[] = [
     heroLabel: "Connected Homes",
     heroTitle: "Network Repair in Los Angeles",
     heroSubtitle: "Professional troubleshooting and repair support for Los Angeles homes and businesses dealing with unstable internet, cabling problems, and smart-home connectivity issues.",
-    heroImage: { src: "/images/svc-network.png", alt: "Network repair service in Los Angeles" },
+    heroImage: { src: "/images/svc-network.webp", alt: "Network repair service in Los Angeles" },
     introHeading: "Network Repair for Homes That Need Reliable Connectivity",
     introParagraphs: [
       "Network problems affect more than convenience. In Los Angeles homes and small business environments, weak connectivity can disrupt work, security systems, streaming, smart-home controls, and everyday routines. Bernardino Martin provides network repair in Los Angeles for customers who need cleaner troubleshooting, stronger wired and wireless performance, and a more dependable digital setup overall.",
@@ -123,7 +123,7 @@ export const keywordPagesC: KeywordPageData[] = [
     ],
     galleryHeading: "Network repair, cabling support, and connected-home service work",
     galleryImages: [
-      { src: "/images/svc-network.png", alt: "Structured network troubleshooting and repair" },
+      { src: "/images/svc-network.webp", alt: "Structured network troubleshooting and repair" },
       { src: "/images/happy-family-tech.webp", alt: "Connected home technology and reliable WiFi use" },
       { src: "/images/technician.webp", alt: "Professional technician reviewing network equipment" },
       { src: "/images/svc-install-thermostat.webp", alt: "Smart-home device connectivity support" },
@@ -177,8 +177,8 @@ export const keywordPagesC: KeywordPageData[] = [
     galleryHeading: "Recent installations and system upgrade work in Los Angeles",
     galleryImages: [
       { src: "/images/real-crane-lift.webp", alt: "Large equipment installation with crane support" },
-      { src: "/images/svc-hvac-install-new.png", alt: "New HVAC installation project" },
-      { src: "/images/svc-solar-install-new.png", alt: "Solar-related new installation support" },
+      { src: "/images/svc-hvac-install-new.webp", alt: "New HVAC installation project" },
+      { src: "/images/svc-solar-install-new.webp", alt: "Solar-related new installation support" },
       { src: "/images/moen-smart-water-shutoff.webp", alt: "Smart plumbing device installation" },
     ],
     systemsHeading: "Systems we install and upgrade",
@@ -191,7 +191,7 @@ export const keywordPagesC: KeywordPageData[] = [
     ],
     inlineHeading: "A new installation should improve the home immediately and hold up long term",
     inlineBody: "The best installations feel natural once they are complete. The equipment looks like it belongs, the system works the way the homeowner expected, and the upgrade clearly improves everyday comfort or convenience. That is the standard we aim for in Los Angeles installation work.",
-    inlineImage: { src: "/images/svc-hvac-install-new.png", alt: "Inline image of new equipment installation work" },
+    inlineImage: { src: "/images/svc-hvac-install-new.webp", alt: "Inline image of new equipment installation work" },
     servicesHeading: "Our Los Angeles new installation services",
     services: [
       "HVAC replacement and installation support",

@@ -7,7 +7,7 @@ export default function MovingHelp() {
       slug="moving-help"
       category="Home Services"
       categoryColor="purple"
-      heroImage="/images/rebrand/tile-moving.png"
+      heroImage="/images/rebrand/tile-moving.webp"
       tagline="Loading, hauling, and heavy lifting for moves across Los Angeles"
       overview={[
         "Moving is one of the most physically demanding jobs a homeowner takes on — heavy furniture, awkward staircases, and a deadline that doesn't move with you. Our team offers moving help for customers who need an extra set of hands, whether that's for a full move or just the heaviest items.",

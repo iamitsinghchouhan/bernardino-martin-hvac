@@ -43,8 +43,8 @@ export default function ElectricalLosAngeles() {
         title="Electrical Services in Los Angeles, CA"
         description="Safe, code-conscious electrical upgrades and repairs for Los Angeles homes that need more capacity, better protection, and modern wiring."
         videoSrc="/videos/electrical-la.mp4"
-        posterSrc="/images/services/electrical-hero.png"
-        imageSrc="/images/services/electrical-hero.png"
+        posterSrc="/images/services/electrical-hero.webp"
+        imageSrc="/images/services/electrical-hero.webp"
         imageAlt="Licensed electrician working on a residential electrical panel in Los Angeles"
       />
 
@@ -72,17 +72,17 @@ export default function ElectricalLosAngeles() {
       <SeoImageGrid
         images={[
           {
-            src: "/images/services/electrical-hero.png",
+            src: "/images/services/electrical-hero.webp",
             alt: "Licensed electrician Los Angeles",
             caption: "Electrical Service",
           },
           {
-            src: "/images/services/electrical-hero.png",
+            src: "/images/services/electrical-hero.webp",
             alt: "Electrical panel service Los Angeles",
             caption: "Panel Upgrades",
           },
           {
-            src: "/images/services/electrical-ev-charger.png",
+            src: "/images/services/electrical-ev-charger.webp",
             alt: "EV charger installation Los Angeles",
             caption: "EV Charger Installation",
           },

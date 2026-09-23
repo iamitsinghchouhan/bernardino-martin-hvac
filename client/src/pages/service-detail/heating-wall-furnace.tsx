@@ -8,7 +8,7 @@ export default function HeatingWallFurnace() {
       category="Heating Specialties"
       categoryColor="orange"
       heroVideo="/videos/svc-hvac.mp4"
-      heroImage="/images/services/heating-wall-furnace.png"
+      heroImage="/images/services/heating-wall-furnace.webp"
       tagline="Safe, efficient wall furnace installation, repair, and maintenance in Los Angeles"
       overview={[
         "Wall furnaces are compact, self-contained gas heating units recessed into an interior wall, most commonly found in apartments, condominiums, and smaller Los Angeles homes built from the 1950s through the 1980s. They use natural convection to heat a room without any blower motor or ductwork, making them reliable, quiet, and simple to operate — but they still require regular service to keep the gas valve, thermocouple, burner, and venting in safe working order.",

@@ -43,8 +43,8 @@ export default function NetworkLosAngeles() {
         title="Network & Smart Home Installation in Los Angeles, CA"
         description="Professional cabling, WiFi planning, and smart home setup for Los Angeles homes and businesses that need reliable connectivity."
         videoSrc="/videos/network-la.mp4"
-        posterSrc="/images/services/network-hero.png"
-        imageSrc="/images/services/network-hero.png"
+        posterSrc="/images/services/network-hero.webp"
+        imageSrc="/images/services/network-hero.webp"
         imageAlt="Network technician installing structured cabling in a Los Angeles home office"
       />
 
@@ -72,17 +72,17 @@ export default function NetworkLosAngeles() {
       <SeoImageGrid
         images={[
           {
-            src: "/images/services/network-hero.png",
+            src: "/images/services/network-hero.webp",
             alt: "Network installation Los Angeles",
             caption: "Structured Network Installation",
           },
           {
-            src: "/images/services/network-wifi.png",
+            src: "/images/services/network-wifi.webp",
             alt: "Whole home WiFi setup Los Angeles",
             caption: "Whole-Home WiFi",
           },
           {
-            src: "/images/services/network-smarthome.png",
+            src: "/images/services/network-smarthome.webp",
             alt: "Smart home installation Los Angeles",
             caption: "Smart Home Setup",
           },

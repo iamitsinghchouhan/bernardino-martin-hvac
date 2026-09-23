@@ -225,7 +225,7 @@ export default function About() {
       <section className="relative overflow-hidden bg-primary min-h-[420px] md:min-h-[520px] flex items-end">
         {/* Banner Image */}
         <img
-          src="/images/about/about-banner.png"
+          src="/images/about/about-banner.webp"
           alt="Bernardino Martin team with fleet vehicles and equipment in Los Angeles"
           className="absolute inset-0 w-full h-full object-cover object-center"
           loading="eager"
@@ -267,7 +267,7 @@ export default function About() {
             {/* Image */}
             <div className="order-2 md:order-1 rounded-lg overflow-hidden shadow-lg">
               <img
-                src="/images/about/our-story.png"
+                src="/images/about/our-story.webp"
                 alt="Our Story"
                 className="w-full h-96 object-cover"
                 loading="lazy"
@@ -310,7 +310,7 @@ export default function About() {
             {/* Image */}
             <div className="rounded-lg overflow-hidden shadow-2xl">
               <img
-                src="/images/about/bernardino-martin.png"
+                src="/images/about/bernardino-martin.webp"
                 alt="Bernardino Martin - Founder"
                 className="w-full h-96 object-cover"
                 loading="lazy"

@@ -43,8 +43,8 @@ export default function IrrigationLosAngeles() {
         title="Smart Irrigation Systems in Los Angeles, CA"
         description="Water-saving, app-controlled irrigation systems built for Los Angeles landscapes, dry seasons, and year-round property care."
         videoSrc="/videos/solar-irrigation-real.mp4"
-        posterSrc="/images/services/irrigation-hero.png"
-        imageSrc="/images/services/irrigation-hero.png"
+        posterSrc="/images/services/irrigation-hero.webp"
+        imageSrc="/images/services/irrigation-hero.webp"
         imageAlt="Smart irrigation system watering a Los Angeles lawn with app control"
       />
 
@@ -72,17 +72,17 @@ export default function IrrigationLosAngeles() {
       <SeoImageGrid
         images={[
           {
-            src: "/images/services/irrigation-hero.png",
+            src: "/images/services/irrigation-hero.webp",
             alt: "Smart irrigation system Los Angeles",
             caption: "Smart Irrigation Systems",
           },
           {
-            src: "/images/services/irrigation-install.png",
+            src: "/images/services/irrigation-install.webp",
             alt: "Irrigation installation Los Angeles",
             caption: "Irrigation Installation",
           },
           {
-            src: "/images/services/irrigation-app.png",
+            src: "/images/services/irrigation-app.webp",
             alt: "Smart irrigation app control Los Angeles",
             caption: "App-Controlled Watering",
           },

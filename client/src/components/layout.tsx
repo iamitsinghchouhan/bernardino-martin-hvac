@@ -230,7 +230,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           {/* Logo */}
           <Link href="/" className="flex items-center shrink-0" aria-label="BERNARDINO MARTIN - Home">
             <img
-              src="/images/rebrand/logo-redesign.png"
+              src="/images/rebrand/logo-redesign.webp"
               alt="BERNARDINO MARTIN — Comfort, Energy, Care, For Life"
               className="h-14 w-auto object-contain"
               loading="eager"
@@ -346,7 +346,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
               <SheetContent side="right" className="w-[300px] sm:w-[400px]" aria-label="Navigation menu">
                 <nav className="flex flex-col gap-1 mt-10" aria-label="Mobile navigation">
                   <Link href="/" className="mb-6 flex items-center">
-                    <img src="/images/rebrand/logo-redesign.png" alt="BERNARDINO MARTIN logo" className="h-12 w-auto object-contain" loading="eager" fetchPriority="high" />
+                    <img src="/images/rebrand/logo-redesign.webp" alt="BERNARDINO MARTIN logo" className="h-12 w-auto object-contain" loading="eager" fetchPriority="high" />
                   </Link>
                   {NAV_ITEMS.map((item) => {
                     const isActive =
@@ -468,7 +468,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
             <div>
-              <img src="/images/rebrand/logo-redesign.png" alt="BERNARDINO MARTIN logo" className="h-16 w-auto object-contain mb-4" loading="lazy" />
+              <img src="/images/rebrand/logo-redesign.webp" alt="BERNARDINO MARTIN logo" className="h-16 w-auto object-contain mb-4" loading="lazy" />
               <p className="text-sm leading-relaxed mb-4 text-slate-500">
                 BERNARDINO MARTIN &mdash; Comfort, Energy, Care, For Life. Top-rated HVAC, Solar, Plumbing, Electrical &amp; home services in Los Angeles.
               </p>

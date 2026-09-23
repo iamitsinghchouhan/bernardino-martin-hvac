@@ -8,7 +8,7 @@ export default function OutdoorIrrigation() {
       category="Outdoor & Property"
       categoryColor="green"
       heroVideo="/videos/solar-irrigation-real.mp4"
-      heroImage="/images/svc-smart-irrigation.png"
+      heroImage="/images/svc-smart-irrigation.webp"
       tagline="App-controlled smart irrigation with weather-based scheduling and automatic leak protection"
       overview={[
         "Traditional irrigation timers run on a fixed schedule regardless of weather — watering the same amount whether it rained yesterday or temperatures are 55°F or 105°F. Smart irrigation controllers change this completely. They connect to local weather data and automatically adjust your watering schedule based on evapotranspiration, temperature, and recent rainfall, reducing outdoor water use by 30–50% compared to conventional timer systems.",

@@ -8,7 +8,7 @@ export default function TechNetwork() {
       category="Technology"
       categoryColor="purple"
       heroVideo="/videos/svc-network.mp4"
-      heroImage="/images/svc-network.png"
+      heroImage="/images/svc-network.webp"
       tagline="Professional Cat6 network infrastructure for fast, reliable wired internet in every room"
       overview={[
         "Wi-Fi dead zones, video call dropouts, and buffering happen when your network relies entirely on wireless signals trying to penetrate walls, floors, and furniture. Structured cabling — running Cat6 ethernet cables through your walls to every room — delivers rock-solid wired connections that are 10x faster and significantly more reliable than Wi-Fi for the devices that need it most: desktops, smart TVs, game consoles, streaming devices, and home office workstations.",

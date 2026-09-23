@@ -189,7 +189,7 @@ export function ChatWidget() {
           <CardHeader className="bg-gradient-to-br from-[var(--rb-navy)] via-[var(--rb-navy)] to-[var(--rb-orange)] text-white p-4 flex flex-row items-center gap-3">
             <div className="relative">
                 <Avatar className="h-10 w-10 border-2 border-white/50 bg-white p-1">
-                <AvatarImage src="/images/rebrand/logo-redesign.png" className="object-contain" />
+                <AvatarImage src="/images/rebrand/logo-redesign.webp" className="object-contain" />
                 <AvatarFallback>BM</AvatarFallback>
                 </Avatar>
                 <span className="absolute bottom-0 right-0 w-3 h-3 bg-secondary border-2 border-primary rounded-full"></span>

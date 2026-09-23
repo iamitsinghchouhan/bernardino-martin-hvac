@@ -8,7 +8,7 @@ export default function HeatingGasFurnace() {
       category="Heating Specialties"
       categoryColor="orange"
       heroVideo="/videos/svc-hvac.mp4"
-      heroImage="/images/services/heating-gas-furnace.png"
+      heroImage="/images/services/heating-gas-furnace.webp"
       tagline="Expert gas furnace repair for all makes and models across Los Angeles"
       overview={[
         "Gas furnaces are complex appliances that combine a combustion system, a heat exchanger, an electrical control board, and a blower motor into a single unit — and a failure in any one of those systems can leave your home cold. Our technicians are specifically trained in gas appliance diagnostics and carry the full range of OEM and aftermarket parts to repair any make or model, from legacy pilot-light systems to modern two-stage and variable-speed furnaces.",

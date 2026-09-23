@@ -8,7 +8,7 @@ export default function HeatingFurnaceReplacement() {
       category="Heating Specialties"
       categoryColor="orange"
       heroVideo="/videos/svc-hvac.mp4"
-      heroImage="/images/services/heating-furnace-replacement.png"
+      heroImage="/images/services/heating-furnace-replacement.webp"
       tagline="Energy-efficient furnace upgrades with professional installation and old unit disposal"
       overview={[
         "Deciding to replace a furnace rather than repair it is rarely a snap decision, and we approach it as a financial conversation. If your furnace is under 10 years old and the repair cost is modest, repair almost always makes more sense. But furnaces older than 15–20 years that require costly repairs — a new heat exchanger, a blower motor, or a control board — are often better candidates for replacement with a modern, high-efficiency unit that will cost less to operate for the next 20 years than the old one did in its prime.",

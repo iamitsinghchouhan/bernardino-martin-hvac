@@ -8,7 +8,7 @@ export default function HeatingFloorFurnace() {
       category="Heating Specialties"
       categoryColor="orange"
       heroVideo="/videos/svc-hvac.mp4"
-      heroImage="/images/services/heating-floor-furnace.png"
+      heroImage="/images/services/heating-floor-furnace.webp"
       tagline="Installation, repair, and cleaning for floor furnace systems in Los Angeles homes"
       overview={[
         "Floor furnaces are a heating solution deeply embedded in the history of Los Angeles residential construction. Thousands of homes built in the 1930s through 1960s — particularly in neighborhoods like Silver Lake, Echo Park, Highland Park, and Mid-City — still rely on these recessed gas-fired units that sit below the floor and radiate heat upward through a grate. Our technicians have extensive experience with the specific components, clearances, and code requirements that apply to these older systems.",

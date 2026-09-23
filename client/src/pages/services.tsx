@@ -35,14 +35,14 @@ const BRANDS = [
 
 // ─── LANDSCAPE MATERIALS ──────────────────────────────────────────────────
 const LANDSCAPE_PRODUCTS = [
-  { img: "/images/sod-7.png", alt: "Cedar Red Decorative Woodchips 500 LBS", name: "Cedar Red", type: "Decorative Woodchips", colorLabel: "Red", colorHex: "#b83232" },
-  { img: "/images/sod-6.png", alt: "Burgundy Decorative Woodchips 500 LBS", name: "Burgundy", type: "Decorative Woodchips", colorLabel: "Burgundy", colorHex: "#6d1a36" },
-  { img: "/images/sod-2.png", alt: "Dark Reddish Decorative Woodchips 500 LBS", name: "Dark Reddish", type: "Decorative Woodchips", colorLabel: "Dark Red", colorHex: "#7b3f2e" },
-  { img: "/images/sod-3.png", alt: "Chocolate Brown Decorative Woodchips 500 LBS", name: "Chocolate Brown", type: "Decorative Woodchips", colorLabel: "Brown", colorHex: "#4a2c1a" },
-  { img: "/images/sod-4.png", alt: "Mocha Brown Decorative Woodchips 500 LBS", name: "Mocha Brown", type: "Decorative Woodchips", colorLabel: "Mocha", colorHex: "#5c3317" },
-  { img: "/images/sod-1.png", alt: "Reddish Brown Decorative Ground Cover 500 LBS", name: "Reddish Brown", type: "Decorative Ground Cover", colorLabel: "Reddish", colorHex: "#9b4a2e" },
-  { img: "/images/sod-5.png", alt: "Onyx Dark Decorative Ground Cover 500 LBS", name: "Onyx Dark", type: "Decorative Ground Cover", colorLabel: "Onyx", colorHex: "#1a1210" },
-  { img: "/images/sod-8.png", alt: "Natural Recycled Wood 500 LBS", name: "Natural", type: "Recycled Wood", colorLabel: "Natural", colorHex: "#8b6914" },
+  { img: "/images/sod-7.webp", alt: "Cedar Red Decorative Woodchips 500 LBS", name: "Cedar Red", type: "Decorative Woodchips", colorLabel: "Red", colorHex: "#b83232" },
+  { img: "/images/sod-6.webp", alt: "Burgundy Decorative Woodchips 500 LBS", name: "Burgundy", type: "Decorative Woodchips", colorLabel: "Burgundy", colorHex: "#6d1a36" },
+  { img: "/images/sod-2.webp", alt: "Dark Reddish Decorative Woodchips 500 LBS", name: "Dark Reddish", type: "Decorative Woodchips", colorLabel: "Dark Red", colorHex: "#7b3f2e" },
+  { img: "/images/sod-3.webp", alt: "Chocolate Brown Decorative Woodchips 500 LBS", name: "Chocolate Brown", type: "Decorative Woodchips", colorLabel: "Brown", colorHex: "#4a2c1a" },
+  { img: "/images/sod-4.webp", alt: "Mocha Brown Decorative Woodchips 500 LBS", name: "Mocha Brown", type: "Decorative Woodchips", colorLabel: "Mocha", colorHex: "#5c3317" },
+  { img: "/images/sod-1.webp", alt: "Reddish Brown Decorative Ground Cover 500 LBS", name: "Reddish Brown", type: "Decorative Ground Cover", colorLabel: "Reddish", colorHex: "#9b4a2e" },
+  { img: "/images/sod-5.webp", alt: "Onyx Dark Decorative Ground Cover 500 LBS", name: "Onyx Dark", type: "Decorative Ground Cover", colorLabel: "Onyx", colorHex: "#1a1210" },
+  { img: "/images/sod-8.webp", alt: "Natural Recycled Wood 500 LBS", name: "Natural", type: "Recycled Wood", colorLabel: "Natural", colorHex: "#8b6914" },
 ];
 const LANDSCAPE_LIGHTBOX: LightboxImage[] = LANDSCAPE_PRODUCTS.map(p => ({ src: p.img, alt: p.alt }));
 
@@ -202,7 +202,7 @@ export default function Services() {
       {/* ── HERO ─────────────────────────────────────────────── */}
       <section className="relative overflow-hidden bg-slate-900 pt-28 pb-16">
         <img
-          src="/images/rebrand/hero-redesign.png"
+          src="/images/rebrand/hero-redesign.webp"
           alt=""
           aria-hidden="true"
           fetchPriority="high"
@@ -300,8 +300,8 @@ export default function Services() {
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
                     {[
-                      { label: "Lawn & Turf", sub: "San Augustine & RTF Sod · Grass repair · Leveling", img: "/images/svc-sod-installation.png", link: "/services/outdoor-sod", color: "bg-green-600" },
-                      { label: "Garden & Planting", sub: "Seasonal plants · Trees · Garden bed design", img: "/images/svc-planting.png", link: "/services/outdoor-planting", color: "bg-emerald-600" },
+                      { label: "Lawn & Turf", sub: "San Augustine & RTF Sod · Grass repair · Leveling", img: "/images/svc-sod-installation.webp", link: "/services/outdoor-sod", color: "bg-green-600" },
+                      { label: "Garden & Planting", sub: "Seasonal plants · Trees · Garden bed design", img: "/images/svc-planting.webp", link: "/services/outdoor-planting", color: "bg-emerald-600" },
                       { label: "Hardscape & Concrete", sub: "Driveways · Patios · Stamped concrete · Pool decks", img: "/images/hardscape/hardscape-pool-deck-european-fan-sunrise.webp", link: "/services/outdoor-hardscape", color: "bg-teal-600" },
                     ].map((item) => (
                       <Link key={item.label} href={item.link} className="group relative rounded-2xl overflow-hidden bg-slate-100 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 block">
@@ -322,8 +322,8 @@ export default function Services() {
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {[
-                      { label: "Smart Irrigation", sub: "App-controlled watering · Rachio & Rain Bird · Water savings up to 50%", img: "/images/svc-smart-irrigation.png", link: "/services/outdoor-irrigation", color: "bg-cyan-600" },
-                      { label: "Full Landscaping Design", sub: "Custom LA landscape design · Drought-tolerant · Native California plants", img: "/images/svc-landscaping.png", link: "/services/outdoor-landscaping", color: "bg-green-700" },
+                      { label: "Smart Irrigation", sub: "App-controlled watering · Rachio & Rain Bird · Water savings up to 50%", img: "/images/svc-smart-irrigation.webp", link: "/services/outdoor-irrigation", color: "bg-cyan-600" },
+                      { label: "Full Landscaping Design", sub: "Custom LA landscape design · Drought-tolerant · Native California plants", img: "/images/svc-landscaping.webp", link: "/services/outdoor-landscaping", color: "bg-green-700" },
                     ].map((item) => (
                       <Link key={item.label} href={item.link} className="group relative rounded-2xl overflow-hidden bg-slate-100 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 block">
                         <div className="aspect-[16/7] overflow-hidden">
@@ -349,7 +349,7 @@ export default function Services() {
                       <picture>
                         <source srcSet="/images/sod-materials.webp" type="image/webp" />
                         <img
-                          src="/images/sod-materials.png"
+                          src="/images/sod-materials.webp"
                           alt="Bernardino Martin landscape materials yard with fleet vehicles"
                           loading="lazy"
                           decoding="async"

@@ -8,7 +8,7 @@ export default function SolarIrrigation() {
       category="Solar & Energy"
       categoryColor="amber"
       heroVideo="/videos/solar-irrigation-real.mp4"
-      heroImage="/images/svc-smart-irrigation.png"
+      heroImage="/images/svc-smart-irrigation.webp"
       tagline="Eco-friendly solar-powered watering systems — run your irrigation for free with sunshine"
       overview={[
         "Solar-powered irrigation combines two of the most impactful home improvements available in Los Angeles: solar energy generation and smart water management. A solar irrigation system uses a dedicated solar pump or solar-charged battery to power your irrigation controller and pump, eliminating electricity costs for outdoor watering entirely. This is particularly valuable for properties with large landscapes, orchard areas, or multiple irrigation zones.",
