@@ -6,8 +6,8 @@ export default function HvacWoodlandHillsPage() {
     <CityPageTemplate
       cityData={cityData}
       redesign
-      headline={{ eyebrow: "West Valley", title: "From Warner Center to Topanga Village." }}
-      statement="Intense summer sun. Mild winters. Comfort, year-round."
+      headline={{ eyebrow: "Warner Center", title: "Office Towers Meet Quiet Streets." }}
+      statement="Commercial hours. Residential calm. One team."
     />
   );
 }

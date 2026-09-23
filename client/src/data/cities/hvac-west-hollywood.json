@@ -40,5 +40,14 @@
     "Pacific Design Center",
     "West Hollywood Park"
   ],
-  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC",
+  "localLife": {
+    "nature": "One of the densest, smallest cities in the county — barely two square miles — packed with mid-century apartment blocks along Santa Monica Boulevard and hillside streets climbing toward the Strip that trap afternoon heat long after the flats cool off.",
+    "community": "Bars, restaurants, and clubs along the Strip and Santa Monica Boulevard that run well past midnight, residents who keep a nightlife schedule most suburbs don't, and quieter blocks in West Hollywood West that still want the same service reliability.",
+    "howWeHelp": "We schedule around a city that runs late, and we're used to coordinating building access and parking in a dense apartment corridor where a lot of buildings don't have a driveway to work from."
+  },
+  "seasonalNotes": [
+    { "season": "Summer", "focus": "Hillside blocks near the Strip run hotter in the afternoon than the flats just a few streets away — a detail that matters in a city small enough that 'a few streets away' is the whole difference." },
+    { "season": "Fall", "focus": "Older apartment buildings along Santa Monica Boulevard often still rely on window or wall units — a fall check before the first cold snap is the easiest way to find out if one needs replacing before winter, not during it." }
+  ]
 }

@@ -38,5 +38,14 @@
     "The Lakes at El Segundo",
     "El Segundo Recreation Park"
   ],
-  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC",
+  "localLife": {
+    "nature": "Barely a square mile of small-town streets sits wedged between LAX's runways to the north and the refinery and aerospace campuses to the east — a genuinely small town that just happens to share a border with some of the busiest industrial and aviation real estate in the county.",
+    "community": "A small residential core around Main Street and Recreation Park, a large daytime workforce commuting in for the refinery, aerospace, and tech campuses nearby, and a level of aircraft noise from LAX approaches that residents have simply built into daily life.",
+    "howWeHelp": "We factor in the extra vibration dampening a home under LAX's approach path benefits from, and we handle commercial work for the offices and light-industrial spaces that share this small town with its residents."
+  },
+  "seasonalNotes": [
+    { "season": "Summer", "focus": "The marine layer keeps El Segundo's mornings cooler and foggier than almost anywhere else in the South Bay, but afternoons still warm up enough inland from the beach that a system built for fog alone falls short." },
+    { "season": "Fall", "focus": "Commercial HVAC demand from the offices and campuses around town often peaks alongside residential demand in early fall — we plan service scheduling around both instead of favoring one over the other." }
+  ]
 }

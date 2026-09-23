@@ -6,8 +6,8 @@ export default function HvacManhattanBeachPage() {
     <CityPageTemplate
       cityData={cityData}
       redesign
-      headline={{ eyebrow: "South Bay Coast", title: "From The Strand to the Pier." }}
-      statement="Marine layer mornings. Ocean breeze afternoons. Comfort, dialed in."
+      headline={{ eyebrow: "The Strand", title: "Small Lots. Big Rebuilds." }}
+      statement="Tight lots. Salt air. Comfort, precisely fitted."
     />
   );
 }

@@ -39,5 +39,14 @@
     "Culver City Stairs",
     "Helms Bakery District"
   ],
-  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC",
+  "localLife": {
+    "nature": "Culver City's downtown core is dense and walkable in a way most of the Valley isn't — the Culver City Stairs and the blocks around them see plenty of foot traffic, with the coastal marine layer softening mornings before the afternoon warms up.",
+    "community": "Studio crews and office staff from Sony Pictures and Amazon Studios filling the lots on weekdays, a walkable downtown of restaurants and shops around the Culver City Stairs, and residential streets in Carlson Park and Culver West that see a different daily rhythm than the Valley's commuter suburbs.",
+    "howWeHelp": "We service everything from a classic single-family home in Culver West to a renovated loft near the studio lots, and we keep commercial visits near the studios quick and unobtrusive so they don't interrupt a shooting day."
+  },
+  "seasonalNotes": [
+    { "season": "Summer", "focus": "The coastal marine layer keeps mornings mild, but Culver City still warms up more than the coast by afternoon — enough that older homes without updated ductwork start to fall behind by midday." },
+    { "season": "Fall", "focus": "Older homes around Carlson Park and Culver West often still run original ductwork — a fall check catches restricted airflow before winter heating has to fight through it." }
+  ]
 }

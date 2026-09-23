@@ -38,5 +38,14 @@
     "Los Angeles International Airport",
     "Hawthorne Boulevard"
   ],
-  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC",
+  "localLife": {
+    "nature": "Lennox sits closer to LAX's runways than almost anywhere else in the South Bay — an unincorporated square mile and a half where jets pass low and often, and the dense mix of apartments and small homes along Hawthorne Boulevard leaves little open space to buffer the noise.",
+    "community": "A tight-knit, working-class immigrant community packed into one of the smallest, densest footprints in the South Bay — a different economic reality than the beach cities just minutes away, even though they share the same stretch of coastline weather.",
+    "howWeHelp": "We keep pricing honest and straightforward for a community that doesn't have room in the budget for surprises, and we're used to working in the tight apartment and small-lot spacing that comes with Lennox's density."
+  },
+  "seasonalNotes": [
+    { "season": "Summer", "focus": "Dense apartment blocks with little shade or open space hold heat longer into the evening than the greener, larger-lot neighborhoods just a few minutes away." },
+    { "season": "Fall", "focus": "A lot of Lennox's older apartment buildings still run original window units — a fall check is often the only chance to catch a failing one before it goes out in the middle of winter." }
+  ]
 }

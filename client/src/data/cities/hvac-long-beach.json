@@ -41,5 +41,14 @@
     "Aquarium of the Pacific",
     "Long Beach Convention Center"
   ],
-  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC",
+  "localLife": {
+    "nature": "The Port of Long Beach runs one of the busiest container terminals in the country, and the salt air near the water carries more than ocean spray — harbor traffic and industrial activity put extra wear on equipment that a purely residential beach town doesn't deal with.",
+    "community": "A city large and diverse enough to hold historic Belmont Shore bungalows, downtown high-rise condos, canal-front homes in Naples, and family neighborhoods in Bixby Knolls all within its own borders — Long Beach runs more like its own small city than a suburb of one.",
+    "howWeHelp": "We protect equipment from the harbor's combination of salt air and industrial exposure, and we're set up for the full range here — a historic Belmont Shore bungalow, a downtown high-rise unit, and a canal-front home in Naples all need a different approach."
+  },
+  "seasonalNotes": [
+    { "season": "Summer", "focus": "Harbor-adjacent neighborhoods deal with more than salt air in the summer — increased port and industrial activity means more airborne particulate for filtration systems to handle, not just ocean moisture." },
+    { "season": "Fall", "focus": "Older bungalows in Belmont Shore and Naples often still run original ductwork from decades ago — a fall check catches restricted airflow before winter heating has to push through it." }
+  ]
 }

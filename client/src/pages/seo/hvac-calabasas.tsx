@@ -6,8 +6,8 @@ export default function HvacCalabasasPage() {
     <CityPageTemplate
       cityData={cityData}
       redesign
-      headline={{ eyebrow: "West Valley Foothills", title: "From The Commons to Calabasas Lake." }}
-      statement="Warm afternoons. Cool evenings. Comfort that keeps pace."
+      headline={{ eyebrow: "Malibu Canyon Gateway", title: "Gated Estates. Foothill Quiet." }}
+      statement="Private roads. Horse trails. Comfort without the noise."
     />
   );
 }

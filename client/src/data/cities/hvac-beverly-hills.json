@@ -40,5 +40,14 @@
     "Beverly Hills Hotel",
     "Beverly Hills City Hall"
   ],
-  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC",
+  "localLife": {
+    "nature": "South of Sunset the streets run flat and grid-straight; climb north into Trousdale and Benedict Canyon and a house at the top of the hill can run ten degrees hotter than one at the bottom of the same street.",
+    "community": "Full-time household staff, property managers overseeing more than one address, and homeowners who expect a service visit to run on their calendar, not the technician's — privacy and scheduling matter as much as the repair itself.",
+    "howWeHelp": "We work on multi-zone systems tied into whole-home smart panels, coordinate around household staff and security gates instead of around them, and treat every visit as the private, scheduled appointment it is."
+  },
+  "seasonalNotes": [
+    { "season": "Summer", "focus": "The marine layer keeps mornings mild, but a hillside estate above the fog line can be running twenty degrees warmer than the flats by afternoon — zoned systems have to account for both microclimates under one roof." },
+    { "season": "Winter", "focus": "Awards season and holiday entertaining overlap here — the last thing a host needs is a zone failing mid-event, so we prioritize preventive checks before December, not after a system drops out at a party." }
+  ]
 }

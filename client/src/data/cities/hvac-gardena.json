@@ -40,5 +40,14 @@
     "The Gardens Casino",
     "Mas Fukai Park"
   ],
-  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC",
+  "localLife": {
+    "nature": "Gardena runs as a dense, working residential grid broken up by light-industrial blocks and busy commercial corridors — a different texture than the beach towns just a few miles west.",
+    "community": "A Japanese-American community with roots going back to the pre-war farming families who settled here, honored today in civic spaces like Mas Fukai Park, alongside a broader working-class mix drawn by the light-industrial jobs that anchor the local economy.",
+    "howWeHelp": "We keep pricing straightforward and service both the modest single-family grid and the light-industrial and commercial properties that share the same blocks, without treating either like an afterthought."
+  },
+  "seasonalNotes": [
+    { "season": "Summer", "focus": "Coastal influence softens Gardena's mornings, but the dense grid of pavement and light-industrial blocks holds afternoon heat longer than the beach towns just west of here." },
+    { "season": "Fall", "focus": "A lot of Gardena's housing stock is modest and older — a fall check is often the difference between a small repair now and a full system failure during the first cold snap." }
+  ]
 }

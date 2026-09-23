@@ -46,5 +46,14 @@
     "Hollywood Walk of Fame",
     "Griffith Park edge"
   ],
-  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC",
+  "localLife": {
+    "nature": "Dense courtyard apartments, low-rise storefronts, and blocks of close-packed asphalt hold afternoon heat long after the sun drops behind the hills — an urban heat-island effect the coastal breeze never quite reaches this far inland.",
+    "community": "Below-the-line crew coming off overnight shoots, actors keeping audition hours that don't match a 9-to-5, longtime residents in 1920s courtyard buildings, and a daily wave of tourists working their way down the Walk of Fame.",
+    "howWeHelp": "We schedule around production call times, not just business hours, and we know the difference between retrofitting a courtyard building that was never built for central air and servicing a new high-rise unit above Sunset."
+  },
+  "seasonalNotes": [
+    { "season": "Summer", "focus": "Heat pockets in the flats push aging window and wall units past their limit right as Hollywood Bowl season fills the streets with traffic — we plan service windows around both." },
+    { "season": "Spring", "focus": "Pilot season runs February through April and scrambles industry schedules — we work around call sheets and irregular hours instead of a standard weekday window." }
+  ]
 }

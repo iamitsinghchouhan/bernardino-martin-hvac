@@ -46,5 +46,14 @@
     "Sherman Oaks Galleria",
     "Mulholland access neighborhoods"
   ],
-  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC",
+  "localLife": {
+    "nature": "Ventura Boulevard runs the length of Sherman Oaks as the South Valley's main commercial spine, with residential streets fanning out flat toward Van Nuys on one side and climbing into Mulholland-access canyons on the other.",
+    "community": "A mix of longtime families in Chandler Estates and the Longridge area, and the daytime retail and office crowd that fills the Galleria and the shops along Ventura Boulevard.",
+    "howWeHelp": "We service the flat, mid-century blocks south of Ventura the same way we handle a hillside home with Mulholland access, and we keep the shops and offices along the boulevard comfortable through the business day, not just after hours."
+  },
+  "seasonalNotes": [
+    { "season": "Summer", "focus": "South-valley afternoons run hot and sunny with little coastal relief — Sherman Oaks homes without updated ductwork often can't keep pace once the sun's been up for a few hours." },
+    { "season": "Fall", "focus": "Homes in the Mulholland-access canyons often have equipment mounted in less accessible spots — a fall check beats waiting for a breakdown once winter access gets harder." }
+  ]
 }

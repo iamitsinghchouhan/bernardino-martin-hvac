@@ -52,5 +52,14 @@
     "Intuit Dome",
     "The Forum"
   ],
-  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC",
+  "localLife": {
+    "nature": "Inglewood has changed fast — established blocks in Morningside Park and Fairview Heights now sit minutes from SoFi Stadium and the Intuit Dome, two of the largest venues built in the county in a generation.",
+    "community": "Longtime families in Inglewood's established residential pockets, alongside a newer wave of stadium-district workers and event traffic that didn't exist here a decade ago.",
+    "howWeHelp": "We service the aging ductwork common in Inglewood's established homes just as readily as the newer systems going into construction near the stadium corridor, and we plan around game-day and event traffic instead of getting stuck in it."
+  },
+  "seasonalNotes": [
+    { "season": "Summer", "focus": "Moderate South Bay mornings give way to warmer afternoons inland from the coast — older Inglewood homes with original ductwork are often the first to fall behind once summer settles in." },
+    { "season": "Fall", "focus": "Event season at SoFi Stadium and the Intuit Dome picks up through the fall — we schedule residential service around game days and event traffic instead of routing calls in blind." }
+  ]
 }

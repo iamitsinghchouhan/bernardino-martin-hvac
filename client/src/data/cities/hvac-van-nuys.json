@@ -41,5 +41,14 @@
     "Sepulveda Basin nearby",
     "Van Nuys Airport area"
   ],
-  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC",
+  "localLife": {
+    "nature": "Flat valley floor, full sun, almost no shade canopy — the kind of heat that radiates off asphalt and parking lots long after sundown.",
+    "community": "Aerospace and warehouse crews around the airport, small shops and restaurants along Victory and Van Nuys Boulevard, multigenerational households in duplexes and post-war single-family blocks.",
+    "howWeHelp": "When it's 105 for the fifth day straight, we're the reason the corner restaurant kitchen stays open and the family in the 1958 duplex isn't sleeping in the living room."
+  },
+  "seasonalNotes": [
+    { "season": "Summer", "focus": "Peak season — the heat island effect means Van Nuys often runs hotter than the coast by 15+ degrees, and older ducting can't keep up without a tune-up first." },
+    { "season": "Winter", "focus": "Mild, but older heaters that sat unused all summer need a check before the first cold snap." }
+  ]
 }

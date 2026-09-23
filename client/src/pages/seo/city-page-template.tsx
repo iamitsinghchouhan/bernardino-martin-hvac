@@ -225,6 +225,42 @@ export default function CityPageTemplate({ cityData, redesign = false, headline,
         </div>
       </section>
 
+      {cityData.localLife && (
+        <section className="bg-slate-50 py-16">
+          <div className="container mx-auto px-4">
+            <div className="mx-auto max-w-5xl">
+              <div className="max-w-2xl" data-aos="fade-up">
+                <p className="text-xs font-bold uppercase tracking-[0.3em] text-primary">Local Life</p>
+                <h2 className="text-display mt-3 text-3xl text-slate-950 md:text-4xl">
+                  Life in {cityData.city}
+                </h2>
+              </div>
+              <div className="mt-10 grid gap-6 lg:grid-cols-[1.15fr,0.85fr]">
+                <div className="space-y-6" data-aos="fade-up" data-aos-delay="100">
+                  <div className="rounded-3xl border border-slate-200 bg-white p-6 transition-all hover:-translate-y-0.5 hover:shadow-lg">
+                    <h3 className="text-sm font-bold uppercase tracking-[0.18em] text-primary">The Landscape</h3>
+                    <p className="mt-3 text-base leading-7 text-slate-700">{cityData.localLife.nature}</p>
+                  </div>
+                  <div className="rounded-3xl border border-slate-200 bg-white p-6 transition-all hover:-translate-y-0.5 hover:shadow-lg">
+                    <h3 className="text-sm font-bold uppercase tracking-[0.18em] text-primary">The Community</h3>
+                    <p className="mt-3 text-base leading-7 text-slate-700">{cityData.localLife.community}</p>
+                  </div>
+                </div>
+                <div
+                  className="flex items-center rounded-3xl bg-slate-950 p-8 text-white"
+                  data-aos="zoom-in"
+                  data-aos-delay="150"
+                >
+                  <p className="text-display text-xl leading-9 md:text-2xl">
+                    {cityData.localLife.howWeHelp}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
       <CityServicesShowcase
         cityName={cityData.city}
         climateLabel={cityData.climate}
@@ -233,6 +269,32 @@ export default function CityPageTemplate({ cityData, redesign = false, headline,
       />
 
       {!redesign && <ServiceSlider />}
+
+      {cityData.seasonalNotes && cityData.seasonalNotes.length > 0 && (
+        <section className="bg-white py-16">
+          <div className="container mx-auto px-4">
+            <div className="mx-auto max-w-5xl">
+              <div className="max-w-2xl" data-aos="fade-up">
+                <p className="text-xs font-bold uppercase tracking-[0.3em] text-primary">Plan Ahead</p>
+                <h2 className="text-display mt-3 text-3xl text-slate-950 md:text-4xl">
+                  Seasonal in {cityData.city}
+                </h2>
+              </div>
+              <div className="mt-8 grid gap-4 sm:grid-cols-2" data-aos="fade-up" data-aos-delay="100">
+                {cityData.seasonalNotes.map((note) => (
+                  <div
+                    key={note.season}
+                    className="rounded-2xl border border-slate-200 bg-slate-50 p-6 transition-all hover:-translate-y-0.5 hover:shadow-lg"
+                  >
+                    <p className="text-xs font-bold uppercase tracking-[0.18em] text-primary">{note.season}</p>
+                    <p className="mt-2 text-base leading-7 text-slate-700">{note.focus}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       <section className="bg-gradient-to-r from-primary to-blue-900 py-16 text-white">
         <div className="container mx-auto px-4">

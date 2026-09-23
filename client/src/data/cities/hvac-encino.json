@@ -45,5 +45,14 @@
     "Ventura Boulevard",
     "Balboa Sports Center nearby"
   ],
-  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC",
+  "localLife": {
+    "nature": "Ventura Boulevard splits the city in two — hillside estates climbing toward Mulholland to the south, flatter mid-century blocks holding the Valley's full dry heat to the north.",
+    "community": "Longtime owners who've held the same hillside lot since the original mid-century boom, newer buyers rebuilding bigger next door, and a Ventura Boulevard strip of boutiques and restaurants that pulls a lunch-and-dinner crowd from across the Valley.",
+    "howWeHelp": "We're as comfortable maintaining the single aging system that's cooled an estate for forty years as we are wiring in the multi-zone setup next door, and we keep the boulevard's restaurants running through the dinner rush, not just after close."
+  },
+  "seasonalNotes": [
+    { "season": "Summer", "focus": "Hillside lots south of Ventura get a real evening breeze that the flatter blocks north of the boulevard don't — a difference that matters when we're sizing a system for one address versus the next." },
+    { "season": "Fall", "focus": "Older hillside estates often still run original equipment installed decades ago — a fall check catches a tired system before the first cold snap, not during a holiday gathering." }
+  ]
 }

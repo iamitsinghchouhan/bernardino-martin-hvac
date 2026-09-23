@@ -5,8 +5,9 @@ export default function HvacBeverlyHillsPage() {
   return (
     <CityPageTemplate
       cityData={cityData}
-      headline={{ eyebrow: "Los Angeles Westside", title: "Where premium homes meet expert HVAC service." }}
-      statement="Rodeo Drive elegance. Every room comfort."
+      redesign
+      headline={{ eyebrow: "90210", title: "White-Glove Comfort for Every Zone." }}
+      statement="Discreet service. Zoned precision. Exactly on schedule."
     />
   );
 }

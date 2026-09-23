@@ -6,8 +6,8 @@ export default function HvacHollywoodPage() {
     <CityPageTemplate
       cityData={cityData}
       redesign
-      headline={{ eyebrow: "Central Los Angeles", title: "From the Walk of Fame to the Hollywood Bowl." }}
-      statement="Warm days. Mild nights. Comfort that fits the scene."
+      headline={{ eyebrow: "Below the Line", title: "Comfort on Your Call Sheet, Not Ours." }}
+      statement="Odd hours. Old buildings. Comfort that adapts."
     />
   );
 }

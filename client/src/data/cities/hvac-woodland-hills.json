@@ -48,5 +48,14 @@
     "Topanga Village",
     "Mulholland-adjacent neighborhoods"
   ],
-  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC",
+  "localLife": {
+    "nature": "Warner Center's mid-rise office towers sit just blocks from quiet, tree-lined streets in Walnut Acres and Carlton Terrace — the kind of west-Valley flatland that holds intense, direct summer sun with almost no ocean influence to soften it.",
+    "community": "A daytime wave of office commuters filling Warner Center's towers and parking structures on weekdays, and families in the surrounding suburbs who navigate that same traffic corridor just to get home.",
+    "howWeHelp": "We schedule commercial work in Warner Center around business hours instead of during them, and we route residential calls in Walnut Acres and Carlton Terrace around the same commuter traffic everyone else is stuck in."
+  },
+  "seasonalNotes": [
+    { "season": "Summer", "focus": "No ocean influence reaches this deep into the west Valley — Warner Center's towers and the homes around them both take the full brunt of summer heat with none of the coastal relief a few miles west still get." },
+    { "season": "Fall", "focus": "Homes here often run systems sized for the area's peak summer load — a fall tune-up keeps them efficient once demand drops instead of running oversized and wasteful all winter." }
+  ]
 }

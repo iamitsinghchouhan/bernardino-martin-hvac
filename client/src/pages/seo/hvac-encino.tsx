@@ -6,8 +6,8 @@ export default function HvacEncinoPage() {
     <CityPageTemplate
       cityData={cityData}
       redesign
-      headline={{ eyebrow: "South Central Valley", title: "From Ventura Boulevard to Los Encinos Park." }}
-      statement="Sunny days. Mild winters. Comfort that never misses a beat."
+      headline={{ eyebrow: "Ventura Corridor", title: "Old Estates. New Builds. Same Standard." }}
+      statement="Hillside quiet above. Boulevard energy below."
     />
   );
 }

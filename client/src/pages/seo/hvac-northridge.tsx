@@ -6,8 +6,8 @@ export default function HvacNorthridgePage() {
     <CityPageTemplate
       cityData={cityData}
       redesign
-      headline={{ eyebrow: "North Central Valley", title: "From CSUN to the Northridge Fashion Center." }}
-      statement="Hot summers. Dry winter air. Comfort, year-round."
+      headline={{ eyebrow: "CSUN Territory", title: "A College Town, Cooled Right." }}
+      statement="Campus rhythm. Valley heat. Built to handle both."
     />
   );
 }

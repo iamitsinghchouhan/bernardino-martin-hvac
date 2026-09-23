@@ -39,5 +39,14 @@
     "Riviera Village",
     "King Harbor Marina"
   ],
-  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC",
+  "localLife": {
+    "nature": "King Harbor is a working marina, not just a scenic backdrop — fishing boats and harbor traffic give Redondo Beach a saltier, more industrial edge along the water than the purely residential Strand a few miles up the coast in Manhattan Beach.",
+    "community": "A family-oriented beach community where older beach cottages in North and South Redondo sit next to newer builds, with a more working, lived-in character than the pricier stretch of coast just to the north.",
+    "howWeHelp": "We protect outdoor equipment from the extra corrosion that comes with living this close to a working harbor, and we service the full range here — from an original system in an older North Redondo cottage to a newer install closer to Riviera Village."
+  },
+  "seasonalNotes": [
+    { "season": "Summer", "focus": "Marine layer keeps mornings mild, but harbor humidity and salt spray are harder on outdoor units here than on a stretch of coast without a working marina next door." },
+    { "season": "Fall", "focus": "Older beach cottages in North and South Redondo often still run original equipment — a fall check catches a tired system before it fails during a busy holiday season near the pier." }
+  ]
 }

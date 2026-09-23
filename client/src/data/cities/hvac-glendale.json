@@ -51,5 +51,14 @@
     "Brand Park",
     "Forest Lawn Memorial Park"
   ],
-  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC",
+  "localLife": {
+    "nature": "Glendale's core around Brand Boulevard and the Galleria runs dense and urban, while the streets climbing into Adams Hill and the Verdugo foothills a few minutes away go quiet and residential — with Santa Ana wind events cutting through both.",
+    "community": "One of the largest Armenian-American communities outside Armenia itself, with roots reflected in the Armenian Genocide Martyrs Memorial in Central Park and the churches, schools, and businesses along the city's core corridors, alongside a broader mix of families drawn to the retail energy near the Galleria and the quieter hillside streets above it.",
+    "howWeHelp": "We service everything from a mixed-use building near Brand Boulevard's retail corridor to a single-family home climbing into Adams Hill, and we schedule around the parking and access realities of Glendale's denser core without treating every job the same way."
+  },
+  "seasonalNotes": [
+    { "season": "Fall", "focus": "Santa Ana wind events push dust and debris into HVAC systems across the city — we check filtration before a wind advisory, not after, in both the dense core and the hillside neighborhoods." },
+    { "season": "Summer", "focus": "Dry summer heat settles harder in the hillside streets that trap afternoon sun than it does in the shaded, denser blocks near the Galleria — a detail that changes how we size a system block by block." }
+  ]
 }

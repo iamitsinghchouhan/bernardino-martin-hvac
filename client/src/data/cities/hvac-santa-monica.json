@@ -51,5 +51,14 @@
     "Montana Avenue",
     "Palisades Park"
   ],
-  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC",
+  "localLife": {
+    "nature": "Santa Monica runs dense right up to the sand — apartment blocks and office buildings stand a few hundred feet from the water, with none of the open canyon sprawl that spreads Malibu's homes miles up the coast.",
+    "community": "Longtime tenants in rent-controlled mid-century buildings, a growing Silicon Beach workforce filling office space near the Promenade, and newer buyers in luxury condos along Ocean Avenue — three very different housing situations within blocks of each other.",
+    "howWeHelp": "We're equally comfortable retrofitting a rent-controlled unit that's never had real cooling and servicing the modern system in a new condo three doors down, and we work around building management and HOA rules either way."
+  },
+  "seasonalNotes": [
+    { "season": "Summer", "focus": "The marine layer keeps Santa Monica cooler than almost anywhere else in the city, but older rent-controlled buildings without central air still get uncomfortable fast once the fog burns off." },
+    { "season": "Fall", "focus": "A lot of the older apartment stock near Ocean Park and Mid-City still runs original wall units — a fall check catches one that's on its way out before it fails during the first real cold snap." }
+  ]
 }

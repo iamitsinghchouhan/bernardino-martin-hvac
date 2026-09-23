@@ -40,5 +40,14 @@
     "Northridge Fashion Center",
     "Porter Ranch-adjacent neighborhoods"
   ],
-  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC",
+  "localLife": {
+    "nature": "Much of Northridge's housing stock was rebuilt or retrofitted after the 1994 earthquake, which means a newer mix of code-compliant construction sits alongside older buildings that survived and were shored up rather than replaced.",
+    "community": "A steady student-renter population cycling through apartments near CSUN, family households in the surrounding blocks, and a local economy that runs on the university's semester calendar as much as anything else.",
+    "howWeHelp": "We know the difference between servicing a system in a building rebuilt to post-1994 code and one in an older structure that was retrofitted rather than replaced, and we work around the surge of move-ins and move-outs that comes with a campus calendar."
+  },
+  "seasonalNotes": [
+    { "season": "Summer", "focus": "Long, hot valley summers push both post-quake rebuilds and older retrofitted buildings hard — the difference in ductwork age between the two is often the real story behind a system that's struggling." },
+    { "season": "Fall", "focus": "Move-in season near CSUN each fall means a wave of new tenants inheriting whatever system the last renter left behind — we get called in to find out what's actually wrong with it." }
+  ]
 }

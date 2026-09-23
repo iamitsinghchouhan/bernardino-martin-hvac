@@ -6,8 +6,8 @@ export default function HvacSantaMonicaPage() {
     <CityPageTemplate
       cityData={cityData}
       redesign
-      headline={{ eyebrow: "Westside", title: "From the Pier to Palisades Park." }}
-      statement="Coastal mornings. Marine air. Comfort, dialed in."
+      headline={{ eyebrow: "Silicon Beach", title: "Coastal Density. Startup Energy." }}
+      statement="Rent-controlled charm. Luxury condos. Comfort, block by block."
     />
   );
 }

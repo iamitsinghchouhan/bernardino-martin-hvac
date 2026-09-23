@@ -47,5 +47,14 @@
     "Zuma Beach",
     "Pepperdine University"
   ],
-  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC",
+  "localLife": {
+    "nature": "The coast runs cool and salty from the Colony to Point Dume, but the canyons a mile inland swing 20 degrees hotter and catch every Santa Ana gust off the ridgeline.",
+    "community": "A mix of old surf-town families who've been here since before PCH had a stoplight, canyon horse properties, and weekend houses that sit empty until Friday night traffic rolls in.",
+    "howWeHelp": "We fight salt-air corrosion before it eats a condenser, and we plan for the fact that a canyon call can mean the coast highway, a fire road, or both."
+  },
+  "seasonalNotes": [
+    { "season": "Fall", "focus": "Santa Ana season means ash and brush dust in the air — we check filtration before red-flag warnings, not after." },
+    { "season": "Summer", "focus": "June gloom keeps the coast mild, but marine moisture is hard on outdoor units left unmaintained." }
+  ]
 }

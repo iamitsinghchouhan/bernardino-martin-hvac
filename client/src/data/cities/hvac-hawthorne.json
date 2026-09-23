@@ -38,5 +38,14 @@
     "Hawthorne Municipal Airport",
     "Holly Park"
   ],
-  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC",
+  "localLife": {
+    "nature": "Low, flat, and set directly under the LAX approach path, Hawthorne runs a steady overhead hum that shapes how homes here get built — thicker walls, tighter seals, fewer wide-open outdoor living spaces than you'd find a few miles down the coast.",
+    "community": "Aerospace machinists and warehouse shift workers filling the lots around SpaceX headquarters, and families in older post-war stucco homes that have watched the airport and the industrial corridors grow up around them.",
+    "howWeHelp": "We add the extra vibration dampening older Hawthorne homes need under a flight path, and we keep pricing straightforward for working households that don't have room in the budget for surprises."
+  },
+  "seasonalNotes": [
+    { "season": "Summer", "focus": "Coastal influence keeps mornings mild, but afternoon heat off the industrial corridors pushes original postwar-era units past what they were ever built to handle." },
+    { "season": "Fall", "focus": "A lot of Hawthorne's housing stock still runs decades-old original heating equipment — we catch it on a fall check, not during the first real cold snap." }
+  ]
 }

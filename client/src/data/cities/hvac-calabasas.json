@@ -49,5 +49,14 @@
     "Calabasas Lake",
     "Malibu Canyon gateway"
   ],
-  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC",
+  "localLife": {
+    "nature": "Tucked into the foothills where the Valley floor gives way to Malibu Canyon, Calabasas holds warm, dry afternoons that cool off fast once the sun drops behind the ridgeline — a swing that estate-sized homes feel more than smaller ones.",
+    "community": "Gated communities and equestrian properties built in the last two decades sit alongside Old Town Calabasas' older, smaller-scale core, with a level of celebrity-adjacent privacy that shapes how service visits get scheduled and confirmed.",
+    "howWeHelp": "We coordinate gate codes and HOA access ahead of the visit instead of at the curb, and we're equipped for the multi-zone systems that come standard in Calabasas' newer, larger builds."
+  },
+  "seasonalNotes": [
+    { "season": "Summer", "focus": "Dry foothill afternoons push equipment hard, but the evening cool-down means a system sized a little differently than one on the Valley floor is often the right call up here." },
+    { "season": "Fall", "focus": "Horse properties and larger foothill lots often mean equipment tucked farther from the house — a fall check catches a problem before it becomes a longer, harder repair in the middle of winter." }
+  ]
 }

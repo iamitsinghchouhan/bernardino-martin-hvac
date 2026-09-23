@@ -41,5 +41,14 @@
     "Wilson Park",
     "Torrance Beach"
   ],
-  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC",
+  "localLife": {
+    "nature": "Torrance spreads out more than most South Bay cities — Old Torrance's tree-lined blocks near downtown feel worlds apart from the newer, hillier streets of Riviera a few miles south, with a real temperature gradient between the coastal edge and the inland side of town.",
+    "community": "A Japanese-American community with roots that go back generations, reflected in a decades-long sister-city relationship with Kashiwa, Japan and in longtime local institutions, alongside families drawn more recently by the schools and the city's aerospace and manufacturing employment history.",
+    "howWeHelp": "We service everything from the original systems in Old Torrance's mid-century ranch homes to newer installs in Riviera, with the same straightforward approach families here have relied on for generations."
+  },
+  "seasonalNotes": [
+    { "season": "Summer", "focus": "Coastal mornings cool things down near Torrance Beach, but by afternoon the inland neighborhoods run noticeably warmer — the same system that's plenty for one part of Torrance can fall short a few miles the other direction." },
+    { "season": "Fall", "focus": "A lot of Old Torrance's original mid-century homes are still running their first or second HVAC system — a fall check tells us honestly whether it's a repair year or a replacement year." }
+  ]
 }

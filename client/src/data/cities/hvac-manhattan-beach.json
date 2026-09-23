@@ -43,5 +43,14 @@
     "The Strand",
     "Manhattan Village Mall"
   ],
-  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC",
+  "localLife": {
+    "nature": "Lots along The Strand and up through the Hill Section run narrow and close together — a rebuilt spec home here sits shoulder to shoulder with its neighbors, nothing like the acreage spread of a Malibu canyon lot.",
+    "community": "Younger affluent families drawn by the schools and the beach walk, and a steady cycle of older beach cottages being torn down and rebuilt bigger on the same tight footprint.",
+    "howWeHelp": "We work in tight mechanical spaces that come with a narrow rebuilt lot, and we protect equipment from the same salt air every South Bay beach town deals with — just with less room to work around it."
+  },
+  "seasonalNotes": [
+    { "season": "Summer", "focus": "Ocean breeze keeps most afternoons comfortable, but the marine layer traps salt moisture close to the coast — outdoor units here need more frequent cleaning than the same system would a few miles inland." },
+    { "season": "Fall", "focus": "Rebuilt homes on tight lots often pack equipment into small side yards or roof wells — a fall check is easier to do before winter storms make that access point wet and cramped." }
+  ]
 }
