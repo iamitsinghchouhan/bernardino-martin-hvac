@@ -39,5 +39,14 @@
     "Tarzana Recreation Center",
     "Corbin Canyon edge"
   ],
-  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC",
+  "localLife": {
+    "nature": "Tarzana's stretch of Ventura Boulevard through Tarzana Village runs quieter and more low-key than the boutique strip a few minutes east in Encino, with flat blocks of ranch homes south of the boulevard giving way to newer hillside builds climbing toward Corbin Canyon.",
+    "community": "A family-oriented community that deliberately keeps a lower profile than its neighbors — families here tend to want the Valley's convenience without Encino's boutique energy or Woodland Hills' office traffic.",
+    "howWeHelp": "We service the original systems common in Tarzana's flat-block ranch homes the same straightforward way we handle a newer hillside build off Corbin Canyon, without pushing either toward more than the job calls for."
+  },
+  "seasonalNotes": [
+    { "season": "Summer", "focus": "Dry west-valley afternoons run hot here just like the rest of the south Valley, but Tarzana's ranch homes with original single-story ductwork often show the strain before a newer hillside build does." },
+    { "season": "Fall", "focus": "Hillside homes near Corbin Canyon and flat ranch homes south of Ventura age differently — a fall check tells us which type of Tarzana home is actually due for service this year." }
+  ]
 }

@@ -41,5 +41,14 @@
     "Universal-adjacent neighborhoods",
     "Chandler Bikeway"
   ],
-  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC",
+  "localLife": {
+    "nature": "New mixed-use towers cluster tight around the North Hollywood Metro station and along Lankershim, while a few blocks over in Toluca Terrace and along the Chandler Bikeway the streets go low-rise and quiet.",
+    "community": "A small-theater and gallery scene that gives the NoHo Arts District its name, a daily wave of commuters using North Hollywood's Metro Red and Orange Line hub — one of the busiest transfer points in the Valley — and longtime residents in older mid-century apartment buildings a few blocks off the main corridor.",
+    "howWeHelp": "We retrofit the older apartment buildings that make up most of the NoHo Arts District's housing stock, and we coordinate commercial work near the Metro corridor around business hours instead of during a show's run."
+  },
+  "seasonalNotes": [
+    { "season": "Summer", "focus": "Long valley cooling seasons hit older apartment buildings near the Arts District hardest — many still run original systems that weren't sized for how hot NoHo actually gets." },
+    { "season": "Fall", "focus": "New mixed-use construction along Lankershim keeps changing the corridor's building mix — a fall check on an older nearby building often turns up ductwork that's been fighting a losing battle for years." }
+  ]
 }

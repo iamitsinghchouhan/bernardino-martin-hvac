@@ -6,8 +6,8 @@ export default function HvacTarzanaPage() {
     <CityPageTemplate
       cityData={cityData}
       redesign
-      headline={{ eyebrow: "South West Valley", title: "From Ventura Boulevard to Corbin Canyon." }}
-      statement="Dry summer heat. Cool nights. Comfort, all season."
+      headline={{ eyebrow: "Tarzana Village", title: "Quieter Boulevard. Same Valley Heat." }}
+      statement="Ranch homes. Hillside builds. Comfort, no fuss."
     />
   );
 }

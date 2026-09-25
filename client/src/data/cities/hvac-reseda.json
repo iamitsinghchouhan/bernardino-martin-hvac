@@ -39,5 +39,14 @@
     "Los Angeles River edge",
     "West Valley neighborhoods"
   ],
-  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC",
+  "localLife": {
+    "nature": "Reseda is about as flat and gridded as the Valley gets — mile after mile of postwar tract homes with no hillside or canyon nearby to break up the heat or offer an evening breeze.",
+    "community": "A dense, working-class residential grid backed by a genuinely diverse retail corridor along Reseda Boulevard, where immigrant-owned businesses from multiple communities have set up shop for decades — a level of everyday diversity that shows up storefront by storefront more than in any single defining institution.",
+    "howWeHelp": "We service the original ductwork that's common across Reseda's tract-home grid without upselling homeowners who just need it working reliably, and we keep commercial visits along Reseda Boulevard quick so a small business owner isn't closed longer than necessary."
+  },
+  "seasonalNotes": [
+    { "season": "Summer", "focus": "Flat, treeless blocks with no hillside or coastal relief mean Reseda's tract homes hold heat straight through the evening — older ductwork common in this housing stock often can't keep pace." },
+    { "season": "Fall", "focus": "A lot of Reseda's postwar tract homes are still running their original 1950s-and-60s-era ductwork — a fall check tells us honestly what's worth repairing and what's finally due for replacement." }
+  ]
 }

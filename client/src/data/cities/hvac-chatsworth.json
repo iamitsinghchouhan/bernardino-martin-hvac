@@ -39,5 +39,14 @@
     "Chatsworth Reservoir area",
     "Santa Susana Pass"
   ],
-  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC",
+  "localLife": {
+    "nature": "Chatsworth sits where the flat valley floor runs into rock — the sandstone outcroppings at Stoney Point and the Santa Susana Pass are a different terrain entirely from the flat grid a few miles south, and the larger lots out here hold heat differently than a standard valley block.",
+    "community": "Horse properties and larger lots around Chatsworth Lake Manor give this end of the Valley a more rural feel, and the same rock formations that drew decades of Western-film crews still give the neighborhood its identity today.",
+    "howWeHelp": "We're used to the extra distance and rougher access that comes with larger, rock-adjacent lots out here, and we service everything from a horse property near Chatsworth Lake Manor to a standard tract home without treating either like the exception."
+  },
+  "seasonalNotes": [
+    { "season": "Summer", "focus": "Dry northwest-valley heat plus larger, more exposed lots means outdoor units here often work harder than the same system would on a shadier, denser block closer to the valley floor's center." },
+    { "season": "Fall", "focus": "Santa Ana winds funnel hard through the Santa Susana Pass — we check filtration and outdoor unit clearance before wind season here specifically, not just valley-wide." }
+  ]
 }

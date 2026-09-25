@@ -45,5 +45,14 @@
     "Upper Las Virgenes edge",
     "Shadow Ranch Park"
   ],
-  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC",
+  "localLife": {
+    "nature": "West Hills is one of the newer parts of the Valley — most of it built out after the 1980s — which shows in wider streets, more uniform tract layouts, and a quieter, more master-planned feel than the older, denser blocks toward the eastern Valley.",
+    "community": "Families drawn to newer construction and a quieter, more suburban pace than Woodland Hills' office corridor next door, with easy access to the open space along the Upper Las Virgenes edge.",
+    "howWeHelp": "We service the more standardized systems that came with West Hills' newer, master-planned construction, and we know the far-west Valley's heat doesn't care that this end of town is quieter than the rest."
+  },
+  "seasonalNotes": [
+    { "season": "Summer", "focus": "Far-west Valley summers run just as hot as anywhere else in the Valley — newer construction here doesn't mean newer equipment, since a lot of original-installation systems from the 1980s and 90s are still in service." },
+    { "season": "Fall", "focus": "A fall check on a West Hills home built in the original development wave often reveals equipment that's original to the house — worth knowing before, not during, a summer-to-winter transition." }
+  ]
 }

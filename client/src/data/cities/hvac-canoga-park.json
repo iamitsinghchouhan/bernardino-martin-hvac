@@ -39,5 +39,14 @@
     "Warner Center nearby",
     "Lanark Park"
   ],
-  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC",
+  "localLife": {
+    "nature": "Canoga Park sits at the Valley's western edge, where decades of aerospace and manufacturing work — the old Rocketdyne plant among them — shaped a working landscape that's now filling back in with a revitalized Old Town core along Sherman Way.",
+    "community": "A community with real aerospace and manufacturing roots going back to the Rocketdyne era, now overlapping with a newer wave of small businesses and murals reviving Old Town Canoga Park along Sherman Way, plus residential streets stretching toward the Warner Center area.",
+    "howWeHelp": "We service the older housing stock that grew up alongside Canoga Park's manufacturing era just as readily as the newer businesses opening in the revitalized Old Town core, and we keep commercial visits along Sherman Way quick so a new storefront isn't shut down longer than it has to be."
+  },
+  "seasonalNotes": [
+    { "season": "Summer", "focus": "Long, dry west-valley sun exposure pushes cooling systems hard here — older homes built during Canoga Park's manufacturing-era growth often still run equipment sized for a different decade's expectations." },
+    { "season": "Fall", "focus": "Old Town Canoga Park's revitalized storefronts along Sherman Way often share aging commercial HVAC systems with their neighbors — a fall check catches a shared system's weak point before it takes down more than one business." }
+  ]
 }

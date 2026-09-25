@@ -43,5 +43,14 @@
     "The Strand",
     "Hermosa Beach Pier Plaza"
   ],
-  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC",
+  "localLife": {
+    "nature": "At under a square mile, Hermosa Beach packs its downtown pier plaza, The Strand, and the tightly-set beach cottages of the Sand Section into one of the smallest, densest footprints of any beach city in the county.",
+    "community": "A younger, more nightlife-driven crowd fills the bars and restaurants around the Pier Plaza most evenings — a different energy than the more family-oriented, working-harbor feel a few minutes south in Redondo Beach — while older beach cottages get replaced one tight lot at a time with taller rebuilds.",
+    "howWeHelp": "We work in the same tight mechanical spaces that come with Hermosa's narrow lots, and we schedule commercial service around the Pier Plaza's bar and restaurant hours instead of during their busiest nights."
+  },
+  "seasonalNotes": [
+    { "season": "Summer", "focus": "Marine layer keeps mornings mild, but Hermosa's density means salt air and beachgoer foot traffic both peak downtown at once — outdoor equipment near the Pier Plaza takes more wear than a quieter residential block." },
+    { "season": "Fall", "focus": "A lot of the Sand Section's older beach cottages still run original equipment squeezed into a tiny side yard — a fall check is often the only realistic time to access it before a rebuild eventually replaces it." }
+  ]
 }

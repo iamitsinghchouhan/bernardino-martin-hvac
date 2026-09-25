@@ -38,5 +38,14 @@
     "Ballona Wetlands Ecological Reserve",
     "Del Rey Lagoon Park"
   ],
-  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC",
+  "localLife": {
+    "nature": "Playa del Rey sits pinched between the ocean bluffs, the Ballona Wetlands, and the edge of Marina del Rey — the empty Surfridge bluffs just south, once a full neighborhood before LAX cleared it for a runway buffer decades ago, are the clearest physical reminder of how close this enclave sits to the airport.",
+    "community": "A small, quiet residential enclave — barely 10,000 people — where the Ballona Wetlands and the marina shape daily life as much as the beach itself, without the density or nightlife of the beach cities just up the coast.",
+    "howWeHelp": "We account for the extra humidity that comes off the wetlands in addition to standard ocean salt air, and we keep service visits low-key and unobtrusive in a neighborhood that's genuinely quieter than the beach towns around it."
+  },
+  "seasonalNotes": [
+    { "season": "Summer", "focus": "Marine layer and wetlands humidity together make for a damper microclimate than a straight ocean-facing beach town — outdoor equipment here needs a closer eye for moisture-related wear." },
+    { "season": "Fall", "focus": "Bluff-top homes near the old Surfridge buffer and lower-lying homes near the lagoon age differently — a fall check on either tells us honestly whether coastal humidity has gotten into the ductwork." }
+  ]
 }

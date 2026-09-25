@@ -39,5 +39,14 @@
     "Fryman Canyon",
     "CBS Studio Center area"
   ],
-  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC",
+  "localLife": {
+    "nature": "Studio City runs from the flat, trendy stretch of Ventura Boulevard up into Fryman Canyon, where homes climb the hillside and evenings cool off noticeably more than they do on the boulevard below.",
+    "community": "Production crews and industry professionals working out of CBS Studio Center, a younger professional crowd drawn to the restaurants and shops along Ventura Boulevard, and established homeowners on the quieter hillside streets of Colfax Meadows and the Silver Triangle.",
+    "howWeHelp": "We handle the access challenges of a Fryman Canyon hillside home the same way we handle a flat lot in Colfax Meadows, and we keep visits along Ventura Boulevard's restaurant and retail strip quick and unobtrusive during business hours."
+  },
+  "seasonalNotes": [
+    { "season": "Summer", "focus": "Ventura Boulevard's flat stretch runs noticeably warmer through the afternoon than the canyon homes climbing toward Fryman — a difference worth knowing before sizing a system for either." },
+    { "season": "Fall", "focus": "Hillside homes in Fryman Canyon often have equipment in less accessible spots than a flat Ventura-corridor property — a fall check beats discovering that the hard way once winter access gets tighter." }
+  ]
 }

@@ -51,5 +51,14 @@
     "Sherman Oaks Galleria",
     "Valley Performing Arts Center"
   ],
-  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC",
+  "localLife": {
+    "nature": "Before it was 1.8 million people and a quarter-million acres of postwar tract homes, the Valley was citrus groves and walnut orchards — the same flat basin that made it good farmland now traps summer heat across the entire floor with nothing but freeways and surface streets to break it up.",
+    "community": "Millions of people across dozens of distinct neighborhoods, all connected by the same grid of boulevards and freeways, all dependent on a car to get almost anywhere, and all living under the same basin-wide heat that doesn't care which specific neighborhood you're in.",
+    "howWeHelp": "We size systems for the reality of basin-wide heat — a valley floor that runs hotter than the surrounding hills and coast by design, not by neighborhood — and we dispatch across the full Valley without treating any part of it as an afterthought."
+  },
+  "seasonalNotes": [
+    { "season": "Summer", "focus": "The valley floor as a whole runs 10-15 degrees hotter than the LA basin's coastal side on a typical summer day — a basin-wide heat-island effect that has nothing to do with which specific neighborhood a home sits in." },
+    { "season": "Fall", "focus": "Santa Ana wind events sweep the length of the Valley from the northwest passes to the east — filtration and duct-sealing checks matter basin-wide before wind season, not just in one corner of it." }
+  ]
 }

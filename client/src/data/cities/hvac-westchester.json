@@ -39,5 +39,14 @@
     "Los Angeles International Airport",
     "Otis College of Art and Design"
   ],
-  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC",
+  "localLife": {
+    "nature": "Westchester's tract homes went up fast during the postwar aerospace boom, and the neighborhood still reads more inland and suburban than coastal — flatter, further from the water's edge — despite sitting only minutes from Playa del Rey.",
+    "community": "A mix of the Loyola Marymount University and Otis College academic community, longtime families in mid-century tract homes built during the aerospace boom, and quieter residential streets in Kentwood set back from the airport noise.",
+    "howWeHelp": "We service the original ductwork common in Westchester's aerospace-era tract homes, and we work around LMU and Otis College's academic calendar for properties near campus instead of assuming every week looks the same."
+  },
+  "seasonalNotes": [
+    { "season": "Summer", "focus": "Marine layer keeps Westchester's mornings foggy and cool, but clear afternoons still warm the inland-feeling tract blocks enough that original aerospace-era ductwork often falls behind." },
+    { "season": "Fall", "focus": "A lot of Westchester's mid-century tract homes are still running ductwork installed during the original aerospace-boom construction wave — a fall check tells us honestly how much longer it has." }
+  ]
 }

@@ -6,8 +6,8 @@ export default function HvacHermosaBeachPage() {
     <CityPageTemplate
       cityData={cityData}
       redesign
-      headline={{ eyebrow: "South Bay Coast", title: "From The Strand to the Pier Plaza." }}
-      statement="Foggy mornings. Salty air. Comfort that holds up."
+      headline={{ eyebrow: "Pier Plaza", title: "Small Town. Big Nightlife." }}
+      statement="Tight lots. Late nights. Comfort that doesn't miss a beat."
     />
   );
 }

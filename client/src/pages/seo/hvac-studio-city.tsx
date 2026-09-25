@@ -6,8 +6,8 @@ export default function HvacStudioCityPage() {
     <CityPageTemplate
       cityData={cityData}
       redesign
-      headline={{ eyebrow: "South East Valley", title: "From Ventura Boulevard to Fryman Canyon." }}
-      statement="Sunny afternoons. Cool canyon evenings. Comfort in between."
+      headline={{ eyebrow: "CBS Studio Center", title: "Boulevard Energy. Canyon Calm." }}
+      statement="Industry pace. Canyon quiet. Comfort without the compromise."
     />
   );
 }

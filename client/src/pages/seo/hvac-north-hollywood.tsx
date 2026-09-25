@@ -6,8 +6,8 @@ export default function HvacNorthHollywoodPage() {
     <CityPageTemplate
       cityData={cityData}
       redesign
-      headline={{ eyebrow: "East Valley", title: "From the NoHo Arts District to the Chandler Bikeway." }}
-      statement="Hot summer days. Cool winter nights. Comfort, dialed in."
+      headline={{ eyebrow: "NoHo Arts District", title: "Theaters, Transit, and Everything Between." }}
+      statement="Old apartments. New towers. One transit hub."
     />
   );
 }

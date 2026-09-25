@@ -6,8 +6,8 @@ export default function HvacWestHillsPage() {
     <CityPageTemplate
       cityData={cityData}
       redesign
-      headline={{ eyebrow: "Far West Valley", title: "From Shadow Ranch to Valley Circle." }}
-      statement="Dry summer heat. Mild winters. Comfort, all season long."
+      headline={{ eyebrow: "Shadow Ranch", title: "Newer Streets. Same Valley Sun." }}
+      statement="Master-planned quiet. Far-west heat. Comfort either way."
     />
   );
 }

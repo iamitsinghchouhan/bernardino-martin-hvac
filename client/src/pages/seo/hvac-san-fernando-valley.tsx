@@ -6,8 +6,8 @@ export default function HvacSanFernandoValleyPage() {
     <CityPageTemplate
       cityData={cityData}
       redesign
-      headline={{ eyebrow: "Greater Valley", title: "Every Corner of the Valley, Covered." }}
-      statement="Hot summer days. Cool winter nights. Comfort built for both."
+      headline={{ eyebrow: "The Valley Floor", title: "One Basin. Every Neighborhood." }}
+      statement="Once orchards. Now millions of neighbors. Comfort for all."
     />
   );
 }

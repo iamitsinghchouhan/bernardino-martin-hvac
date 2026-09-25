@@ -6,8 +6,8 @@ export default function HvacCanogaParkPage() {
     <CityPageTemplate
       cityData={cityData}
       redesign
-      headline={{ eyebrow: "West Valley", title: "From Westfield Topanga to Warner Center." }}
-      statement="Long summer sun. Dry air. Comfort that never lets up."
+      headline={{ eyebrow: "Old Town Canoga Park", title: "Aerospace Roots. New Energy." }}
+      statement="Manufacturing legacy. Revived downtown. Comfort for both."
     />
   );
 }

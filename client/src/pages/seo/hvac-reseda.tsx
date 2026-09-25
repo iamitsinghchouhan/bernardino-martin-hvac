@@ -6,8 +6,8 @@ export default function HvacResedaPage() {
     <CityPageTemplate
       cityData={cityData}
       redesign
-      headline={{ eyebrow: "Central West Valley", title: "From Reseda Park to the L.A. River." }}
-      statement="Warm afternoons. Cool nights. Comfort that keeps pace."
+      headline={{ eyebrow: "Reseda Boulevard", title: "Flat Streets. Real Diversity." }}
+      statement="Tract homes. Working families. Comfort, no upsell."
     />
   );
 }

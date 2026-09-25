@@ -6,8 +6,8 @@ export default function HvacChatsworthPage() {
     <CityPageTemplate
       cityData={cityData}
       redesign
-      headline={{ eyebrow: "Northwest Valley", title: "From Stoney Point to the Santa Susana Pass." }}
-      statement="Dry heat. Strong sun. Comfort built to handle both."
+      headline={{ eyebrow: "Stoney Point", title: "Where the Valley Meets the Rock." }}
+      statement="Rock formations. Horse properties. Comfort, built for both."
     />
   );
 }
