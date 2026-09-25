@@ -4,7 +4,7 @@ import { ReviewSlider } from "@/components/ReviewSlider";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
-import { COMPANY_PHONE, getWhatsAppLink } from "@/lib/constants";
+import { COMPANY_PHONE, getWhatsAppLink, BRAND_LOGOS } from "@/lib/constants";
 import {
   ArrowRight,
   Phone,
@@ -66,8 +66,6 @@ const SEASONS = [
   { icon: "/images/rebrand/season-winter.webp", label: "Winter", desc: "Heating & More", href: "/services/hvac-repair" },
   { icon: "/images/rebrand/season-spring.webp", label: "Spring", desc: "Clean & Refresh", href: "/services/outdoor-irrigation" },
 ];
-
-const BRAND_LOGOS = ["carrier", "trane", "lennox", "mitsubishi", "daikin", "goodman", "lg", "rheem", "york", "bosch"];
 
 const FAQS = [
   { q: "Are you licensed and insured?", a: "Yes — Bernardino Martin is fully licensed, bonded, and insured for HVAC, solar, plumbing, electrical, and general home services across Los Angeles." },

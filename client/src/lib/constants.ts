@@ -560,3 +560,7 @@ export const CITIES = CANONICAL_CITY_PAGES.map((city) => city.name);
  *  list and the interactive map's marker popups, so a city can never silently link
  *  somewhere else (e.g. the booking page) just because one of the two forgot to update. */
 export const CITY_PAGE_LINKS: Record<string, string> = CITY_PAGE_LINKS_BY_NAME;
+
+/** Shared with the homepage's "Brands We Service" marquee — extracted here so city pages'
+ *  Social Proof section can reuse the exact same real equipment-brand list. */
+export const BRAND_LOGOS = ["carrier", "trane", "lennox", "mitsubishi", "daikin", "goodman", "lg", "rheem", "york", "bosch"];
