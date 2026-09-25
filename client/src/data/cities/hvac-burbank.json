@@ -1,0 +1,60 @@
+{
+  "id": 37,
+  "city": "Burbank",
+  "slug": "hvac-burbank",
+  "region": "Eastern San Fernando Valley",
+  "population": "~107,000",
+  "zipCodes": [
+    "91501",
+    "91502",
+    "91504",
+    "91505",
+    "91506"
+  ],
+  "description": "Burbank sits in the eastern San Fernando Valley, where summer temperatures regularly climb into the 95-to-105-degree range and much of the housing stock was built between the 1940s and 1960s. Bernardino Martin helps Burbank homeowners with cooling and heating service that accounts for aging ductwork, older insulation, and the mix of post-war ranch homes, converted additions, and studio-adjacent commercial properties found across the city.",
+  "climate": "Eastern-valley heat that regularly climbs into the 95-105°F range each summer, with milder winters",
+  "commonServices": [
+    "AC Repair & Diagnostics",
+    "HVAC Maintenance",
+    "Duct Cleaning & Installation",
+    "Heating System Services"
+  ],
+  "serviceAreas": [
+    "Magnolia Park",
+    "Toluca Lake",
+    "Burbank Hills",
+    "Media District"
+  ],
+  "responseTime": "15-30 minutes",
+  "videoFile": "city-burbank.mp4",
+  "imageFile": "burbank-city-2.webp",
+  "landmarkPhoto": {
+    "src": "/images/cities/burbank-city-2.webp",
+    "alt": "Warner Bros. water tower visible from a Burbank, CA neighborhood served by Bernardino Martin",
+    "caption": "Serving Burbank near the Warner Bros. and Disney studio districts"
+  },
+  "metaDescription": "Expert HVAC repair & installation in Burbank, CA. Same-day service, all brands, licensed technicians. Call (818) 400-0227.",
+  "metaKeywords": "HVAC Burbank, AC repair Burbank, heating service Burbank, air conditioning Burbank",
+  "localPhone": "(818) 400-0227",
+  "nearestCities": [
+    "Glendale",
+    "North Hollywood",
+    "Studio City",
+    "Hollywood"
+  ],
+  "notableLandmarks": [
+    "Warner Bros. Studios",
+    "Walt Disney Studios",
+    "Toluca Lake"
+  ],
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC",
+  "localLife": {
+    "nature": "Burbank sits in the eastern Valley where summer temperatures regularly climb into the 95-to-105-degree range, and most of the housing stock — post-war ranch homes built between the 1940s and 1960s — was never built with modern cooling loads in mind.",
+    "community": "A mix of longtime residential neighborhoods around Magnolia Park, Toluca Lake, and Burbank Hills alongside the busy commercial and studio-lot activity near Warner Bros. and Disney, where residential and production-adjacent property needs sit right next to each other.",
+    "howWeHelp": "We check duct leakage, thermostat accuracy, and airflow restrictions before recommending anything, and we're used to solving the uneven comfort that comes with Burbank's converted garages, room additions, and older ranch-home floor plans."
+  },
+  "seasonalNotes": [
+    { "season": "Summer", "focus": "Eastern-valley heat pushes systems for long hours with temperatures staying high into the evening — older ranch homes with limited attic insulation often can't give their system a real recovery period." },
+    { "season": "Fall", "focus": "A lot of Burbank's post-war ductwork has never been resealed — a fall check on a 1940s-60s ranch home often finds leaks and crushed runs that have been quietly wasting cooling capacity for years." }
+  ]
+}
