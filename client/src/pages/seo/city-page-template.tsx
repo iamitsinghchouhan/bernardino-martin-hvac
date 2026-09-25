@@ -3,9 +3,12 @@ import CityPageHero from "@/components/city-pages/CityPageHero";
 import { LandmarkSpotlight } from "@/components/city-pages/LandmarkSpotlight";
 import { CityGalleryShowcase } from "@/components/city-pages/CityGalleryShowcase";
 import { CityServicesShowcase } from "@/components/city-pages/CityServicesShowcase";
+import { CityQuickQuoteWidget } from "@/components/city-pages/CityQuickQuoteWidget";
+import { CityMobileStickyBar } from "@/components/city-pages/CityMobileStickyBar";
 import InternalCityLinks from "@/components/city-pages/InternalCityLinks";
 import ServiceSlider from "@/components/ServiceSlider";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Layout } from "@/components/layout";
 import { SEO } from "@/components/seo";
 import { getCityBreadcrumbSchema } from "@/components/city-pages/CityBreadcrumb";
@@ -20,6 +23,9 @@ type CityPageTemplateProps = {
   /** Pilot redesign opt-in — defaults to false so every other city page renders exactly as it
       does today until individually approved and flipped on. Only hvac-inglewood.tsx passes this. */
   redesign?: boolean;
+  /** Visual redesign V2 opt-in — full-bleed hero, inline quick-quote widget, mobile sticky bar.
+      Independent of `redesign`; defaults to false everywhere except the pilot cities. */
+  redesignV2?: boolean;
   headline?: { eyebrow: string; title: string };
   statement?: string;
 };
@@ -33,10 +39,14 @@ const businessAddress = {
   addressCountry: "US",
 };
 
-export default function CityPageTemplate({ cityData, redesign = false, headline, statement }: CityPageTemplateProps) {
+export default function CityPageTemplate({ cityData, redesign = false, redesignV2 = false, headline, statement }: CityPageTemplateProps) {
   const canonical = `https://bernardinomartinhvac.com/${cityData.slug}`;
   const image = `/images/cities/${cityData.imageFile}`;
   const phoneHref = `tel:${cityData.localPhone.replace(/\D/g, "")}`;
+
+  // Shared between the hero's "Book Now" CTA and the mobile sticky bar's "Book Now" button, so
+  // both open the exact same quick-quote widget instance rather than each owning a separate copy.
+  const [quoteOpen, setQuoteOpen] = useState(false);
 
   const [lightbox, setLightbox] = useState<{ images: LightboxImage[]; index: number } | null>(null);
   function openLightbox(images: LightboxImage[], index: number) {
@@ -97,7 +107,14 @@ export default function CityPageTemplate({ cityData, redesign = false, headline,
         structuredData={structuredData}
       />
 
-      <CityPageHero cityData={cityData} redesign={redesign} />
+      <CityPageHero
+        cityData={cityData}
+        redesign={redesign}
+        redesignV2={redesignV2}
+        headline={headline}
+        statement={statement}
+        onOpenQuote={() => setQuoteOpen(true)}
+      />
 
       <LandmarkSpotlight
         landmarkPhoto={cityData.landmarkPhoto}
@@ -336,6 +353,23 @@ export default function CityPageTemplate({ cityData, redesign = false, headline,
           initialIndex={lightbox.index}
           onClose={() => setLightbox(null)}
         />
+      )}
+
+      {redesignV2 && (
+        <>
+          <Dialog open={quoteOpen} onOpenChange={setQuoteOpen}>
+            <DialogContent className="sm:max-w-md">
+              <DialogTitle>Get Your Free Quote in {cityData.city}</DialogTitle>
+              <CityQuickQuoteWidget
+                cityName={cityData.city}
+                commonServices={cityData.commonServices}
+                onSubmitted={() => setQuoteOpen(false)}
+              />
+            </DialogContent>
+          </Dialog>
+
+          <CityMobileStickyBar phoneHref={phoneHref} onBookNow={() => setQuoteOpen(true)} />
+        </>
       )}
     </Layout>
   );

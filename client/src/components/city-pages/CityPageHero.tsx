@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { CityBreadcrumb } from "@/components/city-pages/CityBreadcrumb";
 import type { CityData } from "@/data/cities/types";
@@ -11,12 +11,159 @@ type CityPageHeroProps = {
       full-bleed video hero. When true, renders a slow-zoom photo hero with the city's real
       video featured as a distinct floating card instead (see below). */
   redesign?: boolean;
+  /** Visual redesign V2 opt-in, layered on top of (and independent from) `redesign` — full-bleed
+      real photo/video background, the city's own bold headline/statement brought into the hero
+      itself, a real-data-only trust badge strip, and a "Book Now" CTA that opens the inline
+      quick-quote widget instead of navigating away. Defaults to false everywhere except the two
+      pilot cities. */
+  redesignV2?: boolean;
+  headline?: { eyebrow: string; title: string };
+  statement?: string;
+  onOpenQuote?: () => void;
 };
 
-export default function CityPageHero({ cityData, redesign = false }: CityPageHeroProps) {
+export default function CityPageHero({ cityData, redesign = false, redesignV2 = false, headline, statement, onOpenQuote }: CityPageHeroProps) {
   const phoneHref = `tel:${cityData.localPhone.replace(/\D/g, "")}`;
   const videoRef = useRef<HTMLVideoElement>(null);
   const [muted, setMuted] = useState(true);
+
+  // V2's full-bleed background video gets its own ref/state, entirely separate from the
+  // `redesign` branch's floating video card above — so the autoplay-fallback effect below can
+  // never reach into (and unexpectedly toggle audio on) that other, unrelated video element.
+  const heroVideoRef = useRef<HTMLVideoElement>(null);
+  const [isHeroMuted, setIsHeroMuted] = useState(true);
+  const [heroVideoReady, setHeroVideoReady] = useState(false);
+
+  useEffect(() => {
+    const video = heroVideoRef.current;
+    if (!video) return;
+    let cancelled = false;
+
+    // Same pattern as the homepage hero: try unmuted autoplay first (browsers allow it for
+    // visitors with enough prior engagement on the site), fall back to muted (universally
+    // allowed) when the browser rejects it.
+    video.muted = false;
+    video
+      .play()
+      .then(() => { if (!cancelled) { setHeroVideoReady(true); setIsHeroMuted(false); } })
+      .catch(() => {
+        if (cancelled || !video) return;
+        video.muted = true;
+        video.play().then(() => { if (!cancelled) { setHeroVideoReady(true); setIsHeroMuted(true); } }).catch(() => {});
+      });
+
+    return () => { cancelled = true; };
+  }, [redesignV2, cityData.videoFile]);
+
+  function toggleHeroMute() {
+    const video = heroVideoRef.current;
+    if (!video) return;
+    const next = !video.muted;
+    video.muted = next;
+    if (!next) video.play().catch(() => {});
+    setIsHeroMuted(next);
+  }
+
+  if (redesignV2) {
+    const hasRealVideo = cityData.videoFile !== "generic-area-hero.mp4";
+    const titleText = headline?.title ?? `HVAC Services in ${cityData.city}, CA`;
+    const titleParts = titleText.trim().split(" ");
+    const titleLead = titleParts.slice(0, -1).join(" ");
+    const titleAccent = titleParts.slice(-1)[0];
+
+    return (
+      <section className="relative isolate flex min-h-[620px] items-end overflow-hidden bg-slate-950 text-white md:min-h-[760px]">
+        {hasRealVideo ? (
+          <>
+            <img
+              src={`/images/cities/${cityData.imageFile}`}
+              alt=""
+              aria-hidden="true"
+              fetchPriority="high"
+              decoding="async"
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+            <video
+              ref={heroVideoRef}
+              loop
+              muted={isHeroMuted}
+              playsInline
+              preload="none"
+              poster={`/images/cities/${cityData.imageFile}`}
+              className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${heroVideoReady ? "opacity-100" : "opacity-0"}`}
+              aria-hidden="true"
+            >
+              <source src={`/videos/cities/${cityData.videoFile}`} type="video/mp4" />
+            </video>
+            <button
+              type="button"
+              onClick={toggleHeroMute}
+              aria-label={isHeroMuted ? "Unmute background video" : "Mute background video"}
+              className="absolute right-4 top-4 z-20 flex h-11 w-11 items-center justify-center rounded-full bg-black/60 text-white shadow-lg ring-1 ring-white/25 backdrop-blur-sm transition-colors hover:bg-black/80"
+            >
+              {isHeroMuted ? <VolumeX className="h-5 w-5" aria-hidden="true" /> : <Volume2 className="h-5 w-5" aria-hidden="true" />}
+            </button>
+          </>
+        ) : (
+          <img
+            src={`/images/cities/${cityData.imageFile}`}
+            alt={`${cityData.city} HVAC service area`}
+            className="animate-kenburns absolute inset-0 h-full w-full object-cover"
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
+          />
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/55 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-950/80 via-slate-950/15 to-transparent" />
+
+        <div className="container relative z-10 mx-auto px-4 pb-14 pt-32 md:pb-20">
+          <div className="max-w-2xl" data-aos="fade-up">
+            <CityBreadcrumb cityName={cityData.city} cityPath={`/${cityData.slug}`} />
+            <p className="text-xs font-bold uppercase tracking-[0.3em] text-secondary">
+              {headline?.eyebrow ?? `${cityData.city} HVAC Service`}
+            </p>
+            <h1 className="text-display mt-4 text-5xl leading-[1.03] text-white md:text-7xl">
+              {titleLead}
+              {titleLead ? " " : ""}
+              <span className="text-secondary">{titleAccent}</span>
+            </h1>
+            {statement && (
+              <p className="mt-4 max-w-xl text-lg font-semibold text-white/90 md:text-xl">{statement}</p>
+            )}
+
+            <div className="mt-6 flex flex-wrap gap-2" data-aos="fade-up" data-aos-delay="100">
+              <span className="rounded-full border border-white/20 bg-white/10 px-3.5 py-1.5 text-xs font-bold uppercase tracking-[0.08em] text-white">
+                Licensed &amp; Insured
+              </span>
+              <span className="rounded-full border border-white/20 bg-white/10 px-3.5 py-1.5 text-xs font-bold uppercase tracking-[0.08em] text-white">
+                5-Star Service
+              </span>
+              <span className="rounded-full border border-white/20 bg-white/10 px-3.5 py-1.5 text-xs font-bold uppercase tracking-[0.08em] text-white">
+                {cityData.responseTime} Response
+              </span>
+            </div>
+
+            <div className="mt-8 flex flex-col gap-4 sm:flex-row" data-aos="fade-up" data-aos-delay="150">
+              <Button
+                size="lg"
+                className="bg-white font-bold text-primary hover:bg-slate-100"
+                onClick={onOpenQuote}
+              >
+                Book Now
+              </Button>
+              <Button size="lg" variant="outline" className="border-white/30 bg-transparent text-white hover:bg-white/10" asChild>
+                <a href={phoneHref}>
+                  <Phone className="mr-2 h-5 w-5" aria-hidden="true" />
+                  Call {cityData.localPhone}
+                </a>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   if (redesign) {
     // Only feature the video card when this city has its own real, dedicated clip — the

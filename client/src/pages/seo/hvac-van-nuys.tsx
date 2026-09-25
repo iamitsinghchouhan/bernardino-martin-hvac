@@ -6,6 +6,7 @@ export default function HvacVanNuysPage() {
     <CityPageTemplate
       cityData={cityData}
       redesign
+      redesignV2
       headline={{ eyebrow: "Central Valley", title: "From the Civic Center to the Sepulveda Basin." }}
       statement="Hot, dry summers. Long cooling seasons. Comfort that keeps up."
     />
