@@ -13,46 +13,47 @@ import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { CheckCircle, Loader2 } from "lucide-react";
 import { validateEmail } from "@/lib/email-validation";
-import { useLocation } from "wouter";
 import { trackEvent } from "@/hooks/use-analytics";
+
+/** Reads the current query string fresh, each time it's called — used only from lazy useState
+    initializers below (see the comment on `selectedService`), never from an effect. */
+function readBookingQueryParams() {
+  if (typeof window === "undefined") return new URLSearchParams();
+  return new URLSearchParams(window.location.search);
+}
 
 export default function Booking() {
   const [date, setDate] = useState<Date | undefined>(new Date());
-  const [selectedService, setSelectedService] = useState("");
-  const [fullName, setFullName] = useState("");
-  const [phone, setPhone] = useState("");
+  // Deep-linked from a service tile's "Request Service" link or the city-page quick-quote
+  // widget (?service=&city=&name=&phone=). These read the URL directly in a lazy initializer
+  // rather than an effect: this route is lazy-loaded, and React can discard and retry an
+  // in-progress render of a lazy component before it commits (confirmed via instrumentation —
+  // the component body ran twice, but only one attempt's effects ever fired). An effect that
+  // sets this state after mount can lose that state if its render attempt gets discarded: a
+  // lazy initializer re-derives it fresh from the (unchanged) URL on whichever attempt finally
+  // commits, so it can't be lost to a discarded prior attempt.
+  const [selectedService, setSelectedService] = useState(() => {
+    const serviceFromQuery = readBookingQueryParams().get("service");
+    const matchedService = serviceFromQuery ? SERVICES.find((service) => service.id === serviceFromQuery) : undefined;
+    return matchedService?.id ?? "";
+  });
+  const [fullName, setFullName] = useState(() => readBookingQueryParams().get("name") ?? "");
+  const [phone, setPhone] = useState(() => readBookingQueryParams().get("phone") ?? "");
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
-  const [notes, setNotes] = useState("");
+  const [notes, setNotes] = useState(() => {
+    const cityFromQuery = readBookingQueryParams().get("city");
+    return cityFromQuery ? `Service area requested: ${cityFromQuery}` : "";
+  });
   const [emailError, setEmailError] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const { toast } = useToast();
-  const [location] = useLocation();
   const preselectedServiceId = new URLSearchParams(window.location.search).get("service");
   const preselectedCity = new URLSearchParams(window.location.search).get("city");
 
   useEffect(() => {
     trackEvent("booking_started");
   }, []);
-
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const serviceFromQuery = params.get("service");
-    const cityFromQuery = params.get("city");
-
-    if (serviceFromQuery) {
-      const matchedService = SERVICES.find((service) => service.id === serviceFromQuery);
-      if (matchedService) {
-        setSelectedService(matchedService.id);
-      }
-    }
-
-    if (cityFromQuery) {
-      setNotes((currentNotes) =>
-        currentNotes || `Service area requested: ${cityFromQuery}`,
-      );
-    }
-  }, [location]);
 
   const preselectedService = SERVICES.find((service) => service.id === selectedService);
 
