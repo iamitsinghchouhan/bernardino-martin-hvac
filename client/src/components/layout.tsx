@@ -119,7 +119,7 @@ const FOOTER_SERVICE_PAGES = [
 // service-area map and /service-areas — so the footer can never drift out of sync again.
 const FOOTER_SERVICE_AREAS = CITIES.map((city) => ({ href: CITY_PAGE_LINKS[city], label: city }));
 
-export function Layout({ children }: { children: React.ReactNode }) {
+export function Layout({ children, cityName }: { children: React.ReactNode; /** City-specific emergency-banner text, e.g. "Malibu" instead of the default "Los Angeles". Optional and additive — every page that doesn't pass it keeps the existing generic text. */ cityName?: string }) {
   const [location] = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -188,7 +188,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       {/* Emergency Banner */}
       <div className="bg-red-600 text-white py-2.5 text-xs font-bold uppercase tracking-wider flex justify-center items-center gap-2 px-4 text-center" role="alert">
         <AlertCircle className="h-4 w-4 animate-pulse shrink-0" aria-hidden="true" />
-        <span>24/7 Emergency Service Available in Los Angeles &mdash; <a href={`tel:${COMPANY_PHONE.replace(/\D/g, '')}`} onClick={() => trackEvent("phone_click")} className="underline hover:text-red-100 transition-colors">{COMPANY_PHONE}</a></span>
+        <span>24/7 Emergency Service Available in {cityName ?? "Los Angeles"} &mdash; <a href={`tel:${COMPANY_PHONE.replace(/\D/g, '')}`} onClick={() => trackEvent("phone_click")} className="underline hover:text-red-100 transition-colors">{COMPANY_PHONE}</a></span>
       </div>
 
       {/* Top Bar — service area, trust, hours, emergency call */}

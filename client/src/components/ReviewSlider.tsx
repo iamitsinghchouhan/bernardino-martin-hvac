@@ -3,6 +3,7 @@ import { ArrowRight, ExternalLink, Star } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
+import { AnimatedCounter } from "@/components/city-pages/AnimatedCounter";
 
 // Real, verified against the business's own Google Business Profile (screenshot confirmed
 // earlier: 5.0, 17 reviews). Update these two values if the real figures change — never invent
@@ -131,7 +132,9 @@ export function ReviewSlider() {
                 ))}
               </div>
               <p className="mt-4 text-4xl font-bold text-slate-900">{REAL_RATING.toFixed(1)}</p>
-              <p className="mt-1 text-sm font-semibold text-slate-500">Based on {REAL_REVIEW_COUNT} Google reviews</p>
+              <p className="mt-1 text-sm font-semibold text-slate-500">
+                Based on <AnimatedCounter value={REAL_REVIEW_COUNT} /> Google reviews
+              </p>
               <a
                 href={GOOGLE_REVIEWS_URL}
                 target="_blank"

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { CityBreadcrumb } from "@/components/city-pages/CityBreadcrumb";
+import { PromoBadge } from "@/components/city-pages/PromoBadge";
 import type { CityData } from "@/data/cities/types";
 import { Phone, Volume2, VolumeX } from "lucide-react";
 import { Link } from "wouter";
@@ -133,15 +134,11 @@ export default function CityPageHero({ cityData, redesign = false, redesignV2 = 
             )}
 
             <div className="mt-6 flex flex-wrap gap-2" data-aos="fade-up" data-aos-delay="100">
-              <span className="rounded-full border border-white/20 bg-white/10 px-3.5 py-1.5 text-xs font-bold uppercase tracking-[0.08em] text-white">
-                Licensed &amp; Insured
-              </span>
-              <span className="rounded-full border border-white/20 bg-white/10 px-3.5 py-1.5 text-xs font-bold uppercase tracking-[0.08em] text-white">
-                5-Star Service
-              </span>
-              <span className="rounded-full border border-white/20 bg-white/10 px-3.5 py-1.5 text-xs font-bold uppercase tracking-[0.08em] text-white">
-                {cityData.responseTime} Response
-              </span>
+              <PromoBadge label="Licensed & Insured" />
+              <PromoBadge label="5-Star Service" />
+              <PromoBadge label={`${cityData.responseTime} Response`} />
+              <PromoBadge label="Financing Available" />
+              <PromoBadge label="90-Day Guarantee" />
             </div>
 
             <div className="mt-8 flex flex-col gap-4 sm:flex-row" data-aos="fade-up" data-aos-delay="150">

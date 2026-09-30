@@ -8,6 +8,8 @@ import { CityMobileStickyBar } from "@/components/city-pages/CityMobileStickyBar
 import { CitySocialProof } from "@/components/city-pages/CitySocialProof";
 import { CityLifeEditorial } from "@/components/city-pages/CityLifeEditorial";
 import { CitySeasonalTabs } from "@/components/city-pages/CitySeasonalTabs";
+import { CityPricingBlock } from "@/components/city-pages/CityPricingBlock";
+import { CityFAQ } from "@/components/city-pages/CityFAQ";
 import InternalCityLinks from "@/components/city-pages/InternalCityLinks";
 import ServiceSlider from "@/components/ServiceSlider";
 import { Button } from "@/components/ui/button";
@@ -31,6 +33,10 @@ type CityPageTemplateProps = {
   redesignV2?: boolean;
   headline?: { eyebrow: string; title: string };
   statement?: string;
+  /** Genuinely-local FAQ entries for this city, grounded in its real `localLife`/`seasonalNotes`
+      content — passed in per pilot city rather than authored generically. Only rendered
+      (via CityFAQ) when redesignV2 is on. */
+  localFaqs?: { q: string; a: string }[];
 };
 
 const businessAddress = {
@@ -42,7 +48,7 @@ const businessAddress = {
   addressCountry: "US",
 };
 
-export default function CityPageTemplate({ cityData, redesign = false, redesignV2 = false, headline, statement }: CityPageTemplateProps) {
+export default function CityPageTemplate({ cityData, redesign = false, redesignV2 = false, headline, statement, localFaqs }: CityPageTemplateProps) {
   const canonical = `https://bernardinomartinhvac.com/${cityData.slug}`;
   const image = `/images/cities/${cityData.imageFile}`;
   const phoneHref = `tel:${cityData.localPhone.replace(/\D/g, "")}`;
@@ -109,7 +115,7 @@ export default function CityPageTemplate({ cityData, redesign = false, redesignV
   ];
 
   return (
-    <Layout>
+    <Layout cityName={redesignV2 ? cityData.city : undefined}>
       <SEO
         title={`HVAC Services in ${cityData.city}, CA | Bernardino Martin`}
         description={cityData.metaDescription}
@@ -296,6 +302,8 @@ export default function CityPageTemplate({ cityData, redesign = false, redesignV
         )
       )}
 
+      {redesignV2 && <CityPricingBlock cityData={cityData} />}
+
       <CityServicesShowcase
         cityName={cityData.city}
         climateLabel={cityData.climate}
@@ -336,6 +344,8 @@ export default function CityPageTemplate({ cityData, redesign = false, redesignV
           </section>
         )
       )}
+
+      {redesignV2 && <CityFAQ cityData={cityData} localFaqs={localFaqs} />}
 
       <section className="bg-gradient-to-r from-primary to-blue-900 py-16 text-white">
         <div className="container mx-auto px-4">
