@@ -47,12 +47,23 @@ export function CitySeasonalTabs({ cityData }: CitySeasonalTabsProps) {
 
           <div
             key={current.season}
-            className="animate-in fade-in mt-6 rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10"
+            className={`animate-in fade-in mt-6 overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm ${current.photo ? "grid md:grid-cols-2" : "p-8 md:p-10"}`}
             data-aos="fade-up"
             data-aos-delay="150"
           >
-            <p className="text-xs font-bold uppercase tracking-[0.18em] text-primary">{current.season} in {cityData.city}</p>
-            <p className="mt-3 text-lg leading-8 text-slate-700">{current.focus}</p>
+            {current.photo && (
+              <img
+                src={current.photo.src}
+                alt={current.photo.alt}
+                loading="lazy"
+                decoding="async"
+                className="h-56 w-full object-cover md:h-full"
+              />
+            )}
+            <div className={current.photo ? "p-8 md:p-10" : undefined}>
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-primary">{current.season} in {cityData.city}</p>
+              <p className="mt-3 text-lg leading-8 text-slate-700">{current.focus}</p>
+            </div>
           </div>
         </div>
       </div>

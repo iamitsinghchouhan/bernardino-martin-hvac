@@ -25,7 +25,12 @@
   ],
   "responseTime": "20-35 minutes",
   "videoFile": "generic-area-hero.mp4",
-  "imageFile": "generic-area-hero.webp",
+  "imageFile": "beverly-hills-hero.webp",
+  "landmarkPhoto": {
+    "src": "/images/cities/beverly-hills-landmark.webp",
+    "alt": "Rodeo Drive in Beverly Hills lined with luxury storefronts",
+    "caption": "Serving Beverly Hills from the flats south of Sunset to the hillside estates"
+  },
   "metaDescription": "HVAC services in Beverly Hills - AC repair, installation, heating and maintenance from a licensed local contractor. Call (818) 400-0227.",
   "metaKeywords": "HVAC Beverly Hills, AC repair Beverly Hills, heating service Beverly Hills, air conditioning Beverly Hills",
   "localPhone": "(818) 400-0227",

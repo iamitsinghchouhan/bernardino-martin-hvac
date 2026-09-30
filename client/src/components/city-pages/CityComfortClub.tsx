@@ -18,7 +18,7 @@ export function CityComfortClub({ cityName, onOpenQuote }: CityComfortClubProps)
     <section className="bg-white py-16" data-aos="fade-up">
       <div className="container mx-auto px-4">
         <div className="mx-auto flex max-w-4xl flex-col items-center gap-8 overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm sm:flex-row">
-          <div className="flex w-full flex-col justify-center bg-slate-950 p-8 text-center text-white sm:w-2/5 sm:p-10">
+          <div className="flex w-full flex-col justify-center bg-[var(--rb-green-text)] p-8 text-center text-white sm:w-2/5 sm:p-10">
             <p className="text-xs font-bold uppercase tracking-[0.3em] text-white/60">Comfort Club</p>
             <div className="mt-3 text-5xl font-black">
               $19<span className="text-lg font-medium text-white/60">/mo</span>

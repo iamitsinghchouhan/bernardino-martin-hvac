@@ -34,5 +34,8 @@ export type CityData = {
   seasonalNotes?: {
     season: string;
     focus: string;
+    /** Optional — real atmosphere/location photo shown behind this season's tab. Falls back
+        to text-only when not provided; never a stand-in for a completed-job photo. */
+    photo?: { src: string; alt: string };
   }[];
 };

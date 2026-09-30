@@ -73,7 +73,7 @@ export default function CityPageHero({ cityData, redesign = false, redesignV2 = 
     const titleAccent = titleParts.slice(-1)[0];
 
     return (
-      <section className="relative isolate flex min-h-[620px] items-end overflow-hidden bg-slate-950 text-white md:min-h-[760px]">
+      <section className="relative isolate flex min-h-[620px] items-end overflow-hidden bg-[var(--rb-orange)] text-white md:min-h-[760px]">
         {hasRealVideo ? (
           <>
             <img
@@ -115,11 +115,10 @@ export default function CityPageHero({ cityData, redesign = false, redesignV2 = 
             decoding="async"
           />
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/55 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-950/80 via-slate-950/15 to-transparent" />
-
+        {/* No darkening scrim on the photo/video itself, per request — legibility comes from
+            text-shadow-hero on the copy instead, which inherits to every child here. */}
         <div className="container relative z-10 mx-auto px-4 pb-14 pt-32 md:pb-20">
-          <div className="max-w-2xl" data-aos="fade-up">
+          <div className="max-w-2xl text-shadow-hero" data-aos="fade-up">
             <CityBreadcrumb cityName={cityData.city} cityPath={`/${cityData.slug}`} />
             <p className="text-xs font-bold uppercase tracking-[0.3em] text-secondary">
               {headline?.eyebrow ?? `${cityData.city} HVAC Service`}
@@ -176,7 +175,7 @@ export default function CityPageHero({ cityData, redesign = false, redesignV2 = 
     }
 
     return (
-      <section className="relative isolate flex min-h-[640px] items-end overflow-hidden bg-slate-950 text-white md:min-h-[760px]">
+      <section className="relative isolate flex min-h-[640px] items-end overflow-hidden bg-[var(--rb-orange)] text-white md:min-h-[760px]">
         {/* Slow cinematic zoom on the city's real photo — the page's visual anchor */}
         <img
           src={`/images/cities/${cityData.imageFile}`}
@@ -186,12 +185,11 @@ export default function CityPageHero({ cityData, redesign = false, redesignV2 = 
           fetchPriority="high"
           decoding="async"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-slate-950/10" />
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-950/70 via-transparent to-transparent" />
-
+        {/* No darkening scrim on the photo itself, per request — legibility comes from
+            text-shadow-hero on the copy instead, which inherits to every child here. */}
         <div className="container relative z-10 mx-auto px-4 pb-16 pt-32 md:pb-20">
           <div className="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
-            <div className="max-w-2xl" data-aos="fade-up">
+            <div className="max-w-2xl text-shadow-hero" data-aos="fade-up">
               <CityBreadcrumb cityName={cityData.city} cityPath={`/${cityData.slug}`} />
               <p className="text-xs font-semibold uppercase tracking-[0.3em] text-secondary">
                 {cityData.city} HVAC Service
@@ -292,11 +290,10 @@ export default function CityPageHero({ cityData, redesign = false, redesignV2 = 
       >
         <source src={`/videos/cities/${cityData.videoFile}`} type="video/mp4" />
       </video>
-      <div className="absolute inset-0 bg-slate-950/55" />
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/25 via-transparent to-blue-950/55" />
-
+      {/* No darkening scrim on the photo/video itself, per request — legibility comes from
+          text-shadow-hero on the copy instead, which inherits to every child here. */}
       <div className="container relative z-10 mx-auto px-4 py-20 md:py-28">
-        <div className="mx-auto max-w-4xl text-center">
+        <div className="mx-auto max-w-4xl text-center text-shadow-hero">
           <CityBreadcrumb cityName={cityData.city} cityPath={`/${cityData.slug}`} />
           <p className="inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.22em] text-slate-100" data-aos="fade-up">
             {cityData.city} HVAC Service

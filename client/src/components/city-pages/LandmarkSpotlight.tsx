@@ -9,7 +9,7 @@ export function LandmarkSpotlight({ landmarkPhoto, onImageClick }: { landmarkPho
   if (!landmarkPhoto) return null;
 
   return (
-    <section className="bg-slate-950 py-16 text-white">
+    <section className="bg-[var(--rb-orange)] py-16 text-white">
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-6xl overflow-hidden rounded-3xl border border-white/10" data-aos="fade-up">
           <div
@@ -27,7 +27,6 @@ export function LandmarkSpotlight({ landmarkPhoto, onImageClick }: { landmarkPho
               decoding="async"
               className={`h-[320px] w-full object-cover transition-transform duration-500 md:h-[440px] ${onImageClick ? "cursor-zoom-in group-hover:scale-105" : ""}`}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent" />
             {onImageClick && (
               <div className="absolute top-4 right-4 opacity-0 transition-opacity group-hover:opacity-100">
                 <span className="flex items-center gap-1 rounded-full bg-black/60 px-2.5 py-1 text-xs font-medium text-white">
@@ -35,7 +34,7 @@ export function LandmarkSpotlight({ landmarkPhoto, onImageClick }: { landmarkPho
                 </span>
               </div>
             )}
-            <div className="absolute bottom-0 left-0 right-0 p-6 md:p-10">
+            <div className="absolute bottom-0 left-0 right-0 p-6 text-shadow-hero md:p-10">
               <div className="flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-secondary">
                 <MapPin className="h-4 w-4" aria-hidden="true" />
                 Local to You

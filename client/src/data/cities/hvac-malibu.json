@@ -26,11 +26,11 @@
   "imageFile": "malibu-hero.webp",
   "galleryImages": [
     "/images/cities/malibu-hero.webp",
-    "/images/cities/malibu-gallery-1.webp"
+    "/images/cities/malibu-landmark.webp"
   ],
   "landmarkPhoto": {
-    "src": "/images/cities/malibu-hero.webp",
-    "alt": "Bernardino Martin crew working along the Malibu coastline",
+    "src": "/images/cities/malibu-landmark.webp",
+    "alt": "A Spanish-style Malibu estate courtyard with an ocean view through the arches",
     "caption": "Serving Malibu from the Pacific Coast Highway to the canyons"
   },
   "metaDescription": "HVAC services in Malibu - AC repair, installation, heating and maintenance from a licensed local contractor. Call (818) 400-0227.",
@@ -55,6 +55,10 @@
   },
   "seasonalNotes": [
     { "season": "Fall", "focus": "Santa Ana season means ash and brush dust in the air — we check filtration before red-flag warnings, not after." },
-    { "season": "Summer", "focus": "June gloom keeps the coast mild, but marine moisture is hard on outdoor units left unmaintained." }
+    {
+      "season": "Summer",
+      "focus": "June gloom keeps the coast mild, but marine moisture is hard on outdoor units left unmaintained.",
+      "photo": { "src": "/images/cities/malibu-seasonal-summer.webp", "alt": "A canyon swimming hole in the Santa Monica Mountains near Malibu" }
+    }
   ]
 }
