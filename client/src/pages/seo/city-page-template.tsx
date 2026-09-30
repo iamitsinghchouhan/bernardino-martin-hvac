@@ -11,6 +11,7 @@ import { CitySeasonalTabs } from "@/components/city-pages/CitySeasonalTabs";
 import { CityPricingBlock } from "@/components/city-pages/CityPricingBlock";
 import { CityFAQ } from "@/components/city-pages/CityFAQ";
 import { CityComfortClub } from "@/components/city-pages/CityComfortClub";
+import { CityCurrentOffers } from "@/components/city-pages/CityCurrentOffers";
 import InternalCityLinks from "@/components/city-pages/InternalCityLinks";
 import ServiceSlider from "@/components/ServiceSlider";
 import { Button } from "@/components/ui/button";
@@ -349,6 +350,8 @@ export default function CityPageTemplate({ cityData, redesign = false, redesignV
       {redesignV2 && <CityFAQ cityData={cityData} localFaqs={localFaqs} />}
 
       {redesignV2 && <CityComfortClub cityName={cityData.city} onOpenQuote={openQuote} />}
+
+      {redesignV2 && <CityCurrentOffers cityName={cityData.city} onOpenQuote={openQuote} />}
 
       <section className="bg-gradient-to-r from-primary to-blue-900 py-16 text-white">
         <div className="container mx-auto px-4">
