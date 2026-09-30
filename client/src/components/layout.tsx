@@ -69,6 +69,7 @@ const NAV_ITEMS: NavItem[] = [
   },
   { href: "/#our-work", label: "Our Work", kind: "anchor" },
   { href: "/#reviews", label: "Reviews", kind: "anchor" },
+  { href: "/#comfort-club", label: "Comfort Club", kind: "anchor" },
   {
     href: "/booking",
     label: "Customer Tools",
@@ -488,6 +489,7 @@ export function Layout({ children, cityName }: { children: React.ReactNode; /** 
                 <li><Link href="/services" className="hover:text-[var(--rb-orange)] transition-colors">Services</Link></li>
                 <li><a href="/#our-work" className="hover:text-[var(--rb-orange)] transition-colors">Our Work</a></li>
                 <li><a href="/#reviews" className="hover:text-[var(--rb-orange)] transition-colors">Reviews</a></li>
+                <li><a href="/#comfort-club" className="hover:text-[var(--rb-orange)] transition-colors">Comfort Club</a></li>
                 <li><Link href="/about" className="hover:text-[var(--rb-orange)] transition-colors">About Us</Link></li>
                 <li><Link href="/contact" className="hover:text-[var(--rb-orange)] transition-colors">Contact Us</Link></li>
                 <li><Link href="/booking" className="hover:text-[var(--rb-orange)] transition-colors">Book Online</Link></li>

@@ -31,7 +31,16 @@ export function CityQuickQuoteWidget({ cityName, commonServices, initialServiceI
   const cityOptions = commonServices
     .map((title) => SERVICES.find((s) => s.title === title))
     .filter((s): s is (typeof SERVICES)[number] => Boolean(s));
-  const serviceOptions = cityOptions.length > 0 ? cityOptions : SERVICES;
+  const baseOptions = cityOptions.length > 0 ? cityOptions : SERVICES;
+
+  // A pre-selected service (e.g. Comfort Club's "hvac-maintenance") must always be a real,
+  // visible option — even for a city whose commonServices list doesn't happen to include it —
+  // otherwise the Select shows a value with no matching item to display.
+  const initialOption = initialServiceId ? SERVICES.find((s) => s.id === initialServiceId) : undefined;
+  const serviceOptions =
+    initialOption && !baseOptions.some((s) => s.id === initialOption.id)
+      ? [initialOption, ...baseOptions]
+      : baseOptions;
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();

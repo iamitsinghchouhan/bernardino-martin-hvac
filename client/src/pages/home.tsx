@@ -779,7 +779,7 @@ export default function Home() {
         </section>
 
         {/* ══════════ COMFORT CLUB MEMBERSHIP ══════════ */}
-        <section className="bg-white py-16" data-aos="fade-up">
+        <section id="comfort-club" className="bg-white py-16" data-aos="fade-up">
           <div className="container mx-auto px-4">
             <div className="mx-auto flex max-w-4xl flex-col items-center gap-8 overflow-hidden rounded-3xl border border-slate-200 shadow-sm sm:flex-row">
               <div className="flex w-full flex-col justify-center bg-[var(--rb-navy)] p-8 text-center text-white sm:w-2/5 sm:p-10">
