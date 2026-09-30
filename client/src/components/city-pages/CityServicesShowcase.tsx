@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link } from "wouter";
-import { ArrowRight, Check } from "lucide-react";
+import { ArrowRight, Calendar, Check } from "lucide-react";
 import { SERVICES } from "@/lib/constants";
+import { getServiceHook } from "@/lib/service-hooks";
 import { CATEGORY_DATA, type CategoryMeta } from "@/data/service-catalog";
 import { CategoryBannerVideo } from "@/components/services/CategoryBannerVideo";
 import { ServiceCardTile } from "@/components/services/ServiceCardTile";
@@ -18,6 +19,11 @@ type CityServicesShowcaseProps = {
       /services' own layout) for a category-tab + master-detail service browser. Defaults to
       false so every other city keeps the current block unchanged. */
   redesign?: boolean;
+  /** Visual redesign V2 opt-in — adds a bold benefit-driven hook line to each Core Service Mix
+      card and swaps its CTA from a /booking navigation to opening the inline quick-quote widget
+      pre-selected for that service (via onOpenQuote). Defaults to false. */
+  redesignV2?: boolean;
+  onOpenQuote?: (serviceId?: string) => void;
 };
 
 /** One category's video + card grid, mounted only once scrolled near the viewport. The video
@@ -58,7 +64,7 @@ function LazyCategorySection({ cat, onImageClick }: { cat: CategoryMeta; onImage
   );
 }
 
-export function CityServicesShowcase({ cityName, climateLabel, commonServices, redesign = false }: CityServicesShowcaseProps) {
+export function CityServicesShowcase({ cityName, climateLabel, commonServices, redesign = false, redesignV2 = false, onOpenQuote }: CityServicesShowcaseProps) {
   const highlighted = commonServices
     .map((title) => SERVICES.find((s) => s.title === title))
     .filter((s): s is (typeof SERVICES)[number] => Boolean(s));
@@ -80,45 +86,81 @@ export function CityServicesShowcase({ cityName, climateLabel, commonServices, r
                 Services Available in {cityName}
               </h2>
               <p className="mt-4 text-base leading-7 text-slate-600">
-                These are the services homeowners in {cityName} request most often when they need reliable comfort, better airflow, and cleaner system performance.
+                {redesignV2
+                  ? `What ${cityName} calls us for most — real pricing, no guesswork.`
+                  : `These are the services homeowners in ${cityName} request most often when they need reliable comfort, better airflow, and cleaner system performance.`}
               </p>
             </div>
 
             <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-              {highlighted.map((service) => (
-                <div key={service.id} className="flex h-full flex-col rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl" data-aos="fade-up">
-                  <div className="flex items-center gap-3">
-                    <div className="rounded-2xl bg-primary/10 p-3 text-primary">
-                      <service.icon className="h-6 w-6" />
+              {highlighted.map((service) => {
+                const hook = redesignV2 ? getServiceHook(service.id, cityName) : undefined;
+                return (
+                  <div
+                    key={service.id}
+                    className="group relative flex h-full flex-col rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+                    data-aos="fade-up"
+                  >
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="flex items-center gap-3">
+                        <div className="rounded-2xl bg-primary/10 p-3 text-primary">
+                          <service.icon className="h-6 w-6" />
+                        </div>
+                        <h3 className="text-lg font-bold text-slate-900">{service.title}</h3>
+                      </div>
+
+                      {redesignV2 && (
+                        <button
+                          type="button"
+                          onClick={() => onOpenQuote?.(service.id)}
+                          className="flex shrink-0 items-center gap-1.5 rounded-full bg-primary px-3 py-1.5 text-xs font-bold text-white opacity-0 shadow-md transition-opacity duration-200 focus-visible:opacity-100 group-hover:opacity-100"
+                        >
+                          <Calendar className="h-3 w-3" aria-hidden="true" />
+                          Book This
+                        </button>
+                      )}
                     </div>
-                    <h3 className="text-lg font-bold text-slate-900">{service.title}</h3>
+
+                    {hook && (
+                      <p className="mt-4 text-base font-bold leading-6 text-slate-950">{hook}</p>
+                    )}
+                    <p className={`text-sm leading-7 text-slate-600 ${hook ? "mt-2" : "mt-4"}`}>{service.description}</p>
+
+                    <ul className="mt-5 space-y-2">
+                      {service.bullets.slice(0, 3).map((bullet) => (
+                        <li key={bullet} className="flex items-start gap-2 text-sm text-slate-700">
+                          <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                          <span>{bullet}</span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    <div className="mt-6 flex items-center justify-between gap-3">
+                      <span className="rounded-full bg-secondary/10 px-3 py-1 text-sm font-semibold text-secondary">
+                        {service.price}
+                      </span>
+                      <span className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+                        {service.duration}
+                      </span>
+                    </div>
+
+                    <div className="mt-6">
+                      {redesignV2 ? (
+                        <button
+                          type="button"
+                          onClick={() => onOpenQuote?.(service.id)}
+                          className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3 font-bold text-white transition-colors hover:bg-primary/90"
+                        >
+                          Request Service
+                          <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                        </button>
+                      ) : (
+                        <Button service={service} cityName={cityName} />
+                      )}
+                    </div>
                   </div>
-
-                  <p className="mt-4 text-sm leading-7 text-slate-600">{service.description}</p>
-
-                  <ul className="mt-5 space-y-2">
-                    {service.bullets.slice(0, 3).map((bullet) => (
-                      <li key={bullet} className="flex items-start gap-2 text-sm text-slate-700">
-                        <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-                        <span>{bullet}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  <div className="mt-6 flex items-center justify-between gap-3">
-                    <span className="rounded-full bg-secondary/10 px-3 py-1 text-sm font-semibold text-secondary">
-                      {service.price}
-                    </span>
-                    <span className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-                      {service.duration}
-                    </span>
-                  </div>
-
-                  <div className="mt-6">
-                    <Button service={service} cityName={cityName} />
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>

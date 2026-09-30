@@ -11,6 +11,9 @@ type CityQuickQuoteWidgetProps = {
   /** cityData.commonServices — titles matched against SERVICES, same lookup CityServicesShowcase
       already uses. Falls back to the full catalog if none resolve. */
   commonServices: string[];
+  /** Pre-selects this SERVICES id when the widget is opened from a specific service card's
+      "Book This" action, so the visitor doesn't have to re-pick what they already chose. */
+  initialServiceId?: string;
   onSubmitted?: () => void;
 };
 
@@ -19,9 +22,9 @@ type CityQuickQuoteWidgetProps = {
     serviceId/serviceTitle/preferredDate (shared/schema.ts), so a true 3-field direct submit would
     need fake placeholder address/date values polluting real lead data. This keeps the backend
     untouched while still removing the friction of starting over on a blank form. */
-export function CityQuickQuoteWidget({ cityName, commonServices, onSubmitted }: CityQuickQuoteWidgetProps) {
+export function CityQuickQuoteWidget({ cityName, commonServices, initialServiceId, onSubmitted }: CityQuickQuoteWidgetProps) {
   const [, navigate] = useLocation();
-  const [serviceId, setServiceId] = useState("");
+  const [serviceId, setServiceId] = useState(initialServiceId ?? "");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
 

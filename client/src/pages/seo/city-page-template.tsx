@@ -47,9 +47,18 @@ export default function CityPageTemplate({ cityData, redesign = false, redesignV
   const image = `/images/cities/${cityData.imageFile}`;
   const phoneHref = `tel:${cityData.localPhone.replace(/\D/g, "")}`;
 
-  // Shared between the hero's "Book Now" CTA and the mobile sticky bar's "Book Now" button, so
-  // both open the exact same quick-quote widget instance rather than each owning a separate copy.
+  // Shared between the hero's "Book Now" CTA, the mobile sticky bar's "Book Now" button, and
+  // each service card's "Book This" action, so all of them open the exact same quick-quote
+  // widget instance rather than each owning a separate copy. quoteServiceId is only set when a
+  // specific service card triggered it — the hero/sticky-bar paths leave it undefined so the
+  // visitor picks a service themselves.
   const [quoteOpen, setQuoteOpen] = useState(false);
+  const [quoteServiceId, setQuoteServiceId] = useState<string | undefined>(undefined);
+
+  function openQuote(serviceId?: string) {
+    setQuoteServiceId(serviceId);
+    setQuoteOpen(true);
+  }
 
   const [lightbox, setLightbox] = useState<{ images: LightboxImage[]; index: number } | null>(null);
   function openLightbox(images: LightboxImage[], index: number) {
@@ -116,7 +125,7 @@ export default function CityPageTemplate({ cityData, redesign = false, redesignV
         redesignV2={redesignV2}
         headline={headline}
         statement={statement}
-        onOpenQuote={() => setQuoteOpen(true)}
+        onOpenQuote={() => openQuote()}
       />
 
       <LandmarkSpotlight
@@ -292,6 +301,8 @@ export default function CityPageTemplate({ cityData, redesign = false, redesignV
         climateLabel={cityData.climate}
         commonServices={cityData.commonServices}
         redesign={redesign}
+        redesignV2={redesignV2}
+        onOpenQuote={openQuote}
       />
 
       {!redesign && <ServiceSlider />}
@@ -374,14 +385,16 @@ export default function CityPageTemplate({ cityData, redesign = false, redesignV
             <DialogContent className="sm:max-w-md">
               <DialogTitle>Get Your Free Quote in {cityData.city}</DialogTitle>
               <CityQuickQuoteWidget
+                key={quoteServiceId ?? "default"}
                 cityName={cityData.city}
                 commonServices={cityData.commonServices}
+                initialServiceId={quoteServiceId}
                 onSubmitted={() => setQuoteOpen(false)}
               />
             </DialogContent>
           </Dialog>
 
-          <CityMobileStickyBar phoneHref={phoneHref} onBookNow={() => setQuoteOpen(true)} />
+          <CityMobileStickyBar phoneHref={phoneHref} onBookNow={() => openQuote()} />
         </>
       )}
     </Layout>
