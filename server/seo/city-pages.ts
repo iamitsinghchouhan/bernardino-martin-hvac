@@ -5,6 +5,7 @@ const CANONICAL_BASE = "https://bernardinomartinhvac.com";
 const CITY_LIST: CityEntry[] = [
   { name: "Malibu", path: "/hvac-malibu", slug: "hvac-malibu" },
   { name: "Burbank", path: "/hvac-burbank", slug: "hvac-burbank" },
+  { name: "Beverly Hills", path: "/hvac-beverly-hills", slug: "hvac-beverly-hills" },
   { name: "Gardena", path: "/hvac-gardena", slug: "hvac-gardena" },
   { name: "Glendale", path: "/hvac-glendale", slug: "hvac-glendale" },
   { name: "Torrance", path: "/hvac-torrance", slug: "hvac-torrance" },
@@ -20,6 +21,8 @@ const CITY_LIST: CityEntry[] = [
   { name: "West Hollywood", path: "/hvac-west-hollywood", slug: "hvac-west-hollywood" },
   { name: "Manhattan Beach", path: "/hvac-manhattan-beach", slug: "hvac-manhattan-beach" },
   { name: "San Fernando Valley", path: "/hvac-san-fernando-valley", slug: "hvac-san-fernando-valley" },
+  { name: "San Fernando", path: "/hvac-san-fernando", slug: "hvac-san-fernando" },
+  { name: "Yorba Linda", path: "/hvac-yorba-linda", slug: "hvac-yorba-linda" },
   { name: "Playa del Rey", path: "/hvac-playa-del-rey", slug: "hvac-playa-del-rey" },
   { name: "Hollywood", path: "/hvac-hollywood", slug: "hvac-hollywood" },
   { name: "Pasadena", path: "/hvac-pasadena", slug: "hvac-pasadena" },

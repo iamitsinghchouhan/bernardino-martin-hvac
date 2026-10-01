@@ -24,6 +24,8 @@ export const CANONICAL_CITY_PAGES: CanonicalCityPage[] = [
   { name: "West Hollywood", path: "/hvac-west-hollywood" },
   { name: "Manhattan Beach", path: "/hvac-manhattan-beach" },
   { name: "San Fernando Valley", path: "/hvac-san-fernando-valley" },
+  { name: "San Fernando", path: "/hvac-san-fernando" },
+  { name: "Yorba Linda", path: "/hvac-yorba-linda" },
   { name: "Playa del Rey", path: "/hvac-playa-del-rey" },
   { name: "Hollywood", path: "/hvac-hollywood" },
   { name: "Pasadena", path: "/hvac-pasadena" },

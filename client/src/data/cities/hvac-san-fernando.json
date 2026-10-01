@@ -1,0 +1,40 @@
+{
+  "id": 38,
+  "city": "San Fernando",
+  "slug": "hvac-san-fernando",
+  "region": "Northeast San Fernando Valley",
+  "population": "~24,000",
+  "zipCodes": ["91340"],
+  "description": "San Fernando is a small, independent city inside the San Fernando Valley, with its own historic downtown around San Fernando Mall and a mix of older single-family homes and multigenerational households. Bernardino Martin provides HVAC services in San Fernando for homeowners who need reliable cooling and heating without the runaround.",
+  "climate": "Hot, dry valley climate with long summer cooling demand",
+  "commonServices": [
+    "AC Repair & Diagnostics",
+    "HVAC Maintenance",
+    "Heating System Services",
+    "Ductless Mini-Split Systems"
+  ],
+  "serviceAreas": [
+    "San Fernando Mall area",
+    "Las Palmas Park area",
+    "Downtown San Fernando",
+    "Truman Street corridor"
+  ],
+  "responseTime": "20-35 minutes",
+  "videoFile": "generic-area-hero.mp4",
+  "imageFile": "generic-area-hero.webp",
+  "metaDescription": "HVAC services in San Fernando - AC repair, installation, heating and maintenance from a licensed local contractor. Call (818) 400-0227.",
+  "metaKeywords": "HVAC San Fernando, AC repair San Fernando, heating service San Fernando, air conditioning San Fernando",
+  "localPhone": "(818) 400-0227",
+  "nearestCities": [
+    "Van Nuys",
+    "North Hollywood",
+    "Burbank",
+    "Chatsworth"
+  ],
+  "notableLandmarks": [
+    "San Fernando Mall",
+    "Las Palmas Park",
+    "San Fernando City Hall"
+  ],
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+}

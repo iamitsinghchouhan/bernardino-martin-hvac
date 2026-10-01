@@ -1,0 +1,40 @@
+{
+  "id": 39,
+  "city": "Yorba Linda",
+  "slug": "hvac-yorba-linda",
+  "region": "North Orange County",
+  "population": "~68,000",
+  "zipCodes": ["92885", "92886", "92887"],
+  "description": "Yorba Linda is a hillside Orange County community of larger single-family homes, equestrian properties, and newer master-planned neighborhoods. Bernardino Martin provides HVAC services in Yorba Linda for homeowners who need dependable cooling and heating across both established and newer construction.",
+  "climate": "Warm inland Orange County climate with hot, dry summers",
+  "commonServices": [
+    "AC Repair & Diagnostics",
+    "HVAC Maintenance",
+    "AC Installation",
+    "Ductless Mini-Split Systems"
+  ],
+  "serviceAreas": [
+    "East Lake Village",
+    "Kerrigan Ranch",
+    "Bryant Ranch",
+    "Downtown Yorba Linda"
+  ],
+  "responseTime": "45-75 minutes",
+  "videoFile": "generic-area-hero.mp4",
+  "imageFile": "generic-area-hero.webp",
+  "metaDescription": "HVAC services in Yorba Linda - AC repair, installation, heating and maintenance from a licensed local contractor. Call (818) 400-0227.",
+  "metaKeywords": "HVAC Yorba Linda, AC repair Yorba Linda, heating service Yorba Linda, air conditioning Yorba Linda",
+  "localPhone": "(818) 400-0227",
+  "nearestCities": [
+    "Placentia",
+    "Brea",
+    "Anaheim Hills",
+    "Chino Hills"
+  ],
+  "notableLandmarks": [
+    "Richard Nixon Presidential Library and Museum",
+    "Black Gold Golf Club",
+    "Yorba Linda Town Center"
+  ],
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+}
