@@ -8,8 +8,8 @@ import { AnimatedCounter } from "@/components/city-pages/AnimatedCounter";
 // Real, verified against the business's own Google Business Profile (screenshot confirmed
 // earlier: 5.0, 17 reviews). Update these two values if the real figures change — never invent
 // individual reviews below when the CMS has none; see the no-real-reviews-yet state further down.
-const REAL_RATING = 5.0;
-const REAL_REVIEW_COUNT = 17;
+export const REAL_RATING = 5.0;
+export const REAL_REVIEW_COUNT = 17;
 const GOOGLE_REVIEWS_URL = "https://www.google.com/maps/place/Bernardino+Martin+HVAC";
 
 type ReviewItem = {

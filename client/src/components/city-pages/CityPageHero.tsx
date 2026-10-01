@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { CityBreadcrumb } from "@/components/city-pages/CityBreadcrumb";
 import { PromoBadge } from "@/components/city-pages/PromoBadge";
+import { SaleSticker } from "@/components/city-pages/SaleSticker";
 import type { CityData } from "@/data/cities/types";
 import { Phone, Volume2, VolumeX } from "lucide-react";
 import { Link } from "wouter";
@@ -21,9 +22,12 @@ type CityPageHeroProps = {
   headline?: { eyebrow: string; title: string };
   statement?: string;
   onOpenQuote?: () => void;
+  /** A real, currently-active offer to stamp on the hero — only ever one of the real PROMOS
+      entries. Omit entirely when no real current offer applies; never a placeholder. */
+  saleOffer?: { big: string; small: string };
 };
 
-export default function CityPageHero({ cityData, redesign = false, redesignV2 = false, headline, statement, onOpenQuote }: CityPageHeroProps) {
+export default function CityPageHero({ cityData, redesign = false, redesignV2 = false, headline, statement, onOpenQuote, saleOffer }: CityPageHeroProps) {
   const phoneHref = `tel:${cityData.localPhone.replace(/\D/g, "")}`;
   const videoRef = useRef<HTMLVideoElement>(null);
   const [muted, setMuted] = useState(true);
@@ -74,6 +78,7 @@ export default function CityPageHero({ cityData, redesign = false, redesignV2 = 
 
     return (
       <section className="relative isolate flex min-h-[620px] items-end overflow-hidden bg-[var(--rb-orange)] text-white md:min-h-[760px]">
+        {saleOffer && <SaleSticker big={saleOffer.big} small={saleOffer.small} />}
         {hasRealVideo ? (
           <>
             <img

@@ -12,6 +12,15 @@ import { CityPricingBlock } from "@/components/city-pages/CityPricingBlock";
 import { CityFAQ } from "@/components/city-pages/CityFAQ";
 import { CityComfortClub } from "@/components/city-pages/CityComfortClub";
 import { CityCurrentOffers } from "@/components/city-pages/CityCurrentOffers";
+import { BookIn60Seconds } from "@/components/city-pages/BookIn60Seconds";
+import { ServiceTileGrid } from "@/components/city-pages/ServiceTileGrid";
+import { CollectionGrid } from "@/components/city-pages/CollectionGrid";
+import { ServiceCarousel } from "@/components/city-pages/ServiceCarousel";
+import { SecondHeroBanner } from "@/components/city-pages/SecondHeroBanner";
+import { VideoShowcase } from "@/components/city-pages/VideoShowcase";
+import { StatBlock } from "@/components/city-pages/StatBlock";
+import { LongFormContent } from "@/components/city-pages/LongFormContent";
+import { FloatingQuoteButton } from "@/components/city-pages/FloatingQuoteButton";
 import InternalCityLinks from "@/components/city-pages/InternalCityLinks";
 import ServiceSlider from "@/components/ServiceSlider";
 import { Button } from "@/components/ui/button";
@@ -24,6 +33,8 @@ import allCities from "@/data/cities/all-cities";
 import type { CityData } from "@/data/cities/types";
 import { MapPin, Phone } from "lucide-react";
 import { Link } from "wouter";
+import { SERVICES, PROMOS } from "@/lib/constants";
+import { REAL_RATING, REAL_REVIEW_COUNT } from "@/components/ReviewSlider";
 
 type CityPageTemplateProps = {
   cityData: CityData;
@@ -91,6 +102,57 @@ export default function CityPageTemplate({ cityData, redesign = false, redesignV
     return list;
   }, [cityData]);
 
+  // Services this city actually calls for most — same resolved-against-the-real-catalog lookup
+  // used by CityPricingBlock/CityServicesShowcase, reused here for the new tile/collection/
+  // carousel sections so they show the same real services, not a second invented list.
+  const highlightedServices = useMemo(
+    () =>
+      cityData.commonServices
+        .map((title) => SERVICES.find((s) => s.title === title))
+        .filter((s): s is (typeof SERVICES)[number] => Boolean(s)),
+    [cityData.commonServices],
+  );
+
+  const collectionCards = highlightedServices.map((s) => ({
+    title: s.title,
+    subtitle: s.description,
+    imageSrc: s.image,
+    imageAlt: `${s.title} in ${cityData.city}`,
+    href: `/services/${s.id}`,
+  }));
+
+  const carouselServices = highlightedServices.map((s) => ({
+    id: s.id,
+    name: s.title,
+    imageSrc: s.image,
+    imageAlt: `${s.title} in ${cityData.city}`,
+    nowPrice: s.price,
+    note: s.duration,
+  }));
+
+  const serviceTiles = SERVICES.map((s) => ({
+    name: s.title,
+    meta: s.category,
+    priceLabel: s.price,
+    imageSrc: s.image,
+    imageAlt: s.title,
+    href: `/services/${s.id}`,
+  }));
+
+  const videoThumbs = highlightedServices.slice(0, 4).map((s) => ({
+    label: s.title,
+    imageSrc: s.image,
+    imageAlt: `${s.title} in ${cityData.city}`,
+    href: `/services/${s.id}`,
+  }));
+
+  const hasRealVideo = cityData.videoFile !== "generic-area-hero.mp4";
+
+  // The hero sticker shows the first real PROMOS entry — title is always "$X LABEL" (see
+  // constants.ts), split once here rather than duplicating the price as separate literal text.
+  const [heroOfferBig, ...heroOfferRest] = PROMOS[0].title.split(" ");
+  const heroOfferSmall = heroOfferRest.join(" ");
+
   const structuredData = [
     {
       "@context": "https://schema.org",
@@ -134,12 +196,22 @@ export default function CityPageTemplate({ cityData, redesign = false, redesignV
         headline={headline}
         statement={statement}
         onOpenQuote={() => openQuote()}
+        saleOffer={redesignV2 ? { big: heroOfferBig, small: heroOfferSmall } : undefined}
       />
 
       <LandmarkSpotlight
         landmarkPhoto={cityData.landmarkPhoto}
         onImageClick={locationPhotos.length > 0 ? () => openLightbox(locationPhotos, 0) : undefined}
       />
+
+      {redesignV2 && (
+        <BookIn60Seconds
+          cityName={cityData.city}
+          phone={cityData.localPhone}
+          phoneHref={phoneHref}
+          onStartQuote={() => openQuote()}
+        />
+      )}
 
       {redesign ? (
         <CityGalleryShowcase
@@ -317,6 +389,14 @@ export default function CityPageTemplate({ cityData, redesign = false, redesignV
 
       {!redesign && <ServiceSlider />}
 
+      {redesignV2 && (
+        <>
+          <ServiceTileGrid cityName={cityData.city} tiles={serviceTiles} />
+          <CollectionGrid cityName={cityData.city} cards={collectionCards} />
+          <ServiceCarousel cityName={cityData.city} services={carouselServices} onBook={(id) => openQuote(id)} />
+        </>
+      )}
+
       {redesignV2 ? (
         <CitySeasonalTabs cityData={cityData} />
       ) : (
@@ -353,6 +433,38 @@ export default function CityPageTemplate({ cityData, redesign = false, redesignV
 
       {redesignV2 && <CityCurrentOffers cityName={cityData.city} onOpenQuote={openQuote} />}
 
+      {redesignV2 && cityData.landmarkPhoto && (
+        <SecondHeroBanner
+          imageSrc={cityData.landmarkPhoto.src}
+          imageAlt={cityData.landmarkPhoto.alt}
+          heading={`${cityData.city} Homes Deserve the Comfort Club`}
+          body="Two tune-ups a year, priority emergency scheduling, and 15% off repairs — for $19/mo."
+          ctaLabel="Join the Club"
+          onCtaClick={() => openQuote("hvac-maintenance")}
+        />
+      )}
+
+      {redesignV2 && hasRealVideo && (
+        <VideoShowcase
+          cityName={cityData.city}
+          videoSrc={`/videos/cities/${cityData.videoFile}`}
+          posterSrc={`/images/cities/${cityData.imageFile}`}
+          thumbs={videoThumbs}
+        />
+      )}
+
+      {redesignV2 && (
+        <StatBlock
+          heading={`Why ${cityData.city} Calls Bernardino Martin`}
+          subheading="Real numbers, not marketing copy."
+          stats={[
+            { value: REAL_REVIEW_COUNT, label: "Google Reviews" },
+            { staticValue: `${REAL_RATING.toFixed(1)}★`, label: "Average Rating" },
+            { staticValue: cityData.responseTime, label: "Typical Response Time" },
+          ]}
+        />
+      )}
+
       <section className="bg-gradient-to-r from-primary to-blue-900 py-16 text-white">
         <div className="container mx-auto px-4">
           <div className="mx-auto max-w-4xl text-center" data-aos={redesign ? "zoom-in" : undefined}>
@@ -385,6 +497,17 @@ export default function CityPageTemplate({ cityData, redesign = false, redesignV
         </div>
       </section>
 
+      {redesignV2 && cityData.localLife && (
+        <LongFormContent
+          cityName={cityData.city}
+          nature={cityData.localLife.nature}
+          community={cityData.localLife.community}
+          howWeHelp={cityData.localLife.howWeHelp}
+          seasonalNotes={(cityData.seasonalNotes ?? []).map((n) => ({ season: n.season, focus: n.focus }))}
+          servicesByCategory={`We handle HVAC, solar, plumbing, electrical, outdoor, and smart-home work for ${cityData.city} homes — one licensed team across every trade, not a subcontractor chain.`}
+        />
+      )}
+
       <InternalCityLinks currentCity={cityData} allCities={allCities} />
 
       {lightbox && (
@@ -411,6 +534,7 @@ export default function CityPageTemplate({ cityData, redesign = false, redesignV
           </Dialog>
 
           <CityMobileStickyBar phoneHref={phoneHref} onBookNow={() => openQuote()} />
+          <FloatingQuoteButton onClick={() => openQuote()} />
         </>
       )}
     </Layout>
