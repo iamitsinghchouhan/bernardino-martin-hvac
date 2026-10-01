@@ -95,11 +95,15 @@
          Scoped to .aos-init (added by aos.js) so content stays visible if the script fails to load. -->
     <style>
       [data-aos].aos-init{opacity:0;transition-property:opacity,transform;transition-duration:.8s;transition-timing-function:ease}
-      [data-aos].aos-animate{opacity:1;transform:none}
       [data-aos=fade-up].aos-init{transform:translateY(30px)}
       [data-aos=fade-right].aos-init{transform:translateX(-30px)}
       [data-aos=fade-left].aos-init{transform:translateX(30px)}
       [data-aos=zoom-in].aos-init{transform:scale(.94)}
+      /* Must come AFTER the type-specific .aos-init rules above: equal specificity means source
+         order decides, and this is the rule that has to win once an element has animated in —
+         otherwise (as shipped before this fix) the element keeps aos-init's transform forever,
+         since AOS adds aos-animate alongside aos-init rather than replacing it. */
+      [data-aos].aos-animate{opacity:1;transform:none}
       [data-aos-delay="100"].aos-animate{transition-delay:.1s}
       [data-aos-delay="150"].aos-animate{transition-delay:.15s}
       [data-aos-delay="200"].aos-animate{transition-delay:.2s}
