@@ -6,6 +6,7 @@ export default function HvacEncinoPage() {
     <CityPageTemplate
       cityData={cityData}
       redesign
+      redesignV2
       headline={{ eyebrow: "Ventura Corridor", title: "Old Estates. New Builds. Same Standard." }}
       statement="Hillside quiet above. Boulevard energy below."
     />

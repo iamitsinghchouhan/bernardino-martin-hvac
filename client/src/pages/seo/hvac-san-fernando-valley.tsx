@@ -6,6 +6,7 @@ export default function HvacSanFernandoValleyPage() {
     <CityPageTemplate
       cityData={cityData}
       redesign
+      redesignV2
       headline={{ eyebrow: "The Valley Floor", title: "One Basin. Every Neighborhood." }}
       statement="Once orchards. Now millions of neighbors. Comfort for all."
     />

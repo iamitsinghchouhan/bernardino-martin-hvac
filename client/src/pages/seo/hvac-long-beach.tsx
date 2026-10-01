@@ -6,6 +6,7 @@ export default function HvacLongBeachPage() {
     <CityPageTemplate
       cityData={cityData}
       redesign
+      redesignV2
       headline={{ eyebrow: "Harbor City", title: "A Working Harbor. A Real City." }}
       statement="Salt air. Port air. Comfort, either way."
     />

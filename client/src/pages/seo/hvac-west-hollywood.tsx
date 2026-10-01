@@ -6,6 +6,7 @@ export default function HvacWestHollywoodPage() {
     <CityPageTemplate
       cityData={cityData}
       redesign
+      redesignV2
       headline={{ eyebrow: "The Strip", title: "A City That Runs Late." }}
       statement="Two square miles. Every hour covered."
     />

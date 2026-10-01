@@ -6,6 +6,7 @@ export default function HvacGlendalePage() {
     <CityPageTemplate
       cityData={cityData}
       redesign
+      redesignV2
       headline={{ eyebrow: "Verdugo Foothills", title: "Dense Core. Quiet Hills. One City." }}
       statement="Urban energy below. Foothill calm above."
     />

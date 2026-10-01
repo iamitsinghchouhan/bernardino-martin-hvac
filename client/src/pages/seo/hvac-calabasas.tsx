@@ -6,6 +6,7 @@ export default function HvacCalabasasPage() {
     <CityPageTemplate
       cityData={cityData}
       redesign
+      redesignV2
       headline={{ eyebrow: "Malibu Canyon Gateway", title: "Gated Estates. Foothill Quiet." }}
       statement="Private roads. Horse trails. Comfort without the noise."
     />

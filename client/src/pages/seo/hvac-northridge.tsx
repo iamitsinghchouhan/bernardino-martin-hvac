@@ -6,6 +6,7 @@ export default function HvacNorthridgePage() {
     <CityPageTemplate
       cityData={cityData}
       redesign
+      redesignV2
       headline={{ eyebrow: "CSUN Territory", title: "A College Town, Cooled Right." }}
       statement="Campus rhythm. Valley heat. Built to handle both."
     />

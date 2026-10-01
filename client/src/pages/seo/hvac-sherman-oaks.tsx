@@ -6,6 +6,7 @@ export default function HvacShermanOaksPage() {
     <CityPageTemplate
       cityData={cityData}
       redesign
+      redesignV2
       headline={{ eyebrow: "South Valley", title: "From the Galleria to Mulholland." }}
       statement="Hot afternoons. Mild winters. Comfort that keeps up."
     />

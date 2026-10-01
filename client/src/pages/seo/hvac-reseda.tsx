@@ -6,6 +6,7 @@ export default function HvacResedaPage() {
     <CityPageTemplate
       cityData={cityData}
       redesign
+      redesignV2
       headline={{ eyebrow: "Reseda Boulevard", title: "Flat Streets. Real Diversity." }}
       statement="Tract homes. Working families. Comfort, no upsell."
     />

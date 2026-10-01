@@ -6,6 +6,7 @@ export default function HvacHollywoodPage() {
     <CityPageTemplate
       cityData={cityData}
       redesign
+      redesignV2
       headline={{ eyebrow: "Below the Line", title: "Comfort on Your Call Sheet, Not Ours." }}
       statement="Odd hours. Old buildings. Comfort that adapts."
     />

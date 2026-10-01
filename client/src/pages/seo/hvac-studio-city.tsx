@@ -6,6 +6,7 @@ export default function HvacStudioCityPage() {
     <CityPageTemplate
       cityData={cityData}
       redesign
+      redesignV2
       headline={{ eyebrow: "CBS Studio Center", title: "Boulevard Energy. Canyon Calm." }}
       statement="Industry pace. Canyon quiet. Comfort without the compromise."
     />

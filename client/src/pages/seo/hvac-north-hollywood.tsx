@@ -6,6 +6,7 @@ export default function HvacNorthHollywoodPage() {
     <CityPageTemplate
       cityData={cityData}
       redesign
+      redesignV2
       headline={{ eyebrow: "NoHo Arts District", title: "Theaters, Transit, and Everything Between." }}
       statement="Old apartments. New towers. One transit hub."
     />

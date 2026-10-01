@@ -6,6 +6,7 @@ export default function HvacBurbankPage() {
     <CityPageTemplate
       cityData={cityData}
       redesign
+      redesignV2
       headline={{ eyebrow: "Studio District", title: "Backlot Energy. Ranch-Home Comfort." }}
       statement="Post-war homes. Modern heat. Comfort that catches up."
     />

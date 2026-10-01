@@ -6,6 +6,7 @@ export default function HvacCanogaParkPage() {
     <CityPageTemplate
       cityData={cityData}
       redesign
+      redesignV2
       headline={{ eyebrow: "Old Town Canoga Park", title: "Aerospace Roots. New Energy." }}
       statement="Manufacturing legacy. Revived downtown. Comfort for both."
     />

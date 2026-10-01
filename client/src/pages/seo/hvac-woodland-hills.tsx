@@ -6,6 +6,7 @@ export default function HvacWoodlandHillsPage() {
     <CityPageTemplate
       cityData={cityData}
       redesign
+      redesignV2
       headline={{ eyebrow: "Warner Center", title: "Office Towers Meet Quiet Streets." }}
       statement="Commercial hours. Residential calm. One team."
     />

@@ -6,6 +6,7 @@ export default function HvacElSegundoPage() {
     <CityPageTemplate
       cityData={cityData}
       redesign
+      redesignV2
       headline={{ eyebrow: "Smoky Hollow", title: "Small Town. Big Neighbors." }}
       statement="Refineries next door. Runways overhead. Comfort inside."
     />

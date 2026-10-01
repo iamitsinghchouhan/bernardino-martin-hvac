@@ -6,6 +6,7 @@ export default function HvacWestchesterPage() {
     <CityPageTemplate
       cityData={cityData}
       redesign
+      redesignV2
       headline={{ eyebrow: "Aerospace Legacy", title: "Before Silicon Beach, There Was This." }}
       statement="Aerospace roots. Academic energy. Comfort, grounded."
     />

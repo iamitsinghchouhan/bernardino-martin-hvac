@@ -6,6 +6,7 @@ export default function HvacCulverCityPage() {
     <CityPageTemplate
       cityData={cityData}
       redesign
+      redesignV2
       headline={{ eyebrow: "Studio Lots", title: "Downtown Walkable. Studio-Lot Reliable." }}
       statement="Walkable streets. Studio hours. Comfort, dialed in."
     />

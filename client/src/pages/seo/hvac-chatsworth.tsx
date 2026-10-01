@@ -6,6 +6,7 @@ export default function HvacChatsworthPage() {
     <CityPageTemplate
       cityData={cityData}
       redesign
+      redesignV2
       headline={{ eyebrow: "Stoney Point", title: "Where the Valley Meets the Rock." }}
       statement="Rock formations. Horse properties. Comfort, built for both."
     />

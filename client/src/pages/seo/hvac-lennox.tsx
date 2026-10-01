@@ -6,6 +6,7 @@ export default function HvacLennoxPage() {
     <CityPageTemplate
       cityData={cityData}
       redesign
+      redesignV2
       headline={{ eyebrow: "Hawthorne Boulevard", title: "Small Footprint. Real Community." }}
       statement="Small footprint. Real prices. Comfort that doesn't cut corners."
     />

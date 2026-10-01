@@ -6,6 +6,7 @@ export default function HvacTorrancePage() {
     <CityPageTemplate
       cityData={cityData}
       redesign
+      redesignV2
       headline={{ eyebrow: "South Bay Roots", title: "Family Roots. South Bay Scale." }}
       statement="Generations here. Systems that last just as long."
     />

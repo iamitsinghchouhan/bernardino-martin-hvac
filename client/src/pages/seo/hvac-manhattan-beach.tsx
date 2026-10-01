@@ -6,6 +6,7 @@ export default function HvacManhattanBeachPage() {
     <CityPageTemplate
       cityData={cityData}
       redesign
+      redesignV2
       headline={{ eyebrow: "The Strand", title: "Small Lots. Big Rebuilds." }}
       statement="Tight lots. Salt air. Comfort, precisely fitted."
     />

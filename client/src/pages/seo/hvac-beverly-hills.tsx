@@ -6,6 +6,7 @@ export default function HvacBeverlyHillsPage() {
     <CityPageTemplate
       cityData={cityData}
       redesign
+      redesignV2
       headline={{ eyebrow: "90210", title: "White-Glove Comfort for Every Zone." }}
       statement="Discreet service. Zoned precision. Exactly on schedule."
     />

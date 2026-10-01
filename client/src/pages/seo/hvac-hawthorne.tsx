@@ -6,6 +6,7 @@ export default function HvacHawthornePage() {
     <CityPageTemplate
       cityData={cityData}
       redesign
+      redesignV2
       headline={{ eyebrow: "South Bay Aerospace", title: "Steady Comfort Under the Flight Path." }}
       statement="Aerospace hours. Working-class prices. Comfort that lasts."
     />

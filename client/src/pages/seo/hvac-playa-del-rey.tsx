@@ -6,6 +6,7 @@ export default function HvacPlayaDelReyPage() {
     <CityPageTemplate
       cityData={cityData}
       redesign
+      redesignV2
       headline={{ eyebrow: "Ballona Wetlands", title: "Quiet Bluffs. Wetlands Next Door." }}
       statement="Marina calm. Wetlands air. Comfort, undisturbed."
     />

@@ -6,6 +6,7 @@ export default function HvacTarzanaPage() {
     <CityPageTemplate
       cityData={cityData}
       redesign
+      redesignV2
       headline={{ eyebrow: "Tarzana Village", title: "Quieter Boulevard. Same Valley Heat." }}
       statement="Ranch homes. Hillside builds. Comfort, no fuss."
     />

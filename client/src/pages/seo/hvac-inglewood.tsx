@@ -6,6 +6,7 @@ export default function HvacInglewoodPage() {
     <CityPageTemplate
       cityData={cityData}
       redesign
+      redesignV2
       headline={{ eyebrow: "City of Champions", title: "Home of SoFi Stadium. Home to Your Comfort." }}
       statement="Cool mornings. Warm afternoons. Comfort, all day."
     />

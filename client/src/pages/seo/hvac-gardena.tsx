@@ -6,6 +6,7 @@ export default function HvacGardenaPage() {
     <CityPageTemplate
       cityData={cityData}
       redesign
+      redesignV2
       headline={{ eyebrow: "Central South Bay", title: "Working Grid. Working-Class Roots." }}
       statement="Dense streets. Honest pricing. No-frills comfort."
     />

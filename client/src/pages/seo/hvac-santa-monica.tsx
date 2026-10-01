@@ -6,6 +6,7 @@ export default function HvacSantaMonicaPage() {
     <CityPageTemplate
       cityData={cityData}
       redesign
+      redesignV2
       headline={{ eyebrow: "Silicon Beach", title: "Coastal Density. Startup Energy." }}
       statement="Rent-controlled charm. Luxury condos. Comfort, block by block."
     />

@@ -6,6 +6,7 @@ export default function HvacRedondoBeachPage() {
     <CityPageTemplate
       cityData={cityData}
       redesign
+      redesignV2
       headline={{ eyebrow: "King Harbor", title: "A Working Harbor, Not Just a View." }}
       statement="Working harbor. Family homes. Comfort that fits both."
     />

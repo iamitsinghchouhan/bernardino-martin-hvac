@@ -6,6 +6,7 @@ export default function HvacWestHillsPage() {
     <CityPageTemplate
       cityData={cityData}
       redesign
+      redesignV2
       headline={{ eyebrow: "Shadow Ranch", title: "Newer Streets. Same Valley Sun." }}
       statement="Master-planned quiet. Far-west heat. Comfort either way."
     />
