@@ -1,0 +1,40 @@
+{
+  "id": 41,
+  "city": "Los Angeles",
+  "slug": "hvac-los-angeles",
+  "region": "Citywide Coverage",
+  "population": "~3.9 million",
+  "zipCodes": ["90001", "90012", "90047"],
+  "description": "Los Angeles homeowners need HVAC systems that can keep up with long hot summers, warm shoulder seasons, and the occasional chilly winter morning. Bernardino Martin provides HVAC services in Los Angeles for homes, apartments, and light commercial spaces that need dependable cooling, heating, and ventilation without unnecessary upsells. We work with older ducted systems, newer inverter equipment, rooftop package units, and ductless systems designed for additions, offices, and converted garages that are common throughout the city.",
+  "climate": "Long hot summers, mild shoulder seasons, and a wide range of microclimates across the city",
+  "commonServices": [
+    "AC Repair & Diagnostics",
+    "AC Installation",
+    "HVAC Maintenance",
+    "Ductless Mini-Split Systems"
+  ],
+  "serviceAreas": [
+    "Hollywood",
+    "Koreatown",
+    "Mid-Wilshire",
+    "Westwood"
+  ],
+  "responseTime": "15-30 minutes",
+  "videoFile": "hvac-los-angeles.mp4",
+  "imageFile": "los-angeles-hero.webp",
+  "metaDescription": "Professional HVAC repair, installation & maintenance in Los Angeles. Licensed technicians, same-day service, all brands. Call (818) 400-0227.",
+  "metaKeywords": "HVAC Los Angeles, AC repair Los Angeles, heating service Los Angeles, air conditioning Los Angeles",
+  "localPhone": "(818) 400-0227",
+  "nearestCities": [
+    "Glendale",
+    "Burbank",
+    "Pasadena",
+    "Santa Monica"
+  ],
+  "notableLandmarks": [
+    "Griffith Observatory",
+    "Hollywood Walk of Fame",
+    "Downtown LA Arts District"
+  ],
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+}

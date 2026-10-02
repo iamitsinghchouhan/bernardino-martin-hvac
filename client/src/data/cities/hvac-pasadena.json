@@ -1,0 +1,39 @@
+{
+  "id": 40,
+  "city": "Pasadena",
+  "slug": "hvac-pasadena",
+  "region": "San Gabriel Valley",
+  "population": "~138,000",
+  "zipCodes": ["91101", "91103", "91104", "91106"],
+  "description": "Pasadena has some of the most distinctive residential HVAC challenges in the region because it combines inland summer heat with a large inventory of historic housing. Bernardino Martin provides HVAC services in Pasadena for homeowners who want comfort improvements that respect the age and character of their property. In neighborhoods near Old Pasadena, Bungalow Heaven, and the San Marino border, we regularly see homes that were built long before modern air conditioning was standard.",
+  "climate": "High inland summer heat with historic housing stock",
+  "commonServices": [
+    "HVAC Maintenance",
+    "Ductless Mini-Split Systems",
+    "Thermostat Installation & Repair",
+    "AC Installation"
+  ],
+  "serviceAreas": [
+    "Old Pasadena",
+    "Bungalow Heaven",
+    "San Marino border",
+    "East Pasadena"
+  ],
+  "responseTime": "20-40 minutes",
+  "videoFile": "city-pasadena.mp4",
+  "imageFile": "generic-area-hero.webp",
+  "metaDescription": "Trusted HVAC repair & installation in Pasadena, CA. Serving historic homes & modern properties. Call (818) 400-0227.",
+  "metaKeywords": "HVAC Pasadena, AC repair Pasadena, heating service Pasadena, air conditioning Pasadena",
+  "localPhone": "(818) 400-0227",
+  "nearestCities": [
+    "Glendale",
+    "Burbank",
+    "Los Angeles"
+  ],
+  "notableLandmarks": [
+    "Rose Bowl Stadium",
+    "Old Pasadena",
+    "Norton Simon Museum"
+  ],
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+}
