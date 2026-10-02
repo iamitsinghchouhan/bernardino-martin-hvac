@@ -189,7 +189,7 @@ export function ChatWidget() {
           <CardHeader className="bg-gradient-to-br from-[var(--rb-navy)] via-[var(--rb-navy)] to-[var(--rb-orange)] text-white p-4 flex flex-row items-center gap-3">
             <div className="relative">
                 <Avatar className="h-10 w-10 border-2 border-white/50 bg-white p-1">
-                <AvatarImage src="/images/rebrand/logo-redesign.webp" className="object-contain" />
+                <AvatarImage src="/images/rebrand/logo-redesign.webp" alt="BERNARDINO MARTIN logo" className="object-contain" />
                 <AvatarFallback>BM</AvatarFallback>
                 </Avatar>
                 <span className="absolute bottom-0 right-0 w-3 h-3 bg-secondary border-2 border-primary rounded-full"></span>
@@ -224,7 +224,7 @@ export function ChatWidget() {
                                 variant="outline"
                                 size="sm"
                                 onClick={opt.action}
-                                className="w-full justify-between text-xs font-semibold hover:bg-orange-50 hover:text-[var(--rb-orange)] hover:border-[var(--rb-orange)]/30 transition-colors bg-slate-50"
+                                className="w-full justify-between text-xs font-semibold hover:bg-orange-50 hover:text-[var(--rb-orange-text)] hover:border-[var(--rb-orange)]/30 transition-colors bg-slate-50"
                             >
                                 {opt.label}
                                 <ChevronRight className="h-3 w-3 opacity-50" />

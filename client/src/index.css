@@ -282,15 +282,19 @@
   --rb-navy-light: #3d5f80;
   --rb-orange: #f0702a;
   --rb-orange-dark: #d85f1e;
+  /* Same orange hue, darkened just enough for small text to clear WCAG AA (4.5:1) on a white
+     background — --rb-orange itself stays untouched since it's mainly a button/badge fill,
+     where white-on-orange already has plenty of contrast. */
+  --rb-orange-text: #c8500e;
   --rb-gold: #fdb022;
   --rb-gray: #52525b;
   --rb-brown: #5a3a2e;
   --rb-green-bg: #e1f5e6;
-  --rb-green-text: #1f8a45;
+  --rb-green-text: #1c7c3e;
   --rb-peach-bg: #fce7de;
-  --rb-peach-text: #e0653a;
+  --rb-peach-text: #b7451d;
   --rb-blue-bg: #dff0fb;
-  --rb-blue-text: #2b7bb9;
+  --rb-blue-text: #2770a8;
 }
 
 .watermark::after {
