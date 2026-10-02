@@ -197,17 +197,17 @@ export function Layout({ children, cityName }: { children: React.ReactNode; /** 
         <div className="container mx-auto px-4 flex flex-wrap justify-between items-center gap-x-6 gap-y-1">
           <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
             <span className="flex items-center gap-1.5">
-              <MapPin className="h-3.5 w-3.5 text-[var(--rb-orange)]" aria-hidden="true" />
+              <MapPin className="h-3.5 w-3.5 text-[var(--rb-orange-text)]" aria-hidden="true" />
               Los Angeles &amp; Surrounding Areas
             </span>
             <span className="hidden items-center gap-1.5 md:flex">
-              <ShieldCheck className="h-3.5 w-3.5 text-[var(--rb-orange)]" aria-hidden="true" />
+              <ShieldCheck className="h-3.5 w-3.5 text-[var(--rb-orange-text)]" aria-hidden="true" />
               Licensed &amp; Insured &amp; Trusted
             </span>
           </div>
           <div className="flex items-center gap-4">
             <span className="hidden items-center gap-1.5 sm:flex">
-              <Clock className="h-3.5 w-3.5 text-[var(--rb-orange)]" aria-hidden="true" />
+              <Clock className="h-3.5 w-3.5 text-[var(--rb-orange-text)]" aria-hidden="true" />
               Mon&ndash;Sat: 7AM&ndash;8PM
             </span>
             <a
@@ -234,6 +234,8 @@ export function Layout({ children, cityName }: { children: React.ReactNode; /** 
               src="/images/rebrand/logo-redesign.webp"
               alt="BERNARDINO MARTIN — Comfort, Energy, Care, For Life"
               className="h-14 w-auto object-contain"
+              width={168}
+              height={56}
               loading="eager"
               fetchPriority="high"
             />
@@ -246,8 +248,8 @@ export function Layout({ children, cityName }: { children: React.ReactNode; /** 
                 (item.kind === "link" && location === item.href) ||
                 item.children?.some((c) => location === c.href) ||
                 item.sections?.some((s) => s.links.some((l) => location === l.href));
-              const className = `flex items-center gap-1 text-sm font-bold transition-colors hover:text-[var(--rb-orange)] ${
-                isActive ? "text-[var(--rb-orange)]" : "text-[var(--rb-navy)]"
+              const className = `flex items-center gap-1 text-sm font-bold transition-colors hover:text-[var(--rb-orange-text)] ${
+                isActive ? "text-[var(--rb-orange-text)]" : "text-[var(--rb-navy)]"
               }`;
 
               if (item.kind === "mega" && item.sections) {
@@ -262,11 +264,11 @@ export function Layout({ children, cityName }: { children: React.ReactNode; /** 
                         <div className="grid grid-cols-4 gap-5">
                           {item.sections.map((section) => (
                             <div key={section.title}>
-                              <div className="mb-2 text-[10px] font-black uppercase tracking-wider text-[var(--rb-orange)]">{section.title}</div>
+                              <div className="mb-2 text-[10px] font-black uppercase tracking-wider text-[var(--rb-orange-text)]">{section.title}</div>
                               <ul className="space-y-1">
                                 {section.links.map((link) => (
                                   <li key={link.href}>
-                                    <Link href={link.href} className="block rounded px-2 py-1.5 text-xs font-semibold text-slate-700 transition-colors hover:bg-slate-50 hover:text-[var(--rb-orange)]">
+                                    <Link href={link.href} className="block rounded px-2 py-1.5 text-xs font-semibold text-slate-700 transition-colors hover:bg-slate-50 hover:text-[var(--rb-orange-text)]">
                                       {link.label}
                                     </Link>
                                   </li>
@@ -276,7 +278,7 @@ export function Layout({ children, cityName }: { children: React.ReactNode; /** 
                           ))}
                         </div>
                         <div className="mt-4 border-t border-slate-100 pt-3">
-                          <Link href="/services" className="text-xs font-bold text-[var(--rb-orange)] hover:underline">View all 39 services →</Link>
+                          <Link href="/services" className="text-xs font-bold text-[var(--rb-orange-text)] hover:underline">View all 39 services →</Link>
                         </div>
                       </div>
                     </div>
@@ -320,8 +322,8 @@ export function Layout({ children, cityName }: { children: React.ReactNode; /** 
           {/* Desktop CTAs */}
           <div className="hidden lg:flex items-center gap-3 shrink-0">
             <a href={`tel:${COMPANY_PHONE.replace(/\D/g, '')}`} onClick={() => trackEvent("phone_click")} className="flex items-center gap-2 mr-1 group">
-              <Phone className="h-4 w-4 text-[var(--rb-orange)]" aria-hidden="true" />
-              <span className="text-lg font-black font-sans text-[var(--rb-navy)] group-hover:text-[var(--rb-orange)] transition-colors">{COMPANY_PHONE}</span>
+              <Phone className="h-4 w-4 text-[var(--rb-orange-text)]" aria-hidden="true" />
+              <span className="text-lg font-black font-sans text-[var(--rb-navy)] group-hover:text-[var(--rb-orange-text)] transition-colors">{COMPANY_PHONE}</span>
             </a>
             <Button size="lg" className="bg-[var(--rb-orange)] hover:bg-[var(--rb-orange-dark)] shadow-lg shadow-orange-500/20" asChild>
               <Link href="/quote">
@@ -334,7 +336,7 @@ export function Layout({ children, cityName }: { children: React.ReactNode; /** 
           {/* Mobile Menu */}
           <div className="flex items-center gap-2 lg:hidden">
              <a href={`tel:${COMPANY_PHONE.replace(/\D/g, '')}`} onClick={() => trackEvent("phone_click")} aria-label={`Call us at ${COMPANY_PHONE}`}>
-               <Button size="icon" variant="outline" className="rounded-full border-[var(--rb-orange)]/30 text-[var(--rb-orange)] hover:bg-[var(--rb-orange)]/10" aria-hidden="true" tabIndex={-1}>
+               <Button size="icon" variant="outline" className="rounded-full border-[var(--rb-orange)]/30 text-[var(--rb-orange-text)] hover:bg-[var(--rb-orange)]/10" aria-hidden="true" tabIndex={-1}>
                  <Phone className="h-5 w-5" aria-hidden="true" />
                </Button>
              </a>
@@ -347,14 +349,14 @@ export function Layout({ children, cityName }: { children: React.ReactNode; /** 
               <SheetContent side="right" className="w-[300px] sm:w-[400px]" aria-label="Navigation menu">
                 <nav className="flex flex-col gap-1 mt-10" aria-label="Mobile navigation">
                   <Link href="/" className="mb-6 flex items-center">
-                    <img src="/images/rebrand/logo-redesign.webp" alt="BERNARDINO MARTIN logo" className="h-12 w-auto object-contain" loading="eager" fetchPriority="high" />
+                    <img src="/images/rebrand/logo-redesign.webp" alt="BERNARDINO MARTIN logo" className="h-12 w-auto object-contain" width={144} height={48} loading="eager" fetchPriority="high" />
                   </Link>
                   {NAV_ITEMS.map((item) => {
                     const isActive =
                       (item.kind === "link" && location === item.href) ||
                       item.children?.some((c) => location === c.href) ||
                       item.sections?.some((s) => s.links.some((l) => location === l.href));
-                    const linkClassName = `block py-3 text-lg font-bold ${isActive ? "text-[var(--rb-orange)]" : "text-[var(--rb-navy)]"}`;
+                    const linkClassName = `block py-3 text-lg font-bold ${isActive ? "text-[var(--rb-orange-text)]" : "text-[var(--rb-navy)]"}`;
 
                     if (item.kind === "mega" && item.sections) {
                       return (
@@ -363,16 +365,16 @@ export function Layout({ children, cityName }: { children: React.ReactNode; /** 
                           <div className="mb-3 grid grid-cols-2 gap-x-4 gap-y-3 pl-1">
                             {item.sections.map((section) => (
                               <div key={section.title}>
-                                <div className="mb-1 text-[10px] font-black uppercase tracking-wider text-[var(--rb-orange)]">{section.title}</div>
+                                <div className="mb-1 text-[10px] font-black uppercase tracking-wider text-[var(--rb-orange-text)]">{section.title}</div>
                                 {section.links.map((link) => (
-                                  <Link key={link.href} href={link.href} className="block py-1 text-sm font-semibold text-slate-600 hover:text-[var(--rb-orange)]">
+                                  <Link key={link.href} href={link.href} className="block py-1 text-sm font-semibold text-slate-600 hover:text-[var(--rb-orange-text)]">
                                     {link.label}
                                   </Link>
                                 ))}
                               </div>
                             ))}
                           </div>
-                          <Link href="/services" className="block pb-2 text-xs font-bold text-[var(--rb-orange)]">View all 39 services →</Link>
+                          <Link href="/services" className="block pb-2 text-xs font-bold text-[var(--rb-orange-text)]">View all 39 services →</Link>
                         </div>
                       );
                     }
@@ -469,14 +471,14 @@ export function Layout({ children, cityName }: { children: React.ReactNode; /** 
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
             <div>
-              <img src="/images/rebrand/logo-redesign.webp" alt="BERNARDINO MARTIN logo" className="h-16 w-auto object-contain mb-4" loading="lazy" />
+              <img src="/images/rebrand/logo-redesign.webp" alt="BERNARDINO MARTIN logo" className="h-16 w-auto object-contain mb-4" width={192} height={64} loading="lazy" />
               <p className="text-sm leading-relaxed mb-4 text-slate-500">
                 BERNARDINO MARTIN &mdash; Comfort, Energy, Care, For Life. Top-rated HVAC, Solar, Plumbing, Electrical &amp; home services in Los Angeles.
               </p>
               <p className="text-sm leading-relaxed mb-4 text-slate-700">
                 Serving Los Angeles, Burbank, Glendale, Pasadena, and San Fernando Valley.
               </p>
-              <div className="flex items-center gap-2 text-sm font-semibold text-[var(--rb-orange)]">
+              <div className="flex items-center gap-2 text-sm font-semibold text-[var(--rb-orange-text)]">
                 <ShieldCheck className="h-4 w-4" aria-hidden="true" />
                 <span>Licensed, Bonded & Insured</span>
               </div>
@@ -485,30 +487,30 @@ export function Layout({ children, cityName }: { children: React.ReactNode; /** 
             <div>
               <h3 className="text-[var(--rb-navy)] font-bold mb-4 font-sans">Quick Links</h3>
               <ul className="space-y-1.5 text-sm">
-                <li><Link href="/" className="hover:text-[var(--rb-orange)] transition-colors">Home</Link></li>
-                <li><Link href="/services" className="hover:text-[var(--rb-orange)] transition-colors">Services</Link></li>
-                <li><a href="/#our-work" className="hover:text-[var(--rb-orange)] transition-colors">Our Work</a></li>
-                <li><a href="/#reviews" className="hover:text-[var(--rb-orange)] transition-colors">Reviews</a></li>
-                <li><a href="/#comfort-club" className="hover:text-[var(--rb-orange)] transition-colors">Comfort Club</a></li>
-                <li><Link href="/about" className="hover:text-[var(--rb-orange)] transition-colors">About Us</Link></li>
-                <li><Link href="/contact" className="hover:text-[var(--rb-orange)] transition-colors">Contact Us</Link></li>
-                <li><Link href="/booking" className="hover:text-[var(--rb-orange)] transition-colors">Book Online</Link></li>
-                <li><Link href="/quote" className="hover:text-[var(--rb-orange)] transition-colors">Get a Free Estimate</Link></li>
+                <li><Link href="/" className="hover:text-[var(--rb-orange-text)] transition-colors">Home</Link></li>
+                <li><Link href="/services" className="hover:text-[var(--rb-orange-text)] transition-colors">Services</Link></li>
+                <li><a href="/#our-work" className="hover:text-[var(--rb-orange-text)] transition-colors">Our Work</a></li>
+                <li><a href="/#reviews" className="hover:text-[var(--rb-orange-text)] transition-colors">Reviews</a></li>
+                <li><a href="/#comfort-club" className="hover:text-[var(--rb-orange-text)] transition-colors">Comfort Club</a></li>
+                <li><Link href="/about" className="hover:text-[var(--rb-orange-text)] transition-colors">About Us</Link></li>
+                <li><Link href="/contact" className="hover:text-[var(--rb-orange-text)] transition-colors">Contact Us</Link></li>
+                <li><Link href="/booking" className="hover:text-[var(--rb-orange-text)] transition-colors">Book Online</Link></li>
+                <li><Link href="/quote" className="hover:text-[var(--rb-orange-text)] transition-colors">Get a Free Estimate</Link></li>
               </ul>
             </div>
 
             <div>
               <h3 className="text-[var(--rb-navy)] font-bold mb-4 font-sans">Our Services</h3>
               <ul className="space-y-1.5 text-sm">
-                <li><Link href="/services/hvac-repair" className="hover:text-[var(--rb-orange)] transition-colors">HVAC Repair &amp; Install</Link></li>
-                <li><Link href="/services/solar-install" className="hover:text-[var(--rb-orange)] transition-colors">Solar Installation</Link></li>
-                <li><Link href="/services/plumbing-general" className="hover:text-[var(--rb-orange)] transition-colors">Plumbing</Link></li>
-                <li><Link href="/services/electrical-general" className="hover:text-[var(--rb-orange)] transition-colors">Electrical</Link></li>
-                <li><Link href="/services/outdoor-landscaping" className="hover:text-[var(--rb-orange)] transition-colors">Landscaping</Link></li>
-                <li><Link href="/services/home-cleaning" className="hover:text-[var(--rb-orange)] transition-colors">Home Cleaning</Link></li>
-                <li><Link href="/services/moving-help" className="hover:text-[var(--rb-orange)] transition-colors">Moving Help</Link></li>
-                <li><Link href="/services/handyman" className="hover:text-[var(--rb-orange)] transition-colors">Handyman</Link></li>
-                <li className="pt-2"><Link href="/services" className="font-bold text-[var(--rb-orange)] hover:text-[var(--rb-orange-dark)] transition-colors">View all 39 services →</Link></li>
+                <li><Link href="/services/hvac-repair" className="hover:text-[var(--rb-orange-text)] transition-colors">HVAC Repair &amp; Install</Link></li>
+                <li><Link href="/services/solar-install" className="hover:text-[var(--rb-orange-text)] transition-colors">Solar Installation</Link></li>
+                <li><Link href="/services/plumbing-general" className="hover:text-[var(--rb-orange-text)] transition-colors">Plumbing</Link></li>
+                <li><Link href="/services/electrical-general" className="hover:text-[var(--rb-orange-text)] transition-colors">Electrical</Link></li>
+                <li><Link href="/services/outdoor-landscaping" className="hover:text-[var(--rb-orange-text)] transition-colors">Landscaping</Link></li>
+                <li><Link href="/services/home-cleaning" className="hover:text-[var(--rb-orange-text)] transition-colors">Home Cleaning</Link></li>
+                <li><Link href="/services/moving-help" className="hover:text-[var(--rb-orange-text)] transition-colors">Moving Help</Link></li>
+                <li><Link href="/services/handyman" className="hover:text-[var(--rb-orange-text)] transition-colors">Handyman</Link></li>
+                <li className="pt-2"><Link href="/services" className="font-bold text-[var(--rb-orange-text)] hover:text-[var(--rb-orange-dark)] transition-colors">View all 39 services →</Link></li>
               </ul>
             </div>
 
@@ -516,11 +518,11 @@ export function Layout({ children, cityName }: { children: React.ReactNode; /** 
               <h3 className="text-[var(--rb-navy)] font-bold mb-4 font-sans">Contact Us</h3>
               <ul className="space-y-3 text-sm">
                 <li className="flex items-start gap-3">
-                  <Phone className="h-5 w-5 text-[var(--rb-orange)] shrink-0" />
-                  <a href={`tel:${COMPANY_PHONE.replace(/\D/g, '')}`} onClick={() => trackEvent("phone_click")} className="hover:text-[var(--rb-orange)] transition-colors text-lg font-bold text-[var(--rb-navy)]">{COMPANY_PHONE}</a>
+                  <Phone className="h-5 w-5 text-[var(--rb-orange-text)] shrink-0" />
+                  <a href={`tel:${COMPANY_PHONE.replace(/\D/g, '')}`} onClick={() => trackEvent("phone_click")} className="hover:text-[var(--rb-orange-text)] transition-colors text-lg font-bold text-[var(--rb-navy)]">{COMPANY_PHONE}</a>
                 </li>
                 <li className="flex items-start gap-3">
-                  <Clock className="h-5 w-5 text-[var(--rb-orange)] shrink-0" />
+                  <Clock className="h-5 w-5 text-[var(--rb-orange-text)] shrink-0" />
                   <span>Mon&ndash;Sat: 7AM&ndash;8PM<br />24/7 Emergency Service</span>
                 </li>
               </ul>
@@ -546,7 +548,7 @@ export function Layout({ children, cityName }: { children: React.ReactNode; /** 
               <h3 className="text-[var(--rb-navy)] font-bold mb-4 font-sans text-sm uppercase tracking-wider">Popular Service Pages</h3>
               <ul className="columns-2 sm:columns-3 gap-4 text-xs text-slate-500">
                 {FOOTER_SERVICE_PAGES.map((page) => (
-                  <li key={page.href}><a href={page.href} className="hover:text-[var(--rb-orange)] transition-colors block py-1.5">{page.label}</a></li>
+                  <li key={page.href}><a href={page.href} className="hover:text-[var(--rb-orange-text)] transition-colors block py-1.5">{page.label}</a></li>
                 ))}
               </ul>
             </div>
@@ -554,9 +556,9 @@ export function Layout({ children, cityName }: { children: React.ReactNode; /** 
               <h3 className="text-[var(--rb-navy)] font-bold mb-4 font-sans text-sm uppercase tracking-wider">All Service Areas We Cover</h3>
               <ul className="columns-2 sm:columns-3 gap-4 text-xs text-slate-500">
                 {FOOTER_SERVICE_AREAS.map((area) => (
-                  <li key={area.href}><a href={area.href} className="hover:text-[var(--rb-orange)] transition-colors block py-1.5">{area.label}</a></li>
+                  <li key={area.href}><a href={area.href} className="hover:text-[var(--rb-orange-text)] transition-colors block py-1.5">{area.label}</a></li>
                 ))}
-                <li><Link href="/service-areas" className="font-semibold text-[var(--rb-orange)] hover:text-[var(--rb-orange-dark)] transition-colors block py-1.5">View All Areas →</Link></li>
+                <li><Link href="/service-areas" className="font-semibold text-[var(--rb-orange-text)] hover:text-[var(--rb-orange-dark)] transition-colors block py-1.5">View All Areas →</Link></li>
               </ul>
             </div>
           </div>
@@ -568,9 +570,9 @@ export function Layout({ children, cityName }: { children: React.ReactNode; /** 
           <div className="pt-8 pb-20 border-t border-slate-200 mt-4 flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-xs text-slate-500">&copy; {new Date().getFullYear()} {COMPANY_FULL}. All rights reserved.</p>
             <div className="flex items-center gap-4 text-slate-500">
-              <a href="https://www.youtube.com/@bernardinomartinhvac" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--rb-orange)] transition-colors" aria-label="YouTube" data-testid="link-youtube"><Youtube className="h-5 w-5" /></a>
-              <a href="https://www.instagram.com/bernardinomartinsolar/" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--rb-orange)] transition-colors" aria-label="Instagram" data-testid="link-instagram"><Instagram className="h-5 w-5" /></a>
-              <a href="https://www.facebook.com/profile.php?id=61551460556076" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--rb-orange)] transition-colors" aria-label="Facebook" data-testid="link-facebook"><Facebook className="h-5 w-5" /></a>
+              <a href="https://www.youtube.com/@bernardinomartinhvac" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--rb-orange-text)] transition-colors" aria-label="YouTube" data-testid="link-youtube"><Youtube className="h-5 w-5" /></a>
+              <a href="https://www.instagram.com/bernardinomartinsolar/" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--rb-orange-text)] transition-colors" aria-label="Instagram" data-testid="link-instagram"><Instagram className="h-5 w-5" /></a>
+              <a href="https://www.facebook.com/profile.php?id=61551460556076" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--rb-orange-text)] transition-colors" aria-label="Facebook" data-testid="link-facebook"><Facebook className="h-5 w-5" /></a>
             </div>
           </div>
         </div>

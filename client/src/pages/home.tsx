@@ -38,6 +38,7 @@ import {
 import { Link } from "wouter";
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { trackEvent } from "@/hooks/use-analytics";
+import { useInView } from "@/hooks/use-in-view";
 
 const ServiceAreasMap = lazy(() => import("@/components/service-areas-map").then((m) => ({ default: m.ServiceAreasMap })));
 
@@ -105,9 +106,13 @@ function formatDuration(totalSeconds: number) {
   return `${m}:${s.toString().padStart(2, "0")}`;
 }
 
-function useVideoDuration(src: string) {
+function useVideoDuration(src: string | null) {
   const [duration, setDuration] = useState<number | null>(null);
   useEffect(() => {
+    if (!src) {
+      setDuration(null);
+      return;
+    }
     const probe = document.createElement("video");
     probe.preload = "metadata";
     probe.src = src;
@@ -181,7 +186,7 @@ function ServicesMarquee() {
                 </span>
               </span>
               <span className="flex items-center gap-2.5 p-5">
-                <tile.icon className="h-6 w-6 shrink-0 text-[var(--rb-orange)]" aria-hidden="true" />
+                <tile.icon className="h-6 w-6 shrink-0 text-[var(--rb-orange-text)]" aria-hidden="true" />
                 <span>
                   <span className="block text-base font-bold text-[var(--rb-navy)]">{tile.title}</span>
                   <span className="block text-sm text-slate-500">{tile.desc}</span>
@@ -234,7 +239,7 @@ function WorkGallery() {
       <div className="container mx-auto px-4">
         <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
           <div>
-            <p className="mb-2 text-xs font-bold uppercase tracking-[0.3em] text-[var(--rb-orange)]">Our Work Speaks For Itself</p>
+            <p className="mb-2 text-xs font-bold uppercase tracking-[0.3em] text-[var(--rb-orange-text)]">Our Work Speaks For Itself</p>
             <h2 className="font-sans text-3xl font-bold text-[var(--rb-navy)] md:text-4xl">Real Work. Real Homes. Real Results.</h2>
             <p className="mt-2 text-slate-500">Proudly caring for homes throughout Los Angeles.</p>
           </div>
@@ -272,7 +277,7 @@ function WorkGallery() {
             type="button"
             onClick={() => scrollBy(-1)}
             aria-label="Scroll gallery left"
-            className="absolute -left-4 top-1/2 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 shadow-md hover:text-[var(--rb-orange)] md:flex"
+            className="absolute -left-4 top-1/2 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 shadow-md hover:text-[var(--rb-orange-text)] md:flex"
           >
             <ChevronLeft className="h-5 w-5" aria-hidden="true" />
           </button>
@@ -280,7 +285,7 @@ function WorkGallery() {
             type="button"
             onClick={() => scrollBy(1)}
             aria-label="Scroll gallery right"
-            className="absolute -right-4 top-1/2 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 shadow-md hover:text-[var(--rb-orange)] md:flex"
+            className="absolute -right-4 top-1/2 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 shadow-md hover:text-[var(--rb-orange-text)] md:flex"
           >
             <ChevronRight className="h-5 w-5" aria-hidden="true" />
           </button>
@@ -296,7 +301,7 @@ function WorkGallery() {
             <div>
               <img src={lightbox.img} alt={lightbox.title} className="max-h-[60vh] w-full object-cover" />
               <div className="p-6">
-                <p className="text-xs font-bold uppercase tracking-wider text-[var(--rb-orange)]">{lightbox.location}</p>
+                <p className="text-xs font-bold uppercase tracking-wider text-[var(--rb-orange-text)]">{lightbox.location}</p>
                 <h3 className="mt-1 text-xl font-bold text-[var(--rb-navy)]">{lightbox.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-slate-600">{lightbox.desc}</p>
               </div>
@@ -315,16 +320,23 @@ function WorkGallery() {
     which was fighting against both the video content and the review list's own natural sizing. */
 function VideoShowcase() {
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
-  const activeDuration = useVideoDuration(activeVideo ?? REEL_VIDEOS[0].src);
+  const activeDuration = useVideoDuration(activeVideo);
 
   const [featured, setFeatured] = useState(0);
   const featuredVideo = REEL_VIDEOS[featured];
-  const featuredDuration = useVideoDuration(featuredVideo.src);
+  // Read duration off the real player's own metadata instead of fetching the same file a
+  // second time through a hidden probe element — this section was showing up in network
+  // audits as 3-4x duplicate fetches of the same video for exactly that reason.
+  const [featuredDuration, setFeaturedDuration] = useState<number | null>(null);
 
   const [lightboxPhoto, setLightboxPhoto] = useState<(typeof SIDE_PHOTOS)[number] | null>(null);
 
+  // This section sits well below the fold — don't fetch or autoplay its video until a visitor
+  // actually scrolls to it, same as every other autoplay video on the site.
+  const { ref: sectionRef, inView } = useInView<HTMLElement>(0.1);
+
   return (
-    <section id="see-us-in-action" className="bg-[var(--rb-navy)] py-20">
+    <section id="see-us-in-action" ref={sectionRef} className="bg-[var(--rb-navy)] py-20">
       <div className="container mx-auto px-4">
         <div className="mx-auto mb-8 max-w-2xl text-center">
           <p className="mb-2 text-xs font-bold uppercase tracking-[0.3em] text-[var(--rb-orange)]">The Bernardino Difference</p>
@@ -359,16 +371,20 @@ function VideoShowcase() {
                 audio and controls (autoplay-with-sound from page load would just get blocked by
                 the browser anyway). */}
             <div className="group relative block aspect-[16/9] w-full overflow-hidden rounded-2xl bg-black shadow-2xl">
-              <video
-                key={featuredVideo.src}
-                autoPlay
-                muted
-                playsInline
-                className="h-full w-full object-cover"
-                onEnded={() => setFeatured((f) => (f + 1) % REEL_VIDEOS.length)}
-              >
-                <source src={featuredVideo.src} type="video/mp4" />
-              </video>
+              {inView && (
+                <video
+                  key={featuredVideo.src}
+                  autoPlay
+                  muted
+                  playsInline
+                  aria-hidden="true"
+                  className="h-full w-full object-cover"
+                  onEnded={() => setFeatured((f) => (f + 1) % REEL_VIDEOS.length)}
+                  onLoadedMetadata={(e) => setFeaturedDuration(e.currentTarget.duration)}
+                >
+                  <source src={featuredVideo.src} type="video/mp4" />
+                </video>
+              )}
               <button
                 type="button"
                 onClick={() => setActiveVideo(featuredVideo.src)}
@@ -723,7 +739,7 @@ export default function Home() {
         {/* ══════════ SEASONAL / OFFERS / ESTIMATE ══════════ */}
         <section className="grid grid-cols-1 bg-white lg:grid-cols-3">
           <div className="flex min-h-[420px] flex-col justify-center border-b border-slate-100 p-8 sm:p-10 lg:border-b-0 lg:border-r">
-            <p className="mb-2 text-xs font-bold uppercase tracking-[0.3em] text-[var(--rb-orange)]">Year-Round Care</p>
+            <p className="mb-2 text-xs font-bold uppercase tracking-[0.3em] text-[var(--rb-orange-text)]">Year-Round Care</p>
             <h3 className="font-sans text-xl font-bold text-[var(--rb-navy)]">Seasonal Services</h3>
             <p className="mt-1 text-sm text-slate-500">We've got you covered year-round.</p>
             <div className="mt-8 grid grid-cols-2 gap-5">
@@ -741,7 +757,7 @@ export default function Home() {
 
           <div className="flex min-h-[420px] flex-col justify-center border-b border-slate-100 p-8 sm:p-10 lg:border-b-0 lg:border-r">
             <img src="/images/rebrand/icon-offers.webp" alt="" aria-hidden="true" loading="lazy" className="mb-4 h-12 w-12 object-contain" />
-            <p className="mb-1 text-xs font-bold uppercase tracking-[0.3em] text-[var(--rb-orange)]">Limited Time</p>
+            <p className="mb-1 text-xs font-bold uppercase tracking-[0.3em] text-[var(--rb-orange-text)]">Limited Time</p>
             <h3 className="font-sans text-xl font-bold text-[var(--rb-navy)]">Special Offers</h3>
             <p className="mt-1 text-sm text-slate-500">Fresh offers and seasonal savings for the care your home needs today.</p>
             <div className="mt-8 flex items-center gap-6">
@@ -759,12 +775,12 @@ export default function Home() {
             <div className="mb-5 flex items-center justify-center rounded-xl bg-slate-50 p-3">
               <img src="/images/rebrand/promo-online-booking.webp" alt="Easy online booking" loading="lazy" decoding="async" className="h-44 w-auto object-contain" />
             </div>
-            <p className="mb-1 text-xs font-bold uppercase tracking-[0.3em] text-[var(--rb-orange)]">Let's Get Started</p>
+            <p className="mb-1 text-xs font-bold uppercase tracking-[0.3em] text-[var(--rb-orange-text)]">Let's Get Started</p>
             <h3 className="font-sans text-xl font-bold text-[var(--rb-navy)]">Get a Free Estimate</h3>
             <ul className="mt-3 space-y-1.5 text-sm text-slate-600">
               {["Quick, friendly response", "No obligation, ever", "Tailored to your home"].map((item) => (
                 <li key={item} className="flex items-center gap-2">
-                  <ShieldCheck className="h-4 w-4 shrink-0 text-[var(--rb-orange)]" aria-hidden="true" />
+                  <ShieldCheck className="h-4 w-4 shrink-0 text-[var(--rb-orange-text)]" aria-hidden="true" />
                   {item}
                 </li>
               ))}
@@ -801,7 +817,7 @@ export default function Home() {
                     "15% off all repairs and parts",
                   ].map((item) => (
                     <li key={item} className="flex items-start gap-3">
-                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-[var(--rb-orange)]" aria-hidden="true" />
+                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-[var(--rb-orange-text)]" aria-hidden="true" />
                       <span className="text-sm text-slate-600">{item}</span>
                     </li>
                   ))}
@@ -873,7 +889,7 @@ export default function Home() {
         <section className="bg-white py-16">
           <div className="container mx-auto max-w-3xl px-4">
             <div className="mb-8 text-center" data-aos="fade-up">
-              <p className="mb-2 text-xs font-bold uppercase tracking-[0.3em] text-[var(--rb-orange)]">Good to Know</p>
+              <p className="mb-2 text-xs font-bold uppercase tracking-[0.3em] text-[var(--rb-orange-text)]">Good to Know</p>
               <h2 className="font-sans text-3xl font-bold text-[var(--rb-navy)]">Frequently Asked Questions</h2>
             </div>
             <div className="space-y-3" data-aos="fade-up">
@@ -911,7 +927,7 @@ export default function Home() {
               ].map((stat) => (
                 <div key={stat.title} className="flex items-center gap-3.5 text-left">
                   <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-orange-50">
-                    <stat.icon className="h-6 w-6 text-[var(--rb-orange)]" aria-hidden="true" />
+                    <stat.icon className="h-6 w-6 text-[var(--rb-orange-text)]" aria-hidden="true" />
                   </span>
                   <div>
                     <p className="text-base font-bold text-[var(--rb-navy)]">{stat.title}</p>
@@ -921,7 +937,7 @@ export default function Home() {
               ))}
             </div>
             <p className="mt-10 flex items-center justify-center gap-3 whitespace-nowrap font-serif text-2xl italic text-slate-400 sm:text-3xl md:text-4xl">
-              Building Better Homes Together <Heart className="h-6 w-6 shrink-0 fill-current text-[var(--rb-orange)] sm:h-7 sm:w-7" aria-hidden="true" />
+              Building Better Homes Together <Heart className="h-6 w-6 shrink-0 fill-current text-[var(--rb-orange-text)] sm:h-7 sm:w-7" aria-hidden="true" />
             </p>
           </div>
         </section>

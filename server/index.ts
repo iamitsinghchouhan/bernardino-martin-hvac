@@ -302,6 +302,26 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     console.warn("Could not read index.html for server-side SEO injection:", err);
   }
 
+  // Must come BEFORE express.static below: static's default dotfiles:"ignore" behavior sends
+  // its own 404 for any path with a dot-prefixed segment (like /.well-known/...) and that
+  // response ends the middleware chain right there — registered after it, this handler would
+  // simply never run.
+  app.use((req, res, next) => {
+    if (req.method === "GET" && req.path === "/.well-known/ard.json") {
+      // sendFile has its own separate dotfiles:"ignore" default (same underlying `send`
+      // package as express.static) and silently 404s a dot-segment path without passing an
+      // error to the callback — hence the explicit override here.
+      return res.type("application/json").sendFile(
+        path.join(distPath, ".well-known", "ard.json"),
+        { dotfiles: "allow" },
+        (err) => {
+          if (err) next(err);
+        },
+      );
+    }
+    next();
+  });
+
   app.use(
     express.static(distPath, {
       maxAge: "1d",
@@ -310,7 +330,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
           res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
         } else if (filePath.match(/\.(js|css|json)$/)) {
           res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
-        } else if (filePath.match(/\.(png|jpg|jpeg|webp|svg|mp4|webm)$/)) {
+        } else if (filePath.match(/\.(png|jpg|jpeg|webp|svg|mp4|webm|woff2?|ttf)$/)) {
           res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
         }
       },

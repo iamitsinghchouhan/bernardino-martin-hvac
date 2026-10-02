@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { CITIES, CITY_PAGE_LINKS } from "@/lib/constants";
 import allCities from "@/data/cities/all-cities";
 import type { CityData } from "@/data/cities/types";
@@ -91,14 +91,35 @@ function popupContent(cityName: string, data: CityData | undefined, pageUrl: str
 }
 
 export function ServiceAreasMap() {
+  const wrapperRef = useRef<HTMLDivElement>(null);
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<google.maps.Map | null>(null);
   const markersRef = useRef<google.maps.Marker[]>([]);
   const infoWindowRef = useRef<google.maps.InfoWindow | null>(null);
   const selectedMarkerRef = useRef<google.maps.Marker | null>(null);
 
+  // The Google Maps JS API costs ~150-190 KiB plus real main-thread time, paid on every
+  // homepage load regardless of whether a visitor ever scrolls this far — only start loading
+  // it once the map is actually about to enter the viewport.
+  const [shouldLoad, setShouldLoad] = useState(false);
   useEffect(() => {
-    if (!mapContainer.current) return;
+    const el = wrapperRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldLoad(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "400px" },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!shouldLoad || !mapContainer.current) return;
 
     const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
@@ -219,10 +240,10 @@ export function ServiceAreasMap() {
     return () => {
       // Don't remove markers on unmount - they're tied to the map instance
     };
-  }, []);
+  }, [shouldLoad]);
 
   return (
-    <div className="mb-20 relative w-full max-w-5xl mx-auto h-[400px] md:h-[500px] rounded-3xl overflow-hidden shadow-xl border border-slate-200">
+    <div ref={wrapperRef} className="mb-20 relative w-full max-w-5xl mx-auto h-[400px] md:h-[500px] rounded-3xl overflow-hidden shadow-xl border border-slate-200">
       <div
         ref={mapContainer}
         style={{ height: '100%', width: '100%' }}
