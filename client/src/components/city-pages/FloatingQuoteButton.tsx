@@ -30,7 +30,7 @@ export function FloatingQuoteButton({ onClick, label = "Get Instant Quote" }: Fl
     <button
       type="button"
       onClick={onClick}
-      className="fixed bottom-6 left-6 z-50 hidden animate-in fade-in items-center gap-2.5 rounded-full bg-[var(--rb-orange)] px-5 py-4 text-sm font-bold text-white shadow-[0_14px_30px_rgba(240,112,42,0.45)] transition-shadow duration-300 hover:shadow-[0_14px_38px_rgba(240,112,42,0.7)] md:flex"
+      className="fixed bottom-6 left-6 z-50 hidden animate-in fade-in items-center gap-2.5 rounded-full bg-[var(--rb-orange-dark)] px-5 py-4 text-sm font-bold text-white shadow-[0_14px_30px_rgba(240,112,42,0.45)] transition-shadow duration-300 hover:shadow-[0_14px_38px_rgba(240,112,42,0.7)] md:flex"
     >
       {label}
     </button>

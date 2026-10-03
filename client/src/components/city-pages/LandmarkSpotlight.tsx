@@ -9,7 +9,7 @@ export function LandmarkSpotlight({ landmarkPhoto, onImageClick }: { landmarkPho
   if (!landmarkPhoto) return null;
 
   return (
-    <section className="bg-[var(--rb-orange)] py-16 text-white">
+    <section className="bg-[var(--rb-orange-dark)] py-16 text-white">
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-6xl overflow-hidden rounded-3xl border border-white/10" data-aos="fade-up">
           <div

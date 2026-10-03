@@ -178,7 +178,7 @@ export function ChatWidget() {
         onClick={() => setIsOpen(!isOpen)}
         aria-label={isOpen ? "Close chat" : "Open chat"}
         aria-expanded={isOpen}
-        className={`fixed bottom-6 right-6 z-50 rounded-full h-14 w-14 shadow-2xl transition-all duration-300 ${isOpen ? 'rotate-90 bg-slate-800 hover:bg-slate-900' : 'bg-[var(--rb-orange)] hover:bg-[var(--rb-orange-dark)] animate-bounce-subtle'}`}
+        className={`fixed bottom-6 right-6 z-50 rounded-full h-14 w-14 shadow-2xl transition-all duration-300 ${isOpen ? 'rotate-90 bg-slate-800 hover:bg-slate-900' : 'bg-[var(--rb-orange-dark)] hover:bg-[var(--rb-orange-darker)] animate-bounce-subtle'}`}
       >
         {isOpen ? <X className="h-6 w-6" aria-hidden="true" /> : <MessageCircle className="h-7 w-7" aria-hidden="true" />}
       </Button>
@@ -255,7 +255,7 @@ export function ChatWidget() {
                 className="flex-1 bg-slate-50 border-slate-200 focus-visible:ring-primary"
                 aria-label="Chat message"
               />
-              <Button type="submit" size="icon" className="bg-[var(--rb-orange)] hover:bg-[var(--rb-orange-dark)]" aria-label="Send message">
+              <Button type="submit" size="icon" className="bg-[var(--rb-orange-dark)] hover:bg-[var(--rb-orange-darker)]" aria-label="Send message">
                 <Send className="h-4 w-4" aria-hidden="true" />
               </Button>
             </form>

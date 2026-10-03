@@ -56,7 +56,7 @@ export function BookIn60Seconds({ cityName, phone, phoneHref, onStartQuote }: Bo
           <button
             type="button"
             onClick={onStartQuote}
-            className="inline-flex items-center gap-2 rounded-lg bg-[var(--rb-orange)] px-6 py-3 text-sm font-bold text-white transition hover:brightness-95"
+            className="inline-flex items-center gap-2 rounded-lg bg-[var(--rb-orange-dark)] px-6 py-3 text-sm font-bold text-white transition hover:brightness-95"
           >
             Start My Quote →
           </button>

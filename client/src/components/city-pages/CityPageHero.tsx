@@ -77,7 +77,7 @@ export default function CityPageHero({ cityData, redesign = false, redesignV2 = 
     const titleAccent = titleParts.slice(-1)[0];
 
     return (
-      <section className="relative isolate flex min-h-[620px] items-end overflow-hidden bg-[var(--rb-orange)] text-white md:min-h-[760px]">
+      <section className="relative isolate flex min-h-[620px] items-end overflow-hidden bg-[var(--rb-orange-dark)] text-white md:min-h-[760px]">
         {saleOffer && <SaleSticker big={saleOffer.big} small={saleOffer.small} />}
         {hasRealVideo ? (
           <>
@@ -180,7 +180,7 @@ export default function CityPageHero({ cityData, redesign = false, redesignV2 = 
     }
 
     return (
-      <section className="relative isolate flex min-h-[640px] items-end overflow-hidden bg-[var(--rb-orange)] text-white md:min-h-[760px]">
+      <section className="relative isolate flex min-h-[640px] items-end overflow-hidden bg-[var(--rb-orange-dark)] text-white md:min-h-[760px]">
         {/* Slow cinematic zoom on the city's real photo — the page's visual anchor */}
         <img
           src={`/images/cities/${cityData.imageFile}`}

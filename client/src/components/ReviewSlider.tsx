@@ -92,7 +92,7 @@ export function ReviewSlider() {
                 {REAL_REVIEW_COUNT} Google Reviews
               </a>
             </div>
-            <Button size="lg" className="mt-6 bg-[var(--rb-orange)] hover:bg-[var(--rb-orange-dark)]" asChild>
+            <Button size="lg" className="mt-6 bg-[var(--rb-orange-dark)] hover:bg-[var(--rb-orange-darker)]" asChild>
               <Link href="/contact">
                 Work With Our Team
                 <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />

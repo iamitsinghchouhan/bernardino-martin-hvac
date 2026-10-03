@@ -361,7 +361,7 @@ export default function CityPageTemplate({ cityData, redesign = false, redesignV
                     </div>
                   </div>
                   <div
-                    className="flex items-center rounded-3xl bg-[var(--rb-orange)] p-8 text-white"
+                    className="flex items-center rounded-3xl bg-[var(--rb-orange-dark)] p-8 text-white"
                     data-aos="zoom-in"
                     data-aos-delay="150"
                   >

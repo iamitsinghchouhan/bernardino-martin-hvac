@@ -25,7 +25,7 @@ export function CityComfortClub({ cityName, onOpenQuote }: CityComfortClubProps)
             </div>
             <p className="mt-2 text-xs text-white/50">Billed annually at $228/year</p>
             <Button
-              className="mt-6 bg-[var(--rb-orange)] font-semibold hover:bg-[var(--rb-orange-dark)]"
+              className="mt-6 bg-[var(--rb-orange-dark)] font-semibold hover:bg-[var(--rb-orange-darker)]"
               onClick={() => onOpenQuote?.("hvac-maintenance")}
             >
               Join the Club

@@ -22,7 +22,7 @@ export function SecondHeroBanner({ imageSrc, imageAlt, heading, body, ctaLabel, 
         <button
           type="button"
           onClick={onCtaClick}
-          className="mt-5 inline-flex items-center gap-2 rounded-lg bg-[var(--rb-orange)] px-6 py-3 text-sm font-bold text-white transition hover:brightness-95"
+          className="mt-5 inline-flex items-center gap-2 rounded-lg bg-[var(--rb-orange-dark)] px-6 py-3 text-sm font-bold text-white transition hover:brightness-95"
         >
           {ctaLabel} →
         </button>

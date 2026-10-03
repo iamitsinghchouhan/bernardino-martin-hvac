@@ -38,7 +38,7 @@ export function CityGalleryShowcase({ cityName, images, onImageClick }: {
                 aria-pressed={i === active}
                 className={`rounded-full border px-5 py-2.5 text-sm font-semibold transition-colors ${
                   i === active
-                    ? "border-[var(--rb-orange)] bg-[var(--rb-orange)] text-white"
+                    ? "border-[var(--rb-orange)] bg-[var(--rb-orange-dark)] text-white"
                     : "border-slate-200 bg-white text-slate-700 hover:border-slate-400"
                 }`}
               >

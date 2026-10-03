@@ -182,7 +182,7 @@ export function Layout({ children, cityName }: { children: React.ReactNode; /** 
 
   return (
     <>
-    <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:z-[100] focus:top-2 focus:left-2 bg-[var(--rb-orange)] text-white px-4 py-2 rounded-md font-semibold">
+    <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:z-[100] focus:top-2 focus:left-2 bg-[var(--rb-orange-dark)] text-white px-4 py-2 rounded-md font-semibold">
       Skip to main content
     </a>
     <div className="rebrand flex flex-col min-h-screen font-sans">
@@ -325,7 +325,7 @@ export function Layout({ children, cityName }: { children: React.ReactNode; /** 
               <Phone className="h-4 w-4 text-[var(--rb-orange-text)]" aria-hidden="true" />
               <span className="text-lg font-black font-sans text-[var(--rb-navy)] group-hover:text-[var(--rb-orange-text)] transition-colors">{COMPANY_PHONE}</span>
             </a>
-            <Button size="lg" className="bg-[var(--rb-orange)] hover:bg-[var(--rb-orange-dark)] shadow-lg shadow-orange-500/20" asChild>
+            <Button size="lg" className="bg-[var(--rb-orange-dark)] hover:bg-[var(--rb-orange-darker)] shadow-lg shadow-orange-500/20" asChild>
               <Link href="/quote">
                 Get a Free Estimate
                 <ArrowRight className="ml-1.5 h-4 w-4" aria-hidden="true" />
@@ -336,7 +336,7 @@ export function Layout({ children, cityName }: { children: React.ReactNode; /** 
           {/* Mobile Menu */}
           <div className="flex items-center gap-2 lg:hidden">
              <a href={`tel:${COMPANY_PHONE.replace(/\D/g, '')}`} onClick={() => trackEvent("phone_click")} aria-label={`Call us at ${COMPANY_PHONE}`}>
-               <Button size="icon" variant="outline" className="rounded-full border-[var(--rb-orange)]/30 text-[var(--rb-orange-text)] hover:bg-[var(--rb-orange)]/10" aria-hidden="true" tabIndex={-1}>
+               <Button size="icon" variant="outline" className="rounded-full border-[var(--rb-orange)]/30 text-[var(--rb-orange-text)] hover:bg-[var(--rb-orange-dark)]/10" aria-hidden="true" tabIndex={-1}>
                  <Phone className="h-5 w-5" aria-hidden="true" />
                </Button>
              </a>
@@ -406,7 +406,7 @@ export function Layout({ children, cityName }: { children: React.ReactNode; /** 
                     );
                   })}
                   <div className="flex flex-col gap-3 mt-6">
-                    <Button size="lg" className="w-full bg-[var(--rb-orange)] hover:bg-[var(--rb-orange-dark)]" asChild>
+                    <Button size="lg" className="w-full bg-[var(--rb-orange-dark)] hover:bg-[var(--rb-orange-darker)]" asChild>
                       <Link href="/quote">Get a Free Estimate</Link>
                     </Button>
                     <Button size="lg" className="w-full bg-green-700 hover:bg-green-800 text-white border-0" asChild>
@@ -530,7 +530,7 @@ export function Layout({ children, cityName }: { children: React.ReactNode; /** 
                 <Button className="w-full bg-slate-100 hover:bg-slate-200 text-[var(--rb-navy)]" asChild>
                   <Link href="/payment">Pay Invoice Online</Link>
                 </Button>
-                <Button className="w-full bg-[var(--rb-orange)] hover:bg-[var(--rb-orange-dark)]" asChild>
+                <Button className="w-full bg-[var(--rb-orange-dark)] hover:bg-[var(--rb-orange-darker)]" asChild>
                   <Link href="/booking">Book Appointment</Link>
                 </Button>
                 <Button className="w-full bg-green-700 hover:bg-green-800 text-white border-0" asChild>

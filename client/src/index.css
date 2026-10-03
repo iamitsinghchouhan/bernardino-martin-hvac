@@ -281,10 +281,14 @@
   --rb-navy: #2e4a66;
   --rb-navy-light: #3d5f80;
   --rb-orange: #f0702a;
-  --rb-orange-dark: #d85f1e;
+  /* Measured: white text on --rb-orange is only 2.97:1 (fails WCAG AA's 4.5:1) — contrary to an
+     earlier assumption here. --rb-orange-dark is the real button/badge fill now (white text on
+     it measures 4.56:1); --rb-orange-darker is its hover/pressed state, darker still. --rb-orange
+     itself stays for non-text fills (icon chips, decorative borders) where contrast isn't scored. */
+  --rb-orange-dark: #c8500e;
+  --rb-orange-darker: #a8420c;
   /* Same orange hue, darkened just enough for small text to clear WCAG AA (4.5:1) on a white
-     background — --rb-orange itself stays untouched since it's mainly a button/badge fill,
-     where white-on-orange already has plenty of contrast. */
+     background. */
   --rb-orange-text: #c8500e;
   --rb-gold: #fdb022;
   --rb-gray: #52525b;

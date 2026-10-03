@@ -58,7 +58,7 @@ export function CityLifeEditorial({ cityData }: CityLifeEditorialProps) {
         </div>
       </div>
 
-      <div className="border-t border-white/10 bg-[var(--rb-orange)] py-20" data-aos="zoom-in">
+      <div className="border-t border-white/10 bg-[var(--rb-orange-dark)] py-20" data-aos="zoom-in">
         <div className="container mx-auto px-4">
           <p className="text-display mx-auto max-w-4xl text-center text-2xl leading-tight text-white md:text-4xl">
             {cityData.localLife.howWeHelp}
