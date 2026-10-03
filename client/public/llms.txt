@@ -43,3 +43,9 @@ Contact: (818) 400-0227 | martinsolarstar@gmail.com
 - [Book Online](/booking)
 - [Contact](/contact)
 - [Service Areas](/service-areas)
+
+## Notes for automated agents
+
+This site does not currently expose any agent-callable tools, APIs, or MCP endpoints — see
+/ai-catalog.json, which lists none. Booking and quote requests go through the web forms linked
+above; there is no programmatic booking API at this time.

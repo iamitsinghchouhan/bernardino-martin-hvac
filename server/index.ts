@@ -307,12 +307,15 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   // response ends the middleware chain right there — registered after it, this handler would
   // simply never run.
   app.use((req, res, next) => {
-    if (req.method === "GET" && req.path === "/.well-known/ard.json") {
+    // The real Agentic Resource Discovery fallback path (per the spec Lighthouse's ard-schema
+    // audit checks against) is /.well-known/ai-catalog.json — same filename as the root-level
+    // copy, just mirrored under .well-known/.
+    if (req.method === "GET" && req.path === "/.well-known/ai-catalog.json") {
       // sendFile has its own separate dotfiles:"ignore" default (same underlying `send`
       // package as express.static) and silently 404s a dot-segment path without passing an
       // error to the callback — hence the explicit override here.
       return res.type("application/json").sendFile(
-        path.join(distPath, ".well-known", "ard.json"),
+        path.join(distPath, ".well-known", "ai-catalog.json"),
         { dotfiles: "allow" },
         (err) => {
           if (err) next(err);
