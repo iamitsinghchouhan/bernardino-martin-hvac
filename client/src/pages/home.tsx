@@ -50,22 +50,22 @@ const HERO_TRUST = [
 ];
 
 const SERVICE_TILES = [
-  { title: "HVAC", desc: "Cooling & Heating", href: "/services/hvac-repair", img: "/images/rebrand/tile-hvac.webp", icon: Fan },
-  { title: "Solar", desc: "Energy Solutions", href: "/services/solar-install", img: "/images/rebrand/tile-solar.webp", icon: Sun },
-  { title: "Plumbing", desc: "Repairs & Installations", href: "/services/plumbing-general", img: "/images/rebrand/tile-plumbing.webp", icon: Droplets },
-  { title: "Electrical", desc: "Safe & Reliable", href: "/services/electrical-general", img: "/images/rebrand/tile-electrical.webp", icon: Zap },
-  { title: "Landscaping", desc: "Beautiful Outdoors", href: "/services/outdoor-landscaping", img: "/images/rebrand/tile-landscaping.webp", icon: TreePine },
-  { title: "Technology", desc: "Smart Home & Networking", href: "/services/tech-smarthome", img: "/images/services/network-smarthome.webp", icon: Wifi },
-  { title: "Home Cleaning", desc: "A Cleaner, Healthier Home", href: "/services/home-cleaning", img: "/images/rebrand/tile-cleaning.webp", icon: Sparkles },
-  { title: "Moving Help", desc: "Moving & Packing", href: "/services/moving-help", img: "/images/rebrand/tile-moving.webp", icon: Truck },
-  { title: "Handyman", desc: "General Home Help", href: "/services/handyman", img: "/images/rebrand/tile-handyman.webp", icon: Wrench },
+  { title: "HVAC", desc: "Cooling & Heating", href: "/services/hvac-repair", img: "/images/rebrand/tile-hvac.webp", w: 700, h: 467, icon: Fan },
+  { title: "Solar", desc: "Energy Solutions", href: "/services/solar-install", img: "/images/rebrand/tile-solar.webp", w: 700, h: 467, icon: Sun },
+  { title: "Plumbing", desc: "Repairs & Installations", href: "/services/plumbing-general", img: "/images/rebrand/tile-plumbing.webp", w: 1000, h: 667, icon: Droplets },
+  { title: "Electrical", desc: "Safe & Reliable", href: "/services/electrical-general", img: "/images/rebrand/tile-electrical.webp", w: 1000, h: 667, icon: Zap },
+  { title: "Landscaping", desc: "Beautiful Outdoors", href: "/services/outdoor-landscaping", img: "/images/rebrand/tile-landscaping.webp", w: 1000, h: 667, icon: TreePine },
+  { title: "Technology", desc: "Smart Home & Networking", href: "/services/tech-smarthome", img: "/images/services/network-smarthome.webp", w: 1536, h: 1024, icon: Wifi },
+  { title: "Home Cleaning", desc: "A Cleaner, Healthier Home", href: "/services/home-cleaning", img: "/images/rebrand/tile-cleaning.webp", w: 1448, h: 1086, icon: Sparkles },
+  { title: "Moving Help", desc: "Moving & Packing", href: "/services/moving-help", img: "/images/rebrand/tile-moving.webp", w: 1448, h: 1086, icon: Truck },
+  { title: "Handyman", desc: "General Home Help", href: "/services/handyman", img: "/images/rebrand/tile-handyman.webp", w: 1448, h: 1086, icon: Wrench },
 ];
 
 const SEASONS = [
-  { icon: "/images/rebrand/season-summer.webp", label: "Summer", desc: "AC Tune-Ups", href: "/services/hvac-maintenance" },
-  { icon: "/images/rebrand/season-fall.webp", label: "Fall", desc: "Home Prep", href: "/services/heating-gas-furnace" },
-  { icon: "/images/rebrand/season-winter.webp", label: "Winter", desc: "Heating & More", href: "/services/hvac-repair" },
-  { icon: "/images/rebrand/season-spring.webp", label: "Spring", desc: "Clean & Refresh", href: "/services/outdoor-irrigation" },
+  { icon: "/images/rebrand/season-summer.webp", w: 260, h: 257, label: "Summer", desc: "AC Tune-Ups", href: "/services/hvac-maintenance" },
+  { icon: "/images/rebrand/season-fall.webp", w: 260, h: 248, label: "Fall", desc: "Home Prep", href: "/services/heating-gas-furnace" },
+  { icon: "/images/rebrand/season-winter.webp", w: 300, h: 293, label: "Winter", desc: "Heating & More", href: "/services/hvac-repair" },
+  { icon: "/images/rebrand/season-spring.webp", w: 300, h: 200, label: "Spring", desc: "Clean & Refresh", href: "/services/outdoor-irrigation" },
 ];
 
 const FAQS = [
@@ -76,28 +76,28 @@ const FAQS = [
 ];
 
 const GALLERY_ITEMS = [
-  { title: "Solar Installation", location: "Los Angeles, CA", img: "/images/rebrand/gallery-solar-install.webp", desc: "Rooftop solar panel installation for a Los Angeles home." },
-  { title: "Solar Maintenance", location: "Los Angeles, CA", img: "/images/rebrand/gallery-solar-maintenance.webp", desc: "Professional solar panel cleaning to keep energy output at its peak." },
-  { title: "Landscape Design", location: "Los Angeles, CA", img: "/images/rebrand/gallery-landscape.webp", desc: "Full landscape and hardscape design for a Los Angeles property." },
-  { title: "Mini-Split Service", location: "Los Angeles, CA", img: "/images/rebrand/gallery-minisplit.webp", desc: "Ductless mini-split maintenance and service for year-round comfort." },
-  { title: "Smart Network Install", location: "Los Angeles, CA", img: "/images/services/smart-network-solutions.webp", desc: "Structured wiring and network cabinet installation for a smart home." },
-  { title: "Smart Irrigation", location: "Los Angeles, CA", img: "/images/rebrand/gallery-irrigation.webp", desc: "Solar-powered smart irrigation controller setup for efficient watering." },
+  { title: "Solar Installation", location: "Los Angeles, CA", img: "/images/rebrand/gallery-solar-install.webp", w: 1000, h: 747, desc: "Rooftop solar panel installation for a Los Angeles home." },
+  { title: "Solar Maintenance", location: "Los Angeles, CA", img: "/images/rebrand/gallery-solar-maintenance.webp", w: 1000, h: 747, desc: "Professional solar panel cleaning to keep energy output at its peak." },
+  { title: "Landscape Design", location: "Los Angeles, CA", img: "/images/rebrand/gallery-landscape.webp", w: 950, h: 535, desc: "Full landscape and hardscape design for a Los Angeles property." },
+  { title: "Mini-Split Service", location: "Los Angeles, CA", img: "/images/rebrand/gallery-minisplit.webp", w: 950, h: 535, desc: "Ductless mini-split maintenance and service for year-round comfort." },
+  { title: "Smart Network Install", location: "Los Angeles, CA", img: "/images/services/smart-network-solutions.webp", w: 1536, h: 1024, desc: "Structured wiring and network cabinet installation for a smart home." },
+  { title: "Smart Irrigation", location: "Los Angeles, CA", img: "/images/rebrand/gallery-irrigation.webp", w: 1200, h: 896, desc: "Solar-powered smart irrigation controller setup for efficient watering." },
 ];
 
 const SIDE_PHOTOS = [
-  { src: "/images/rebrand/mood-living-room.webp", alt: "Comfortable living room" },
-  { src: "/images/rebrand/mood-backyard.webp", alt: "Landscaped backyard" },
-  { src: "/images/rebrand/mood-electrical-panel.webp", alt: "Electrical panel service" },
-  { src: "/images/rebrand/mood-bathroom.webp", alt: "Bathroom remodel" },
-  { src: "/images/rebrand/mood-backyard-evening.webp", alt: "Backyard patio in the evening" },
-  { src: "/images/rebrand/mood-solar-roof.webp", alt: "Solar panels on a rooftop" },
+  { src: "/images/rebrand/mood-living-room.webp", alt: "Comfortable living room", w: 700, h: 467 },
+  { src: "/images/rebrand/mood-backyard.webp", alt: "Landscaped backyard", w: 667, h: 500 },
+  { src: "/images/rebrand/mood-electrical-panel.webp", alt: "Electrical panel service", w: 700, h: 467 },
+  { src: "/images/rebrand/mood-bathroom.webp", alt: "Bathroom remodel", w: 700, h: 467 },
+  { src: "/images/rebrand/mood-backyard-evening.webp", alt: "Backyard patio in the evening", w: 700, h: 467 },
+  { src: "/images/rebrand/mood-solar-roof.webp", alt: "Solar panels on a rooftop", w: 700, h: 467 },
 ];
 
 const REEL_VIDEOS = [
-  { src: "/videos/reel-hvac-family.mp4", label: "Home Comfort", thumb: "/images/rebrand/tile-electrical.webp" },
-  { src: "/videos/reel-ac-inspect.mp4", label: "AC Inspection", thumb: "/images/rebrand/tile-hvac.webp" },
-  { src: "/videos/reel-ac-condenser-circle.mp4", label: "Condenser Service", thumb: "/images/rebrand/tile-plumbing.webp" },
-  { src: "/videos/solar-irrigation-real.mp4", label: "Solar Irrigation", thumb: "/images/rebrand/thumb-solar-irrigation.webp" },
+  { src: "/videos/reel-hvac-family.mp4", label: "Home Comfort", thumb: "/images/rebrand/tile-electrical.webp", thumbW: 1000, thumbH: 667 },
+  { src: "/videos/reel-ac-inspect.mp4", label: "AC Inspection", thumb: "/images/rebrand/tile-hvac.webp", thumbW: 700, thumbH: 467 },
+  { src: "/videos/reel-ac-condenser-circle.mp4", label: "Condenser Service", thumb: "/images/rebrand/tile-plumbing.webp", thumbW: 1000, thumbH: 667 },
+  { src: "/videos/solar-irrigation-real.mp4", label: "Solar Irrigation", thumb: "/images/rebrand/thumb-solar-irrigation.webp", thumbW: 320, thumbH: 180 },
 ];
 
 function formatDuration(totalSeconds: number) {
@@ -141,9 +141,12 @@ function ServicesMarquee() {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const el = scrollerRef.current;
     if (!el) return;
+    // Read once, outside the loop — re-reading scrollWidth every 40ms forces a synchronous
+    // layout flush on each tick (Lighthouse's forced-reflow-insight flagged this exact loop).
+    // The strip's content width is static, so one read after mount is all this ever needs.
+    const halfway = el.scrollWidth / 2;
     const id = window.setInterval(() => {
       if (pausedRef.current) return;
-      const halfway = el.scrollWidth / 2;
       if (el.scrollLeft >= halfway) {
         el.scrollLeft -= halfway;
       } else {
@@ -179,7 +182,7 @@ function ServicesMarquee() {
               className="group/tile w-80 shrink-0 overflow-hidden rounded-2xl border border-slate-100 bg-white text-left shadow-sm transition-shadow hover:shadow-lg"
             >
               <span className="relative block h-80 w-full overflow-hidden">
-                <img src={tile.img} alt="" aria-hidden="true" loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-500 group-hover/tile:scale-105" />
+                <img src={tile.img} alt="" aria-hidden="true" loading="lazy" decoding="async" width={tile.w} height={tile.h} className="h-full w-full object-cover transition-transform duration-500 group-hover/tile:scale-105" />
                 <span className="absolute inset-0 bg-black/0 transition-colors group-hover/tile:bg-black/20" />
                 <span className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 opacity-0 shadow transition-opacity group-hover/tile:opacity-100">
                   <Maximize2 className="h-4 w-4 text-slate-900" aria-hidden="true" />
@@ -204,13 +207,13 @@ function ServicesMarquee() {
           </VisuallyHidden>
           {active && (
             <div>
-              <img src={active.img} alt={active.title} className="max-h-[55vh] w-full object-cover" />
+              <img src={active.img} alt={active.title} width={active.w} height={active.h} className="max-h-[55vh] w-full object-cover" />
               <div className="flex flex-col items-start gap-4 p-6 sm:flex-row sm:items-center sm:justify-between">
                 <div>
                   <h3 className="text-xl font-bold text-[var(--rb-navy)]">{active.title}</h3>
                   <p className="mt-1 text-sm text-slate-500">{active.desc}</p>
                 </div>
-                <Button className="bg-[var(--rb-orange)] hover:bg-[var(--rb-orange-dark)]" asChild>
+                <Button className="bg-[var(--rb-orange-dark)] hover:bg-[var(--rb-orange-darker)]" asChild>
                   <Link href={active.href}>
                     View Service Page
                     <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
@@ -259,9 +262,8 @@ function WorkGallery() {
                 type="button"
                 onClick={() => setLightbox(item)}
                 className="group relative h-64 w-72 shrink-0 snap-start overflow-hidden rounded-2xl shadow-sm"
-                aria-label={`View project: ${item.title}`}
               >
-                <img src={item.img} alt={item.title} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                <img src={item.img} alt={item.title} loading="lazy" decoding="async" width={item.w} height={item.h} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/15 to-transparent" />
                 <span className="absolute bottom-3 left-3">
                   <span className="block text-xs font-bold uppercase tracking-wider text-white">{item.title}</span>
@@ -299,7 +301,7 @@ function WorkGallery() {
           </VisuallyHidden>
           {lightbox && (
             <div>
-              <img src={lightbox.img} alt={lightbox.title} className="max-h-[60vh] w-full object-cover" />
+              <img src={lightbox.img} alt={lightbox.title} width={lightbox.w} height={lightbox.h} className="max-h-[60vh] w-full object-cover" />
               <div className="p-6">
                 <p className="text-xs font-bold uppercase tracking-wider text-[var(--rb-orange-text)]">{lightbox.location}</p>
                 <h3 className="mt-1 text-xl font-bold text-[var(--rb-navy)]">{lightbox.title}</h3>
@@ -339,7 +341,7 @@ function VideoShowcase() {
     <section id="see-us-in-action" ref={sectionRef} className="bg-[var(--rb-navy)] py-20">
       <div className="container mx-auto px-4">
         <div className="mx-auto mb-8 max-w-2xl text-center">
-          <p className="mb-2 text-xs font-bold uppercase tracking-[0.3em] text-[var(--rb-orange)]">The Bernardino Difference</p>
+          <p className="mb-2 text-xs font-bold uppercase tracking-[0.3em] text-white">The Bernardino Difference</p>
           <h2 className="font-sans text-3xl font-bold text-white sm:text-4xl">See Us in Action</h2>
           <p className="mt-2 text-white/70">Meet the people, see the projects, and discover why homeowners keep us on speed dial.</p>
           <Button size="lg" className="mt-5 bg-white text-[var(--rb-navy)] hover:bg-white/90" onClick={() => setActiveVideo(featuredVideo.src)}>
@@ -356,7 +358,7 @@ function VideoShowcase() {
           <div className="hidden lg:flex lg:flex-col">
             {SIDE_PHOTOS.slice(0, 3).map((p) => (
               <button key={p.src} type="button" onClick={() => setLightboxPhoto(p)} className="group relative min-h-0 flex-1 overflow-hidden" aria-label={`View full-screen: ${p.alt}`}>
-                <img src={p.src} alt={p.alt} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" />
+                <img src={p.src} alt={p.alt} loading="lazy" decoding="async" width={p.w} height={p.h} className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" />
                 <span className="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors group-hover:bg-black/30">
                   <Maximize2 className="h-5 w-5 text-white opacity-0 transition-opacity group-hover:opacity-100" aria-hidden="true" />
                 </span>
@@ -413,7 +415,7 @@ function VideoShowcase() {
                   aria-label={`Preview ${v.label} video`}
                   className={`group relative aspect-video overflow-hidden rounded-xl ring-2 transition-all ${i === featured ? "ring-[var(--rb-orange)]" : "ring-transparent hover:ring-white/40"}`}
                 >
-                  <img src={v.thumb} alt="" aria-hidden="true" loading="lazy" decoding="async" className="h-full w-full object-cover" />
+                  <img src={v.thumb} alt="" aria-hidden="true" loading="lazy" decoding="async" width={v.thumbW} height={v.thumbH} className="h-full w-full object-cover" />
                   {i !== featured && <span className="absolute inset-0 bg-black/35 transition-colors group-hover:bg-black/15" />}
                   <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent px-2 py-1.5 text-left text-[11px] font-bold text-white">
                     {v.label}
@@ -426,7 +428,7 @@ function VideoShowcase() {
           <div className="hidden lg:flex lg:flex-col">
             {SIDE_PHOTOS.slice(3, 6).map((p) => (
               <button key={p.src} type="button" onClick={() => setLightboxPhoto(p)} className="group relative min-h-0 flex-1 overflow-hidden" aria-label={`View full-screen: ${p.alt}`}>
-                <img src={p.src} alt={p.alt} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" />
+                <img src={p.src} alt={p.alt} loading="lazy" decoding="async" width={p.w} height={p.h} className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" />
                 <span className="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors group-hover:bg-black/30">
                   <Maximize2 className="h-5 w-5 text-white opacity-0 transition-opacity group-hover:opacity-100" aria-hidden="true" />
                 </span>
@@ -442,7 +444,7 @@ function VideoShowcase() {
             <DialogTitle>{lightboxPhoto?.alt}</DialogTitle>
           </VisuallyHidden>
           {lightboxPhoto && (
-            <img src={lightboxPhoto.src} alt={lightboxPhoto.alt} className="max-h-[85vh] w-full object-contain" />
+            <img src={lightboxPhoto.src} alt={lightboxPhoto.alt} width={lightboxPhoto.w} height={lightboxPhoto.h} className="max-h-[85vh] w-full object-contain" />
           )}
         </DialogContent>
       </Dialog>
@@ -473,7 +475,6 @@ function VideoShowcase() {
 
 export default function Home() {
   const heroVideoRef = useRef<HTMLVideoElement>(null);
-  const [videoReady, setVideoReady] = useState(false);
   const [isHeroMuted, setIsHeroMuted] = useState(true);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
@@ -491,29 +492,25 @@ export default function Home() {
       video.muted = false;
       video
         .play()
-        .then(() => { if (!cancelled) { setVideoReady(true); setIsHeroMuted(false); } })
+        .then(() => { if (!cancelled) setIsHeroMuted(false); })
         .catch(() => {
           if (cancelled || !video) return;
           video.muted = true;
-          video
-            .play()
-            .then(() => { if (!cancelled) { setVideoReady(true); setIsHeroMuted(true); } })
-            .catch(() => {});
+          video.play().catch(() => {});
         });
     };
 
-    const schedule = () => {
-      const ric: (cb: () => void) => void =
-        (window as any).requestIdleCallback || ((cb: () => void) => window.setTimeout(cb, 1500));
-      ric(startVideo);
-    };
-
-    if (document.readyState === "complete") schedule();
-    else window.addEventListener("load", schedule, { once: true });
+    // preload="none" means nothing fetches until play() is called — so there's no bandwidth
+    // saved by waiting here, only a delay to when the (inevitable) fetch starts. This used to
+    // wait for the window "load" event and then an additional requestIdleCallback (or a 1500ms
+    // fallback), which under throttled/variable conditions sometimes pushed the video's first
+    // real frame late enough to get picked up as a later Largest Contentful Paint, making the
+    // score swing between a 2s-ish LCP and a 6s+ one run to run. Starting right away removes
+    // that variance.
+    startVideo();
 
     return () => {
       cancelled = true;
-      window.removeEventListener("load", schedule);
     };
   }, []);
 
@@ -551,6 +548,8 @@ export default function Home() {
             aria-hidden="true"
             fetchPriority="high"
             decoding="async"
+            width={1800}
+            height={640}
             className="absolute inset-0 h-full w-full object-cover"
           />
           <video
@@ -560,11 +559,20 @@ export default function Home() {
             playsInline
             preload="none"
             poster="/images/rebrand/hero-redesign.webp"
-            className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${videoReady ? "opacity-100" : "opacity-0"}`}
+            // No opacity fade here: the sibling <img> right below already shows this exact
+            // frame immediately (and so does the video's own poster), so there's nothing to
+            // crossfade from. Gating this behind a `play()`-resolved state used to mean the
+            // video's "final" paint — and so Largest Contentful Paint — didn't settle until
+            // the async autoplay chain finished, which made LCP swing wildly (2s–6s+) run to
+            // run depending on how long requestIdleCallback took to fire.
+            className="absolute inset-0 h-full w-full object-cover"
             aria-hidden="true"
           >
             <source src="/videos/hero-redesign.mp4" type="video/mp4" />
           </video>
+          {/* Gradient scrim so hero text/buttons stay readable regardless of the video frame
+              behind them — text-shadow alone isn't reliable against bright/high-key frames. */}
+          <div className="absolute inset-0 z-[5] bg-gradient-to-r from-black/70 via-black/35 to-transparent" aria-hidden="true" />
           <button
             type="button"
             onClick={toggleHeroMute}
@@ -578,8 +586,6 @@ export default function Home() {
             )}
           </button>
           <div className="relative z-10 container mx-auto px-4 py-20 sm:py-28">
-            {/* No darkening scrim on the video itself (kept clear, per request) — legibility
-                comes from a text-shadow on the copy instead, which inherits to every child here. */}
             <div className="max-w-xl text-shadow-hero">
               <h1 className="text-display text-4xl leading-[1.05] sm:text-6xl">
                 <span className="block text-white">Your Home.</span>
@@ -593,7 +599,7 @@ export default function Home() {
               </p>
 
               <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-                <Button size="lg" className="h-13 bg-[var(--rb-orange)] px-7 font-bold hover:bg-[var(--rb-orange-dark)]" asChild>
+                <Button size="lg" className="h-13 bg-[var(--rb-orange-dark)] px-7 font-bold hover:bg-[var(--rb-orange-darker)]" asChild>
                   <Link href="/quote">
                     Get a Free Estimate
                     <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
@@ -626,7 +632,7 @@ export default function Home() {
             className="group absolute bottom-6 right-6 z-10 hidden items-center gap-3 rounded-full bg-black/35 py-2 pl-2 pr-5 shadow-lg ring-1 ring-white/25 backdrop-blur-md transition-all hover:bg-black/50 hover:ring-white/40 sm:flex"
             aria-label="See our work in action"
           >
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--rb-orange)] shadow-md transition-transform group-hover:scale-110">
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--rb-orange-dark)] shadow-md transition-transform group-hover:scale-110">
               <Play className="ml-0.5 h-4 w-4 fill-white text-white" aria-hidden="true" />
             </span>
             <span className="whitespace-nowrap text-sm font-bold text-white">See Our Work in Action</span>
@@ -697,13 +703,15 @@ export default function Home() {
                   aria-hidden="true"
                   loading="lazy"
                   decoding="async"
+                  width={900}
+                  height={449}
                   style={{ objectPosition: "88% center" }}
                   className="absolute inset-0 h-full w-full object-cover"
                 />
                 <div className="relative z-10 bg-gradient-to-r from-[var(--rb-navy)] via-[var(--rb-navy)]/95 to-transparent p-6">
                   <h3 className="font-sans text-base font-bold text-white">Need Help Now?</h3>
                   <a href={`tel:${COMPANY_PHONE.replace(/\D/g, "")}`} onClick={() => trackEvent("phone_click")} className="mt-3 flex items-center gap-2 text-lg font-black text-white hover:text-[var(--rb-orange)] transition-colors">
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--rb-orange)]">
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--rb-orange-dark)]">
                       <Phone className="h-4 w-4 text-white" aria-hidden="true" />
                     </span>
                     {COMPANY_PHONE}
@@ -746,7 +754,7 @@ export default function Home() {
               {SEASONS.map((s) => (
                 <Link key={s.label} href={s.href} className="group flex flex-col items-center text-center">
                   <span className="mb-2.5 flex h-20 w-20 items-center justify-center overflow-hidden rounded-full border border-slate-100 bg-white shadow-sm transition-transform group-hover:scale-105">
-                    <img src={s.icon} alt="" aria-hidden="true" loading="lazy" className="h-[130%] w-[130%] object-cover" />
+                    <img src={s.icon} alt="" aria-hidden="true" loading="lazy" width={s.w} height={s.h} className="h-[130%] w-[130%] object-cover" />
                   </span>
                   <span className="text-sm font-bold text-[var(--rb-navy)]">{s.label}</span>
                   <span className="text-xs leading-tight text-slate-500">{s.desc}</span>
@@ -756,24 +764,24 @@ export default function Home() {
           </div>
 
           <div className="flex min-h-[420px] flex-col justify-center border-b border-slate-100 p-8 sm:p-10 lg:border-b-0 lg:border-r">
-            <img src="/images/rebrand/icon-offers.webp" alt="" aria-hidden="true" loading="lazy" className="mb-4 h-12 w-12 object-contain" />
+            <img src="/images/rebrand/icon-offers.webp" alt="" aria-hidden="true" loading="lazy" width={160} height={144} className="mb-4 h-12 w-12 object-contain" />
             <p className="mb-1 text-xs font-bold uppercase tracking-[0.3em] text-[var(--rb-orange-text)]">Limited Time</p>
             <h3 className="font-sans text-xl font-bold text-[var(--rb-navy)]">Special Offers</h3>
             <p className="mt-1 text-sm text-slate-500">Fresh offers and seasonal savings for the care your home needs today.</p>
             <div className="mt-8 flex items-center gap-6">
-              <Button className="bg-[var(--rb-orange)] hover:bg-[var(--rb-orange-dark)]" asChild>
+              <Button className="bg-[var(--rb-orange-dark)] hover:bg-[var(--rb-orange-darker)]" asChild>
                 <Link href="/booking">
                   View Offers
                   <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
                 </Link>
               </Button>
-              <img src="/images/rebrand/badge-save-now.webp" alt="Save now on seasonal offers" loading="lazy" className="h-28 w-28 object-contain" />
+              <img src="/images/rebrand/badge-save-now.webp" alt="Save now on seasonal offers" loading="lazy" width={300} height={223} className="h-28 w-28 object-contain" />
             </div>
           </div>
 
           <div className="flex min-h-[420px] flex-col justify-center p-8 sm:p-10">
             <div className="mb-5 flex items-center justify-center rounded-xl bg-slate-50 p-3">
-              <img src="/images/rebrand/promo-online-booking.webp" alt="Easy online booking" loading="lazy" decoding="async" className="h-44 w-auto object-contain" />
+              <img src="/images/rebrand/promo-online-booking.webp" alt="Easy online booking" loading="lazy" decoding="async" width={400} height={600} className="h-44 w-auto object-contain" />
             </div>
             <p className="mb-1 text-xs font-bold uppercase tracking-[0.3em] text-[var(--rb-orange-text)]">Let's Get Started</p>
             <h3 className="font-sans text-xl font-bold text-[var(--rb-navy)]">Get a Free Estimate</h3>
@@ -785,7 +793,7 @@ export default function Home() {
                 </li>
               ))}
             </ul>
-            <Button className="mt-5 w-fit bg-[var(--rb-orange)] hover:bg-[var(--rb-orange-dark)]" asChild>
+            <Button className="mt-5 w-fit bg-[var(--rb-orange-dark)] hover:bg-[var(--rb-orange-darker)]" asChild>
               <Link href="/quote">
                 Request an Estimate
                 <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
@@ -804,7 +812,7 @@ export default function Home() {
                   $19<span className="text-lg font-medium text-white/60">/mo</span>
                 </div>
                 <p className="mt-2 text-xs text-white/50">Billed annually at $228/year</p>
-                <Button className="mt-6 bg-[var(--rb-orange)] hover:bg-[var(--rb-orange-dark)]" asChild>
+                <Button className="mt-6 bg-[var(--rb-orange-dark)] hover:bg-[var(--rb-orange-darker)]" asChild>
                   <Link href="/booking?service=hvac-maintenance">Join the Club</Link>
                 </Button>
               </div>
@@ -832,7 +840,7 @@ export default function Home() {
           <h2 className="mb-8 text-center text-xs font-bold uppercase tracking-[0.3em] text-slate-500">Brands We Service</h2>
           <div className="animate-marquee flex w-max items-center gap-16 group-hover:[animation-play-state:paused]" style={{ animationDuration: "22s" }}>
             {[...BRAND_LOGOS, ...BRAND_LOGOS].map((brand, i) => (
-              <img key={`${brand}-${i}`} src={`/images/brands/${brand}.svg`} alt={`${brand} HVAC equipment brand`} loading="lazy" className="h-8 w-auto shrink-0 md:h-9" />
+              <img key={`${brand}-${i}`} src={`/images/brands/${brand}.svg`} alt={`${brand} HVAC equipment brand`} loading="lazy" width={320} height={120} className="h-8 w-auto shrink-0 md:h-9" />
             ))}
           </div>
         </section>
@@ -841,7 +849,7 @@ export default function Home() {
         <section className="bg-[var(--rb-navy)] py-20 text-white">
           <div className="container mx-auto px-4">
             <div className="mx-auto mb-10 max-w-2xl text-center">
-              <p className="mb-3 text-xs font-bold uppercase tracking-[0.3em] text-white/60">Where We Work</p>
+              <p className="mb-3 text-xs font-bold uppercase tracking-[0.3em] text-white/80">Where We Work</p>
               <h2 className="font-sans text-3xl font-bold sm:text-4xl">Serving Greater Los Angeles</h2>
             </div>
             <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
@@ -875,7 +883,7 @@ export default function Home() {
                       {c.city}
                     </Link>
                   ))}
-                  <Link href="/service-areas" className="col-span-2 flex items-center justify-center gap-1 rounded-lg border border-white/10 px-3 py-2.5 text-sm font-bold text-[var(--rb-orange)] transition-colors hover:border-white/30">
+                  <Link href="/service-areas" className="col-span-2 flex items-center justify-center gap-1 rounded-lg border border-white/10 px-3 py-2.5 text-sm font-bold text-white transition-colors hover:border-white/30">
                     View All Service Areas
                     <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
                   </Link>
@@ -936,7 +944,7 @@ export default function Home() {
                 </div>
               ))}
             </div>
-            <p className="mt-10 flex items-center justify-center gap-3 whitespace-nowrap font-serif text-2xl italic text-slate-400 sm:text-3xl md:text-4xl">
+            <p className="mt-10 flex items-center justify-center gap-3 whitespace-nowrap font-serif text-2xl italic text-slate-500 sm:text-3xl md:text-4xl">
               Building Better Homes Together <Heart className="h-6 w-6 shrink-0 fill-current text-[var(--rb-orange-text)] sm:h-7 sm:w-7" aria-hidden="true" />
             </p>
           </div>
