@@ -22,7 +22,7 @@ const buttonVariants = cva(
           " border [border-color:var(--button-outline)] shadow-xs active:shadow-none ",
         secondary:
           // @replit border, no hover, no shadow, secondary border.
-          "border bg-secondary text-secondary-foreground border border-secondary-border ",
+          "border border-[var(--rb-green-text)] bg-[var(--rb-green-text)] text-white hover:bg-[var(--rb-green-text)]/90",
         // @replit no hover, transparent border
         ghost: "border border-transparent",
         link: "text-primary underline-offset-4 hover:underline",

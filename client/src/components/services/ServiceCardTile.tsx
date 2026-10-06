@@ -10,7 +10,6 @@ export function ServiceCardTile({ svc, categoryBg, onImageClick }: { svc: Servic
         className="relative aspect-[4/3] overflow-hidden bg-slate-100 cursor-zoom-in"
         onClick={onImageClick}
         role={onImageClick ? "button" : undefined}
-        aria-label={onImageClick ? `View ${svc.name} fullscreen` : undefined}
         tabIndex={onImageClick ? 0 : undefined}
         onKeyDown={onImageClick ? (e) => e.key === "Enter" && onImageClick() : undefined}
       >
@@ -43,7 +42,7 @@ export function ServiceCardTile({ svc, categoryBg, onImageClick }: { svc: Servic
         </div>
         <p className="mb-4 flex-1 text-xs leading-relaxed text-slate-500">{svc.desc}</p>
         <div className="mb-4">
-          <span className="rounded-md bg-secondary/10 px-2.5 py-1 text-sm font-bold text-secondary">{svc.price}</span>
+          <span className="rounded-md bg-secondary/10 px-2.5 py-1 text-sm font-bold text-[var(--rb-green-text)]">{svc.price}</span>
         </div>
         <div className="flex gap-2">
           <Link href={`/booking?service=${svc.slug}`}
@@ -52,7 +51,7 @@ export function ServiceCardTile({ svc, categoryBg, onImageClick }: { svc: Servic
           </Link>
           <Link href={`/services/${svc.slug}`}
             className="flex-1 flex items-center justify-center rounded-lg border border-slate-200 px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:border-primary/30 transition-colors text-center">
-            Learn More
+            Learn More<span className="sr-only"> about {svc.name}</span>
           </Link>
         </div>
       </div>

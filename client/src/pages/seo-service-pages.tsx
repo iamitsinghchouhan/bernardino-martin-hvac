@@ -170,7 +170,7 @@ function ServicePage({ page }: { page: PageDescriptor }) {
           <Button asChild className="bg-primary hover:bg-primary/90" size="lg">
             <Link href="/booking">Request Service Now</Link>
           </Button>
-          <Button asChild variant="outline" className="border-secondary text-secondary" size="lg">
+          <Button asChild variant="outline" className="border-secondary text-[var(--rb-green-text)]" size="lg">
             <Link href="/contact">Talk to an Expert</Link>
           </Button>
         </div>

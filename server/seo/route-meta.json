@@ -1,0 +1,532 @@
+{
+  "/": {
+    "title": "Los Angeles HVAC, Solar, Electrical & Plumbing | Bernardino Martin",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/"
+  },
+  "/about": {
+    "title": "About Us – Trusted HVAC & Solar Contractors in Los Angeles | BERNARDINO MARTIN Heating, Air Conditioning & Solar",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/about"
+  },
+  "/services": {
+    "title": "HVAC, Solar, Plumbing & More Services in Los Angeles | BERNARDINO MARTIN Heating, Air Conditioning & Solar",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/services"
+  },
+  "/service-areas": {
+    "title": "HVAC & Solar Service Areas – Los Angeles, Pasadena & Beyond | BERNARDINO MARTIN Heating, Air Conditioning & Solar",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/service-areas"
+  },
+  "/contact": {
+    "title": "Contact Us – Get a Free HVAC & Solar Estimate in Los Angeles | BERNARDINO MARTIN Heating, Air Conditioning & Solar",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/contact"
+  },
+  "/booking": {
+    "title": "Book Online | BERNARDINO MARTIN Heating, Air Conditioning & Solar",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/booking"
+  },
+  "/quote": {
+    "title": "Get a Free Quote – HVAC, Solar & Plumbing Estimates in Los Angeles | BERNARDINO MARTIN Heating, Air Conditioning & Solar",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/quote"
+  },
+  "/hvac-los-angeles": {
+    "title": "HVAC Services in Los Angeles, CA | Bernardino Martin",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/hvac-los-angeles"
+  },
+  "/solar-installation-los-angeles": {
+    "title": "Solar Panel Installation in Los Angeles, CA | Bernardino Martin",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/solar-installation-los-angeles"
+  },
+  "/plumbing-los-angeles": {
+    "title": "Plumbing Services in Los Angeles, CA | Bernardino Martin",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/plumbing-los-angeles"
+  },
+  "/electrical-services-los-angeles": {
+    "title": "Electrical Services in Los Angeles, CA | Bernardino Martin",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/electrical-services-los-angeles"
+  },
+  "/landscaping-los-angeles": {
+    "title": "Landscaping Services in Los Angeles, CA | Bernardino Martin",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/landscaping-los-angeles"
+  },
+  "/irrigation-los-angeles": {
+    "title": "Smart Irrigation Systems in Los Angeles, CA | Bernardino Martin",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/irrigation-los-angeles"
+  },
+  "/network-installation-los-angeles": {
+    "title": "Network Installation in Los Angeles, CA | Bernardino Martin",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/network-installation-los-angeles"
+  },
+  "/hvac-burbank": {
+    "title": "HVAC Services in Burbank, CA | Bernardino Martin",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/hvac-burbank"
+  },
+  "/hvac-beverly-hills": {
+    "title": "HVAC Services in Beverly Hills, CA | Bernardino Martin",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/hvac-beverly-hills"
+  },
+  "/hvac-glendale": {
+    "title": "HVAC Services in Glendale, CA | Bernardino Martin",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/hvac-glendale"
+  },
+  "/hvac-pasadena": {
+    "title": "HVAC Services in Pasadena, CA | Bernardino Martin",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/hvac-pasadena"
+  },
+  "/air-conditioning-service-los-angeles": {
+    "title": "Air Conditioning Service in Los Angeles | Bernardino Martin HVAC",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/air-conditioning-service-los-angeles"
+  },
+  "/ac-repair-los-angeles": {
+    "title": "AC Repair in Los Angeles | Bernardino Martin HVAC",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/ac-repair-los-angeles"
+  },
+  "/mini-split-service-los-angeles": {
+    "title": "Mini Split Service in Los Angeles | Bernardino Martin HVAC",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/mini-split-service-los-angeles"
+  },
+  "/furnace-service-los-angeles": {
+    "title": "Furnace Service in Los Angeles | Bernardino Martin HVAC",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/furnace-service-los-angeles"
+  },
+  "/heat-pump-los-angeles": {
+    "title": "Heat Pump in Los Angeles | Bernardino Martin HVAC",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/heat-pump-los-angeles"
+  },
+  "/solar-optimization-los-angeles": {
+    "title": "Solar Optimization in Los Angeles | Bernardino Martin HVAC",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/solar-optimization-los-angeles"
+  },
+  "/plumbing-service-los-angeles": {
+    "title": "Plumbing Service in Los Angeles | Bernardino Martin HVAC",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/plumbing-service-los-angeles"
+  },
+  "/landscaping-services-los-angeles": {
+    "title": "Landscaping Services in Los Angeles | Bernardino Martin HVAC",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/landscaping-services-los-angeles"
+  },
+  "/sod-installation-los-angeles": {
+    "title": "Sod Installation in Los Angeles | Bernardino Martin HVAC",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/sod-installation-los-angeles"
+  },
+  "/planters-landscaping-los-angeles": {
+    "title": "Planters Landscaping in Los Angeles | Bernardino Martin HVAC",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/planters-landscaping-los-angeles"
+  },
+  "/network-repair-los-angeles": {
+    "title": "Network Repair in Los Angeles | Bernardino Martin HVAC",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/network-repair-los-angeles"
+  },
+  "/new-installation-los-angeles": {
+    "title": "New Installation in Los Angeles | Bernardino Martin HVAC",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/new-installation-los-angeles"
+  },
+  "/hvac-santa-monica": {
+    "title": "HVAC Services in Santa Monica, CA | Bernardino Martin",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/hvac-santa-monica"
+  },
+  "/hvac-hollywood": {
+    "title": "HVAC Services in Hollywood, CA | Bernardino Martin",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/hvac-hollywood"
+  },
+  "/hvac-north-hollywood": {
+    "title": "HVAC Services in North Hollywood, CA | Bernardino Martin",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/hvac-north-hollywood"
+  },
+  "/hvac-van-nuys": {
+    "title": "HVAC Services in Van Nuys, CA | Bernardino Martin",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/hvac-van-nuys"
+  },
+  "/hvac-chatsworth": {
+    "title": "HVAC Services in Chatsworth, CA | Bernardino Martin",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/hvac-chatsworth"
+  },
+  "/hvac-northridge": {
+    "title": "HVAC Services in Northridge, CA | Bernardino Martin",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/hvac-northridge"
+  },
+  "/hvac-reseda": {
+    "title": "HVAC Services in Reseda, CA | Bernardino Martin",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/hvac-reseda"
+  },
+  "/hvac-canoga-park": {
+    "title": "HVAC Services in Canoga Park, CA | Bernardino Martin",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/hvac-canoga-park"
+  },
+  "/hvac-woodland-hills": {
+    "title": "HVAC Services in Woodland Hills, CA | Bernardino Martin",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/hvac-woodland-hills"
+  },
+  "/hvac-calabasas": {
+    "title": "HVAC Services in Calabasas, CA | Bernardino Martin",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/hvac-calabasas"
+  },
+  "/hvac-sherman-oaks": {
+    "title": "HVAC Services in Sherman Oaks, CA | Bernardino Martin",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/hvac-sherman-oaks"
+  },
+  "/hvac-studio-city": {
+    "title": "HVAC Services in Studio City, CA | Bernardino Martin",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/hvac-studio-city"
+  },
+  "/hvac-encino": {
+    "title": "HVAC Services in Encino, CA | Bernardino Martin",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/hvac-encino"
+  },
+  "/hvac-tarzana": {
+    "title": "HVAC Services in Tarzana, CA | Bernardino Martin",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/hvac-tarzana"
+  },
+  "/hvac-west-hills": {
+    "title": "HVAC Services in West Hills, CA | Bernardino Martin",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/hvac-west-hills"
+  },
+  "/hvac-redondo-beach": {
+    "title": "HVAC Services in Redondo Beach, CA | Bernardino Martin",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/hvac-redondo-beach"
+  },
+  "/hvac-hermosa-beach": {
+    "title": "HVAC Services in Hermosa Beach, CA | Bernardino Martin",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/hvac-hermosa-beach"
+  },
+  "/hvac-playa-del-rey": {
+    "title": "HVAC Services in Playa del Rey, CA | Bernardino Martin",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/hvac-playa-del-rey"
+  },
+  "/hvac-inglewood": {
+    "title": "HVAC Services in Inglewood, CA | Bernardino Martin",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/hvac-inglewood"
+  },
+  "/hvac-culver-city": {
+    "title": "HVAC Services in Culver City, CA | Bernardino Martin",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/hvac-culver-city"
+  },
+  "/hvac-el-segundo": {
+    "title": "HVAC Services in El Segundo, CA | Bernardino Martin",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/hvac-el-segundo"
+  },
+  "/hvac-west-hollywood": {
+    "title": "HVAC Services in West Hollywood, CA | Bernardino Martin",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/hvac-west-hollywood"
+  },
+  "/hvac-westchester": {
+    "title": "HVAC Services in Westchester, CA | Bernardino Martin",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/hvac-westchester"
+  },
+  "/hvac-lennox": {
+    "title": "HVAC Services in Lennox, CA | Bernardino Martin",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/hvac-lennox"
+  },
+  "/hvac-torrance": {
+    "title": "HVAC Services in Torrance, CA | Bernardino Martin",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/hvac-torrance"
+  },
+  "/hvac-malibu": {
+    "title": "HVAC Services in Malibu, CA | Bernardino Martin",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/hvac-malibu"
+  },
+  "/hvac-san-fernando": {
+    "title": "HVAC Services in San Fernando, CA | Bernardino Martin",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/hvac-san-fernando"
+  },
+  "/hvac-yorba-linda": {
+    "title": "HVAC Services in Yorba Linda, CA | Bernardino Martin",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/hvac-yorba-linda"
+  },
+  "/hvac-long-beach": {
+    "title": "HVAC Services in Long Beach, CA | Bernardino Martin",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/hvac-long-beach"
+  },
+  "/hvac-gardena": {
+    "title": "HVAC Services in Gardena, CA | Bernardino Martin",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/hvac-gardena"
+  },
+  "/hvac-hawthorne": {
+    "title": "HVAC Services in Hawthorne, CA | Bernardino Martin",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/hvac-hawthorne"
+  },
+  "/hvac-manhattan-beach": {
+    "title": "HVAC Services in Manhattan Beach, CA | Bernardino Martin",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/hvac-manhattan-beach"
+  },
+  "/services/hvac-repair": {
+    "title": "AC Repair & Diagnostics in Los Angeles, CA | BERNARDINO MARTIN Heating, Air Conditioning & Solar",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/services/hvac-repair"
+  },
+  "/services/hvac-install-ac": {
+    "title": "AC Installation in Los Angeles, CA | BERNARDINO MARTIN Heating, Air Conditioning & Solar",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/services/hvac-install-ac"
+  },
+  "/services/hvac-maintenance": {
+    "title": "HVAC Maintenance & Tune-Up in Los Angeles, CA | BERNARDINO MARTIN Heating, Air Conditioning & Solar",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/services/hvac-maintenance"
+  },
+  "/services/hvac-ductless": {
+    "title": "Ductless Mini-Split Systems in Los Angeles, CA | BERNARDINO MARTIN Heating, Air Conditioning & Solar",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/services/hvac-ductless"
+  },
+  "/services/hvac-air-filtration": {
+    "title": "Electrostatic Air Filtration in Los Angeles, CA | BERNARDINO MARTIN Heating, Air Conditioning & Solar",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/services/hvac-air-filtration"
+  },
+  "/services/hvac-attic-heat": {
+    "title": "Attic Heat Reduction in Los Angeles, CA | BERNARDINO MARTIN Heating, Air Conditioning & Solar",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/services/hvac-attic-heat"
+  },
+  "/services/hvac-ducts": {
+    "title": "Duct Cleaning & Installation in Los Angeles, CA | BERNARDINO MARTIN Heating, Air Conditioning & Solar",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/services/hvac-ducts"
+  },
+  "/services/heating-gas-furnace": {
+    "title": "Gas Furnace Repair in Los Angeles, CA | BERNARDINO MARTIN Heating, Air Conditioning & Solar",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/services/heating-gas-furnace"
+  },
+  "/services/heating-electric-furnace": {
+    "title": "Electric Furnace Repair in Los Angeles, CA | BERNARDINO MARTIN Heating, Air Conditioning & Solar",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/services/heating-electric-furnace"
+  },
+  "/services/heating-floor-furnace": {
+    "title": "Floor Furnace Services in Los Angeles, CA | BERNARDINO MARTIN Heating, Air Conditioning & Solar",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/services/heating-floor-furnace"
+  },
+  "/services/heating-wall-furnace": {
+    "title": "Wall Furnace Services in Los Angeles, CA | BERNARDINO MARTIN Heating, Air Conditioning & Solar",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/services/heating-wall-furnace"
+  },
+  "/services/heating-furnace-replacement": {
+    "title": "Furnace Replacement in Los Angeles, CA | BERNARDINO MARTIN Heating, Air Conditioning & Solar",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/services/heating-furnace-replacement"
+  },
+  "/services/hvac-thermostat": {
+    "title": "Thermostat Installation & Repair in Los Angeles, CA | BERNARDINO MARTIN Heating, Air Conditioning & Solar",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/services/hvac-thermostat"
+  },
+  "/services/heating-nest-thermostat": {
+    "title": "Google Nest Thermostat Installation in Los Angeles, CA | BERNARDINO MARTIN Heating, Air Conditioning & Solar",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/services/heating-nest-thermostat"
+  },
+  "/services/solar-install": {
+    "title": "Solar Panel Installation in Los Angeles, CA | BERNARDINO MARTIN Heating, Air Conditioning & Solar",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/services/solar-install"
+  },
+  "/services/solar-maintenance": {
+    "title": "Solar System Maintenance in Los Angeles, CA | BERNARDINO MARTIN Heating, Air Conditioning & Solar",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/services/solar-maintenance"
+  },
+  "/services/solar-inverter": {
+    "title": "Solar Inverter Installation in Los Angeles, CA | BERNARDINO MARTIN Heating, Air Conditioning & Solar",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/services/solar-inverter"
+  },
+  "/services/solar-irrigation": {
+    "title": "Solar-Powered Irrigation in Los Angeles, CA | BERNARDINO MARTIN Heating, Air Conditioning & Solar",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/services/solar-irrigation"
+  },
+  "/services/plumbing-general": {
+    "title": "General Plumbing Services in Los Angeles, CA | BERNARDINO MARTIN Heating, Air Conditioning & Solar",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/services/plumbing-general"
+  },
+  "/services/plumbing-mainline": {
+    "title": "Mainline Installation in Los Angeles, CA | BERNARDINO MARTIN Heating, Air Conditioning & Solar",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/services/plumbing-mainline"
+  },
+  "/services/plumbing-gas-line": {
+    "title": "Natural Gas Line Replacement in Los Angeles, CA | BERNARDINO MARTIN Heating, Air Conditioning & Solar",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/services/plumbing-gas-line"
+  },
+  "/services/plumbing-sewer": {
+    "title": "Sewer Line Replacement in Los Angeles, CA | BERNARDINO MARTIN Heating, Air Conditioning & Solar",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/services/plumbing-sewer"
+  },
+  "/services/plumbing-water-filter": {
+    "title": "Reverse Osmosis Water Filtration in Los Angeles, CA | BERNARDINO MARTIN Heating, Air Conditioning & Solar",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/services/plumbing-water-filter"
+  },
+  "/services/plumbing-shutoff": {
+    "title": "SMART SHUTOFF VALVE in Los Angeles, CA | BERNARDINO MARTIN Heating, Air Conditioning & Solar",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/services/plumbing-shutoff"
+  },
+  "/services/plumbing-jet-cleanup": {
+    "title": "SMART JET CLEANUP System in Los Angeles, CA | BERNARDINO MARTIN Heating, Air Conditioning & Solar",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/services/plumbing-jet-cleanup"
+  },
+  "/services/plumbing-toilet": {
+    "title": "Toilet Replacement in Los Angeles, CA | BERNARDINO MARTIN Heating, Air Conditioning & Solar",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/services/plumbing-toilet"
+  },
+  "/services/plumbing-disposal": {
+    "title": "Garbage Disposal Installation in Los Angeles, CA | BERNARDINO MARTIN Heating, Air Conditioning & Solar",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/services/plumbing-disposal"
+  },
+  "/services/plumbing-water-heater": {
+    "title": "Water Heater Installation & Repair in Los Angeles, CA | BERNARDINO MARTIN Heating, Air Conditioning & Solar",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/services/plumbing-water-heater"
+  },
+  "/services/plumbing-sink": {
+    "title": "Sink & Faucet Replacement in Los Angeles, CA | BERNARDINO MARTIN Heating, Air Conditioning & Solar",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/services/plumbing-sink"
+  },
+  "/services/electrical-panel": {
+    "title": "Electrical Panel Services in Los Angeles, CA | BERNARDINO MARTIN Heating, Air Conditioning & Solar",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/services/electrical-panel"
+  },
+  "/services/electrical-general": {
+    "title": "General Electrical Services in Los Angeles, CA | BERNARDINO MARTIN Heating, Air Conditioning & Solar",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/services/electrical-general"
+  },
+  "/services/electrical-ev-charger": {
+    "title": "EV Charger Installation in Los Angeles, CA | BERNARDINO MARTIN Heating, Air Conditioning & Solar",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/services/electrical-ev-charger"
+  },
+  "/services/outdoor-landscaping": {
+    "title": "Landscaping Design & Installation in Los Angeles, CA | BERNARDINO MARTIN Heating, Air Conditioning & Solar",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/services/outdoor-landscaping"
+  },
+  "/services/outdoor-sod": {
+    "title": "Sod Installation in Los Angeles, CA | BERNARDINO MARTIN Heating, Air Conditioning & Solar",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/services/outdoor-sod"
+  },
+  "/services/outdoor-planting": {
+    "title": "Planting & Garden Care in Los Angeles, CA | BERNARDINO MARTIN Heating, Air Conditioning & Solar",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/services/outdoor-planting"
+  },
+  "/services/outdoor-irrigation": {
+    "title": "Smart Irrigation Systems in Los Angeles, CA | BERNARDINO MARTIN Heating, Air Conditioning & Solar",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/services/outdoor-irrigation"
+  },
+  "/services/outdoor-hardscape": {
+    "title": "Hardscape — Driveways & Patios in Los Angeles, CA | BERNARDINO MARTIN Heating, Air Conditioning & Solar",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/services/outdoor-hardscape"
+  },
+  "/services/tech-network": {
+    "title": "Network & Structured Cabling in Los Angeles, CA | BERNARDINO MARTIN Heating, Air Conditioning & Solar",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/services/tech-network"
+  },
+  "/services/tech-smarthome": {
+    "title": "Smart Home Connectivity in Los Angeles, CA | BERNARDINO MARTIN Heating, Air Conditioning & Solar",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/services/tech-smarthome"
+  },
+  "/services/tech-nest": {
+    "title": "Google Nest Integration in Los Angeles, CA | BERNARDINO MARTIN Heating, Air Conditioning & Solar",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/services/tech-nest"
+  },
+  "/services/handyman": {
+    "title": "Handyman in Los Angeles, CA | BERNARDINO MARTIN Heating, Air Conditioning & Solar",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/services/handyman"
+  },
+  "/services/home-cleaning": {
+    "title": "Home Cleaning in Los Angeles, CA | BERNARDINO MARTIN Heating, Air Conditioning & Solar",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/services/home-cleaning"
+  },
+  "/services/moving-help": {
+    "title": "Moving Help in Los Angeles, CA | BERNARDINO MARTIN Heating, Air Conditioning & Solar",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/services/moving-help"
+  },
+  "/hvac-thousand-oaks": {
+    "title": "HVAC Services in Thousand Oaks, CA | Bernardino Martin",
+    "description": "Bernardino Martin provides HVAC repair, solar installation, plumbing, electrical, landscaping, and irrigation services in Los Angeles. 24/7 emergency service. Call (818) 400-0227.",
+    "canonical": "https://bernardinomartinhvac.com/hvac-thousand-oaks"
+  }
+}

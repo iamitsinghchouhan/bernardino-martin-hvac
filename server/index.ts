@@ -9,14 +9,8 @@ import { createServer } from "http";
 
 import { registerRoutes } from "./routes";
 import fs from "fs";
-import {
-  getCityForPath,
-  buildTitleForCity,
-  buildDescriptionForCity,
-  buildCanonical,
-  buildBreadcrumbListJsonLD,
-  ALL_CITY_PATHS,
-} from "./seo/city-pages";
+import { getCityForPath, ALL_CITY_PATHS } from "./seo/city-pages";
+import routeMeta from "./seo/route-meta.json";
 // Delay importing the database pool so we can optionally skip DB initialization
 // during local validation runs by setting SKIP_DB_VALIDATION=true in the environment.
 let pool: any = undefined;
@@ -325,9 +319,19 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     next();
   });
 
+  const PERMANENT_REDIRECTS: Record<string, string> = {
+    "/hvac-san-fernando-valley": "/hvac-san-fernando",
+  };
+  app.use((req, res, next) => {
+    const target = req.method === "GET" ? PERMANENT_REDIRECTS[req.path] : undefined;
+    if (target) return res.redirect(301, target);
+    next();
+  });
+
   app.use(
     express.static(distPath, {
       maxAge: "1d",
+      index: false,
       setHeaders: (res, filePath) => {
         if (filePath.endsWith(".html")) {
           res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
@@ -357,96 +361,58 @@ app.use((req: Request, res: Response, next: NextFunction) => {
       return res.sendFile(path.join(distPath, "index.html"));
     }
 
-    // Normalize path (strip trailing slash)
-    const normalized = req.path.replace(/\/+$|\\/g, (m) => (m === "/" ? "" : "")) || req.path;
-
-    // City-specific pages: /hvac-*
-    const city = getCityForPath(normalized);
-
-    // Booking canonicalization: any /booking route (queries ignored)
-    const isBooking = normalized === "/booking";
+    const normalized = req.path.replace(/\/+$/, "") || "/";
+    const meta = (routeMeta as Record<string, { title: string; description: string; canonical: string }>)[normalized];
     const isServiceAreas = normalized === "/service-areas";
 
-    if (!city && !isBooking && !isServiceAreas) {
+    if (!meta && !isServiceAreas) {
       return res.send(indexHtmlTemplate);
     }
 
-    // Make a shallow copy of template to modify
+    const escapeHtml = (s: string) =>
+      s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+
     let html = indexHtmlTemplate;
 
-    const escapeHtml = (s: string) =>
-      s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\"/g, "&quot;").replace(/'/g, "&#39;");
+    if (meta) {
+      html = html.replace(/<title>[\s\S]*?<\/title>/i, `<title>${escapeHtml(meta.title)}</title>`);
 
-    if (city) {
-      const title = buildTitleForCity(city.name);
-      const desc = buildDescriptionForCity(city.name);
-      const canonical = buildCanonical(city.path);
-      const breadcrumbJson = buildBreadcrumbListJsonLD(city.path, city.name);
-
-      // Replace existing <title>
-      html = html.replace(/<title>[\s\S]*?<\/title>/i, `<title>${escapeHtml(title)}</title>`);
-
-      // Replace meta description
       if (/meta\s+name="description"/i.test(html)) {
-        html = html.replace(/<meta\s+name="description"\s+content="[^"]*"\s*\/?>/i, `<meta name="description" content="${escapeHtml(desc)}" />`);
+        html = html.replace(/<meta\s+name="description"\s+content="[^"]*"\s*\/?>/i, `<meta name="description" content="${escapeHtml(meta.description)}" />`);
       } else {
-        // insert description before </head>
-        html = html.replace(/<\/head>/i, `    <meta name="description" content="${escapeHtml(desc)}" />\n</head>`);
+        html = html.replace(/<\/head>/i, `    <meta name="description" content="${escapeHtml(meta.description)}" />
+</head>`);
       }
 
-      // Insert canonical if missing
-      if (!/rel="canonical"/i.test(html)) {
-        html = html.replace(/<\/head>/i, `    <link rel="canonical" href="${escapeHtml(canonical)}" />\n</head>`);
+      if (/rel="canonical"/i.test(html)) {
+        html = html.replace(/<link[^>]*rel="canonical"[^>]*>/i, `<link rel="canonical" href="${escapeHtml(meta.canonical)}" />`);
       } else {
-        html = html.replace(/<link[^>]*rel="canonical"[^>]*>/i, `<link rel="canonical" href="${escapeHtml(canonical)}" />`);
+        html = html.replace(/<\/head>/i, `    <link rel="canonical" href="${escapeHtml(meta.canonical)}" />
+</head>`);
       }
-
-      // Insert BreadcrumbList JSON-LD
-      if (!/"@type"\s*:\s*"BreadcrumbList"/.test(html)) {
-        html = html.replace(/<\/head>/i, `    <script type="application/ld+json">${breadcrumbJson}</script>\n</head>`);
-      }
-
-      // Insert visible breadcrumb before the hero section
-      const breadcrumbHtml = `\n      <nav aria-label="Breadcrumb" class="server-breadcrumb" style="padding:12px 16px;background:#fff;color:#111;font-size:14px">\n        <ol style="list-style:none;margin:0;padding:0;display:flex;gap:8px;align-items:center">\n          <li><a href=\"/\">Home</a></li>\n          <li>→</li>\n          <li><a href=\"/service-areas\">Service Areas</a></li>\n          <li>→</li>\n          <li aria-current=\"page\">${escapeHtml(city.name)}</li>\n        </ol>\n      </nav>\n      `;
-
-      html = html.replace(/<section class="boot-hero"/i, breadcrumbHtml + `<section class="boot-hero"`);
     }
 
     if (isServiceAreas) {
-      // Build a crawlable server-rendered list of canonical city links so crawlers
-      // and bots see the full 35-city index in the initial HTML (client-side
-      // React will hydrate and replace the UI unchanged). Use the existing
-      // central city list (`ALL_CITY_PATHS`) and `getCityForPath()` for names.
+      // Crawlable server-rendered links to every city page, so the initial HTML carries the
+      // full city index rather than relying on client-side rendering to expose it.
       const linksHtml = ALL_CITY_PATHS.map((p) => {
         const info = getCityForPath(p);
         if (!info) return "";
-        return `<a href=\"${escapeHtml(info.path)}\" style=\"display:inline-block;margin:6px;padding:10px 12px;border:1px solid #e5e7eb;border-radius:8px;color:#111;text-decoration:none;background:#fff\">${escapeHtml(info.name)}</a>`;
-      }).join('\n');
+        return `<a href="${escapeHtml(info.path)}" style="display:inline-block;margin:6px;padding:10px 12px;border:1px solid #e5e7eb;border-radius:8px;color:#111;text-decoration:none;background:#fff">${escapeHtml(info.name)}</a>`;
+      }).join("\n");
 
-      const serviceAreasBlock = `\n      <div class=\"server-service-areas\" style=\"padding:28px 16px;background:#fff;color:#111\">\n        <div style=\"max-width:1100px;margin:0 auto\">\n          <h2 style=\"font-size:24px;margin:0 0 12px;font-weight:800\">Cities We Serve</h2>\n          <div style=\"display:flex;flex-wrap:wrap;gap:8px;align-items:center\">\n            ${linksHtml}\n          </div>\n        </div>\n      </div>\n      `;
+      const serviceAreasBlock = `\n      <div class="server-service-areas" style="padding:28px 16px;background:#fff;color:#111">
+        <div style="max-width:1100px;margin:0 auto">
+          <h2 style="font-size:24px;margin:0 0 12px;font-weight:800">Cities We Serve</h2>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
+            ${linksHtml}
+          </div>
+        </div>
+      </div>
+      `;
 
-      // Insert after the boot-hero section so it appears in the initial app shell
-      html = html.replace(/<section class="boot-hero"[\s\S]*?<\/section>/i, (match) => `${match}\n${serviceAreasBlock}`);
-    }
-
-    if (isBooking) {
-      const title = `Book Online | Bernardino Martin`;
-      const desc = `Book an appointment with Bernardino Martin Home Services. Fast online scheduling and confirmations.`;
-      const canonical = `https://bernardinomartinhvac.com/booking`;
-
-      html = html.replace(/<title>[\s\S]*?<\/title>/i, `<title>${escapeHtml(title)}</title>`);
-
-      if (/meta\s+name="description"/i.test(html)) {
-        html = html.replace(/<meta\s+name="description"\s+content="[^"]*"\s*\/?>/i, `<meta name="description" content="${escapeHtml(desc)}" />`);
-      } else {
-        html = html.replace(/<\/head>/i, `    <meta name="description" content="${escapeHtml(desc)}" />\n</head>`);
-      }
-
-      if (!/rel="canonical"/i.test(html)) {
-        html = html.replace(/<\/head>/i, `    <link rel="canonical" href="${escapeHtml(canonical)}" />\n</head>`);
-      } else {
-        html = html.replace(/<link[^>]*rel="canonical"[^>]*>/i, `<link rel="canonical" href="${escapeHtml(canonical)}" />`);
-      }
+      html = html.replace(/<section class="boot-hero"[\s\S]*?<\/section>/i, (match) => `${match}
+${serviceAreasBlock}`);
     }
 
     return res.send(html);

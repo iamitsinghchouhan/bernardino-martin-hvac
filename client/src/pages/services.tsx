@@ -128,7 +128,7 @@ function FloatingCategoryNav() {
       }`}
     >
       <div className="rounded-2xl bg-white/95 backdrop-blur-sm shadow-2xl border border-slate-200 p-3 min-w-[170px]">
-        <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-2 block">Jump to</span>
+        <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-2 block">Jump to</span>
         <div className="flex flex-col gap-0.5">
           {CATEGORY_DATA.map((cat) => (
             <button
@@ -252,7 +252,7 @@ export default function Services() {
       {/* ── BRAND LOGOS STRIP ────────────────────────────────── */}
       <section className="border-b border-slate-100 bg-white py-5" aria-label="Trusted brands we service">
         <div className="container mx-auto px-4">
-          <p className="mb-3 text-center text-xs font-semibold uppercase tracking-widest text-slate-400">
+          <p className="mb-3 text-center text-xs font-semibold uppercase tracking-widest text-slate-500">
             Trusted Brands We Service
           </p>
           <div className="overflow-hidden">
@@ -294,15 +294,15 @@ export default function Services() {
               <div className="px-4 pb-12 bg-white border-t border-green-100">
                 <div className="max-w-7xl mx-auto pt-10">
                   <div className="text-center mb-8">
-                    <span className="text-xs font-bold uppercase tracking-widest text-green-600">Real Los Angeles Properties</span>
+                    <span className="text-xs font-bold uppercase tracking-widest text-green-700">Real Los Angeles Properties</span>
                     <h3 className="text-2xl md:text-3xl font-black text-slate-900 mt-2 font-heading">Our Outdoor Work</h3>
                     <p className="text-slate-500 mt-2 max-w-xl mx-auto">From fresh sod to full hardscape — see the outdoor transformations we deliver across Greater Los Angeles.</p>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
                     {[
-                      { label: "Lawn & Turf", sub: "San Augustine & RTF Sod · Grass repair · Leveling", img: "/images/svc-sod-installation.webp", link: "/services/outdoor-sod", color: "bg-green-600" },
-                      { label: "Garden & Planting", sub: "Seasonal plants · Trees · Garden bed design", img: "/images/svc-planting.webp", link: "/services/outdoor-planting", color: "bg-emerald-600" },
-                      { label: "Hardscape & Concrete", sub: "Driveways · Patios · Stamped concrete · Pool decks", img: "/images/hardscape/hardscape-pool-deck-european-fan-sunrise.webp", link: "/services/outdoor-hardscape", color: "bg-teal-600" },
+                      { label: "Lawn & Turf", sub: "San Augustine & RTF Sod · Grass repair · Leveling", img: "/images/svc-sod-installation.webp", link: "/services/outdoor-sod", color: "bg-green-700" },
+                      { label: "Garden & Planting", sub: "Seasonal plants · Trees · Garden bed design", img: "/images/svc-planting.webp", link: "/services/outdoor-planting", color: "bg-emerald-700" },
+                      { label: "Hardscape & Concrete", sub: "Driveways · Patios · Stamped concrete · Pool decks", img: "/images/hardscape/hardscape-pool-deck-european-fan-sunrise.webp", link: "/services/outdoor-hardscape", color: "bg-teal-700" },
                     ].map((item) => (
                       <Link key={item.label} href={item.link} className="group relative rounded-2xl overflow-hidden bg-slate-100 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 block">
                         <div className="aspect-[4/3] overflow-hidden">
@@ -322,7 +322,7 @@ export default function Services() {
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {[
-                      { label: "Smart Irrigation", sub: "App-controlled watering · Rachio & Rain Bird · Water savings up to 50%", img: "/images/svc-smart-irrigation.webp", link: "/services/outdoor-irrigation", color: "bg-cyan-600" },
+                      { label: "Smart Irrigation", sub: "App-controlled watering · Rachio & Rain Bird · Water savings up to 50%", img: "/images/svc-smart-irrigation.webp", link: "/services/outdoor-irrigation", color: "bg-cyan-700" },
                       { label: "Full Landscaping Design", sub: "Custom LA landscape design · Drought-tolerant · Native California plants", img: "/images/svc-landscaping.webp", link: "/services/outdoor-landscaping", color: "bg-green-700" },
                     ].map((item) => (
                       <Link key={item.label} href={item.link} className="group relative rounded-2xl overflow-hidden bg-slate-100 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 block">
@@ -366,7 +366,7 @@ export default function Services() {
                         </p>
                         <a
                           href="tel:8184000227"
-                          className="inline-flex items-center gap-2 self-start rounded-full bg-green-500 hover:bg-green-400 px-5 py-2.5 text-sm font-bold text-white transition-colors"
+                          className="inline-flex items-center gap-2 self-start rounded-full bg-green-700 hover:bg-green-800 px-5 py-2.5 text-sm font-bold text-white transition-colors"
                         >
                           <Phone className="h-4 w-4" /> Order: (818) 400-0227
                         </a>
@@ -377,7 +377,7 @@ export default function Services() {
                     <div className="mb-6">
                       <h4 className="text-lg font-bold text-slate-900">
                         Available Products{" "}
-                        <span className="text-slate-400 font-normal text-sm">— 500 LBS per order</span>
+                        <span className="text-slate-600 font-normal text-sm">— 500 LBS per order</span>
                       </h4>
                       <p className="text-sm text-slate-500 mt-1">
                         Choose your color and material type. Free bulk delivery estimates available.
@@ -393,7 +393,6 @@ export default function Services() {
                         >
                           <button
                             type="button"
-                            aria-label={`View ${product.alt} fullscreen`}
                             onClick={() => openLightbox(LANDSCAPE_LIGHTBOX, idx)}
                             className="relative aspect-[4/3] overflow-hidden bg-slate-100 w-full cursor-zoom-in focus:outline-none block"
                           >
@@ -426,7 +425,7 @@ export default function Services() {
                             </div>
                           </button>
                           <div className="p-3.5">
-                            <p className="text-[10px] font-bold uppercase tracking-widest text-green-600 mb-0.5">{product.type}</p>
+                            <p className="text-[10px] font-bold uppercase tracking-widest text-green-700 mb-0.5">{product.type}</p>
                             <p className="text-sm font-bold text-slate-900 leading-snug mb-2.5">{product.name}</p>
                             <a
                               href="tel:8184000227"
@@ -448,7 +447,7 @@ export default function Services() {
                       ].map((s) => (
                         <div key={s.label} className="text-center">
                           <p className="text-xl md:text-2xl font-black text-slate-900 font-heading">{s.val}</p>
-                          <p className="text-xs text-slate-500 font-medium mt-0.5">{s.label}</p>
+                          <p className="text-xs text-slate-600 font-medium mt-0.5">{s.label}</p>
                         </div>
                       ))}
                     </div>
@@ -485,7 +484,7 @@ export default function Services() {
                         </p>
                         <a
                           href="tel:8184000227"
-                          className="inline-flex items-center gap-2 self-start rounded-full bg-teal-500 hover:bg-teal-400 px-5 py-2.5 text-sm font-bold text-white transition-colors"
+                          className="inline-flex items-center gap-2 self-start rounded-full bg-teal-700 hover:bg-teal-800 px-5 py-2.5 text-sm font-bold text-white transition-colors"
                         >
                           <Phone className="h-4 w-4" /> Free Estimate: (818) 400-0227
                         </a>
@@ -565,9 +564,9 @@ export default function Services() {
       <section className="border-y border-blue-100 bg-blue-50 py-14">
         <div className="container mx-auto max-w-4xl px-4">
           <div className="mb-6 text-center">
-            <span className="text-xs font-semibold uppercase tracking-widest text-secondary">Payment Options</span>
+            <span className="text-xs font-semibold uppercase tracking-widest text-[var(--rb-green-text)]">Payment Options</span>
             <h2 className="mt-2 text-2xl font-bold text-slate-900 md:text-3xl">Flexible Financing Available</h2>
-            <p className="mt-2 text-sm text-slate-500">Get the service you need today — pay over time.</p>
+            <p className="mt-2 text-sm text-slate-600">Get the service you need today — pay over time.</p>
           </div>
           <p className="mx-auto mb-8 max-w-2xl text-center text-sm leading-relaxed text-slate-600">
             We understand that home repairs and upgrades can be unexpected. That&apos;s why BERNARDINO MARTIN offers flexible

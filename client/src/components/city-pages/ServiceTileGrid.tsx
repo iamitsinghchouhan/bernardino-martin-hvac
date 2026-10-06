@@ -50,7 +50,7 @@ export function ServiceTileGrid({ cityName, tiles }: ServiceTileGridProps) {
               <div className="px-3.5 pb-4 pt-3.5">
                 <h3 className="text-[14.5px] font-semibold leading-tight">{tile.name}</h3>
                 <p className="mt-0.5 text-[11.5px] text-muted-foreground">{tile.meta}</p>
-                <p className="mt-1.5 text-xs font-bold text-secondary">{tile.priceLabel}</p>
+                <p className="mt-1.5 text-xs font-bold text-[var(--rb-green-text)]">{tile.priceLabel}</p>
               </div>
             </a>
           ))}

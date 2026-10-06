@@ -71,6 +71,7 @@ export default function Contact() {
                 <CardTitle>Get in Touch</CardTitle>
                 <CardDescription>We're available 24/7 for emergency services.</CardDescription>
               </CardHeader>
+              <h2 className="sr-only">Contact details</h2>
               <CardContent className="space-y-6">
                 <div className="flex items-start gap-4">
                   <Phone className="h-6 w-6 text-primary mt-1" aria-hidden="true" />
@@ -90,7 +91,7 @@ export default function Contact() {
                   <div>
                     <h3 className="font-semibold text-slate-900">WhatsApp</h3>
                     <p className="text-slate-600 mb-2">Chat with us instantly</p>
-                    <Button size="sm" className="bg-secondary hover:bg-secondary/90 text-white border-0" asChild>
+                    <Button size="sm" className="bg-[var(--rb-green-text)] hover:bg-[var(--rb-green-text)]/90 text-white border-0" asChild>
                       <a href={getWhatsAppLink("Hello! I have a question about your services.")} target="_blank" rel="noopener noreferrer">
                         Chat on WhatsApp
                       </a>
@@ -121,7 +122,7 @@ export default function Contact() {
                     <h3 className="font-semibold text-slate-900">Business Hours</h3>
                     <p className="text-slate-600">Mon - Fri: 7:00 AM - 7:00 PM</p>
                     <p className="text-slate-600">Sat - Sun: 8:00 AM - 5:00 PM</p>
-                    <p className="text-sm text-red-500 mt-1 font-medium">24/7 Emergency Service Available</p>
+                    <p className="text-sm text-red-600 mt-1 font-medium">24/7 Emergency Service Available</p>
                   </div>
                 </div>
               </CardContent>
@@ -161,7 +162,7 @@ export default function Contact() {
                   <div className="space-y-2">
                     <label htmlFor="email" className="text-sm font-medium">Email</label>
                     <Input id="email" type="email" placeholder="Your Email Address" value={email} onChange={e => { setEmail(e.target.value); setEmailError(""); }} required data-testid="input-contact-email" className={emailError ? "border-red-500" : ""} />
-                    {emailError && <p className="text-xs text-red-500 mt-1">{emailError}</p>}
+                    {emailError && <p className="text-xs text-red-600 mt-1">{emailError}</p>}
                   </div>
                   
                   <div className="space-y-2">

@@ -59,7 +59,7 @@ export function ServiceCarousel({ cityName, services, onBook }: ServiceCarouselP
                 <div className="my-2 flex items-baseline gap-2">
                   <span className="text-[19px] font-extrabold text-primary">{svc.nowPrice}</span>
                 </div>
-                {svc.note && <p className="mb-3 text-[11.5px] font-semibold text-secondary">{svc.note}</p>}
+                {svc.note && <p className="mb-3 text-[11.5px] font-semibold text-[var(--rb-green-text)]">{svc.note}</p>}
                 <button
                   type="button"
                   onClick={() => onBook(svc.id)}

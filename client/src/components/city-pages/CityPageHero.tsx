@@ -251,7 +251,7 @@ export default function CityPageHero({ cityData, redesign = false, redesignV2 = 
                   <button
                     type="button"
                     onClick={toggleMute}
-                    aria-label={muted ? "Unmute video" : "Mute video"}
+                    aria-label={muted ? "Sound Off, unmute video" : "Sound On, mute video"}
                     className="absolute bottom-3 right-3 flex items-center gap-1.5 rounded-full bg-black/60 px-3 py-1.5 text-xs font-medium text-white backdrop-blur-sm transition-colors hover:bg-black/80"
                   >
                     {muted ? <VolumeX className="h-3.5 w-3.5" aria-hidden="true" /> : <Volume2 className="h-3.5 w-3.5" aria-hidden="true" />}

@@ -235,7 +235,7 @@ export default function About() {
         {/* Content anchored to bottom */}
         <div className="relative z-10 w-full px-4 pb-12 pt-20">
           <div className="max-w-3xl mx-auto text-center">
-            <p className="text-secondary text-sm font-semibold uppercase tracking-widest mb-3">
+            <p className="text-[var(--rb-green-text)] text-sm font-semibold uppercase tracking-widest mb-3">
               Heating • Air Conditioning • Solar
             </p>
             <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-white mb-3 font-heading">
@@ -246,7 +246,7 @@ export default function About() {
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link href="/booking">
-                <Button size="lg" className="bg-secondary hover:bg-secondary/90 text-white font-bold px-7">
+                <Button size="lg" className="bg-[var(--rb-green-text)] hover:bg-[var(--rb-green-text)]/90 text-white font-bold px-7">
                   Book a Service
                 </Button>
               </Link>
@@ -288,7 +288,7 @@ export default function About() {
             {/* Text */}
             <div className="order-1 md:order-2">
               <div className="space-y-5">
-                <span className="text-secondary text-sm font-semibold uppercase tracking-widest">Our Story</span>
+                <span className="text-[var(--rb-green-text)] text-sm font-semibold uppercase tracking-widest">Our Story</span>
                 <h2 className="text-3xl font-bold text-primary font-heading">Who We Are</h2>
                 <p className="text-slate-600 leading-relaxed text-base">
                   BERNARDINO MARTIN is a family-owned home services company proudly serving the greater Los Angeles
@@ -332,7 +332,7 @@ export default function About() {
             {/* Content */}
             <div>
               <div className="space-y-5">
-                <span className="text-secondary text-sm font-semibold uppercase tracking-widest">The Founder</span>
+                <span className="text-[var(--rb-green-text)] text-sm font-semibold uppercase tracking-widest">The Founder</span>
                 <h2 className="text-3xl font-bold text-primary font-heading">Meet Bernardino Martin</h2>
                 <p className="text-slate-600 leading-relaxed text-base">
                   Bernardino Martin is the founder and lead technician of the company. With decades of hands-on experience
@@ -356,7 +356,7 @@ export default function About() {
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="text-center mb-12">
-            <span className="text-secondary text-sm font-semibold uppercase tracking-widest">Our Services</span>
+            <span className="text-[var(--rb-green-text)] text-sm font-semibold uppercase tracking-widest">Our Services</span>
             <h2 className="text-3xl md:text-4xl font-bold text-primary font-heading mt-2">What We Do</h2>
             <p className="text-slate-500 mt-3 max-w-xl mx-auto text-sm">
               From heating and cooling to solar and smart home technology — we handle it all.
@@ -379,7 +379,7 @@ export default function About() {
       <section className="py-16 bg-accent">
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="text-center mb-10">
-            <span className="text-secondary text-sm font-semibold uppercase tracking-widest">Our Promise</span>
+            <span className="text-[var(--rb-green-text)] text-sm font-semibold uppercase tracking-widest">Our Promise</span>
             <h2 className="text-3xl md:text-4xl font-bold text-primary font-heading mt-2">Why Choose Us</h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -411,7 +411,7 @@ export default function About() {
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="text-center mb-10">
-            <span className="text-secondary text-sm font-semibold uppercase tracking-widest">Coverage</span>
+            <span className="text-[var(--rb-green-text)] text-sm font-semibold uppercase tracking-widest">Coverage</span>
             <h2 className="text-3xl md:text-4xl font-bold text-primary font-heading mt-2">
               Proudly Serving Los Angeles
             </h2>
@@ -430,13 +430,13 @@ export default function About() {
               <p className="text-white/80 leading-relaxed text-sm">
                 We serve homeowners and businesses across the greater Los Angeles area. From the San Fernando Valley to
                 downtown LA, our team is ready to come to you. Call us at{" "}
-                <a href="tel:+18184000227" className="underline font-semibold text-secondary">
+                <a href="tel:+18184000227" className="underline font-semibold text-white">
                   {COMPANY_PHONE}
                 </a>{" "}
                 or book online.
               </p>
               <Link href="/booking">
-                <Button className="bg-secondary hover:bg-secondary/90 text-white font-bold mt-2">
+                <Button className="bg-[var(--rb-green-text)] hover:bg-[var(--rb-green-text)]/90 text-white font-bold mt-2">
                   Book Online
                 </Button>
               </Link>
@@ -456,7 +456,7 @@ export default function About() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a href="tel:+18184000227">
-              <Button size="lg" className="bg-secondary hover:bg-secondary/90 text-white font-bold px-8">
+              <Button size="lg" className="bg-[var(--rb-green-text)] hover:bg-[var(--rb-green-text)]/90 text-white font-bold px-8">
                 Call Now
               </Button>
             </a>

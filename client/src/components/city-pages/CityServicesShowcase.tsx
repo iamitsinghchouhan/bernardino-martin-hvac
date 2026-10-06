@@ -136,7 +136,7 @@ export function CityServicesShowcase({ cityName, climateLabel, commonServices, r
                     </ul>
 
                     <div className="mt-6 flex items-center justify-between gap-3">
-                      <span className="rounded-full bg-secondary/10 px-3 py-1 text-sm font-semibold text-secondary">
+                      <span className="rounded-full bg-secondary/10 px-3 py-1 text-sm font-semibold text-[var(--rb-green-text)]">
                         {service.price}
                       </span>
                       <span className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">

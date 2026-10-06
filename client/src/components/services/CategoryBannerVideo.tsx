@@ -53,7 +53,7 @@ export function CategoryBannerVideo({ cat, Icon }: { cat: CategoryMeta; Icon: Re
       <button
         type="button"
         onClick={toggle}
-        aria-label={muted ? "Unmute video" : "Mute video"}
+        aria-label={muted ? "Sound Off, unmute video" : "Sound On, mute video"}
         className="absolute bottom-4 right-4 z-20 flex items-center gap-1.5 rounded-full bg-black/60 backdrop-blur-sm px-3 py-1.5 text-white text-xs font-medium hover:bg-black/80 transition-colors"
       >
         {muted ? <VolumeX className="h-3.5 w-3.5" /> : <Volume2 className="h-3.5 w-3.5" />}

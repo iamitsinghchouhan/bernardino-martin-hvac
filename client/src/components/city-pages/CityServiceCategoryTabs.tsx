@@ -104,7 +104,7 @@ export function CityServiceCategoryTabs({ cityName, onImageClick }: {
                         <p className="truncate text-sm font-semibold text-slate-900">{svc.name}</p>
                         <p className="text-xs text-slate-500">{svc.duration}</p>
                       </div>
-                      <span className="shrink-0 text-sm font-bold text-secondary">{svc.price}</span>
+                      <span className="shrink-0 text-sm font-bold text-[var(--rb-green-text)]">{svc.price}</span>
                     </button>
                   </li>
                 ))}

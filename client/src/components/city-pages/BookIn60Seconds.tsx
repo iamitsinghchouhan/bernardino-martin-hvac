@@ -22,7 +22,7 @@ export function BookIn60Seconds({ cityName, phone, phoneHref, onStartQuote }: Bo
           />
           <div className="relative mx-auto h-[400px] w-[200px] rounded-[30px] bg-primary p-2.5 shadow-xl">
             <div className="flex h-full w-full flex-col items-center justify-center gap-2.5 rounded-[22px] bg-gradient-to-br from-[#eef1ff] to-[#dde2fb] p-4 text-center">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-secondary text-2xl text-white">
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[var(--rb-green-text)] text-2xl text-white">
                 ✓
               </div>
               <p className="font-heading text-sm font-bold text-primary">Quote Sent!</p>
@@ -45,7 +45,7 @@ export function BookIn60Seconds({ cityName, phone, phoneHref, onStartQuote }: Bo
           <ol className="my-6 flex flex-col gap-3">
             {STEPS.map((step, i) => (
               <li key={step} className="flex items-center gap-3 text-[14.5px] font-semibold">
-                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-secondary text-[13px] font-extrabold text-white">
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[var(--rb-green-text)] text-[13px] font-extrabold text-white">
                   {i + 1}
                 </span>
                 {step}
