@@ -1,6 +1,5 @@
 import type { CityData } from "./types";
 import city1 from "./hvac-glendale.json";
-import city2 from "./hvac-san-fernando-valley.json";
 import city3 from "./hvac-santa-monica.json";
 import city4 from "./hvac-hollywood.json";
 import city5 from "./hvac-north-hollywood.json";
@@ -37,10 +36,10 @@ import city35 from "./hvac-san-fernando.json";
 import city36 from "./hvac-yorba-linda.json";
 import city37 from "./hvac-pasadena.json";
 import city38 from "./hvac-los-angeles.json";
+import city39 from "./hvac-thousand-oaks.json";
 
 const allCities: CityData[] = [
   city1,
-  city2,
   city3,
   city4,
   city5,
@@ -77,6 +76,7 @@ const allCities: CityData[] = [
   city36,
   city37,
   city38,
+  city39,
 ];
 
 export default allCities;

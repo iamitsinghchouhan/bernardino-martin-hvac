@@ -38,9 +38,9 @@ const NetworkLosAngeles = lazy(() => import("@/pages/seo/network-los-angeles"));
 const HvacBurbank = lazy(() => import("@/pages/seo/hvac-burbank"));
 const HvacBeverlyHills = lazy(() => import("@/pages/seo/hvac-beverly-hills"));
 const HvacGlendale = lazy(() => import("@/pages/seo/hvac-glendale"));
-const HvacSanFernandoValley = lazy(() => import("@/pages/seo/hvac-san-fernando-valley"));
 const HvacSanFernando = lazy(() => import("@/pages/seo/hvac-san-fernando"));
 const HvacYorbaLinda = lazy(() => import("@/pages/seo/hvac-yorba-linda"));
+const HvacThousandOaks = lazy(() => import("@/pages/seo/hvac-thousand-oaks"));
 const HvacSantaMonica = lazy(() => import("@/pages/seo/hvac-santa-monica"));
 const HvacHollywood = lazy(() => import("@/pages/seo/hvac-hollywood"));
 const HvacNorthHollywood = lazy(() => import("@/pages/seo/hvac-north-hollywood"));
@@ -199,9 +199,9 @@ function Router() {
         <Route path="/hvac-burbank" component={HvacBurbank} />
         <Route path="/hvac-beverly-hills" component={HvacBeverlyHills} />
         <Route path="/hvac-glendale" component={HvacGlendale} />
-        <Route path="/hvac-san-fernando-valley" component={HvacSanFernandoValley} />
         <Route path="/hvac-san-fernando" component={HvacSanFernando} />
         <Route path="/hvac-yorba-linda" component={HvacYorbaLinda} />
+        <Route path="/hvac-thousand-oaks" component={HvacThousandOaks} />
         <Route path="/hvac-santa-monica" component={HvacSantaMonica} />
         <Route path="/hvac-hollywood" component={HvacHollywood} />
         <Route path="/hvac-north-hollywood" component={HvacNorthHollywood} />

@@ -1,0 +1,38 @@
+{
+  "id": 42,
+  "city": "Thousand Oaks",
+  "slug": "hvac-thousand-oaks",
+  "region": "Conejo Valley, Ventura County",
+  "population": "~126,000",
+  "zipCodes": ["91320", "91360", "91361", "91362"],
+  "description": "Thousand Oaks is a planned city in the Conejo Valley, known for tree-lined residential neighborhoods, larger single-family homes, and warm, dry summers. Bernardino Martin provides HVAC services in Thousand Oaks for homeowners who want dependable cooling and heating without the runaround.",
+  "climate": "Warm inland Ventura County climate with hot, dry summers",
+  "commonServices": [
+    "AC Repair & Diagnostics",
+    "HVAC Maintenance",
+    "Heating System Services",
+    "Ductless Mini-Split Systems"
+  ],
+  "serviceAreas": [
+    "Conejo Valley",
+    "Newbury Park",
+    "Wildwood Park area",
+    "Thousand Oaks Blvd corridor"
+  ],
+  "responseTime": "45-75 minutes",
+  "videoFile": "generic-area-hero.mp4",
+  "imageFile": "generic-area-hero.webp",
+  "metaDescription": "HVAC services in Thousand Oaks - AC repair, installation, heating and maintenance from a licensed local contractor. Call (818) 400-0227.",
+  "metaKeywords": "HVAC Thousand Oaks, AC repair Thousand Oaks, heating service Thousand Oaks, air conditioning Thousand Oaks",
+  "localPhone": "(818) 400-0227",
+  "nearestCities": [
+    "Calabasas",
+    "Woodland Hills",
+    "Canoga Park"
+  ],
+  "notableLandmarks": [
+    "Wildwood Park",
+    "Thousand Oaks Civic Arts Plaza"
+  ],
+  "googleMyBusinessUrl": "https://www.google.com/maps/place/Bernardino+Martin+HVAC"
+}

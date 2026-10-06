@@ -151,11 +151,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://bernardinomartinhvac.com/hvac-san-fernando-valley</loc>
-    <lastmod>2026-04-26</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://bernardinomartinhvac.com/hvac-santa-monica</loc>
     <lastmod>2026-04-26</lastmod>
     <priority>0.8</priority>
@@ -554,6 +549,26 @@
   <url>
     <loc>https://bernardinomartinhvac.com/services/tech-nest</loc>
     <lastmod>2026-07-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bernardinomartinhvac.com/services/handyman</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://bernardinomartinhvac.com/services/home-cleaning</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://bernardinomartinhvac.com/services/moving-help</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://bernardinomartinhvac.com/hvac-thousand-oaks</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

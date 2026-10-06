@@ -21,7 +21,6 @@ const cityCoordinates: Record<string, { lat: number; lng: number }> = {
   "Redondo Beach": { lat: 33.8492, lng: -118.3884 },
   "West Hollywood": { lat: 34.0900, lng: -118.3617 },
   "Manhattan Beach": { lat: 33.8847, lng: -118.4109 },
-  "San Fernando Valley": { lat: 34.2083, lng: -118.5365 },
   "Playa del Rey": { lat: 33.9575, lng: -118.4484 },
   "Hollywood": { lat: 34.0928, lng: -118.3287 },
   "Pasadena": { lat: 34.1478, lng: -118.1445 },
@@ -42,6 +41,7 @@ const cityCoordinates: Record<string, { lat: number; lng: number }> = {
   "Lennox": { lat: 33.9381, lng: -118.3576 },
   "San Fernando": { lat: 34.2817, lng: -118.4389 },
   "Yorba Linda": { lat: 33.8886, lng: -117.8131 },
+  "Thousand Oaks": { lat: 34.1706, lng: -118.8376 },
 };
 
 // Classic map-pin silhouette (teardrop), used as a scalable/recolorable vector icon instead of

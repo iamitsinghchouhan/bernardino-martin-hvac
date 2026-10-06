@@ -81,9 +81,9 @@ const COLOR_MAP = {
   blue:   { bg: "bg-blue-600",   light: "bg-blue-50",   text: "text-blue-700",   border: "border-blue-200",   ring: "ring-blue-600"   },
   orange: { bg: "bg-orange-600", light: "bg-orange-50", text: "text-orange-700", border: "border-orange-200", ring: "ring-orange-600" },
   amber:  { bg: "bg-amber-500",  light: "bg-amber-50",  text: "text-amber-700",  border: "border-amber-200",  ring: "ring-amber-500"  },
-  cyan:   { bg: "bg-cyan-600",   light: "bg-cyan-50",   text: "text-cyan-700",   border: "border-cyan-200",   ring: "ring-cyan-600"   },
+  cyan:   { bg: "bg-cyan-700",   light: "bg-cyan-50",   text: "text-cyan-700",   border: "border-cyan-200",   ring: "ring-cyan-600"   },
   yellow: { bg: "bg-yellow-500", light: "bg-yellow-50", text: "text-yellow-700", border: "border-yellow-200", ring: "ring-yellow-500" },
-  green:  { bg: "bg-green-600",  light: "bg-green-50",  text: "text-green-700",  border: "border-green-200",  ring: "ring-green-600"  },
+  green:  { bg: "bg-green-700",  light: "bg-green-50",  text: "text-green-700",  border: "border-green-200",  ring: "ring-green-600"  },
   purple: { bg: "bg-purple-600", light: "bg-purple-50", text: "text-purple-700", border: "border-purple-200", ring: "ring-purple-600" },
 };
 
@@ -92,7 +92,6 @@ const ALL_CITY_LINKS: CityLink[] = [
   { city: "Burbank", slug: "hvac-burbank" },
   { city: "Glendale", slug: "hvac-glendale" },
   { city: "Pasadena", slug: "hvac-pasadena" },
-  { city: "San Fernando Valley", slug: "hvac-san-fernando-valley" },
   { city: "Santa Monica", slug: "hvac-santa-monica" },
   { city: "Hollywood", slug: "hvac-hollywood" },
   { city: "North Hollywood", slug: "hvac-north-hollywood" },
@@ -297,7 +296,7 @@ export function ServiceDetailTemplate({
           <button
             type="button"
             onClick={handleMuteToggle}
-            aria-label={muted ? "Unmute video" : "Mute video"}
+            aria-label={muted ? "Sound Off, unmute video" : "Sound On, mute video"}
             className="absolute bottom-6 right-6 z-20 flex items-center gap-2 rounded-full bg-black/50 backdrop-blur-sm px-4 py-2 text-white text-sm font-medium hover:bg-black/70 transition-colors"
           >
             {muted ? <VolumeX className="h-4 w-4" aria-hidden="true" /> : <Volume2 className="h-4 w-4" aria-hidden="true" />}
@@ -334,7 +333,7 @@ export function ServiceDetailTemplate({
                 {[
                   { Icon: Clock,       label: "Typical Duration", value: duration,           bg: colors.bg },
                   { Icon: DollarSign,  label: "Starting Price",   value: startingPrice,      bg: colors.bg },
-                  { Icon: Shield,      label: "Certification",    value: "Licensed & Insured", bg: "bg-green-600" },
+                  { Icon: Shield,      label: "Certification",    value: "Licensed & Insured", bg: "bg-green-700" },
                   { Icon: Star,        label: "Rating",           value: "5-Star Rated",      bg: "bg-amber-500" },
                   { Icon: Check,       label: "Availability",     value: "Same-Day Available", bg: "bg-blue-600" },
                 ].map(({ Icon, label, value, bg }) => (
@@ -343,7 +342,7 @@ export function ServiceDetailTemplate({
                       <Icon className="h-4 w-4 text-white" aria-hidden="true" />
                     </div>
                     <div>
-                      <p className="text-xs text-slate-500 font-medium">{label}</p>
+                      <p className="text-xs text-slate-600 font-medium">{label}</p>
                       <p className="text-sm font-bold text-slate-900">{value}</p>
                     </div>
                   </div>

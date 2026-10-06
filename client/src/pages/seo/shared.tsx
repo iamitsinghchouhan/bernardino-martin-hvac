@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import { CityBreadcrumb as GlobalCityBreadcrumb } from "@/components/city-pages/CityBreadcrumb";
 import { COMPANY_PHONE } from "@/lib/constants";
 import {
   Check,
@@ -50,25 +49,25 @@ const defaultWhyChooseItems: WhyChooseItem[] = [
 ];
 
 export const losAngelesAreas: SeoLink[] = [
-  { href: "/service-areas", label: "Hollywood" },
+  { href: "/hvac-hollywood", label: "Hollywood" },
   { href: "/service-areas", label: "Silver Lake" },
   { href: "/service-areas", label: "Echo Park" },
   { href: "/service-areas", label: "Koreatown" },
   { href: "/service-areas", label: "Mid-Wilshire" },
   { href: "/service-areas", label: "Westwood" },
   { href: "/service-areas", label: "Brentwood" },
-  { href: "/service-areas", label: "Santa Monica" },
-  { href: "/service-areas", label: "Culver City" },
-  { href: "/service-areas", label: "Inglewood" },
+  { href: "/hvac-santa-monica", label: "Santa Monica" },
+  { href: "/hvac-culver-city", label: "Culver City" },
+  { href: "/hvac-inglewood", label: "Inglewood" },
   { href: "/hvac-glendale", label: "Glendale" },
   { href: "/hvac-burbank", label: "Burbank" },
   { href: "/hvac-pasadena", label: "Pasadena" },
-  { href: "/service-areas", label: "San Fernando Valley" },
-  { href: "/service-areas", label: "North Hollywood" },
-  { href: "/service-areas", label: "Van Nuys" },
-  { href: "/service-areas", label: "Chatsworth" },
-  { href: "/service-areas", label: "Woodland Hills" },
-  { href: "/service-areas", label: "Calabasas" },
+  { href: "/hvac-san-fernando", label: "San Fernando" },
+  { href: "/hvac-north-hollywood", label: "North Hollywood" },
+  { href: "/hvac-van-nuys", label: "Van Nuys" },
+  { href: "/hvac-chatsworth", label: "Chatsworth" },
+  { href: "/hvac-woodland-hills", label: "Woodland Hills" },
+  { href: "/hvac-calabasas", label: "Calabasas" },
 ];
 
 export function SeoHero({
@@ -122,7 +121,6 @@ export function SeoHero({
       <div className="absolute inset-0 bg-blue-950/45" />
       <div className="container relative z-10 mx-auto max-w-4xl px-4 text-center">
         <div>
-          {cityBreadcrumb ? <CityBreadcrumb city={cityBreadcrumb} /> : null}
           <div className="inline-flex items-center rounded-full border border-white/25 bg-white/10 px-4 py-1.5 text-sm font-semibold uppercase tracking-[0.2em]">
             {badge}
           </div>
@@ -209,7 +207,6 @@ export function CityHero({
       <div className="absolute inset-0 bg-blue-950/45" />
       <div className="container relative z-10 mx-auto max-w-4xl px-4 text-center">
         <div>
-          <CityBreadcrumb city={city} />
           <div className="inline-flex items-center rounded-full border border-white/25 bg-white/10 px-4 py-1.5 text-sm font-semibold uppercase tracking-[0.2em]">
             {badge}
           </div>
@@ -553,9 +550,6 @@ export function SeoCtaBanner({
   );
 }
 
-export function CityBreadcrumb({ city }: { city: string }) {
-  return <GlobalCityBreadcrumb cityName={city} />;
-}
 
 export function CityProblems({
   city,

@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { COMPANY_PHONE, COMPANY_FULL, getWhatsAppLink, CITIES, CITY_PAGE_LINKS } from "@/lib/constants";
 import { trackEvent } from "@/hooks/use-analytics";
+import { Breadcrumbs, breadcrumbTrailFor } from "@/components/breadcrumbs";
 const ChatWidget = lazy(() => import("@/components/chat-widget").then(m => ({ default: m.ChatWidget })));
 
 type NavChild = { href: string; label: string; desc: string };
@@ -122,6 +123,7 @@ const FOOTER_SERVICE_AREAS = CITIES.map((city) => ({ href: CITY_PAGE_LINKS[city]
 
 export function Layout({ children, cityName }: { children: React.ReactNode; /** City-specific emergency-banner text, e.g. "Malibu" instead of the default "Los Angeles". Optional and additive — every page that doesn't pass it keeps the existing generic text. */ cityName?: string }) {
   const [location] = useLocation();
+  const breadcrumbTrail = breadcrumbTrailFor(location);
   const [isScrolled, setIsScrolled] = useState(false);
 
   const [requestName, setRequestName] = useState("");
@@ -430,6 +432,7 @@ export function Layout({ children, cityName }: { children: React.ReactNode; /** 
       </header>
 
       <main className="flex-1" id="main-content">
+        {breadcrumbTrail ? <Breadcrumbs trail={breadcrumbTrail} /> : null}
         {children}
 
         <section className="mx-auto max-w-4xl rounded-xl border border-primary/20 bg-white/95 p-6 shadow-lg my-10">
