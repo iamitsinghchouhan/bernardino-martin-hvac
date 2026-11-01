@@ -49,6 +49,8 @@ export function SEO({
       <meta name="robots" content={noindex ? "noindex, nofollow" : "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"} />
       {keywords ? <meta name="keywords" content={keywords} /> : null}
       <link rel="canonical" href={canonicalUrl} />
+      <link rel="ard" href={`${SITE_URL}/.well-known/ard.json`} />
+      <link rel="ai-catalog" href={`${SITE_URL}/.well-known/ai-catalog.json`} />
 
       <meta property="og:type" content="website" />
       <meta property="og:site_name" content={SITE_NAME} />

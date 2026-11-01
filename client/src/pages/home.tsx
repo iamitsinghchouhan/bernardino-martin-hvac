@@ -94,7 +94,6 @@ const SIDE_PHOTOS = [
 ];
 
 const REEL_VIDEOS = [
-  { src: "/videos/reel-hvac-family.mp4", label: "Home Comfort", thumb: "/images/rebrand/tile-electrical.webp", thumbW: 1000, thumbH: 667 },
   { src: "/videos/reel-ac-inspect.mp4", label: "AC Inspection", thumb: "/images/rebrand/tile-hvac.webp", thumbW: 700, thumbH: 467 },
   { src: "/videos/reel-ac-condenser-circle.mp4", label: "Condenser Service", thumb: "/images/rebrand/tile-plumbing.webp", thumbW: 1000, thumbH: 667 },
   { src: "/videos/solar-irrigation-real.mp4", label: "Solar Irrigation", thumb: "/images/rebrand/thumb-solar-irrigation.webp", thumbW: 320, thumbH: 180 },
@@ -517,10 +516,18 @@ export default function Home() {
   function toggleHeroMute() {
     const video = heroVideoRef.current;
     if (!video) return;
-    const next = !video.muted;
-    video.muted = next;
-    if (!next) video.play().catch(() => {});
-    setIsHeroMuted(next);
+
+    const nextMuted = video.muted;
+    video.muted = !nextMuted;
+    setIsHeroMuted(video.muted);
+
+    if (!video.muted) {
+      video.volume = 1;
+      video.play().catch(() => {
+        video.muted = true;
+        setIsHeroMuted(true);
+      });
+    }
   }
 
   return (

@@ -102,8 +102,8 @@ export function ReviewSlider() {
 
           {hasRealReviews && current ? (
             <div
-              className="rounded-2xl bg-white p-8 shadow-2xl transition-opacity duration-400"
-              style={{ opacity: visible ? 1 : 0, minHeight: "230px" }}
+              className="overflow-hidden rounded-2xl bg-white p-8 shadow-2xl transition-all duration-500 ease-out"
+              style={{ opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(-10px)", minHeight: "230px" }}
             >
               <div className="flex items-center gap-3">
                 <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-orange-100 via-white to-blue-100 text-sm font-bold text-slate-700">
