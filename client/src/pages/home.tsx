@@ -575,7 +575,7 @@ export default function Home() {
             className="absolute inset-0 h-full w-full object-cover"
             aria-hidden="true"
           >
-            <source src="/videos/hero-redesign.mp4" type="video/mp4" />
+            <source src="/videos/hero-home.mp4" type="video/mp4" />
           </video>
           {/* Gradient scrim so hero text/buttons stay readable regardless of the video frame
               behind them — text-shadow alone isn't reliable against bright/high-key frames. */}
